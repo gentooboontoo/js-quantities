@@ -34,5 +34,16 @@ describe 'js-quantities'
       qty.denominator.should.eql ['<second>']
     end
 
+    it 'should create with powers'
+      qty = new Qty("1 m^2/s^2")
+      qty.scalar.should.be 1
+      qty.numerator.should.eql ['<meter>','<meter>']
+      qty.denominator.should.eql ['<second>','<second>']
+      qty = new Qty("1 m^2 kg^2 J^2/s^2")
+      qty.scalar.should.be 1
+      qty.numerator.should.eql ['<meter>','<meter>','<kilogram>','<kilogram>','<joule>','<joule>']
+      qty.denominator.should.eql ['<second>','<second>']
+    end
+
   end
 end
