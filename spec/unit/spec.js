@@ -58,5 +58,12 @@ describe 'js-quantities'
       qty.numerator.should.eql ['<1>']
       qty.denominator.should.eql ['<1>']
     end
+
+    it 'should create with negative powers'
+      qty = new Qty("1 m^2 s^-2")
+      qty.scalar.should.be 1
+      qty.numerator.should.eql ['<meter>','<meter>']
+      qty.denominator.should.eql ['<second>','<second>']
+    end
   end
 end
