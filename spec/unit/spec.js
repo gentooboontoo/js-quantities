@@ -2,6 +2,13 @@
 describe 'js-quantities'
   describe 'initialization'
   
+    it 'should create unit only'
+      qty = new Qty('m')
+      qty.numerator.should.eql ['<meter>']
+      qty.scalar.should.be 1
+    end
+
+  
     it 'should create unitless'
       qty = new Qty('1')
       qty.to_f().should.be 1
@@ -45,5 +52,11 @@ describe 'js-quantities'
       qty.denominator.should.eql ['<second>','<second>']
     end
 
+    it 'should create with zero power'
+      qty = new Qty("1 m^0")
+      qty.scalar.should.be 1
+      qty.numerator.should.eql ['<1>']
+      qty.denominator.should.eql ['<1>']
+    end
   end
 end
