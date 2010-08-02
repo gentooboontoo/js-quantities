@@ -95,8 +95,14 @@ describe 'js-quantities'
     end
 
     it 'should convert to compatible units'
-      //qty = new Qty("1 mm")
+      qty = new Qty("10 cm")
+      qty.to("ft").scalar.should.be 0.1/0.3048
+      qty = new Qty("2m^3")
+      qty.to("l").scalar.should.be 2000
 
+      qty = new Qty("10 cm")
+      qty.to(new Qty("m")).scalar.should.be 0.1
+      qty.to(new Qty("20m")).scalar.should.be 0.1
     end
   end
 
@@ -104,7 +110,7 @@ describe 'js-quantities'
     it 'should return true when comparing equal quantities'
       qty1 = new Qty("1cm")
       qty2 = new Qty("10mm")
-      qty1.eq(qty2).should.be true 
+      qty1.eq(qty2).should.be_true 
     end
 
     it 'should compare compatible quantities'
@@ -117,13 +123,22 @@ describe 'js-quantities'
       qty1.compareTo(qty3).should.be 0
       -{ qty1.compareTo(qty4) }.should.throw_error "Incompatible quantities"
 
-      qty1.lt(qty2).should.be false
-      qty1.lt(qty3).should.be false
-      qty1.lte(qty3).should.be true
-      qty1.gte(qty3).should.be true
-      qty1.gt(qty2).should.be true
-      qty2.gt(qty1).should.be false
+      qty1.lt(qty2).should.be_false
+      qty1.lt(qty3).should.be_false
+      qty1.lte(qty3).should.be_true
+      qty1.gte(qty3).should.be_true
+      qty1.gt(qty2).should.be_true
+      qty2.gt(qty1).should.be_false
     end
+
+    it 'should compare identical quantities'
+      qty1 = new Qty("1cm")
+      qty2 = new Qty("1cm")
+      qty3 = new Qty("10mm")
+      qty1.same(qty2).should.be_true
+      qty1.same(qty3).should.be_false
+    end
+
   end
 
   describe 'utility methods'
@@ -134,10 +149,10 @@ describe 'js-quantities'
 
     it 'should know if a quantity is in base units'
       qty = new Qty("100 cm")
-      qty.isBase().should.be false
+      qty.isBase().should.be_false
 
       qty = new Qty("1m")
-      qty.isBase().should.be true
+      qty.isBase().should.be_true
     end
 
     it 'should return unit part of quantities'
