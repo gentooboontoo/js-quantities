@@ -97,8 +97,8 @@ describe 'js-quantities'
       qty = new Qty("10 cm")
       qty.toBase().scalar.should.be 0.1
       qty.toBase().units().should.be "m"
-      qty = new Qty("1 mm^2 ms^-2")
-      qty.toBase().scalar.should.be 1
+      qty = new Qty("0.3 mm^2 ms^-2")
+      qty.toBase().scalar.should.be 0.3
       qty.toBase().units().should.be "m^2/s^2"
     end
 
