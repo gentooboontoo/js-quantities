@@ -1,7 +1,7 @@
 JS-quantities
 =============
 
-JS-quantities is a dumb, incomplete but nearly functional javascript port of Kevin Olbrich's library Ruby Units. As described by its author, the library aims to simplify the handling of units for scientific calculations involving quantities.
+JS-quantities is a dumb, currently incomplete but nearly functional javascript port of Kevin Olbrich's library Ruby Units (http://ruby-units.rubyforge.org/ruby-units). As described by its author, the library aims to simplify the handling of units for scientific calculations involving quantities.
 
 Usage examples
 -----
@@ -21,6 +21,8 @@ Usage examples
 
     qty = new Qty('1.5'); // unitless quantity
 
+    qty = new Qty("1 attoparsec/microfortnight");
+
 ### Quantity compatibility, kind and various queries
     qty1.isCompatible(qty2); // => true or false
 
@@ -31,6 +33,8 @@ Usage examples
 
 ### Conversion
     qty.toBase(); // converts to SI units (10 cm => 0.1 m) (new instance)
+
+    qty.toFloat(): // returns scalar of unitless quantity (otherwise throws error)
 
     qty.to("m"); // converts quantity to meter if compatible or throws an error (new instance)
     qty1.to(qty2); // converts quantity to same unit of qty2 if compatible or throws an error (new instance)
@@ -47,3 +51,11 @@ Usage examples
 
 ### Text output
     qty.units(); // returns the unit parts of the quantity without the scalar
+
+Tests
+-----
+Tests are implemented with jspec (http://visionmedia.github.com/jspec/). Just open spec/dom.html to execute them.
+
+Contribute
+----------
+This project is missing some features of its parent project and is not completely bug free so fork it if you wish to bring your contribution.
