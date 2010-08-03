@@ -156,6 +156,8 @@ describe 'js-quantities'
       qty2 = new Qty("3m")
       qty1.add(qty2).scalar.should.be 5.5
 
+      qty1.add("3m").scalar.should.be 5.5
+
       qty2 = new Qty("3cm")
       result = qty1.add(qty2)
       result.scalar.should.be 2.53
@@ -170,6 +172,9 @@ describe 'js-quantities'
       qty1 = new Qty("2.5m")
       qty2 = new Qty("3m")
       qty1.sub(qty2).scalar.should.be -0.5
+
+      qty1.sub("2m").scalar.should.be 0.5
+      qty1.sub("-2m").scalar.should.be 4.5
 
       qty2 = new Qty("3cm")
       result = qty1.sub(qty2)
@@ -187,15 +192,56 @@ describe 'js-quantities'
       result = qty1.mul(qty2)
       result.scalar.should.be 7.5
       result.units().should.be "m^2"
+      result.kind().should.be "area"
 
-      //qty2 = new Qty("3cm")
-      //result = qty1.sub(qty2)
-      //result.scalar.should.be 2.47
-      //result.units().should.be "m"
+      qty2 = new Qty("3cm")
+      result = qty1.mul(qty2)
+      result.scalar.should.be 0.075
+      result.units().should.be "m^2"
 
-      //result = qty2.sub(qty1)
-      //result.scalar.should.be -247
-      //result.units().should.be "cm"
+      result = qty2.mul(qty1)
+      result.scalar.should.be 750
+      result.units().should.be "cm^2"
+
+      result = qty1.mul(3.5);
+      result.scalar.should.be 8.75
+      result.units().should.be "m"
+
+      result = qty1.mul(0);
+      result.scalar.should.be 0
+      result.units().should.be "m"
+
+      result = qty1.mul(new Qty("0m"));
+      result.scalar.should.be 0
+      result.units().should.be "m^2"
+    end
+    
+    it 'should divide quantities'
+      qty1 = new Qty("2.5m")
+      qty2 = new Qty("3m")
+      qty3 = new Qty("0m")
+
+      -{qty1.div(qty3)}.should.throw_error "Divide by zero"
+      -{qty1.div(0)}.should.throw_error "Divide by zero"
+      qty3.div(qty1).scalar.should.be 0 
+
+      result = qty1.div(qty2)
+      result.scalar.should.be 2.5/3
+      result.units().should.be ""
+      result.kind().should.be "unitless"
+
+      qty4 = new Qty("3cm")
+      result = qty1.div(qty4)
+      result.scalar.should.be 2.5/0.03
+      result.units().should.be ""
+
+      result = qty4.div(qty1)
+      result.scalar.should.be 0.012
+      result.units().should.be ""
+
+      result = qty1.div(3.5);
+      result.scalar.should.be 2.5/3.5
+      result.units().should.be "m"
     end
 
   end

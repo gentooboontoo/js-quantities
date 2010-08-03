@@ -49,6 +49,12 @@ Usage examples
 
     qty1.compareTo(qty2); // => -1 if qty1 < qty2, 0 if qty1 == qty2; 1 if qty1 > qty2
 
+### Operators
+* add(other): Add. other can be string or quantity. other should be unit compatible.
+* sub(other): Substract. other can be string or quantity. other should be unit compatible.
+* mul(other): Multiply. other can be string, number or quantity.
+* div(other): Divide. other can be string, number or quantity.
+
 ### Text output
     qty.units(); // returns the unit parts of the quantity without the scalar
 
