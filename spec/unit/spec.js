@@ -274,5 +274,24 @@ describe 'js-quantities'
       qty = new Qty("1 cm^2*J^3/s^2*A^2")
       qty.units().should.be "cm^2*J^3/s^2*A^2"
     end
+
+    it 'should generate readable human output'
+      qty = new Qty("2m")
+      qty.toString().should.be "2 m"
+      qty.toString("cm").should.be "200 cm"
+      qty.toString("km").should.be "0.002 km"
+      -{ qty.toString("A") }.should.throw_error "Incompatible Units"
+
+      qty = new Qty("24.5m/s")
+      qty.toString().should.be "24.5 m/s"
+      -{ qty.toString("m") }.should.throw_error "Incompatible Units"
+      qty.toString("km/h").should.be "88.2 km/h"
+
+      qty = new Qty("254kg/m^2")
+      qty.toString().should.be "254 kg/m^2"
+
+      qty = new Qty("2")
+      qty.toString().should.be "2"
+    end
   end
 end
