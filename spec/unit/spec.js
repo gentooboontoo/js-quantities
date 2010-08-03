@@ -25,6 +25,13 @@ describe 'js-quantities'
       qty.numerator.should.eql ['<meter>']
       qty.denominator.should.eql ['<1>']
     end
+
+    it 'should create negative'
+      qty = new Qty('-1m')
+      qty.scalar.should.be -1
+      qty.numerator.should.eql ['<meter>']
+      qty.denominator.should.eql ['<1>']
+    end
     
     it 'should create compound'
       qty = new Qty('1 N*m')
@@ -67,6 +74,7 @@ describe 'js-quantities'
       qty.scalar.should.be 1
       qty.numerator.should.eql ['<meter>','<meter>']
       qty.denominator.should.eql ['<second>','<second>']
+      qty.same(new Qty("1 m^2/s^2")).should.be_true
     end
 
   end
@@ -141,6 +149,57 @@ describe 'js-quantities'
 
   end
 
+  describe 'math'
+
+    it 'should add quantities'
+      qty1 = new Qty("2.5m")
+      qty2 = new Qty("3m")
+      qty1.add(qty2).scalar.should.be 5.5
+
+      qty2 = new Qty("3cm")
+      result = qty1.add(qty2)
+      result.scalar.should.be 2.53
+      result.units().should.be "m"
+
+      result = qty2.add(qty1)
+      result.scalar.should.be 253
+      result.units().should.be "cm"
+    end
+
+    it 'should substract quantities'
+      qty1 = new Qty("2.5m")
+      qty2 = new Qty("3m")
+      qty1.sub(qty2).scalar.should.be -0.5
+
+      qty2 = new Qty("3cm")
+      result = qty1.sub(qty2)
+      result.scalar.should.be 2.47
+      result.units().should.be "m"
+
+      result = qty2.sub(qty1)
+      result.scalar.should.be -247
+      result.units().should.be "cm"
+    end
+    
+    it 'should multiply quantities'
+      qty1 = new Qty("2.5m")
+      qty2 = new Qty("3m")
+      result = qty1.mul(qty2)
+      result.scalar.should.be 7.5
+      result.units().should.be "m^2"
+
+      //qty2 = new Qty("3cm")
+      //result = qty1.sub(qty2)
+      //result.scalar.should.be 2.47
+      //result.units().should.be "m"
+
+      //result = qty2.sub(qty1)
+      //result.scalar.should.be -247
+      //result.units().should.be "cm"
+    end
+
+  end
+
   describe 'utility methods'
     it 'should return kind'
       qty = new Qty("1 mm")
@@ -156,6 +215,8 @@ describe 'js-quantities'
     end
 
     it 'should return unit part of quantities'
+      qty = new Qty("1")
+      qty.units().should.be ""
       qty = new Qty("100 cm")
       qty.units().should.be "cm"
       qty = new Qty("100 cm/s")
