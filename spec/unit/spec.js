@@ -317,5 +317,11 @@ describe 'js-quantities'
       qty = new Qty("2")
       qty.toString().should.be "2"
     end
+
+    it 'should round readable human output when max decimals is specified'
+      qty = (new Qty("2m")).div(3)
+      qty.toString("cm", 2).should.be "66.67 cm"
+    end
+
   end
 end

@@ -56,7 +56,9 @@ Usage examples
 * div(other): Divide. other can be string, number or quantity.
 
 ### Text output
-    qty.toString(target_units); // if target_units string passed, the unit will first be converted to target_units before output.
+    // if target_units string passed, the unit will first be converted to target_units before output.
+    // Output can be rounded to max_decimals when explicit target_units are specified.
+    qty.toString(target_units, max_decimals); 
     qty.units(); // returns the unit parts of the quantity without the scalar
 
 Tests
