@@ -215,7 +215,31 @@ describe 'js-quantities'
       result.scalar.should.be 0
       result.units().should.be "m^2"
     end
-    
+
+    it 'should multiply unlike quantities'
+      qty1 = new Qty("2.5 m")
+      qty2 = new Qty("3 N")
+      
+      result = qty1.mul(qty2)
+      result.scalar.should.be 7.5
+
+      qty1 = new Qty("2.5 m^2")
+      qty2 = new Qty("3 kg/m^2")
+
+      result = qty1.mul(qty2)
+      result.scalar.should.be 7.5
+      result.units().should.be "kg"
+    end
+
+    it 'should divide unlike quantities'
+      qty1 = new Qty("7.5kg")
+      qty2 = new Qty("2.5m^2")
+      
+      result = qty1.div(qty2)
+      result.scalar.should.be 3
+      result.units().should.be "kg/m^2"
+    end
+
     it 'should divide quantities'
       qty1 = new Qty("2.5m")
       qty2 = new Qty("3m")
