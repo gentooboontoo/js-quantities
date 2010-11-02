@@ -147,6 +147,14 @@ describe 'js-quantities'
       qty1.same(qty3).should.be_false
     end
 
+    it 'should accept strings as parameter'
+      qty = new Qty("1 cm")
+      qty.lt("0.5 cm").should.be_false
+      qty.lte("1 cm").should.be_true
+      qty.gte("3 mm").should.be_true
+      qty.gt("5 m").should.be_false
+    end
+
   end
 
   describe 'math'
@@ -271,6 +279,14 @@ describe 'js-quantities'
   end
 
   describe 'utility methods'
+
+    it 'should accept string as parameter for compatibility tests'
+      qty = new Qty("1 mm")
+
+      qty.isCompatible("2 mm").should.be_true
+      qty.isCompatible("2 mm^3").should.be_false
+    end
+
     it 'should return kind'
       qty = new Qty("1 mm")
       qty.kind().should.be 'length'
