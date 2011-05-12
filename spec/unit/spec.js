@@ -79,7 +79,7 @@ describe 'js-quantities'
 
   end
 
-  describe 'match'
+  describe 'isCompatible'
     it 'should return true with compatible quantities'
       qty1 = new Qty("1 m*kg/s")
       qty2 = new Qty("1 in*pound/min")
