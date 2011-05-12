@@ -87,6 +87,12 @@ describe 'js-quantities'
       qty2 = new Qty("1 in/min")
       qty1.isCompatible(qty2).should.be_false
     end
+
+    it 'should return true with dimensionless quantities'
+      qty1 = new Qty("1")
+      qty2 = new Qty("2")
+      qty1.isCompatible(qty2).should.be_true
+    end
   end
 
   describe 'conversion'
