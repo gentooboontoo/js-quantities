@@ -16,6 +16,7 @@ Usage examples
 
     qty = new Qty("1 m^2/s^2");
     qty = new Qty("1 m^2 s^-2"); // negative powers
+    qty = new Qty("1 m2 s-2"); // ^ is optional
     
     qty = new Qty("1 m^2 kg^2 J^2/s^2 A");
 

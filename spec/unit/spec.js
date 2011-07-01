@@ -77,6 +77,29 @@ describe 'js-quantities'
       qty.same(new Qty("1 m^2/s^2")).should.be_true
     end
 
+    it 'should accept powers without ^ syntax (simple)'
+      qty1 = new Qty("1 m2")
+      qty2 = new Qty("1 m^2")
+      qty1.eq(qty2).should.be_true
+    end
+
+    it 'should accept powers without ^ syntax (negative power)'
+      qty1 = new Qty("1 m-2")
+      qty2 = new Qty("1 m^-2")
+      qty1.eq(qty2).should.be_true
+    end
+
+    it 'should accept powers without ^ syntax (compound)'
+      qty1 = new Qty("1 m^2 kg^2 J^2/s^2")
+      qty2 = new Qty("1 m2 kg2 J2/s2")
+      qty1.eq(qty2).should.be_true
+    end
+
+    it 'should accept powers without ^ syntax (compound and negative power)'
+      qty1 = new Qty("1 m^2 kg^2 J^2 s^-2")
+      qty2 = new Qty("1 m2 kg2 J2 s-2")
+      qty1.eq(qty2).should.be_true
+    end
   end
 
   describe 'isCompatible'
