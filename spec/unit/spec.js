@@ -1,7 +1,7 @@
 
 describe 'js-quantities'
   describe 'initialization'
-  
+
     it 'should create unit only'
       qty = new Qty('m')
       qty.numerator.should.eql ['<meter>']
@@ -32,14 +32,14 @@ describe 'js-quantities'
       qty.numerator.should.eql ['<meter>']
       qty.denominator.should.eql ['<1>']
     end
-    
+
     it 'should create compound'
       qty = new Qty('1 N*m')
       qty.scalar.should.be 1
       qty.numerator.should.eql ['<newton>', '<meter>']
       qty.denominator.should.eql ['<1>']
     end
-    
+
     it 'should create with denominator'
       qty = new Qty("1 m/s")
       qty.scalar.should.be 1
@@ -147,7 +147,7 @@ describe 'js-quantities'
     it 'should return true when comparing equal quantities'
       qty1 = new Qty("1cm")
       qty2 = new Qty("10mm")
-      qty1.eq(qty2).should.be_true 
+      qty1.eq(qty2).should.be_true
     end
 
     it 'should compare compatible quantities'
@@ -222,7 +222,7 @@ describe 'js-quantities'
       result.scalar.should.be -247
       result.units().should.be "cm"
     end
-    
+
     it 'should multiply quantities'
       qty1 = new Qty("2.5m")
       qty2 = new Qty("3m")
@@ -256,7 +256,7 @@ describe 'js-quantities'
     it 'should multiply unlike quantities'
       qty1 = new Qty("2.5 m")
       qty2 = new Qty("3 N")
-      
+
       result = qty1.mul(qty2)
       result.scalar.should.be 7.5
 
@@ -271,7 +271,7 @@ describe 'js-quantities'
     it 'should divide unlike quantities'
       qty1 = new Qty("7.5kg")
       qty2 = new Qty("2.5m^2")
-      
+
       result = qty1.div(qty2)
       result.scalar.should.be 3
       result.units().should.be "kg/m^2"
@@ -284,7 +284,7 @@ describe 'js-quantities'
 
       -{qty1.div(qty3)}.should.throw_error "Divide by zero"
       -{qty1.div(0)}.should.throw_error "Divide by zero"
-      qty3.div(qty1).scalar.should.be 0 
+      qty3.div(qty1).scalar.should.be 0
 
       result = qty1.div(qty2)
       result.scalar.should.be 2.5/3
@@ -366,6 +366,12 @@ describe 'js-quantities'
     it 'should round readable human output when max decimals is specified'
       qty = (new Qty("2m")).div(3)
       qty.toString("cm", 2).should.be "66.67 cm"
+
+      qty = new Qty("2.8m")
+      qty.toString("m", 0).should.be "3 m"
+      qty.toString("cm", 0).should.be "280 cm"
+      qty = new Qty("2.818m")
+      qty.toString("cm", 0).should.be "282 cm"
     end
 
   end
