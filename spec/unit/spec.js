@@ -128,7 +128,7 @@ describe 'js-quantities'
       qty.toBase().units().should.be "m"
       qty = new Qty("0.3 mm^2 ms^-2")
       qty.toBase().scalar.should.be 0.3
-      qty.toBase().units().should.be "m^2/s^2"
+      qty.toBase().units().should.be "m2/s2"
     end
 
     it 'should convert to compatible units'
@@ -228,17 +228,17 @@ describe 'js-quantities'
       qty2 = new Qty("3m")
       result = qty1.mul(qty2)
       result.scalar.should.be 7.5
-      result.units().should.be "m^2"
+      result.units().should.be "m2"
       result.kind().should.be "area"
 
       qty2 = new Qty("3cm")
       result = qty1.mul(qty2)
       result.scalar.should.be 0.075
-      result.units().should.be "m^2"
+      result.units().should.be "m2"
 
       result = qty2.mul(qty1)
       result.scalar.should.be 750
-      result.units().should.be "cm^2"
+      result.units().should.be "cm2"
 
       result = qty1.mul(3.5);
       result.scalar.should.be 8.75
@@ -250,7 +250,7 @@ describe 'js-quantities'
 
       result = qty1.mul(new Qty("0m"));
       result.scalar.should.be 0
-      result.units().should.be "m^2"
+      result.units().should.be "m2"
     end
 
     it 'should multiply unlike quantities'
@@ -274,7 +274,7 @@ describe 'js-quantities'
 
       result = qty1.div(qty2)
       result.scalar.should.be 3
-      result.units().should.be "kg/m^2"
+      result.units().should.be "kg/m2"
     end
 
     it 'should divide quantities'
@@ -337,11 +337,11 @@ describe 'js-quantities'
       qty = new Qty("100 cm/s")
       qty.units().should.be "cm/s"
       qty = new Qty("1 cm^2")
-      qty.units().should.be "cm^2"
+      qty.units().should.be "cm2"
       qty = new Qty("1 cm^2/s^2")
-      qty.units().should.be "cm^2/s^2"
+      qty.units().should.be "cm2/s2"
       qty = new Qty("1 cm^2*J^3/s^2*A^2")
-      qty.units().should.be "cm^2*J^3/s^2*A^2"
+      qty.units().should.be "cm2*J3/s2*A2"
     end
 
     it 'should generate readable human output'
@@ -357,7 +357,7 @@ describe 'js-quantities'
       qty.toString("km/h").should.be "88.2 km/h"
 
       qty = new Qty("254kg/m^2")
-      qty.toString().should.be "254 kg/m^2"
+      qty.toString().should.be "254 kg/m2"
 
       qty = new Qty("2")
       qty.toString().should.be "2"
