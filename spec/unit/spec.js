@@ -116,6 +116,19 @@ describe 'js-quantities'
       qty2 = new Qty("2")
       qty1.isCompatible(qty2).should.be_true
     end
+
+    it 'should return false with null or undefined'
+      qty1 = new Qty("1 m*kg/s")
+
+      qty1.isCompatible(undefined).should.be_false
+      qty1.isCompatible(null).should.be_false
+    end
+
+    it 'should return false with non quantities'
+      qty1 = new Qty("1 m*kg/s")
+
+      qty1.isCompatible({}).should.be_false
+    end
   end
 
   describe 'conversion'
