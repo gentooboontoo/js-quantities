@@ -357,6 +357,9 @@ describe 'js-quantities'
       qty.units().should.be "cm2*J3/s2*A2"
     end
 
+  end
+
+  describe 'toString'
     it 'should generate readable human output'
       qty = new Qty("2m")
       qty.toString().should.be "2 m"
@@ -387,5 +390,11 @@ describe 'js-quantities'
       qty.toString("cm", 0).should.be "282 cm"
     end
 
+    it 'should round to max decimals'
+      qty = (new Qty("2.987654321 m"))
+
+      qty.toString(3).should.be "2.988 m"
+      qty.toString(0).should.be "3 m"
+    end
   end
 end

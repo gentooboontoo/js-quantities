@@ -1,23 +1,23 @@
 JS-quantities
 =============
 
-JS-quantities is a dumb, currently incomplete but nearly functional javascript port of Kevin Olbrich's library Ruby Units (http://ruby-units.rubyforge.org/ruby-units). As described by its author, the library aims to simplify the handling of units for scientific calculations involving quantities.
+JS-quantities is a nearly functional javascript port of Kevin Olbrich's library Ruby Units (http://ruby-units.rubyforge.org/ruby-units). As described by its author, the library aims to simplify the handling of units for scientific calculations involving quantities.
 
 Usage examples
 -----
 ### Creation
     qty = new Qty("1m");
     qty = new Qty('m'); // => 1 meter
-    
+
     qty = new Qty('1 N*m');
     qty = new Qty('1 N m'); // * is optional
-    
+
     qty = new Qty("1 m/s");
 
     qty = new Qty("1 m^2/s^2");
     qty = new Qty("1 m^2 s^-2"); // negative powers
     qty = new Qty("1 m2 s-2"); // ^ is optional
-    
+
     qty = new Qty("1 m^2 kg^2 J^2/s^2 A");
 
     qty = new Qty('1.5'); // unitless quantity
@@ -59,7 +59,10 @@ Usage examples
 ### Text output
     // if target_units string passed, the unit will first be converted to target_units before output.
     // Output can be rounded to max_decimals when explicit target_units are specified.
-    qty.toString(target_units, max_decimals); 
+    qty.toString();
+    qty.toString(target_units);
+    qty.toString(max_decimals);
+    qty.toString(target_units, max_decimals);
     qty.units(); // returns the unit parts of the quantity without the scalar
 
 Tests
