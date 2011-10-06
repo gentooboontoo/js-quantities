@@ -100,6 +100,13 @@ describe 'js-quantities'
       qty2 = new Qty("1 m2 kg2 J2 s-2")
       qty1.eq(qty2).should.be_true
     end
+
+    it 'should throw "Unit not recognized" error when initializing with an invalid unit'
+      -{ new Qty("aa") }.should.throw_error 'Unit not recognized'
+      -{ new Qty("m/aa") }.should.throw_error 'Unit not recognized'
+      -{ new Qty(" ") }.should.throw_error 'Unit not recognized'
+      -{ new Qty("N*m") }.should_not.throw_error
+    end
   end
 
   describe 'isCompatible'
