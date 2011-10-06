@@ -396,5 +396,64 @@ describe 'js-quantities'
       qty.toString(3).should.be "2.988 m"
       qty.toString(0).should.be "3 m"
     end
+
+    it 'should round according to precision passed as quantity'
+      qty = new Qty('5.17 ft')
+
+      qty.toString(new Qty('ft')).should.be "5 ft"
+      qty.toString(new Qty('2 ft')).should.be "6 ft"
+      qty.toString(new Qty('0.5 ft')).should.be "5 ft"
+      qty.toString(new Qty('0.1 ft')).should.be "5.2 ft"
+      qty.toString(new Qty('0.05 ft')).should.be "5.15 ft"
+      qty.toString(new Qty('0.01 ft')).should.be "5.17 ft"
+      qty.toString(new Qty('0.0001 ft')).should.be "5.17 ft"
+    end
+
+  end
+
+  describe 'precision rounding'
+    it 'should round according to precision passed as quantity with same units'
+      qty = new Qty('5.17 ft')
+
+      qty.toPrec(new Qty('ft')).toString().should.be "5 ft"
+      qty.toPrec(new Qty('2 ft')).toString().should.be "6 ft"
+      qty.toPrec(new Qty('10 ft')).toString().should.be "10 ft"
+      qty.toPrec(new Qty('0.5 ft')).toString().should.be "5 ft"
+      qty.toPrec(new Qty('0.1 ft')).toString().should.be "5.2 ft"
+      qty.toPrec(new Qty('0.05 ft')).toString().should.be "5.15 ft"
+      qty.toPrec(new Qty('0.01 ft')).toString().should.be "5.17 ft"
+      qty.toPrec(new Qty('0.0001 ft')).toString().should.be "5.17 ft"
+    end
+
+    it 'should allow string as precision parameter'
+      qty = new Qty('5.17 ft')
+
+      qty.toPrec('ft').toString().should.be "5 ft"
+      qty.toPrec('0.5 ft').toString().should.be "5 ft"
+      qty.toPrec('0.05 ft').toString().should.be "5.15 ft"
+    end
+
+    it 'should round according to precision passed as quantity with different prefixes'
+      qty = new Qty('6.3782 m')
+
+      qty.toPrec(new Qty('dm')).toString().should.be "6.4 m"
+      qty.toPrec(new Qty('cm')).toString().should.be "6.38 m"
+      qty.toPrec(new Qty('mm')).toString().should.be "6.378 m"
+
+      qty.toPrec(new Qty('5 cm')).toString().should.be "6.4 m"
+    end
+
+    it 'should round according to precision passed as quantity with different compatible units'
+      qty = new Qty('1.145 MPa')
+      qty.toPrec(new Qty('0.1 bar')).toString().should.be "1.15 MPa"
+      qty.toPrec(new Qty('0.01 MPa')).toString().should.be "1.15 MPa"
+      qty.toPrec(new Qty('dbar')).toString().should.be "1.15 MPa"
+
+      qty = new Qty('5.171234568 ft')
+      qty.toPrec(new Qty('m')).toString().should.be "7 ft"
+      qty.toPrec(new Qty('dm')).toString().should.be "5.2 ft"
+      qty.toPrec(new Qty('cm')).toString().should.be "5.18 ft"
+      qty.toPrec(new Qty('mm')).toString().should.be "5.171 ft"
+    end
   end
 end

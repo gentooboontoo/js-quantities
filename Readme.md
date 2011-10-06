@@ -56,6 +56,26 @@ Usage examples
 * mul(other): Multiply. other can be string, number or quantity.
 * div(other): Divide. other can be string, number or quantity.
 
+### Rounding
+Qty#toPrec(precision) with precision as string or quantity standing for the minimum significative quantity.
+Returns a new quantity.
+
+    var qty = new Qty('5.17 ft');
+    qty.toPrec('ft'); // => 5 ft
+    qty.toPrec('0.5 ft'); // => 5 ft
+    qty.toPrec('0.1 ft'); // => 5.2 ft
+    qty.toPrec('0.05 ft'); // => 5.15 ft
+    qty.toPrec('0.01 ft'); // => 5.17 ft
+    qty.toPrec('0.00001 ft'); // => 5.17 ft
+    qty.toPrec('2 ft'); // => 6 ft
+
+    var qty = new Qty('6.3782 m');
+    qty.toPrec('dm'); // => 6.4 m
+    qty.toPrec('cm'); // => 6.38 m
+    qty.toPrec('mm'); // => 6.378 m
+    qty.toPrec('5 cm'); // => 6.4 m
+    qty.toPrec('10 m'); // => 10 m
+
 ### Text output
     // if target_units string passed, the unit will first be converted to target_units before output.
     // Output can be rounded to max_decimals when explicit target_units are specified.
@@ -64,6 +84,7 @@ Usage examples
     qty.toString(max_decimals);
     qty.toString(target_units, max_decimals);
     qty.units(); // returns the unit parts of the quantity without the scalar
+    qty.toString(quantity); // Helper using toPrec to round to nearest significative quantity
 
 Tests
 -----
