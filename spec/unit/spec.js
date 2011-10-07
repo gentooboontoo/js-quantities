@@ -47,6 +47,23 @@ describe 'js-quantities'
       qty.denominator.should.eql ['<second>']
     end
 
+    it 'should create with denominator only'
+      qty = new Qty("1 /s")
+      qty.scalar.should.be 1
+      qty.numerator.should.eql ['<1>']
+      qty.denominator.should.eql ['<second>']
+
+      qty = new Qty("1 1/s")
+      qty.scalar.should.be 1
+      qty.numerator.should.eql ['<1>']
+      qty.denominator.should.eql ['<second>']
+
+      qty = new Qty("1 s^-1")
+      qty.scalar.should.be 1
+      qty.numerator.should.eql ['<1>']
+      qty.denominator.should.eql ['<second>']
+    end
+
     it 'should create with powers'
       qty = new Qty("1 m^2/s^2")
       qty.scalar.should.be 1
@@ -352,6 +369,8 @@ describe 'js-quantities'
     it 'should return unit part of quantities'
       qty = new Qty("1")
       qty.units().should.be ""
+      qty = new Qty("1 /s")
+      qty.units().should.be "1/s"
       qty = new Qty("100 cm")
       qty.units().should.be "cm"
       qty = new Qty("100 cm/s")
