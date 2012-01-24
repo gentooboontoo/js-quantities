@@ -435,6 +435,12 @@ describe 'js-quantities'
       qty.toString(new Qty('0.0001 ft')).should.be "5.17 ft"
     end
 
+    it 'should return same output with successive calls'
+      qty = new Qty("123 cm3")
+      qty.toString("cm3", 0).should.be "123 cm3"
+      qty.toString("cm3", 0).should.be "123 cm3"
+    end
+
   end
 
   describe 'precision rounding'
