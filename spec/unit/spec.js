@@ -178,6 +178,12 @@ describe 'js-quantities'
       qty.to(new Qty("m")).scalar.should.be 0.1
       qty.to(new Qty("20m")).scalar.should.be 0.1
     end
+
+    it 'should return itself if target units are the same'
+      qty = new Qty("123 cm3")
+
+      qty.to('cm3').should.be qty
+    end
   end
 
   describe 'comparison'
@@ -439,6 +445,11 @@ describe 'js-quantities'
       qty = new Qty("123 cm3")
       qty.toString("cm3", 0).should.be "123 cm3"
       qty.toString("cm3", 0).should.be "123 cm3"
+    end
+
+    it 'should be the same when called with no parameters or same units'
+      qty = new Qty("123 cm3")
+      qty.toString().should.be qty.toString('cm3')
     end
 
   end
