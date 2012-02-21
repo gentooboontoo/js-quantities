@@ -177,6 +177,9 @@ describe 'js-quantities'
       qty = new Qty("10 cm")
       qty.to(new Qty("m")).scalar.should.be 0.1
       qty.to(new Qty("20m")).scalar.should.be 0.1
+
+      qty = new Qty('1 m3')
+      qty.to("cm3").scalar.should.be 1000000
     end
 
     it 'should return itself if target units are the same'
@@ -487,7 +490,7 @@ describe 'js-quantities'
     end
 
     it 'should round according to precision passed as quantity with different compatible units'
-      qty = new Qty('1.145 MPa')
+      qty = new Qty('1.146 MPa')
       qty.toPrec(new Qty('0.1 bar')).toString().should.be "1.15 MPa"
       qty.toPrec(new Qty('0.01 MPa')).toString().should.be "1.15 MPa"
       qty.toPrec(new Qty('dbar')).toString().should.be "1.15 MPa"
