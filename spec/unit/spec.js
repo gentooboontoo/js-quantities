@@ -124,6 +124,12 @@ describe 'js-quantities'
       -{ new Qty(" ") }.should.throw_error 'Unit not recognized'
       -{ new Qty("N*m") }.should_not.throw_error
     end
+
+    it 'should set base_scalar'
+      qty = new Qty("0.018 MPa")
+
+      qty.base_scalar.should.be 18000
+    end
   end
 
   describe 'isCompatible'
