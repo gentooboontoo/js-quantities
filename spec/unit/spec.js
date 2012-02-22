@@ -188,12 +188,16 @@ describe 'js-quantities'
 
       qty = new Qty('1 m3')
       qty.to("cm3").scalar.should.be 1000000
+
+      qty = new Qty('550 cm3')
+      qty.to("cm^3").scalar.should.be 550
     end
 
     it 'should return itself if target units are the same'
       qty = new Qty("123 cm3")
 
       qty.to('cm3').should.be qty
+      qty.to('cm^3').should.be qty
     end
   end
 
