@@ -127,8 +127,10 @@ describe 'js-quantities'
 
     it 'should set base_scalar'
       qty = new Qty("0.018 MPa")
-
       qty.base_scalar.should.be 18000
+
+      qty = new Qty("66 cm3")
+      qty.base_scalar.should.be 0.000066
     end
   end
 
@@ -302,6 +304,11 @@ describe 'js-quantities'
 
       result = qty1.mul(new Qty("0m"));
       result.scalar.should.be 0
+      result.units().should.be "m2"
+
+      qty2 = new Qty("1.458 m")
+      result = qty1.mul(qty2)
+      result.scalar.should.be 3.645
       result.units().should.be "m2"
     end
 
