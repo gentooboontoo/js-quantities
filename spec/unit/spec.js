@@ -515,4 +515,12 @@ describe 'js-quantities'
       qty.toPrec(new Qty('mm')).toString().should.be "5.171 ft"
     end
   end
+
+  describe 'mul_safe'
+    it 'should multiply while trying to avoid numerical errors'
+      Qty.mul_safe(0.1, 0.1).should.be 0.01
+      Qty.mul_safe(1e-11, 123.456789).should.be 1.23456789e-9
+    end
+  end
+
 end
