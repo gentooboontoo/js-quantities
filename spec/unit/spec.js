@@ -524,6 +524,7 @@ describe 'js-quantities'
     it 'should multiply while trying to avoid numerical errors'
       Qty.mul_safe(0.1, 0.1).should.be 0.01
       Qty.mul_safe(1e-11, 123.456789).should.be 1.23456789e-9
+      Qty.mul_safe(6e-12, 100000).should.be 6e-7
     end
   end
 
