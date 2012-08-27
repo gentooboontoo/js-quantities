@@ -1,7 +1,7 @@
 JS-quantities
 =============
 
-JS-quantities is a nearly functional javascript port of Kevin Olbrich's library Ruby Units (http://ruby-units.rubyforge.org/ruby-units). As described by its author, the library aims to simplify the handling of units for scientific calculations involving quantities.
+JS-quantities is a JavaScript port of Kevin Olbrich's library Ruby Units (http://ruby-units.rubyforge.org/ruby-units). As described by its author, the library aims to simplify the handling of units for scientific calculations involving quantities.
 
 Usage examples
 -----
