@@ -1,7 +1,14 @@
 JS-quantities
 =============
 
-JS-quantities is a JavaScript port of Kevin Olbrich's library Ruby Units (http://ruby-units.rubyforge.org/ruby-units). As described by its author, the library aims to simplify the handling of units for scientific calculations involving quantities.
+JS-quantities is a JavaScript port of Kevin Olbrich's library Ruby Units
+(http://ruby-units.rubyforge.org/ruby-units).
+
+As described by its author, the library aims to simplify the handling of
+units for scientific calculations involving quantities.
+
+JS-quantities is defined as an UMD module and can be used with AMD, Node
+and within browsers.
 
 Usage examples
 -----
@@ -88,8 +95,9 @@ Returns a new quantity.
 
 Tests
 -----
-Tests are implemented with jspec (http://visionmedia.github.com/jspec/). Just open spec/dom.html to execute them.
+Tests are implemented with jspec (http://visionmedia.github.com/jspec/).
+Just open spec/dom.html in a browser to execute them.
 
 Contribute
 ----------
-This project is missing some features of its parent project and is not completely bug free so fork it if you wish to bring your contribution.
+Feedback and contribution are welcomed.
