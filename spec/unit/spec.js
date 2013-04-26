@@ -542,4 +542,22 @@ describe 'js-quantities'
     end
   end
 
+  describe 'Qty.parse'
+    it 'should throw if parsed argument is not a string'
+      -{ Qty.parse(5) }.should.throw_error "Argument should be a string"
+    end
+
+    it 'should not throw if parsed argument is a string'
+      -{ Qty.parse('foo') }.should.not.throw_error "Argument should be a string"
+    end
+
+    it 'should return parsed quantity when passing a valid quantity'
+      (Qty.parse('2.5 m') instanceof Qty).should.be_true
+    end
+
+    it 'should return null when passing an invalid quantity'
+      Qty.parse('aa').should.be_null
+    end
+  end
+
 end
