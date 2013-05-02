@@ -123,6 +123,7 @@ describe 'js-quantities'
       -{ new Qty("m/aa") }.should.throw_error 'Unit not recognized'
       -{ new Qty(" ") }.should.throw_error 'Unit not recognized'
       -{ new Qty("m-") }.should.throw_error 'Unit not recognized'
+      -{ new Qty("3p0 m") }.should.throw_error
       -{ new Qty("N*m") }.should_not.throw_error
     end
 
