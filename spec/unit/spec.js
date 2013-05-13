@@ -123,8 +123,12 @@ describe 'js-quantities'
       -{ new Qty("m/aa") }.should.throw_error 'Unit not recognized'
       -{ new Qty(" ") }.should.throw_error 'Unit not recognized'
       -{ new Qty("m-") }.should.throw_error 'Unit not recognized'
-      -{ new Qty("3p0 m") }.should.throw_error
       -{ new Qty("N*m") }.should_not.throw_error
+    end
+
+    it 'should throw "Unit not recognized" error when initializing with an invalid unit and a 0 exponent'
+      -{ new Qty("3p0") }.should.throw_error
+      -{ new Qty("3p-0") }.should.throw_error
     end
 
     it 'should set base_scalar'
