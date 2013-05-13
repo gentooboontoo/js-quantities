@@ -139,6 +139,10 @@ describe 'js-quantities'
 
       qty.init_value.should.eql("66 cm3")
     end
+
+    it 'should allow whitespace-wrapped value'
+      -{ new Qty("  2 MPa  ") }.should.not.throw_error
+    end
   end
 
   describe 'isCompatible'
