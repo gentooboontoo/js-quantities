@@ -133,6 +133,12 @@ describe 'js-quantities'
       qty = new Qty("66 cm3")
       qty.base_scalar.should.be 0.000066
     end
+
+    it 'should trim init value'
+      qty = new Qty("  66 cm3  ")
+
+      qty.init_value.should.eql("66 cm3")
+    end
   end
 
   describe 'isCompatible'
