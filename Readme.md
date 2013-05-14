@@ -95,8 +95,8 @@ Returns a new quantity.
 
 Tests
 -----
-Tests are implemented with jspec (http://visionmedia.github.com/jspec/).
-Just open spec/dom.html in a browser to execute them.
+Tests are implemented with Jasmine (https://github.com/pivotal/jasmine).
+Just open SpecRunner.html file in a browser to execute them.
 
 Contribute
 ----------
