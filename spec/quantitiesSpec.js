@@ -212,6 +212,17 @@ describe('js-quantities', function() {
       expect(qty.to("cm^3").scalar).toBe(773);
     });
 
+    it('should convert temperatures to compatible units', function() {
+      qty = new Qty('0 degK');
+      expect(qty.to("degC").scalar).toBe(-273.15);
+      qty = new Qty('0 degF');
+      expect(qty.to("0.001 degK").toPrec(0.001).scalar).toBe(255.372);
+      qty = new Qty('32 degF');
+      expect(qty.to("degC").toPrec(0.001).scalar).toBe(0);
+      qty = new Qty('0 degC');
+      expect(qty.to("degF").toPrec(0.001).scalar).toBe(32);
+    });
+
     it('should return itself if target units are the same', function() {
       qty = new Qty("123 cm3");
 

@@ -259,6 +259,7 @@
 
 
   var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>', '<farad>', '<ampere>','<radian>','<kelvin>','<temp-K>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
+  var NON_CACHEABLE_UNITS = ['<celsius>','<fahrenheit>','<temp-C>','<temp-F>'];
   var UNITY = '<1>';
   var UNITY_ARRAY= [UNITY];
   var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
@@ -632,67 +633,13 @@
         return this;
       }
 
-      var cached = base_unit_cache[this.units()];
-      if(cached) {
+      if(isCacheable(this.units(),this.numerator,this.denominator)) {
+        var cached = base_unit_cache[this.units()] || toBaseUnits(1,this.numerator,this.denominator);
+        base_unit_cache[this.units()] = cached;
         return cached.mul(this.scalar);
       }
 
-      var num = [];
-      var den = [];
-      var q = 1;
-      var unit;
-      for(var i = 0; i < this.numerator.length; i++) {
-        unit = this.numerator[i];
-        if(PREFIX_VALUES[unit]) {
-          // workaround to fix
-          // 0.1 * 0.1 => 0.010000000000000002
-          q = mul_safe(q, PREFIX_VALUES[unit]);
-        }
-        else {
-          if(UNIT_VALUES[unit]) {
-            q *= UNIT_VALUES[unit].scalar;
-
-            if(UNIT_VALUES[unit].numerator) {
-              num.push(UNIT_VALUES[unit].numerator);
-            }
-            if(UNIT_VALUES[unit].denominator) {
-              den.push(UNIT_VALUES[unit].denominator);
-            }
-          }
-        }
-      }
-      for(var j = 0; j < this.denominator.length; j++) {
-        unit = this.denominator[j];
-        if(PREFIX_VALUES[unit]) {
-          q /= PREFIX_VALUES[unit];
-        }
-        else {
-          if(UNIT_VALUES[unit]) {
-            q /= UNIT_VALUES[unit].scalar;
-
-            if(UNIT_VALUES[unit].numerator) {
-              den.push(UNIT_VALUES[unit].numerator);
-            }
-            if(UNIT_VALUES[unit].denominator) {
-              num.push(UNIT_VALUES[unit].denominator);
-            }
-          }
-        }
-      }
-
-      // Flatten
-      num = num.reduce(function(a,b) {
-        return a.concat(b);
-      }, []);
-      den = den.reduce(function(a,b) {
-        return a.concat(b);
-      }, []);
-
-      var base = new Qty({"scalar": q, "numerator": num, "denominator": den});
-      // Caching for later use
-      base_unit_cache[this.units()] = base;
-
-      return base.mul(this.scalar);
+      return toBaseUnits(this.scalar,this.numerator, this.denominator);
     },
 
     // returns the 'unit' part of the Unit object without the scalar
@@ -868,9 +815,17 @@
         throw "Incompatible Units";
       }
 
-      var q = div_safe(this.base_scalar, target.base_scalar);
+      var thisCacheable = isCacheable(this.units(),this.numerator,this.denominator);
+      var targetCacheable = isCacheable(target.units(),target.numerator,target.denominator);
+      if(thisCacheable && targetCacheable) {
+        var q = div_safe(this.base_scalar, target.base_scalar);
+        return new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
+      }
 
-      return new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
+      if(target.isBase()) {
+        return new Qty({"scalar": this.base_scalar, "numerator": target.numerator, "denominator": target.denominator});
+      }
+      return fromBaseScalar(this.base_scalar, target.units(), target.numerator, target.denominator);
     },
 
     // Quantity operators
@@ -976,7 +931,114 @@
     return keys;
   }
 
-  // Return a new array without duplicate elements
+  function isCacheable (units,numerator,denominator) {
+    if(base_unit_cache[units])
+      return true;
+    var unit;
+    for(var i = 0; i < numerator.length; i++) {
+      if(NON_CACHEABLE_UNITS.indexOf(numerator[i]) >= 0)
+        return false;
+    }
+    for(var j = 0; j < denominator.length; j++) {
+      unit = denominator[j];
+      if(NON_CACHEABLE_UNITS.indexOf(denominator[i]) >= 0)
+        return false;
+    }
+    return true;
+  }
+
+  function toBaseUnits (scalar,numerator,denominator) {
+    var num = [];
+    var den = [];
+    var q = scalar;
+    var unit;
+    for(var i = 0; i < numerator.length; i++) {
+      unit = numerator[i];
+      if(PREFIX_VALUES[unit]) {
+        // workaround to fix
+        // 0.1 * 0.1 => 0.010000000000000002
+        q = mul_safe(q, PREFIX_VALUES[unit]);
+      }
+      else {
+        if(UNIT_VALUES[unit]) {
+          q += UNIT_VALUES[unit].offset;
+          q *= UNIT_VALUES[unit].scalar;
+
+          if(UNIT_VALUES[unit].numerator) {
+            num.push(UNIT_VALUES[unit].numerator);
+          }
+          if(UNIT_VALUES[unit].denominator) {
+            den.push(UNIT_VALUES[unit].denominator);
+          }
+        }
+      }
+    }
+    for(var j = 0; j < denominator.length; j++) {
+      unit = denominator[j];
+      if(PREFIX_VALUES[unit]) {
+        q /= PREFIX_VALUES[unit];
+      }
+      else {
+        if(UNIT_VALUES[unit]) {
+          q /= UNIT_VALUES[unit].scalar;
+          q -= UNIT_VALUES[unit].offset;
+
+          if(UNIT_VALUES[unit].numerator) {
+            den.push(UNIT_VALUES[unit].numerator);
+          }
+          if(UNIT_VALUES[unit].denominator) {
+            num.push(UNIT_VALUES[unit].denominator);
+          }
+        }
+      }
+    }
+
+    // Flatten
+    num = num.reduce(function(a,b) {
+      return a.concat(b);
+    }, []);
+    den = den.reduce(function(a,b) {
+      return a.concat(b);
+    }, []);
+
+    return new Qty({"scalar": q, "numerator": num, "denominator": den});
+  }
+
+  // convert from base SI units
+  // will use conversion cached if possible
+  function fromBaseScalar (base_scalar,units,numerator,denominator) {
+    var q = base_scalar;
+    var unit;
+    for(var i = 0; i < numerator.length; i++) {
+      unit = numerator[i];
+      if(PREFIX_VALUES[unit]) {
+        q /= PREFIX_VALUES[unit];
+      }
+      else {
+        if(UNIT_VALUES[unit]) {
+          q /= UNIT_VALUES[unit].scalar;
+          q -= UNIT_VALUES[unit].offset;
+        }
+      }
+    }
+    for(var j = 0; j < denominator.length; j++) {
+      unit = denominator[j];
+      if(PREFIX_VALUES[unit]) {
+        // workaround to fix
+        // 0.1 * 0.1 => 0.010000000000000002
+        q = mul_safe(q, PREFIX_VALUES[unit]);
+      }
+      else {
+        if(UNIT_VALUES[unit]) {
+          q += UNIT_VALUES[unit].offset;
+          q *= UNIT_VALUES[unit].scalar;
+        }
+      }
+    }
+    return new Qty({"scalar": q, "numerator": numerator, "denominator": denominator});
+  }
+
+   // Return a new array without duplicate elements
   function unique(duplicates) {
     // Fix weird bug when third party libraries are used
     if(duplicates.length === 1) {
