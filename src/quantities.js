@@ -825,7 +825,7 @@
       if(target.isBase()) {
         return new Qty({"scalar": this.base_scalar, "numerator": target.numerator, "denominator": target.denominator});
       }
-      return fromBaseScalar(this.base_scalar, target.units(), target.numerator, target.denominator);
+      return fromBaseScalar(this.base_scalar, target.numerator, target.denominator);
     },
 
     // Quantity operators
@@ -1006,7 +1006,7 @@
 
   // convert from base SI units
   // will use conversion cached if possible
-  function fromBaseScalar (base_scalar,units,numerator,denominator) {
+  function fromBaseScalar (base_scalar,numerator,denominator) {
     var q = base_scalar;
     var unit;
     for(var i = 0; i < numerator.length; i++) {
