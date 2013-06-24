@@ -108,12 +108,12 @@
     /* temperature_difference */
     "<kelvin>" : [["degK","kelvin"], 1.0, 0, "temperature", ["<kelvin>"]],
     "<celsius>" : [["degC","celsius","celsius","centigrade"], 1.0, 273.15, "temperature", ["<kelvin>"]],
-    "<fahrenheit>" : [["degF","fahrenheit"], 1/1.8, 459.67, "temperature", ["<kelvin>"]],
-    "<rankine>" : [["degR","rankine"], 1/1.8, 0, "temperature", ["<kelvin>"]],
+    "<fahrenheit>" : [["degF","fahrenheit"], 5/9, 459.67, "temperature", ["<kelvin>"]],
+    "<rankine>" : [["degR","rankine"], 5/9, 0, "temperature", ["<kelvin>"]],
     "<temp-K>"  : [["tempK"], 1.0, 0, "temperature", ["<kelvin>"]],
     "<temp-C>"  : [["tempC"], 1.0, 273.15, "temperature", ["<kelvin>"]],
-    "<temp-F>"  : [["tempF"], 1/1.8, 459.67, "temperature", ["<kelvin>"]],
-    "<temp-R>"  : [["tempR"], 1/1.8, 0, "temperature", ["<kelvin>"]],
+    "<temp-F>"  : [["tempF"], 5/9, 459.67, "temperature", ["<kelvin>"]],
+    "<temp-R>"  : [["tempR"], 5/9, 0, "temperature", ["<kelvin>"]],
 
     /* time */
     "<second>":  [["s","sec","second","seconds"], 1.0, 0, "time", ["<second>"]],
