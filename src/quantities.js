@@ -80,6 +80,9 @@
     "<pound>" : [["lbs","lb","pound","pounds","#"], 0.45359237, 0, "mass", ["<kilogram>"]],
     "<ounce>" : [["oz","ounce","ounces"], 0.0283495231, 0, "mass", ["<kilogram>"]],
     "<gram>"    :  [["g","gram","grams","gramme","grammes"], 1e-3, 0, "mass", ["<kilogram>"]],
+    "<grain>" : [["grain","grains","gr"], 6.479891e-5, 0, "mass", ["<kilogram>"]],
+    "<dram>"  : [["dram","drams","dr"], 0.0017718452, 0, "mass",["<kilogram>"]],
+    "<stone>" : [["stone","stones","st"],6.35029318, 0, "mass",["<kilogram>"]],
 
     /* area */
     "<hectare>":[["hectare"], 10000, 0, "area", ["<meter>","<meter>"]],
@@ -1037,7 +1040,7 @@
   function fromBaseScalar (base_scalar,numerator,denominator) {
     var q = base_scalar;
     var unit;
-    for(var i = 0; i < numerator.length; i++) {
+    for(var i = numerator.length - 1; i >= 0; i--) {
       unit = numerator[i];
       if(PREFIX_VALUES[unit]) {
         q /= PREFIX_VALUES[unit];
@@ -1049,7 +1052,7 @@
         }
       }
     }
-    for(var j = 0; j < denominator.length; j++) {
+    for(var j = denominator.length - 1; j >= 0; j--) {
       unit = denominator[j];
       if(PREFIX_VALUES[unit]) {
         // workaround to fix
