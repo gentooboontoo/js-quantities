@@ -110,10 +110,10 @@
     "<celsius>" : [["degC","celsius","celsius","centigrade"], 1.0, 273.15, "temperature", ["<kelvin>"]],
     "<fahrenheit>" : [["degF","fahrenheit"], 1/1.8, 459.67, "temperature", ["<kelvin>"]],
     "<rankine>" : [["degR","rankine"], 1/1.8, 0, "temperature", ["<kelvin>"]],
-    "<temp-K>"  : [["tempK"], 1.0, 0, "temperature", ["<temp-K>"]],
-    "<temp-C>"  : [["tempC"], 1.0, 273.15, "temperature", ["<temp-K>"]],
-    "<temp-F>"  : [["tempF"], 1/1.8, 459.67, "temperature", ["<temp-K>"]],
-    "<temp-R>"  : [["tempR"], 1/1.8, 0, "temperature", ["<temp-K>"]],
+    "<temp-K>"  : [["tempK"], 1.0, 0, "temperature", ["<kelvin>"]],
+    "<temp-C>"  : [["tempC"], 1.0, 273.15, "temperature", ["<kelvin>"]],
+    "<temp-F>"  : [["tempF"], 1/1.8, 459.67, "temperature", ["<kelvin>"]],
+    "<temp-R>"  : [["tempR"], 1/1.8, 0, "temperature", ["<kelvin>"]],
 
     /* time */
     "<second>":  [["s","sec","second","seconds"], 1.0, 0, "time", ["<second>"]],
