@@ -598,6 +598,27 @@
       }
     },
 
+    /*
+    check to see if units are inverse of each other, but not the scalar part
+    this check is done by comparing signatures for performance reasons
+    if passed a string, it will create a unit object with the string and then do the comparison
+    this permits a syntax like:
+    unit =~ "mm"
+    if you want to do a regexp on the unit string do this ...
+    unit.units =~ /regexp/
+    */
+    isInverse: function(other) {
+      if(other && other.constructor === String) {
+        return this.isInverse(new Qty(other));
+      }
+
+      if(!(other instanceof Qty)) {
+        return false;
+      }
+
+      return this.isCompatible(other.inverse());
+    },
+
     kind: function() {
       return KINDS[this.signature.toString()];
     },
@@ -794,6 +815,11 @@
       return (this.scalar === other.scalar) && (this.units() === other.units());
     },
 
+    // Returns a Qty that is the inverse of this Qty,
+    inverse: function() {
+      return new Qty({"scalar": 1/this.base_scalar, "numerator": this.denominator, "denominator": this.numerator});
+    },
+
     // convert to a specified unit string or to the same units as another Qty
     // qty.to("kg")  will convert to kilograms
     // qty1.to(qty2) converts to same units as qty2 object
@@ -812,6 +838,8 @@
       }
 
       if(!this.isCompatible(target)) {
+        if(this.isInverse(target))
+          return this.inverse();
         throw "Incompatible Units";
       }
 

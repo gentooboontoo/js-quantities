@@ -223,6 +223,17 @@ describe('js-quantities', function() {
       expect(qty.to("degF").toPrec(0.001).scalar).toBe(32);
     });
 
+    it('should calculate inverses', function() {
+      qty = new Qty('1 ohm');
+      expect(qty.to("siemens").scalar).toBe(1);
+      qty = new Qty('10 ohm');
+      expect(qty.to("siemens").scalar).toBe(0.1);
+      qty = new Qty('10 siemens');
+      expect(qty.to("ohm").scalar).toBe(0.1);
+      qty = new Qty('10 siemens');
+      expect(qty.inverse().eq(".1 ohm")).toBe(true);
+    });
+
     it('should return itself if target units are the same', function() {
       qty = new Qty("123 cm3");
 
