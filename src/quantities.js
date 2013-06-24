@@ -16,245 +16,244 @@
 }(this, function() {
   var UNITS = {
     /* prefixes */
-    "<googol>" : [["googol"], 1e100, "prefix"],
-    "<kibi>"  :  [["Ki","Kibi","kibi"], Math.pow(2,10), "prefix"],
-    "<mebi>"  :  [["Mi","Mebi","mebi"], Math.pow(2,20), "prefix"],
-    "<gibi>"  :  [["Gi","Gibi","gibi"], Math.pow(2,30), "prefix"],
-    "<tebi>"  :  [["Ti","Tebi","tebi"], Math.pow(2,40), "prefix"],
-    "<pebi>"  :  [["Pi","Pebi","pebi"], Math.pow(2,50), "prefix"],
-    "<exi>"   :  [["Ei","Exi","exi"], Math.pow(2,60), "prefix"],
-    "<zebi>"  :  [["Zi","Zebi","zebi"], Math.pow(2,70), "prefix"],
-    "<yebi>"  :  [["Yi","Yebi","yebi"], Math.pow(2,80), "prefix"],
-    "<yotta>" :  [["Y","Yotta","yotta"], 1e24, "prefix"],
-    "<zetta>" :  [["Z","Zetta","zetta"], 1e21, "prefix"],
-    "<exa>"   :  [["E","Exa","exa"], 1e18, "prefix"],
-    "<peta>"  :  [["P","Peta","peta"], 1e15, "prefix"],
-    "<tera>"  :  [["T","Tera","tera"], 1e12, "prefix"],
-    "<giga>"  :  [["G","Giga","giga"], 1e9, "prefix"],
-    "<mega>"  :  [["M","Mega","mega"], 1e6, "prefix"],
-    "<kilo>"  :  [["k","kilo"], 1e3, "prefix"],
-    "<hecto>" :  [["h","Hecto","hecto"], 1e2, "prefix"],
-    "<deca>"  :  [["da","Deca","deca","deka"], 1e1, "prefix"],
-    "<deci>"  :  [["d","Deci","deci"], 1e-1, "prefix"],
-    "<centi>"  : [["c","Centi","centi"], 1e-2, "prefix"],
-    "<milli>" :  [["m","Milli","milli"], 1e-3, "prefix"],
-    "<micro>"  : [["u","Micro","micro"], 1e-6, "prefix"],
-    "<nano>"  :  [["n","Nano","nano"], 1e-9, "prefix"],
-    "<pico>"  :  [["p","Pico","pico"], 1e-12, "prefix"],
-    "<femto>" :  [["f","Femto","femto"], 1e-15, "prefix"],
-    "<atto>"  :  [["a","Atto","atto"], 1e-18, "prefix"],
-    "<zepto>" :  [["z","Zepto","zepto"], 1e-21, "prefix"],
-    "<yocto>" :  [["y","Yocto","yocto"], 1e-24, "prefix"],
+    "<googol>" : [["googol"], 1e100, 0, "prefix"],
+    "<kibi>"  :  [["Ki","Kibi","kibi"], Math.pow(2,10), 0, "prefix"],
+    "<mebi>"  :  [["Mi","Mebi","mebi"], Math.pow(2,20), 0, "prefix"],
+    "<gibi>"  :  [["Gi","Gibi","gibi"], Math.pow(2,30), 0, "prefix"],
+    "<tebi>"  :  [["Ti","Tebi","tebi"], Math.pow(2,40), 0, "prefix"],
+    "<pebi>"  :  [["Pi","Pebi","pebi"], Math.pow(2,50), 0, "prefix"],
+    "<exi>"   :  [["Ei","Exi","exi"], Math.pow(2,60), 0, "prefix"],
+    "<zebi>"  :  [["Zi","Zebi","zebi"], Math.pow(2,70), 0, "prefix"],
+    "<yebi>"  :  [["Yi","Yebi","yebi"], Math.pow(2,80), 0, "prefix"],
+    "<yotta>" :  [["Y","Yotta","yotta"], 1e24, 0, "prefix"],
+    "<zetta>" :  [["Z","Zetta","zetta"], 1e21, 0, "prefix"],
+    "<exa>"   :  [["E","Exa","exa"], 1e18, 0, "prefix"],
+    "<peta>"  :  [["P","Peta","peta"], 1e15, 0, "prefix"],
+    "<tera>"  :  [["T","Tera","tera"], 1e12, 0, "prefix"],
+    "<giga>"  :  [["G","Giga","giga"], 1e9, 0, "prefix"],
+    "<mega>"  :  [["M","Mega","mega"], 1e6, 0, "prefix"],
+    "<kilo>"  :  [["k","kilo"], 1e3, 0, "prefix"],
+    "<hecto>" :  [["h","Hecto","hecto"], 1e2, 0, "prefix"],
+    "<deca>"  :  [["da","Deca","deca","deka"], 1e1, 0, "prefix"],
+    "<deci>"  :  [["d","Deci","deci"], 1e-1, 0, "prefix"],
+    "<centi>"  : [["c","Centi","centi"], 1e-2, 0, "prefix"],
+    "<milli>" :  [["m","Milli","milli"], 1e-3, 0, "prefix"],
+    "<micro>"  : [["u","Micro","micro"], 1e-6, 0, "prefix"],
+    "<nano>"  :  [["n","Nano","nano"], 1e-9, 0, "prefix"],
+    "<pico>"  :  [["p","Pico","pico"], 1e-12, 0, "prefix"],
+    "<femto>" :  [["f","Femto","femto"], 1e-15, 0, "prefix"],
+    "<atto>"  :  [["a","Atto","atto"], 1e-18, 0, "prefix"],
+    "<zepto>" :  [["z","Zepto","zepto"], 1e-21, 0, "prefix"],
+    "<yocto>" :  [["y","Yocto","yocto"], 1e-24, 0, "prefix"],
 
-    "<1>"     :  [["1", "<1>"],1,""],
+    "<1>"     :  [["1", "<1>"], 1, 0, ""],
     /* length units */
-    "<meter>" :  [["m","meter","meters","metre","metres"], 1.0, "length", ["<meter>"] ],
-    "<inch>"  :  [["in","inch","inches","\""], 0.0254, "length", ["<meter>"]],
-    "<foot>"  :  [["ft","foot","feet","'"], 0.3048, "length", ["<meter>"]],
-    "<yard>"  :  [["yd","yard","yards"], 0.9144, "length", ["<meter>"]],
-    "<mile>"  :  [["mi","mile","miles"], 1609.344, "length", ["<meter>"]],
-    "<naut-mile>" : [["nmi"], 1852, "length", ["<meter>"]],
-    "<league>":  [["league","leagues"], 4828, "length", ["<meter>"]],
-    "<furlong>": [["furlong","furlongs"], 201.2, "length", ["<meter>"]],
-    "<rod>"   :  [["rd","rod","rods"], 5.029, "length", ["<meter>"]],
-    "<mil>"   :  [["mil","mils"], 0.0000254, "length", ["<meter>"]],
-    "<angstrom>"  :[["ang","angstrom","angstroms"], 1e-10, "length", ["<meter>"]],
-    "<fathom>" : [["fathom","fathoms"], 1.829, "length", ["<meter>"]],
-    "<pica>"  : [["pica","picas"], 0.004217, "length", ["<meter>"]],
-    "<point>" : [["pt","point","points"], 0.0003514, "length", ["<meter>"]],
-    "<redshift>" : [["z","red-shift"], 1.302773e26, "length", ["<meter>"]],
-    "<AU>"    : [["AU","astronomical-unit"], 149597900000, "length", ["<meter>"]],
-    "<light-second>":[["ls","light-second"], 299792500, "length", ["<meter>"]],
-    "<light-minute>":[["lmin","light-minute"], 17987550000, "length", ["<meter>"]],
-    "<light-year>" : [["ly","light-year"], 9460528000000000, "length", ["<meter>"]],
-    "<parsec>"  : [["pc","parsec","parsecs"], 30856780000000000, "length", ["<meter>"]],
+    "<meter>" :  [["m","meter","meters","metre","metres"], 1.0, 0, "length", ["<meter>"] ],
+    "<inch>"  :  [["in","inch","inches","\""], 0.0254, 0, "length", ["<meter>"]],
+    "<foot>"  :  [["ft","foot","feet","'"], 0.3048, 0, "length", ["<meter>"]],
+    "<yard>"  :  [["yd","yard","yards"], 0.9144, 0, "length", ["<meter>"]],
+    "<mile>"  :  [["mi","mile","miles"], 1609.344, 0, "length", ["<meter>"]],
+    "<naut-mile>" : [["nmi"], 1852, 0, "length", ["<meter>"]],
+    "<league>":  [["league","leagues"], 4828, 0, "length", ["<meter>"]],
+    "<furlong>": [["furlong","furlongs"], 201.2, 0, "length", ["<meter>"]],
+    "<rod>"   :  [["rd","rod","rods"], 5.029, 0, "length", ["<meter>"]],
+    "<mil>"   :  [["mil","mils"], 0.0000254, 0, "length", ["<meter>"]],
+    "<angstrom>"  :[["ang","angstrom","angstroms"], 1e-10, 0, "length", ["<meter>"]],
+    "<fathom>" : [["fathom","fathoms"], 1.829, 0, "length", ["<meter>"]],
+    "<pica>"  : [["pica","picas"], 0.004217, 0, "length", ["<meter>"]],
+    "<point>" : [["pt","point","points"], 0.0003514, 0, "length", ["<meter>"]],
+    "<redshift>" : [["z","red-shift"], 1.302773e26, 0, "length", ["<meter>"]],
+    "<AU>"    : [["AU","astronomical-unit"], 149597900000, 0, "length", ["<meter>"]],
+    "<light-second>":[["ls","light-second"], 299792500, 0, "length", ["<meter>"]],
+    "<light-minute>":[["lmin","light-minute"], 17987550000, 0, "length", ["<meter>"]],
+    "<light-year>" : [["ly","light-year"], 9460528000000000, 0, "length", ["<meter>"]],
+    "<parsec>"  : [["pc","parsec","parsecs"], 30856780000000000, 0, "length", ["<meter>"]],
 
     /* mass */
-    "<kilogram>" : [["kg","kilogram","kilograms"], 1.0, "mass", ["<kilogram>"]],
-    "<AMU>" : [["u","AMU","amu"], 6.0221415e26, "mass", ["<kilogram>"]],
-    "<dalton>" : [["Da","Dalton","Daltons","dalton","daltons"], 6.0221415e26, "mass", ["<kilogram>"]],
-    "<slug>" : [["slug","slugs"], 14.5939029, "mass", ["<kilogram>"]],
-    "<short-ton>" : [["tn","ton"], 907.18474, "mass", ["<kilogram>"]],
-    "<metric-ton>":[["tonne"], 1000, "mass", ["<kilogram>"]],
-    "<carat>" : [["ct","carat","carats"], 0.0002, "mass", ["<kilogram>"]],
-    "<pound>" : [["lbs","lb","pound","pounds","#"], 0.45359237, "mass", ["<kilogram>"]],
-    "<ounce>" : [["oz","ounce","ounces"], 0.0283495231, "mass", ["<kilogram>"]],
-    "<gram>"    :  [["g","gram","grams","gramme","grammes"],1e-3,"mass", ["<kilogram>"]],
+    "<kilogram>" : [["kg","kilogram","kilograms"], 1.0, 0, "mass", ["<kilogram>"]],
+    "<AMU>" : [["u","AMU","amu"], 6.0221415e26, 0, "mass", ["<kilogram>"]],
+    "<dalton>" : [["Da","Dalton","Daltons","dalton","daltons"], 6.0221415e26, 0, "mass", ["<kilogram>"]],
+    "<slug>" : [["slug","slugs"], 14.5939029, 0, "mass", ["<kilogram>"]],
+    "<short-ton>" : [["tn","ton"], 907.18474, 0, "mass", ["<kilogram>"]],
+    "<metric-ton>":[["tonne"], 1000, 0, "mass", ["<kilogram>"]],
+    "<carat>" : [["ct","carat","carats"], 0.0002, 0, "mass", ["<kilogram>"]],
+    "<pound>" : [["lbs","lb","pound","pounds","#"], 0.45359237, 0, "mass", ["<kilogram>"]],
+    "<ounce>" : [["oz","ounce","ounces"], 0.0283495231, 0, "mass", ["<kilogram>"]],
+    "<gram>"    :  [["g","gram","grams","gramme","grammes"], 1e-3, 0, "mass", ["<kilogram>"]],
 
     /* area */
-    "<hectare>":[["hectare"], 10000, "area", ["<meter>","<meter>"]],
-    "<acre>":[["acre","acres"], 4046.85642, "area", ["<meter>","<meter>"]],
-    "<sqft>":[["sqft"], 1, "area", ["<feet>","<feet>"]],
+    "<hectare>":[["hectare"], 10000, 0, "area", ["<meter>","<meter>"]],
+    "<acre>":[["acre","acres"], 4046.85642, 0, "area", ["<meter>","<meter>"]],
+    "<sqft>":[["sqft"], 1, 0, "area", ["<feet>","<feet>"]],
 
     /* volume */
-    "<liter>" : [["l","L","liter","liters","litre","litres"], 0.001, "volume", ["<meter>","<meter>","<meter>"]],
-    "<gallon>":  [["gal","gallon","gallons"], 0.0037854118, "volume", ["<meter>","<meter>","<meter>"]],
-    "<quart>":  [["qt","quart","quarts"], 0.00094635295, "volume", ["<meter>","<meter>","<meter>"]],
-    "<pint>":  [["pt","pint","pints"], 0.000473176475, "volume", ["<meter>","<meter>","<meter>"]],
-    "<cup>":  [["cu","cup","cups"], 0.000236588238, "volume", ["<meter>","<meter>","<meter>"]],
-    "<fluid-ounce>":  [["floz","fluid-ounce"], 2.95735297e-5, "volume", ["<meter>","<meter>","<meter>"]],
-    "<tablespoon>":  [["tbs","tablespoon","tablespoons"], 1.47867648e-5, "volume", ["<meter>","<meter>","<meter>"]],
-    "<teaspoon>":  [["tsp","teaspoon","teaspoons"], 4.92892161e-6, "volume", ["<meter>","<meter>","<meter>"]],
+    "<liter>" : [["l","L","liter","liters","litre","litres"], 0.001, 0, "volume", ["<meter>","<meter>","<meter>"]],
+    "<gallon>":  [["gal","gallon","gallons"], 0.0037854118, 0, "volume", ["<meter>","<meter>","<meter>"]],
+    "<quart>":  [["qt","quart","quarts"], 0.00094635295, 0, "volume", ["<meter>","<meter>","<meter>"]],
+    "<pint>":  [["pt","pint","pints"], 0.000473176475, 0, "volume", ["<meter>","<meter>","<meter>"]],
+    "<cup>":  [["cu","cup","cups"], 0.000236588238, 0, "volume", ["<meter>","<meter>","<meter>"]],
+    "<fluid-ounce>":  [["floz","fluid-ounce"], 2.95735297e-5, 0, "volume", ["<meter>","<meter>","<meter>"]],
+    "<tablespoon>":  [["tbs","tablespoon","tablespoons"], 1.47867648e-5, 0, "volume", ["<meter>","<meter>","<meter>"]],
+    "<teaspoon>":  [["tsp","teaspoon","teaspoons"], 4.92892161e-6, 0, "volume", ["<meter>","<meter>","<meter>"]],
 
     /* speed */
-    "<kph>" : [["kph"], 0.277777778, "speed", ["<meter>"], ["<second>"]],
-    "<mph>" : [["mph"], 0.44704, "speed", ["<meter>"], ["<second>"]],
-    "<knot>" : [["kt","kn","kts","knot","knots"], 0.514444444, "speed", ["<meter>"], ["<second>"]],
-    "<fps>"  : [["fps"], 0.3048, "speed", ["<meter>"], ["<second>"]],
+    "<kph>" : [["kph"], 0.277777778, 0, "speed", ["<meter>"], ["<second>"]],
+    "<mph>" : [["mph"], 0.44704, 0, "speed", ["<meter>"], ["<second>"]],
+    "<knot>" : [["kt","kn","kts","knot","knots"], 0.514444444, 0, "speed", ["<meter>"], ["<second>"]],
+    "<fps>"  : [["fps"], 0.3048, 0, "speed", ["<meter>"], ["<second>"]],
 
     /* acceleration */
-    "<gee>" : [["gee"], 9.80655, "acceleration", ["<meter>"], ["<second>","<second>"]],
+    "<gee>" : [["gee"], 9.80655, 0, "acceleration", ["<meter>"], ["<second>","<second>"]],
 
     /* temperature_difference */
-    "<kelvin>" : [["degK","kelvin"], 1.0, "temperature", ["<kelvin>"]],
-    "<celsius>" : [["degC","celsius","celsius","centigrade"], 1.0, "temperature", ["<kelvin>"]],
-    "<fahrenheit>" : [["degF","fahrenheit"], 1/1.8, "temperature", ["<kelvin>"]],
-    "<rankine>" : [["degR","rankine"], 1/1.8, "temperature", ["<kelvin>"]],
-    "<temp-K>"  : [["tempK"], 1.0, "temperature", ["<temp-K>"]],
-    "<temp-C>"  : [["tempC"], 1.0, "temperature", ["<temp-K>"]],
-    "<temp-F>"  : [["tempF"], 1/1.8, "temperature", ["<temp-K>"]],
-    "<temp-R>"  : [["tempR"], 1/1.8, "temperature", ["<temp-K>"]],
+    "<kelvin>" : [["degK","kelvin"], 1.0, 0, "temperature", ["<kelvin>"]],
+    "<celsius>" : [["degC","celsius","celsius","centigrade"], 1.0, 273.15, "temperature", ["<kelvin>"]],
+    "<fahrenheit>" : [["degF","fahrenheit"], 1/1.8, 459.67, "temperature", ["<kelvin>"]],
+    "<rankine>" : [["degR","rankine"], 1/1.8, 0, "temperature", ["<kelvin>"]],
+    "<temp-K>"  : [["tempK"], 1.0, 0, "temperature", ["<temp-K>"]],
+    "<temp-C>"  : [["tempC"], 1.0, 273.15, "temperature", ["<temp-K>"]],
+    "<temp-F>"  : [["tempF"], 1/1.8, 459.67, "temperature", ["<temp-K>"]],
+    "<temp-R>"  : [["tempR"], 1/1.8, 0, "temperature", ["<temp-K>"]],
 
     /* time */
-    "<second>":  [["s","sec","second","seconds"], 1.0, "time", ["<second>"]],
-    "<minute>":  [["min","minute","minutes"], 60.0, "time", ["<second>"]],
-    "<hour>":  [["h","hr","hrs","hour","hours"], 3600.0, "time", ["<second>"]],
-    "<day>":  [["d","day","days"], 3600*24, "time", ["<second>"]],
-    "<week>":  [["wk","week","weeks"], 7*3600*24, "time", ["<second>"]],
-    "<fortnight>": [["fortnight","fortnights"], 1209600, "time", ["<second>"]],
-    "<year>":  [["y","yr","year","years","annum"], 31556926, "time", ["<second>"]],
-    "<decade>":[["decade","decades"], 315569260, "time", ["<second>"]],
-    "<century>":[["century","centuries"], 3155692600, "time", ["<second>"]],
+    "<second>":  [["s","sec","second","seconds"], 1.0, 0, "time", ["<second>"]],
+    "<minute>":  [["min","minute","minutes"], 60.0, 0, "time", ["<second>"]],
+    "<hour>":  [["h","hr","hrs","hour","hours"], 3600.0, 0, "time", ["<second>"]],
+    "<day>":  [["d","day","days"], 3600*24, 0, "time", ["<second>"]],
+    "<week>":  [["wk","week","weeks"], 7*3600*24, 0, "time", ["<second>"]],
+    "<fortnight>": [["fortnight","fortnights"], 1209600, 0, "time", ["<second>"]],
+    "<year>":  [["y","yr","year","years","annum"], 31556926, 0, "time", ["<second>"]],
+    "<decade>":[["decade","decades"], 315569260, 0, "time", ["<second>"]],
+    "<century>":[["century","centuries"], 3155692600, 0, "time", ["<second>"]],
 
     /* pressure */
-    "<pascal>" : [["Pa","pascal","Pascal"], 1.0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<bar>" : [["bar","bars"], 100000, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<mmHg>" : [["mmHg"], 133.322368,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<inHg>" : [["inHg"], 3386.3881472,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<torr>" : [["torr"], 133.322368,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<atm>" : [["atm","ATM","atmosphere","atmospheres"], 101325,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<psi>" : [["psi"], 6894.76,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<cmh2o>" : [["cmH2O"], 98.0638,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<inh2o>" : [["inH2O"], 249.082052,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<pascal>" : [["Pa","pascal","Pascal"], 1.0, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<bar>" : [["bar","bars"], 100000, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<mmHg>" : [["mmHg"], 133.322368, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<inHg>" : [["inHg"], 3386.3881472, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<torr>" : [["torr"], 133.322368, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<atm>" : [["atm","ATM","atmosphere","atmospheres"], 101325, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<psi>" : [["psi"], 6894.76, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<cmh2o>" : [["cmH2O"], 98.0638, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<inh2o>" : [["inH2O"], 249.082052, 0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
 
     /* viscosity */
-    "<poise>"  : [["P","poise"], 0.1, "viscosity", ["<kilogram>"],["<meter>","<second>"] ],
-    "<stokes>" : [["St","stokes"], 1e-4, "viscosity", ["<meter>","<meter>"], ["<second>"]],
+    "<poise>"  : [["P","poise"], 0.1, 0, "viscosity", ["<kilogram>"],["<meter>","<second>"] ],
+    "<stokes>" : [["St","stokes"], 1e-4, 0, "viscosity", ["<meter>","<meter>"], ["<second>"]],
 
     /* substance */
-    "<mole>"  :  [["mol","mole"], 1.0, "substance", ["<mole>"]],
+    "<mole>"  :  [["mol","mole"], 1.0, 0, "substance", ["<mole>"]],
 
     /* concentration */
-    "<molar>" : [["M","molar"], 1000, "concentration", ["<mole>"], ["<meter>","<meter>","<meter>"]],
-    "<wtpercent>"  : [["wt%","wtpercent"], 10, "concentration", ["<kilogram>"], ["<meter>","<meter>","<meter>"]],
+    "<molar>" : [["M","molar"], 1000, 0, "concentration", ["<mole>"], ["<meter>","<meter>","<meter>"]],
+    "<wtpercent>"  : [["wt%","wtpercent"], 10, 0, "concentration", ["<kilogram>"], ["<meter>","<meter>","<meter>"]],
 
     /* activity */
-    "<katal>" :  [["kat","katal","Katal"], 1.0, "activity", ["<mole>"], ["<second>"]],
-    "<unit>"  :  [["U","enzUnit"], 16.667e-16, "activity", ["<mole>"], ["<second>"]],
+    "<katal>" :  [["kat","katal","Katal"], 1.0, 0, "activity", ["<mole>"], ["<second>"]],
+    "<unit>"  :  [["U","enzUnit"], 16.667e-16, 0, "activity", ["<mole>"], ["<second>"]],
 
     /* capacitance */
-    "<farad>" :  [["F","farad","Farad"], 1.0, "capacitance", ["<farad>"]],
+    "<farad>" :  [["F","farad","Farad"], 1.0, 0, "capacitance", ["<farad>"]],
 
     /* charge */
-    "<coulomb>" :  [["C","coulomb","Coulomb"], 1.0, "charge", ["<ampere>","<second>"]],
+    "<coulomb>" :  [["C","coulomb","Coulomb"], 1.0, 0, "charge", ["<ampere>","<second>"]],
 
     /* current */
-    "<ampere>"  :  [["A","Ampere","ampere","amp","amps"], 1.0, "current", ["<ampere>"]],
+    "<ampere>"  :  [["A","Ampere","ampere","amp","amps"], 1.0, 0, "current", ["<ampere>"]],
 
     /* conductance */
-    "<siemens>" : [["S","Siemens","siemens"], 1.0, "resistance", ["<second>","<second>","<second>","<ampere>","<ampere>"], ["<kilogram>","<meter>","<meter>"]],
+    "<siemens>" : [["S","Siemens","siemens"], 1.0, 0, "resistance", ["<second>","<second>","<second>","<ampere>","<ampere>"], ["<kilogram>","<meter>","<meter>"]],
 
     /* inductance */
-    "<henry>" :  [["H","Henry","henry"], 1.0, "inductance", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>","<ampere>"]],
+    "<henry>" :  [["H","Henry","henry"], 1.0, 0, "inductance", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>","<ampere>"]],
 
     /* potential */
-    "<volt>"  :  [["V","Volt","volt","volts"], 1.0, "potential", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<second>","<ampere>"]],
+    "<volt>"  :  [["V","Volt","volt","volts"], 1.0, 0, "potential", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<second>","<ampere>"]],
 
     /* resistance */
-    "<ohm>" :  [["Ohm","ohm"], 1.0, "resistance", ["<meter>","<meter>","<kilogram>"],["<second>","<second>","<second>","<ampere>","<ampere>"]],
+    "<ohm>" :  [["Ohm","ohm"], 1.0, 0, "resistance", ["<meter>","<meter>","<kilogram>"],["<second>","<second>","<second>","<ampere>","<ampere>"]],
 
     /* magnetism */
-    "<weber>" : [["Wb","weber","webers"], 1.0, "magnetism", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>"]],
-    "<tesla>"  : [["T","tesla","teslas"], 1.0, "magnetism", ["<kilogram>"], ["<second>","<second>","<ampere>"]],
-    "<gauss>" : [["G","gauss"], 1e-4, "magnetism",  ["<kilogram>"], ["<second>","<second>","<ampere>"]],
-    "<maxwell>" : [["Mx","maxwell","maxwells"], 1e-8, "magnetism", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>"]],
-    "<oersted>"  : [["Oe","oersted","oersteds"], 250.0/Math.PI, "magnetism", ["<ampere>"], ["<meter>"]],
+    "<weber>" : [["Wb","weber","webers"], 1.0, 0, "magnetism", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>"]],
+    "<tesla>"  : [["T","tesla","teslas"], 1.0, 0, "magnetism", ["<kilogram>"], ["<second>","<second>","<ampere>"]],
+    "<gauss>" : [["G","gauss"], 1e-4, 0, "magnetism",  ["<kilogram>"], ["<second>","<second>","<ampere>"]],
+    "<maxwell>" : [["Mx","maxwell","maxwells"], 1e-8, 0, "magnetism", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>"]],
+    "<oersted>"  : [["Oe","oersted","oersteds"], 250.0/Math.PI, 0, "magnetism", ["<ampere>"], ["<meter>"]],
 
     /* energy */
-    "<joule>" :  [["J","joule","Joule","joules"], 1.0, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
-    "<erg>"   :  [["erg","ergs"], 1e-7, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
-    "<btu>"   :  [["BTU","btu","BTUs"], 1055.056, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
-    "<calorie>" :  [["cal","calorie","calories"], 4.18400, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
-    "<Calorie>" :  [["Cal","Calorie","Calories"], 4184.00, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
-    "<therm-US>" : [["th","therm","therms","Therm"], 105480400, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<joule>" :  [["J","joule","Joule","joules"], 1.0, 0, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<erg>"   :  [["erg","ergs"], 1e-7, 0, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<btu>"   :  [["BTU","btu","BTUs"], 1055.056, 0, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<calorie>" :  [["cal","calorie","calories"], 4.18400, 0, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<Calorie>" :  [["Cal","Calorie","Calories"], 4184.00, 0, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<therm-US>" : [["th","therm","therms","Therm"], 105480400, 0, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
 
     /* force */
-    "<newton>"  : [["N","Newton","newton"], 1.0, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
-    "<dyne>"  : [["dyn","dyne"], 1e-5, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
-    "<pound-force>"  : [["lbf","pound-force"], 4.448222, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
+    "<newton>"  : [["N","Newton","newton"], 1.0, 0, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
+    "<dyne>"  : [["dyn","dyne"], 1e-5, 0, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
+    "<pound-force>"  : [["lbf","pound-force"], 4.448222, 0, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
 
     /* frequency */
-    "<hertz>" : [["Hz","hertz","Hertz"], 1.0, "frequency", ["<1>"], ["<second>"]],
+    "<hertz>" : [["Hz","hertz","Hertz"], 1.0, 0, "frequency", ["<1>"], ["<second>"]],
 
     /* angle */
-    "<radian>" :[["rad","radian","radian"], 1.0, "angle", ["<radian>"]],
-    "<degree>" :[["deg","degree","degrees"], Math.PI / 180.0, "angle", ["<radian>"]],
-    "<grad>"   :[["grad","gradian","grads"], Math.PI / 200.0, "angle", ["<radian>"]],
-    "<steradian>"  : [["sr","steradian","steradians"], 1.0, "solid_angle", ["<steradian>"]],
+    "<radian>" :[["rad","radian","radian"], 1.0, 0, "angle", ["<radian>"]],
+    "<degree>" :[["deg","degree","degrees"], Math.PI / 180.0, 0, "angle", ["<radian>"]],
+    "<grad>"   :[["grad","gradian","grads"], Math.PI / 200.0, 0, "angle", ["<radian>"]],
+    "<steradian>"  : [["sr","steradian","steradians"], 1.0, 0, "solid_angle", ["<steradian>"]],
 
     /* rotation */
-    "<rotation>" : [["rotation"], 2.0*Math.PI, "angle", ["<radian>"]],
-    "<rpm>"   :[["rpm"], 2.0*Math.PI / 60.0, "angular_velocity", ["<radian>"], ["<second>"]],
+    "<rotation>" : [["rotation"], 2.0*Math.PI, 0, "angle", ["<radian>"]],
+    "<rpm>"   :[["rpm"], 2.0*Math.PI / 60.0, 0, "angular_velocity", ["<radian>"], ["<second>"]],
 
     /* memory */
-    "<byte>"  :[["B","byte"], 1.0, "memory", ["<byte>"]],
-    "<bit>"  :[["b","bit"], 0.125, "memory", ["<byte>"]],
+    "<byte>"  :[["B","byte"], 1.0, 0, "memory", ["<byte>"]],
+    "<bit>"  :[["b","bit"], 0.125, 0, "memory", ["<byte>"]],
 
     /* currency */
-    "<dollar>":[["USD","dollar"], 1.0, "currency", ["<dollar>"]],
-    "<cents>" :[["cents"], 0.01, "currency", ["<dollar>"]],
+    "<dollar>":[["USD","dollar"], 1.0, 0, "currency", ["<dollar>"]],
+    "<cents>" :[["cents"], 0.01, 0, "currency", ["<dollar>"]],
 
     /* luminosity */
-    "<candela>" : [["cd","candela"], 1.0, "luminosity", ["<candela>"]],
-    "<lumen>" : [["lm","lumen"], 1.0, "luminous_power", ["<candela>","<steradian>"]],
-    "<lux>" :[["lux"], 1.0, "illuminance", ["<candela>","<steradian>"], ["<meter>","<meter>"]],
+    "<candela>" : [["cd","candela"], 1.0, 0, "luminosity", ["<candela>"]],
+    "<lumen>" : [["lm","lumen"], 1.0, 0, "luminous_power", ["<candela>","<steradian>"]],
+    "<lux>" :[["lux"], 1.0, 0, "illuminance", ["<candela>","<steradian>"], ["<meter>","<meter>"]],
 
     /* power */
-    "<watt>"  : [["W","watt","watts"], 1.0, "power", ["<kilogram>","<meter>","<meter>"], ["<second>","<second>","<second>"]],
-    "<horsepower>"  :  [["hp","horsepower"], 745.699872, "power", ["<kilogram>","<meter>","<meter>"], ["<second>","<second>","<second>"]],
+    "<watt>"  : [["W","watt","watts"], 1.0, 0, "power", ["<kilogram>","<meter>","<meter>"], ["<second>","<second>","<second>"]],
+    "<horsepower>"  :  [["hp","horsepower"], 745.699872, 0, "power", ["<kilogram>","<meter>","<meter>"], ["<second>","<second>","<second>"]],
 
     /* radiation */
-    "<gray>" : [["Gy","gray","grays"], 1.0, "radiation", ["<meter>","<meter>"], ["<second>","<second>"]],
-    "<roentgen>" : [["R","roentgen"], 0.009330, "radiation", ["<meter>","<meter>"], ["<second>","<second>"]],
-    "<sievert>" : [["Sv","sievert","sieverts"], 1.0, "radiation", ["<meter>","<meter>"], ["<second>","<second>"]],
-    "<becquerel>" : [["Bq","bequerel","bequerels"], 1.0, "radiation", ["<1>"],["<second>"]],
-    "<curie>" : [["Ci","curie","curies"], 3.7e10, "radiation", ["<1>"],["<second>"]],
+    "<gray>" : [["Gy","gray","grays"], 1.0, 0, "radiation", ["<meter>","<meter>"], ["<second>","<second>"]],
+    "<roentgen>" : [["R","roentgen"], 0.009330, 0, "radiation", ["<meter>","<meter>"], ["<second>","<second>"]],
+    "<sievert>" : [["Sv","sievert","sieverts"], 1.0, 0, "radiation", ["<meter>","<meter>"], ["<second>","<second>"]],
+    "<becquerel>" : [["Bq","bequerel","bequerels"], 1.0, 0, "radiation", ["<1>"],["<second>"]],
+    "<curie>" : [["Ci","curie","curies"], 3.7e10, 0, "radiation", ["<1>"],["<second>"]],
 
     /* rate */
-    "<cpm>" : [["cpm"], 1.0/60.0, "rate", ["<count>"],["<second>"]],
-    "<dpm>" : [["dpm"], 1.0/60.0, "rate", ["<count>"],["<second>"]],
-    "<bpm>" : [["bpm"], 1.0/60.0, "rate", ["<count>"],["<second>"]],
+    "<cpm>" : [["cpm"], 1.0/60.0, 0, "rate", ["<count>"],["<second>"]],
+    "<dpm>" : [["dpm"], 1.0/60.0, 0, "rate", ["<count>"],["<second>"]],
+    "<bpm>" : [["bpm"], 1.0/60.0, 0, "rate", ["<count>"],["<second>"]],
 
     /* resolution / typography */
-    "<dot>" : [["dot","dots"], 1, "resolution", ["<each>"]],
-    "<pixel>" : [["pixel","px"], 1, "resolution", ["<each>"]],
-    "<ppi>" : [["ppi"], 1, "resolution", ["<pixel>"], ["<inch>"]],
-    "<dpi>" : [["dpi"], 1, "typography", ["<dot>"], ["<inch>"]],
+    "<dot>" : [["dot","dots"], 1, 0, "resolution", ["<each>"]],
+    "<pixel>" : [["pixel","px"], 1, 0, "resolution", ["<each>"]],
+    "<ppi>" : [["ppi"], 1, 0, "resolution", ["<pixel>"], ["<inch>"]],
+    "<dpi>" : [["dpi"], 1, 0, "typography", ["<dot>"], ["<inch>"]],
 
     /* other */
-    "<cell>" : [["cells","cell"], 1, "counting", ["<each>"]],
-    "<each>" : [["each"], 1.0, "counting", ["<each>"]],
-    "<count>" : [["count"], 1.0, "counting", ["<each>"]],
-    "<base-pair>"  : [["bp"], 1.0, "counting", ["<each>"]],
-    "<nucleotide>" : [["nt"], 1.0, "counting", ["<each>"]],
-    "<molecule>" : [["molecule","molecules"], 1.0, "counting", ["<1>"]],
-    "<dozen>" :  [["doz","dz","dozen"],12.0,"prefix_only", ["<each>"]],
-    "<percent>": [["%","percent"], 0.01, "prefix_only", ["<1>"]],
-    "<ppm>" :  [["ppm"],1e-6,"prefix_only", ["<1>"]],
-    "<ppt>" :  [["ppt"],1e-9,"prefix_only", ["<1>"]],
-    "<gross>" :  [["gr","gross"],144.0, "prefix_only", ["<dozen>","<dozen>"]],
-    "<decibel>"  : [["dB","decibel","decibels"], 1.0, "logarithmic", ["<decibel>"]]
-
+    "<cell>" : [["cells","cell"], 1, 0, "counting", ["<each>"]],
+    "<each>" : [["each"], 1.0, 0, "counting", ["<each>"]],
+    "<count>" : [["count"], 1.0, 0, "counting", ["<each>"]],
+    "<base-pair>"  : [["bp"], 1.0, 0, "counting", ["<each>"]],
+    "<nucleotide>" : [["nt"], 1.0, 0, "counting", ["<each>"]],
+    "<molecule>" : [["molecule","molecules"], 1.0, 0, "counting", ["<1>"]],
+    "<dozen>" :  [["doz","dz","dozen"],12.0, 0,"prefix_only", ["<each>"]],
+    "<percent>": [["%","percent"], 0.01, 0, "prefix_only", ["<1>"]],
+    "<ppm>" :  [["ppm"],1e-6, 0, "prefix_only", ["<1>"]],
+    "<ppt>" :  [["ppt"],1e-9, 0, "prefix_only", ["<1>"]],
+    "<gross>" :  [["gr","gross"],144.0, 0, "prefix_only", ["<dozen>","<dozen>"]],
+    "<decibel>"  : [["dB","decibel","decibels"], 1.0, 0, "logarithmic", ["<decibel>"]]
   };
 
 
@@ -405,7 +404,7 @@
     var r, n;
     for(var j = 0; j < this.numerator.length; j++) {
       if((r = UNITS[this.numerator[j]])) {
-        n = SIGNATURE_VECTOR.indexOf(r[2]);
+        n = SIGNATURE_VECTOR.indexOf(r[3]);
         if(n >= 0) {
           vector[n] = vector[n] + 1;
         }
@@ -414,7 +413,7 @@
 
     for(var k = 0; k < this.denominator.length; k++) {
       if((r = UNITS[this.denominator[k]])) {
-        n = SIGNATURE_VECTOR.indexOf(r[2]);
+        n = SIGNATURE_VECTOR.indexOf(r[3]);
         if(n >= 0) {
           vector[n] = vector[n] - 1;
         }
@@ -1144,7 +1143,7 @@
   for(var unit_def in UNITS) {
     if(UNITS.hasOwnProperty(unit_def)) {
       var definition = UNITS[unit_def];
-      if(definition[2] === "prefix") {
+      if(definition[3] === "prefix") {
         PREFIX_VALUES[unit_def] = definition[1];
         for(var i = 0; i < definition[0].length; i++) {
           PREFIX_MAP[definition[0][i]] = unit_def;
@@ -1153,8 +1152,9 @@
       else {
         UNIT_VALUES[unit_def] = {
           scalar: definition[1],
-          numerator: definition[3],
-          denominator: definition[4]
+          offset: definition[2],
+          numerator: definition[4],
+          denominator: definition[5]
         };
         for(var j = 0; j < definition[0].length; j++) {
           UNIT_MAP[definition[0][j]] = unit_def;
