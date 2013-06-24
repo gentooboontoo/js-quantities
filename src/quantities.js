@@ -822,7 +822,7 @@
 
     // convert to a specified unit string or to the same units as another Qty
     // qty.to("kg")  will convert to kilograms
-    // qty1.to(qty2) converts to same units as qty2 object
+    // qty1.to(qty2) converts to same units as qty2 object (ignoring scalar or qty2)
     //
     // Throws an exception if the requested target units are incompatible with current Unit.
     to: function(other) {
