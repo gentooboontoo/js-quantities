@@ -773,6 +773,9 @@
       if(prec_quantity && prec_quantity.constructor === String) {
         prec_quantity = new Qty(prec_quantity);
       }
+      if(typeof prec_quantity === "number") {
+        prec_quantity = new Qty(prec_quantity+' '+this.units());
+      }
 
       prec_quantity = prec_quantity.to(this.units());
 
