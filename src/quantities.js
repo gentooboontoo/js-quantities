@@ -798,6 +798,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return this.compareTo(new Qty(other));
       }
       if(!this.isCompatible(other)) {
+        if(this.isInverse(other)) {
+          return this.compareTo(other.inverse());
+        }
         throw "Incompatible quantities";
       }
       if(this.base_scalar < other.base_scalar) {
