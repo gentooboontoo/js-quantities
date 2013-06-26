@@ -966,21 +966,14 @@
     if(base_unit_cache[units])
       return true;
 
-    // rates are vector-only calculations 1mm/degF == 1.8mm/degC == 1.8mm/degK
-    for(var j = 0; j < denominator.length; j++) {
-      if(NON_CACHEABLE_UNITS.indexOf(denominator[i]) >= 0) {
-        return true;
-      }
-    }
-
-    for(var i = 0; i < numerator.length; i++) {
-      if(NON_CACHEABLE_UNITS.indexOf(numerator[i]) >= 0) {
-        // rates are vector-only calculations 1degC/sec == 1.8degF/sec
-        // units are not 32degF == 0degC == 273.15degK
-        return !compareArray(denominator, UNITY_ARRAY);
-      }
-    }
-    return true;
+    // rates are vector-only calculations:
+    //   1mm/degF == 1.8mm/degC == 1.8mm/degK
+    //   1.8degF/sec == 1degC/sec == 1degK/sec
+    // unit calculations require using base:
+    //   32degF == 0degC == 273.15degK
+    return numerator.length != 1
+      || NON_CACHEABLE_UNITS.indexOf(numerator[0]) < 0
+      || !compareArray(denominator, UNITY_ARRAY);
   }
 
   function toBaseUnits (scalar,numerator,denominator) {
