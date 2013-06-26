@@ -1,3 +1,13 @@
+/*!
+Copyright © 2006-2007 Kevin C. Olbrich
+Copyright © 2010-2013 LIM SAS (http://lim.eu) - Julien Sanchez
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 /*jshint eqeqeq:true, immed:true, undef:true */
 /*global module:false, define:false */
 (function (root, factory) {
@@ -260,8 +270,8 @@
   };
 
 
-
-  var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>', '<farad>', '<ampere>','<radian>','<kelvin>','<temp-K>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
+  var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>', '<farad>', '<ampere>','<radian>','<kelvin>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
+  // due to non-0 base offset, these aren't cacheable when used as units "32 degF" (when used as rates "1 degC/min" they may be cached as vectors)
   var NON_CACHEABLE_UNITS = ['<celsius>','<fahrenheit>','<temp-C>','<temp-F>'];
   var UNITY = '<1>';
   var UNITY_ARRAY= [UNITY];
@@ -611,15 +621,7 @@
     unit.units =~ /regexp/
     */
     isInverse: function(other) {
-      if(other && other.constructor === String) {
-        return this.isInverse(new Qty(other));
-      }
-
-      if(!(other instanceof Qty)) {
-        return false;
-      }
-
-      return this.isCompatible(other.inverse());
+      return this.inverse().isCompatible(other);
     },
 
     kind: function() {
@@ -637,9 +639,7 @@
       }
 
       this.numerator.concat(this.denominator).forEach(function(item) {
-        if(item !== UNITY && !BASE_UNITS.some(function(base) {
-            return base === item;
-          })) {
+        if(item !== UNITY && BASE_UNITS.indexOf(item) === -1 ) {
           this.is_base = false;
         }
       }, this);
@@ -825,7 +825,7 @@
 
     // convert to a specified unit string or to the same units as another Qty
     // qty.to("kg")  will convert to kilograms
-    // qty1.to(qty2) converts to same units as qty2 object (ignoring scalar or qty2)
+    // qty1.to(qty2) converts to same units as qty2 object (ignoring scalar of qty2)
     //
     // Throws an exception if the requested target units are incompatible with current Unit.
     to: function(other) {
@@ -971,7 +971,7 @@
     //   1.8degF/sec == 1degC/sec == 1degK/sec
     // unit calculations require using base:
     //   32degF == 0degC == 273.15degK
-    return numerator.length != 1
+    return numerator.length !== 1
       || NON_CACHEABLE_UNITS.indexOf(numerator[0]) < 0
       || !compareArray(denominator, UNITY_ARRAY);
   }
@@ -991,8 +991,9 @@
       }
       else {
         if(UNIT_VALUES[unit]) {
-          if(!usingVectorOnly)
+          if(!usingVectorOnly) {
             q += UNIT_VALUES[unit].offset;
+          }
           q *= UNIT_VALUES[unit].scalar;
 
           if(UNIT_VALUES[unit].numerator) {
@@ -1012,8 +1013,9 @@
       else {
         if(UNIT_VALUES[unit]) {
           q /= UNIT_VALUES[unit].scalar;
-          if(!usingVectorOnly)
+          if(!usingVectorOnly) {
             q -= UNIT_VALUES[unit].offset;
+          }
 
           if(UNIT_VALUES[unit].numerator) {
             den.push(UNIT_VALUES[unit].numerator);
@@ -1037,7 +1039,6 @@
   }
 
   // convert from base SI units
-  // will use conversion cached if possible
   function fromBaseScalar (base_scalar,numerator,denominator) {
     var q = base_scalar;
     var unit;
