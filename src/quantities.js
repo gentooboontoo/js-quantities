@@ -657,7 +657,7 @@
         return this;
       }
 
-      if(isCacheable(this.units(),this.numerator,this.denominator)) {
+      if(isCacheableAsVector(this.units(),this.numerator,this.denominator)) {
         var cached = base_unit_cache[this.units()] || toBaseUnits(1,this.numerator,this.denominator);
         base_unit_cache[this.units()] = cached;
         return cached.mul(this.scalar);
@@ -846,8 +846,8 @@
         throw "Incompatible Units";
       }
 
-      var thisCacheable = isCacheable(this.units(),this.numerator,this.denominator);
-      var targetCacheable = isCacheable(target.units(),target.numerator,target.denominator);
+      var thisCacheable = isCacheableAsVector(this.units(),this.numerator,this.denominator);
+      var targetCacheable = isCacheableAsVector(target.units(),target.numerator,target.denominator);
       if(thisCacheable && targetCacheable) {
         var q = div_safe(this.base_scalar, target.base_scalar);
         return new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
@@ -962,18 +962,23 @@
     return keys;
   }
 
-  function isCacheable (units,numerator,denominator) {
+  function isCacheableAsVector (units,numerator,denominator) {
     if(base_unit_cache[units])
       return true;
-    var unit;
-    for(var i = 0; i < numerator.length; i++) {
-      if(NON_CACHEABLE_UNITS.indexOf(numerator[i]) >= 0)
-        return false;
-    }
+
+    // rates are vector-only calculations 1mm/degF == 1.8mm/degC == 1.8mm/degK
     for(var j = 0; j < denominator.length; j++) {
-      unit = denominator[j];
-      if(NON_CACHEABLE_UNITS.indexOf(denominator[i]) >= 0)
-        return false;
+      if(NON_CACHEABLE_UNITS.indexOf(denominator[i]) >= 0) {
+        return true;
+      }
+    }
+
+    for(var i = 0; i < numerator.length; i++) {
+      if(NON_CACHEABLE_UNITS.indexOf(numerator[i]) >= 0) {
+        // rates are vector-only calculations 1degC/sec == 1.8degF/sec
+        // units are not 32degF == 0degC == 273.15degK
+        return !compareArray(denominator, UNITY_ARRAY);
+      }
     }
     return true;
   }
@@ -983,6 +988,7 @@
     var den = [];
     var q = scalar;
     var unit;
+    var usingVectorOnly = isCacheableAsVector(null,numerator,denominator);
     for(var i = 0; i < numerator.length; i++) {
       unit = numerator[i];
       if(PREFIX_VALUES[unit]) {
@@ -992,7 +998,8 @@
       }
       else {
         if(UNIT_VALUES[unit]) {
-          q += UNIT_VALUES[unit].offset;
+          if(!usingVectorOnly)
+            q += UNIT_VALUES[unit].offset;
           q *= UNIT_VALUES[unit].scalar;
 
           if(UNIT_VALUES[unit].numerator) {
@@ -1012,7 +1019,8 @@
       else {
         if(UNIT_VALUES[unit]) {
           q /= UNIT_VALUES[unit].scalar;
-          q -= UNIT_VALUES[unit].offset;
+          if(!usingVectorOnly)
+            q -= UNIT_VALUES[unit].offset;
 
           if(UNIT_VALUES[unit].numerator) {
             den.push(UNIT_VALUES[unit].numerator);

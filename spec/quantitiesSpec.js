@@ -215,21 +215,52 @@ describe('js-quantities', function() {
     it('should convert temperatures to compatible units', function() {
       qty = new Qty('0 degK');
       expect(qty.to("degC").scalar).toBe(-273.15);
+
       qty = new Qty('0 degF');
-      expect(qty.to("0.001 degK").toPrec(0.001).scalar).toBe(255.372);
+      expect(qty.to("degK").toPrec(0.001).scalar).toBe(255.372);
+
       qty = new Qty('32 degF');
       expect(qty.to("degC").toPrec(0.001).scalar).toBe(0);
+
       qty = new Qty('0 degC');
       expect(qty.to("degF").toPrec(0.001).scalar).toBe(32);
+    });
+
+    it('should convert temperature rates to compatible units', function() {
+      qty = new Qty('0 degK/s');
+      expect(qty.to("degC/s").scalar).toBe(0);
+
+      qty = new Qty('1 degK/s');
+      expect(qty.to("degC/min").scalar).toBe(60);
+
+      qty = new Qty('10 degC/s');
+      expect(qty.to("degF/min").toPrec(0.1).scalar).toBe(1080);
+    });
+
+    it('should convert rates in temperatures to compatible units', function() {
+      qty = new Qty('1 cm/degC');
+      expect(qty.to("cm/degK").scalar).toBe(1);
+
+      qty = new Qty('1 cm/degK');
+      expect(qty.to("cm/degC").scalar).toBe(1);
+
+      qty = new Qty('100 cm/degF');
+      expect(qty.to("m/degF").scalar).toBe(1);
+
+      qty = new Qty('1 mm/degF');
+      expect(qty.to("mm/degC").scalar).toBe(1.8);
     });
 
     it('should calculate inverses', function() {
       qty = new Qty('1 ohm');
       expect(qty.to("siemens").scalar).toBe(1);
+
       qty = new Qty('10 ohm');
       expect(qty.to("siemens").scalar).toBe(0.1);
+
       qty = new Qty('10 siemens');
       expect(qty.to("ohm").scalar).toBe(0.1);
+
       qty = new Qty('10 siemens');
       expect(qty.inverse().eq(".1 ohm")).toBe(true);
     });
