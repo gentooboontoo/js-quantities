@@ -263,6 +263,12 @@ describe('js-quantities', function() {
 
       qty = new Qty('10 siemens');
       expect(qty.inverse().eq(".1 ohm")).toBe(true);
+
+      qty = new Qty('32 degF').inverse();
+      expect(qty.to("degC").toPrec(0.001).scalar).toBe(0);
+
+      qty = new Qty('12 in').inverse();
+      expect(qty.to("ft").toPrec(0.001).scalar).toBe(1);
     });
 
     it('should return itself if target units are the same', function() {

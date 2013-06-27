@@ -830,7 +830,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     // Returns a Qty that is the inverse of this Qty,
     inverse: function() {
-      return new Qty({"scalar": 1/this.base_scalar, "numerator": this.denominator, "denominator": this.numerator});
+      return new Qty({"scalar": 1/this.scalar, "numerator": this.denominator, "denominator": this.numerator});
     },
 
     // convert to a specified unit string or to the same units as another Qty
@@ -852,7 +852,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
       if(!this.isCompatible(target)) {
         if(this.isInverse(target))
-          return this.inverse();
+          return this.inverse().to(other);
         throw "Incompatible Units";
       }
 
