@@ -793,14 +793,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     // Compare two Qty objects. Throws an exception if they are not of compatible types.
     // Comparisons are done based on the value of the quantity in base SI units.
+    //
+    // NOTE: We cannot compare inverses as that breaks the general compareTo contract:
+    //   if a.compareTo(b) < 0 then b.compareTo(a) > 0
+    //   if a.compareTo(b) == 0 then b.compareTo(a) == 0
+    //
+    //   Since "10S" == ".1ohm" (10 > .1) and "10ohm" == ".1S" (10 > .1)
+    //     new Qty("10S").inverse().compareTo("10ohm") == -1
+    //     new Qty("10ohm").inverse().compareTo("10S") == -1
+    //
+    //   If including inverses in the sort is needed, I suggest writing: Qty.sort(qtyArray,units)
     compareTo: function(other) {
       if(other && other.constructor === String) {
         return this.compareTo(new Qty(other));
       }
       if(!this.isCompatible(other)) {
-        if(this.isInverse(other)) {
-          return this.compareTo(other.inverse());
-        }
         throw "Incompatible quantities";
       }
       if(this.base_scalar < other.base_scalar) {
@@ -830,7 +837,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     // qty.to("kg")  will convert to kilograms
     // qty1.to(qty2) converts to same units as qty2 object (ignoring scalar of qty2)
     //
-    // Throws an exception if the requested target units are incompatible with current Unit.
+    // Throws an exception if the requested target units are incompatible with current Unit or its inverse.
     to: function(other) {
       if(other && other.constructor !== String) {
         return this.to(other.units());
