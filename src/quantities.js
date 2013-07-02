@@ -270,9 +270,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
 
-  var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>', '<farad>', '<ampere>','<radian>','<kelvin>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
+  //TODO: Not working...
+  //var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>','<farad>','<ampere>','<radian>','<kelvin>','<celsius>','<fahrenheit>','<rankine>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
+  var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>','<farad>','<ampere>','<radian>','<kelvin>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
   // due to non-0 base offset, these aren't cacheable when used as units "32 degF" (when used as rates "1 degC/min" they may be cached as vectors)
-  var NON_CACHEABLE_UNITS = ['<celsius>','<fahrenheit>','<temp-C>','<temp-F>'];
+  var NON_CACHEABLE_UNITS = ['<kelvin>','<celsius>','<fahrenheit>','<rankine>','<temp-K>','<temp-C>','<temp-F>','<temp-R>'];
   var UNITY = '<1>';
   var UNITY_ARRAY= [UNITY];
   var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
@@ -324,7 +326,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "10240000000000": "capacitance"
   };
 
-  var base_unit_cache = {};
+  var unit_base_vector_cache = {};
 
   function Qty(init_value) {
     this.scalar = null;
@@ -333,9 +335,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     this.output = {};
     this.numerator = UNITY_ARRAY;
     this.denominator = UNITY_ARRAY;
-
-    // units caching property
-    this._units = null;
 
     if(init_value.constructor === String) {
       init_value = init_value.trim();
@@ -633,6 +632,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(this.is_base !== undefined) {
         return this.is_base;
       }
+      //TODO: Not working...
+      //if(this.signature === 400 && this.numerator.length === 1 && compareArray(this.denominator, UNITY_ARRAY) && this.units.match(/(deg|temp)[CRFK]/)) {
       if(this.signature === 400 && this.numerator.length === 1 && compareArray(this.denominator, UNITY_ARRAY) && this.units.match(/(deg|temp)K/)) {
         this.is_base = true;
         return this.is_base;
@@ -657,67 +658,35 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return this;
       }
 
-      if(isCacheableAsVector(this.units(),this.numerator,this.denominator)) {
-        var cached = base_unit_cache[this.units()] || toBaseUnits(1,this.numerator,this.denominator);
-        base_unit_cache[this.units()] = cached;
+      var cached = unit_base_vector_cache[this.units()];
+      if(!cached) {
+        cached = toBaseUnits(1,this.numerator,this.denominator,true);
+        unit_base_vector_cache[this.units()] = cached;
+      }
+
+      if(isVectorTransformationAllowed(this.units(),this.numerator,this.denominator)) {
         return cached.mul(this.scalar);
       }
 
-      return toBaseUnits(this.scalar,this.numerator, this.denominator);
+      return toBaseUnits(this.scalar,this.numerator, this.denominator,false);
     },
 
     // returns the 'unit' part of the Unit object without the scalar
     units: function() {
-      if(compareArray(this.numerator, UNITY_ARRAY) && compareArray(this.denominator, UNITY_ARRAY)) {
-        return "";
-      }
-      if(this._units) {
+      if(this._units !== undefined) {
         return this._units;
       }
 
-      var output_n = [];
-      var output_d =[];
-
-      var token, token_next;
-      if(compareArray(this.numerator, UNITY_ARRAY)) {
-        output_n = ['1'];
-      }
-      else {
-        for(var i = 0; i < this.numerator.length; i++) {
-          token = this.numerator[i];
-          token_next = this.numerator[i+1];
-          if(PREFIX_VALUES[token]) {
-            output_n.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
-            i++;
-          }
-          else
-          {
-            output_n.push(OUTPUT_MAP[token]);
-          }
-        }
+      var numIsUnity = compareArray(this.numerator, UNITY_ARRAY),
+          denIsUnity = compareArray(this.denominator, UNITY_ARRAY);
+      if(numIsUnity && denIsUnity) {
+        this._units = "";
+        return this._units;
       }
 
-      if(compareArray(this.denominator, UNITY_ARRAY)) {
-        output_d = UNITY_ARRAY;
-      }
-      else {
-        for(var j = 0; j < this.denominator.length; j++) {
-          token = this.denominator[j];
-          token_next = this.denominator[j+1];
-          if(PREFIX_VALUES[token]) {
-            output_d.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
-            j++;
-          }
-          else
-          {
-            output_d.push(OUTPUT_MAP[token]);
-          }
-        }
-      }
-
-      var on = unique(output_n.map(function(x) {return [x, output_n.filter(function(z) {return z === x;}).length];})).map(function(x) {return x[0] + (x[1] > 1 ? x[1] : "");});
-      var od = unique(output_d.map(function(x) {return [x, output_d.filter(function(z) {return z === x;}).length];})).map(function(x) {return x[0] + (x[1] > 1 ? x[1] : "");});
-      this._units = on.join("*") + ((compareArray(output_d, UNITY_ARRAY)) ? '':'/' + od.join("*"));
+      var n_names = numIsUnity ? ['1'] : simplify(getOutputNames(this.numerator)),
+          d_names = denIsUnity ? null : simplify(getOutputNames(this.denominator));
+      this._units = n_names.join("*") + (denIsUnity ? '':('/' + d_names.join("*")));
       return this._units;
     },
 
@@ -748,7 +717,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         prec_quantity = new Qty(prec_quantity+' '+this.units());
       }
 
-      prec_quantity = prec_quantity.to(this.units());
+      if(!this.isUnitless()) {
+        prec_quantity = prec_quantity.to(this.units());
+      }
+      else if(!prec_quantity.isUnitless()) {
+        throw "Incompatible Units";
+      }
 
       var prec_rounded_result = Math.round(this.scalar/prec_quantity.scalar)*prec_quantity.scalar;
 
@@ -856,8 +830,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw "Incompatible Units";
       }
 
-      var thisCacheable = isCacheableAsVector(this.units(),this.numerator,this.denominator);
-      var targetCacheable = isCacheableAsVector(target.units(),target.numerator,target.denominator);
+      var thisCacheable = isVectorTransformationAllowed(this.units(),this.numerator,this.denominator);
+      var targetCacheable = isVectorTransformationAllowed(target.units(),target.numerator,target.denominator);
       if(thisCacheable && targetCacheable) {
         var q = div_safe(this.base_scalar, target.base_scalar);
         return new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
@@ -867,6 +841,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return new Qty({"scalar": this.base_scalar, "numerator": target.numerator, "denominator": target.denominator});
       }
       return fromBaseScalar(this.base_scalar, target.numerator, target.denominator);
+    },
+
+    getTransformationVector: function(other) {
+      if(other && other.constructor !== String) {
+        return this.getTransformationVector(other.units());
+      }
+
+      // Instantiating target to normalize units
+      var target = new Qty(other);
+
+      if(target.units() === this.units()) {
+        return this.scalar;
+      }
+
+      if(this.isInverse(target)) {
+        return 1/this.scalar;
+      }
+
+      var thisVectorCache = unit_base_vector_cache[this.units()] || { base_scalar: 1 };
+      var targetVectorCache = unit_base_vector_cache[target.units()] || { base_scalar: 1 };
+      return this.scalar * div_safe(thisVectorCache.base_scalar, targetVectorCache.base_scalar);
     },
 
     // Quantity operators
@@ -879,8 +874,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(!this.isCompatible(other)) {
         throw "Incompatible Units";
       }
-
-      return new Qty({"scalar": this.scalar + other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
+      var transformedUnits = other.getTransformationVector(this);
+      return new Qty({"scalar": this.scalar + transformedUnits, "numerator": this.numerator, "denominator": this.denominator});
     },
 
     sub: function(other) {
@@ -892,7 +887,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw "Incompatible Units";
       }
 
-      return new Qty({"scalar": this.scalar - other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
+      var transformedUnits = other.getTransformationVector(this);
+      return new Qty({"scalar": this.scalar - transformedUnits, "numerator": this.numerator, "denominator": this.denominator});
     },
 
     mul: function(other) {
@@ -907,18 +903,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var op1 = this;
       var op2 = other;
 
+      // so as not to confuse results, multiplication and division between temperature units will maintain original unit info in num/den
+      // multiplication and division between (deg|temp)[CFRK] can never factor each other out, only themselves
       if(op1.isCompatible(op2)) {
-        op2 = op2.to(op1);
-      }
-      else {
-        if(!op1.isBase()) {
-          op1 = op1.toBase();
-        }
-        if(!op2.isBase()) {
-          op2 = op2.toBase();
+        if(op1.signature !== 400) {
+          op2 = op2.to(op1);
         }
       }
-
       var numden = cleanTerms(op1.numerator.concat(op2.numerator), op1.denominator.concat(op2.denominator));
 
       return new Qty({"scalar": mul_safe(op1.scalar, op2.scalar) , "numerator": numden[0], "denominator": numden[1]});
@@ -942,15 +933,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var op1 = this;
       var op2 = other;
 
+      // so as not to confuse results, multiplication and division between temperature units will maintain original unit info in num/den
+      // multiplication and division between (deg|temp)[CFRK] can never factor each other out, only themselves
       if(op1.isCompatible(op2)) {
-        op2 = op2.to(op1);
-      }
-      else {
-        if(!op1.isBase()) {
-          op1 = op1.toBase();
-        }
-        if(!op2.isBase()) {
-          op2 = op2.toBase();
+        if(op1.signature !== 400) {
+          op2 = op2.to(op1);
         }
       }
       var numden = cleanTerms(op1.numerator.concat(op2.denominator), op1.denominator.concat(op2.numerator));
@@ -972,10 +959,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return keys;
   }
 
-  function isCacheableAsVector (units,numerator,denominator) {
-    if(base_unit_cache[units])
-      return true;
-
+  function isVectorTransformationAllowed (units,numerator,denominator) {
     // rates are vector-only calculations:
     //   1mm/degF == 1.8mm/degC == 1.8mm/degK
     //   1.8degF/sec == 1degC/sec == 1degK/sec
@@ -986,12 +970,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       || !compareArray(denominator, UNITY_ARRAY);
   }
 
-  function toBaseUnits (scalar,numerator,denominator) {
+  function getOutputNames(units) {
+    var unitNames = [], token, token_next;
+    for(var i = 0; i < units.length; i++) {
+      token = units[i];
+      token_next = units[i+1];
+      if(PREFIX_VALUES[token]) {
+        unitNames.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
+        i++;
+      }
+      else {
+        unitNames.push(OUTPUT_MAP[token]);
+      }
+    }
+    return unitNames;
+  }
+
+  function toBaseUnits (scalar,numerator,denominator,usingVectorOnly) {
     var num = [];
     var den = [];
     var q = scalar;
     var unit;
-    var usingVectorOnly = isCacheableAsVector(null,numerator,denominator);
     for(var i = 0; i < numerator.length; i++) {
       unit = numerator[i];
       if(PREFIX_VALUES[unit]) {
@@ -1079,6 +1078,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
     return new Qty({"scalar": q, "numerator": numerator, "denominator": denominator});
+  }
+
+  function simplify (units) {
+    // this turns ['s','m','s'] into ['s2','m']
+    return unique(units.map(function(x) {return [x, units.filter(function(z) {return z === x;}).length];})).map(function(x) {return x[0] + (x[1] > 1 ? x[1] : "");});
   }
 
    // Return a new array without duplicate elements
@@ -1283,4 +1287,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   return Qty;
 }));
-

@@ -217,13 +217,14 @@ describe('js-quantities', function() {
       expect(qty.to("degC").scalar).toBe(-273.15);
 
       qty = new Qty('0 degF');
-      expect(qty.to("degK").toPrec(0.001).scalar).toBe(255.372);
+      // TODO: Swap toBeCloseTo with toBe once div_safe is fixed
+      expect(qty.to("degK").scalar).toBeCloseTo(255.372, 3);
 
       qty = new Qty('32 degF');
-      expect(qty.to("degC").toPrec(0.001).scalar).toBe(0);
+      expect(qty.to("degC").scalar).toBeCloseTo(0, 10);
 
       qty = new Qty('0 degC');
-      expect(qty.to("degF").toPrec(0.001).scalar).toBe(32);
+      expect(qty.to("degF").scalar).toBeCloseTo(32, 10);
     });
 
     it('should convert temperature rates to compatible units', function() {
@@ -234,7 +235,8 @@ describe('js-quantities', function() {
       expect(qty.to("degC/min").scalar).toBe(60);
 
       qty = new Qty('10 degC/s');
-      expect(qty.to("degF/min").toPrec(0.1).scalar).toBe(1080);
+      // TODO: Swap toBeCloseTo with toBe once div_safe is fixed
+      expect(qty.to("degF/min").scalar).toBeCloseTo(1080, 10);
     });
 
     it('should convert rates in temperatures to compatible units', function() {
@@ -265,10 +267,11 @@ describe('js-quantities', function() {
       expect(qty.inverse().eq(".1 ohm")).toBe(true);
 
       qty = new Qty('32 degF').inverse();
-      expect(qty.to("degC").toPrec(0.001).scalar).toBe(0);
+      // TODO: Swap toBeCloseTo with toBe once div_safe is fixed
+      expect(qty.to("degC").scalar).toBeCloseTo(0, 10);
 
       qty = new Qty('12 in').inverse();
-      expect(qty.to("ft").toPrec(0.001).scalar).toBe(1);
+      expect(qty.to("ft").scalar).toBeCloseTo(1, 10);
     });
 
     it('should return itself if target units are the same', function() {
@@ -452,7 +455,8 @@ describe('js-quantities', function() {
 
     it('should add temperatures', function() {
       qty = new Qty("2degC");
-      expect(qty.add("3degF").toPrec(0.001).scalar).toBe(3.667);
+      // TODO: Swap toBeCloseTo with toBe once div_safe is fixed
+      expect(qty.add("3degF").scalar).toBeCloseTo(11/3, 10);
       expect(qty.add("-1degC").scalar).toBe(1);
 
       qty = new Qty('2 degC');
@@ -549,7 +553,7 @@ describe('js-quantities', function() {
       expect(result.kind()).toBe("temperature");
 
       result = qty.div("2 degC");
-      expect(result.toPrec(0.001).scalar).toBe(1.25);
+      expect(result.scalar).toBe(1.25);
       expect(result.units()).toBe("degF/degC");
     });
 
