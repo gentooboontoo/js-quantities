@@ -270,11 +270,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
 
-  //TODO: Not working...
-  //var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>','<farad>','<ampere>','<radian>','<kelvin>','<celsius>','<fahrenheit>','<rankine>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
   var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>','<farad>','<ampere>','<radian>','<kelvin>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
   // due to non-0 base offset, these aren't cacheable when used as units "32 degF" (when used as rates "1 degC/min" they may be cached as vectors)
-  var NON_CACHEABLE_UNITS = ['<kelvin>','<celsius>','<fahrenheit>','<rankine>','<temp-K>','<temp-C>','<temp-F>','<temp-R>'];
+  var NON_CACHEABLE_UNITS = ['<celsius>','<fahrenheit>','<temp-C>','<temp-F>'];
   var UNITY = '<1>';
   var UNITY_ARRAY= [UNITY];
   var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
@@ -632,8 +630,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(this.is_base !== undefined) {
         return this.is_base;
       }
-      //TODO: Not working...
-      //if(this.signature === 400 && this.numerator.length === 1 && compareArray(this.denominator, UNITY_ARRAY) && this.units.match(/(deg|temp)[CRFK]/)) {
       if(this.signature === 400 && this.numerator.length === 1 && compareArray(this.denominator, UNITY_ARRAY) && this.units.match(/(deg|temp)K/)) {
         this.is_base = true;
         return this.is_base;
