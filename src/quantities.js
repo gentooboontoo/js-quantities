@@ -272,7 +272,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>','<farad>','<ampere>','<radian>','<kelvin>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
   // due to non-0 base offset, these aren't cacheable when used as units "32 degF" (when used as rates "1 degC/min" they may be cached as vectors)
-  var NON_CACHEABLE_UNITS = ['<celsius>','<fahrenheit>','<temp-C>','<temp-F>'];
+  var NON_VECTOR_TRANSFORMABLE_UNITS = ['<celsius>','<fahrenheit>','<temp-C>','<temp-F>'];
   var UNITY = '<1>';
   var UNITY_ARRAY= [UNITY];
   var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
@@ -660,7 +660,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         unit_base_vector_cache[this.units()] = cached;
       }
 
-      if(isVectorTransformationAllowed(this.units(),this.numerator,this.denominator)) {
+      if(isVectorTransformable(this)) {
         return cached.mul(this.scalar);
       }
 
@@ -720,6 +720,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw "Incompatible Units";
       }
 
+      if(prec_quantity.scalar === 0)
+        throw "Divide by zero";
       var prec_rounded_result = Math.round(this.scalar/prec_quantity.scalar)*prec_quantity.scalar;
 
       // Remove potential floating error based on prec_quantity exponent
@@ -800,6 +802,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     // Returns a Qty that is the inverse of this Qty,
     inverse: function() {
+      if(this.scalar === 0)
+        throw "Divide by zero";
       return new Qty({"scalar": 1/this.scalar, "numerator": this.denominator, "denominator": this.numerator});
     },
 
@@ -826,9 +830,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw "Incompatible Units";
       }
 
-      var thisCacheable = isVectorTransformationAllowed(this.units(),this.numerator,this.denominator);
-      var targetCacheable = isVectorTransformationAllowed(target.units(),target.numerator,target.denominator);
-      if(thisCacheable && targetCacheable) {
+      var thisVectorTransformable = isVectorTransformable(this);
+      var targetVectorTransformable = isVectorTransformable(target);
+      if(thisVectorTransformable && targetVectorTransformable) {
         var q = div_safe(this.base_scalar, target.base_scalar);
         return new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
       }
@@ -837,27 +841,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return new Qty({"scalar": this.base_scalar, "numerator": target.numerator, "denominator": target.denominator});
       }
       return fromBaseScalar(this.base_scalar, target.numerator, target.denominator);
-    },
-
-    getTransformationVector: function(other) {
-      if(other && other.constructor !== String) {
-        return this.getTransformationVector(other.units());
-      }
-
-      // Instantiating target to normalize units
-      var target = new Qty(other);
-
-      if(target.units() === this.units()) {
-        return this.scalar;
-      }
-
-      if(this.isInverse(target)) {
-        return 1/this.scalar;
-      }
-
-      var thisVectorCache = unit_base_vector_cache[this.units()] || { base_scalar: 1 };
-      var targetVectorCache = unit_base_vector_cache[target.units()] || { base_scalar: 1 };
-      return this.scalar * div_safe(thisVectorCache.base_scalar, targetVectorCache.base_scalar);
     },
 
     // Quantity operators
@@ -870,7 +853,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(!this.isCompatible(other)) {
         throw "Incompatible Units";
       }
-      var transformedUnits = other.getTransformationVector(this);
+      var transformedUnits = getTransformationVector(other,this.units());
       return new Qty({"scalar": this.scalar + transformedUnits, "numerator": this.numerator, "denominator": this.denominator});
     },
 
@@ -883,7 +866,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw "Incompatible Units";
       }
 
-      var transformedUnits = other.getTransformationVector(this);
+      var transformedUnits = getTransformationVector(other,this.units());
       return new Qty({"scalar": this.scalar - transformedUnits, "numerator": this.numerator, "denominator": this.denominator});
     },
 
@@ -921,9 +904,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       else if(other && other.constructor === String) {
         other = new Qty(other);
       }
-      if(other.scalar === 0) {
-        throw "Divide by zero";
-      }
 
       // Quantities should be multiplied with same units if compatible, with base units else
       var op1 = this;
@@ -936,6 +916,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           op2 = op2.to(op1);
         }
       }
+      if(op2.scalar === 0) {
+        throw "Divide by zero";
+      }
+
       var numden = cleanTerms(op1.numerator.concat(op2.denominator), op1.denominator.concat(op2.numerator));
 
       return new Qty({"scalar": op1.scalar / op2.scalar, "numerator": numden[0], "denominator": numden[1]});
@@ -955,15 +939,25 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return keys;
   }
 
-  function isVectorTransformationAllowed (units,numerator,denominator) {
+  function isVectorTransformable(qty) {
     // rates are vector-only calculations:
     //   1mm/degF == 1.8mm/degC == 1.8mm/degK
     //   1.8degF/sec == 1degC/sec == 1degK/sec
     // unit calculations require using base:
     //   32degF == 0degC == 273.15degK
-    return numerator.length !== 1
-      || NON_CACHEABLE_UNITS.indexOf(numerator[0]) < 0
-      || !compareArray(denominator, UNITY_ARRAY);
+    return qty.numerator.length !== 1
+      || NON_VECTOR_TRANSFORMABLE_UNITS.indexOf(qty.numerator[0]) < 0
+      || !compareArray(qty.denominator, UNITY_ARRAY);
+  }
+
+  function getTransformationVector(sourceQty,targetUnits) {
+    if(targetUnits === sourceQty.units()) {
+      return sourceQty.scalar;
+    }
+
+    var thisVectorCache = unit_base_vector_cache[sourceQty.units()] || { base_scalar: 1 };
+    var targetVectorCache = unit_base_vector_cache[targetUnits] || { base_scalar: 1 };
+    return sourceQty.scalar * div_safe(thisVectorCache.base_scalar, targetVectorCache.base_scalar);
   }
 
   function getOutputNames(units) {
@@ -1129,33 +1123,32 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   // 0.1 * 0.1 => 0.010000000000000002
   // mul_safe(0.1, 0.1) => 0.01
   function mul_safe() {
-    var decimals;
-    var fractional;
-    var result = 1;
+    var result = 1, decimals = 0;
     for(var i = 0; i < arguments.length; i++) {
       var arg = arguments[i];
-
-      var match;
-      fractional = undefined; // unset fractional
-      if((match = num_regex.exec(arg)) && match[2]) {
-        fractional = match[2].length;
-      }
-      else if((match = exp_regex.exec(arg))) {
-        fractional = parseInt(match[2], 10);
-      }
-      // arg could be Infinities
-      if(fractional) {
-        decimals = (decimals || 0) + fractional;
-      }
-
+      decimals = decimals + getFractional(arg);
       result *= arg;
     }
 
-    return decimals ? round(result, decimals) : result;
+    return decimals !== 0 ? round(result, decimals) : result;
   }
 
-  function div_safe(a, b) {
-    return mul_safe(a, 1/b);
+  function div_safe(num, den) {
+    if(den === 0)
+      throw "Divide by zero";
+    return mul_safe(num, 1/den);
+  }
+
+  function getFractional(num) {
+    var fractional, match;
+    if((match = num_regex.exec(num)) && match[2]) {
+      fractional = match[2].length;
+    }
+    else if((match = exp_regex.exec(num))) {
+      fractional = parseInt(match[2], 10);
+    }
+    // arg could be Infinities
+    return fractional || 0;
   }
 
   Qty.mul_safe = mul_safe;

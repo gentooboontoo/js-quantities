@@ -266,6 +266,10 @@ describe('js-quantities', function() {
       qty = new Qty('10 siemens');
       expect(qty.inverse().eq(".1 ohm")).toBe(true);
 
+      // cannot inverse a quantity with a 0 scalar
+      qty = new Qty('0 degF');
+      expect(function() { qty.inverse() }).toThrow("Divide by zero");
+
       qty = new Qty('32 degF').inverse();
       // TODO: Swap toBeCloseTo with toBe once div_safe is fixed
       expect(qty.to("degC").scalar).toBeCloseTo(0, 10);
@@ -344,6 +348,20 @@ describe('js-quantities', function() {
       expect(result.units()).toBe("cm");
     });
 
+    it('should fail to add unlike quantities', function() {
+      qty1 = new Qty("3m");
+      qty2 = new Qty("2s");
+      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+    });
+
+    it('should fail to add inverse quantities', function() {
+      qty1 = new Qty("10S");
+      qty2 = qty1.inverse();
+      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+    });
+
     it('should subtract quantities', function() {
       qty1 = new Qty("2.5m");
       qty2 = new Qty("3m");
@@ -360,6 +378,20 @@ describe('js-quantities', function() {
       result = qty2.sub(qty1);
       expect(result.scalar).toBe(-247);
       expect(result.units()).toBe("cm");
+    });
+
+    it('should fail to subtract unlike quantities', function() {
+      qty1 = new Qty("3m");
+      qty2 = new Qty("2s");
+      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
+    });
+
+    it('should fail to subtract inverse quantities', function() {
+      qty1 = new Qty("10S");
+      qty2 = qty1.inverse();
+      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
     });
 
     it('should multiply quantities', function() {
@@ -412,13 +444,30 @@ describe('js-quantities', function() {
       expect(result.units()).toBe("kg");
     });
 
-    it('should divide unlike quantities', function() {
-      qty1 = new Qty("7.5kg");
-      qty2 = new Qty("2.5m^2");
+    it('should multiply inverse quantities', function() {
+      qty1 = new Qty("10S");
+      qty2 = new Qty(".5S").inverse(); // 2/S
+      qty3 = qty1.inverse();           // .1/S
 
-      result = qty1.div(qty2);
-      expect(result.scalar).toBe(3);
-      expect(result.units()).toBe("kg/m2");
+      result = qty1.mul(qty2);
+      expect(result.scalar).toBe(20);
+      expect(result.isUnitless()).toBe(true);
+      expect(result.units()).toBe("");
+      // swapping operands should give the same outcome
+      result = qty2.mul(qty1);
+      expect(result.scalar).toBe(20);
+      expect(result.isUnitless()).toBe(true);
+      expect(result.units()).toBe("");
+
+      result = qty1.mul(qty3);
+      expect(result.scalar).toBe(1);
+      expect(result.isUnitless()).toBe(true);
+      expect(result.units()).toBe("");
+      // swapping operands should give the same outcome
+      result = qty3.mul(qty1);
+      expect(result.scalar).toBe(1);
+      expect(result.isUnitless()).toBe(true);
+      expect(result.units()).toBe("");
     });
 
     it('should divide quantities', function() {
@@ -447,6 +496,37 @@ describe('js-quantities', function() {
       result = qty1.div(3.5);
       expect(result.scalar).toBe(2.5/3.5);
       expect(result.units()).toBe("m");
+    });
+
+    it('should divide unlike quantities', function() {
+      qty1 = new Qty("7.5kg");
+      qty2 = new Qty("2.5m^2");
+
+      result = qty1.div(qty2);
+      expect(result.scalar).toBe(3);
+      expect(result.units()).toBe("kg/m2");
+    });
+
+    it('should divide inverse quantities', function() {
+      qty1 = new Qty("10 S");
+      qty2 = new Qty(".5 S").inverse(); // 2/S
+      qty3 = qty1.inverse();            // .1/S
+
+      result = qty1.div(qty2);
+      expect(result.scalar).toBe(5);
+      expect(result.units()).toBe("S2");
+
+      result = qty2.div(qty1);
+      expect(result.scalar).toBe(.2);
+      expect(result.units()).toBe("1/S2");
+
+      result = qty1.div(qty3);
+      expect(result.scalar).toBe(100);
+      expect(result.units()).toBe("S2");
+
+      result = qty3.div(qty1);
+      expect(result.scalar).toBe(.01);
+      expect(result.units()).toBe("1/S2");
     });
 
   });
