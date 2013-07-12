@@ -649,6 +649,7 @@ describe('js-quantities', function() {
       expect(result.scalar).toBe(6);
       expect(result.units()).toBe("degF2");
 
+      // TODO: Should we convert degrees ("2 degK" to "degC") before we do the math?
       qty = new Qty("2degC");
       result = qty.mul("2degK");
       expect(result.scalar).toBe(4);
@@ -716,6 +717,7 @@ describe('js-quantities', function() {
       expect(result.units()).toBe("degF");
       expect(result.kind()).toBe("temperature");
 
+      // TODO: Should we convert "2 degC" to "degF" before we do the math?
       result = qty.div("2 degC");
       expect(result.scalar).toBe(1.25);
       expect(result.units()).toBe("degF/degC");

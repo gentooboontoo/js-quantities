@@ -271,8 +271,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 
   var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>','<farad>','<ampere>','<radian>','<kelvin>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
-  // due to non-0 base offset, these aren't cacheable when used as units "32 degF" (when used as rates "1 degC/min" they may be cached as vectors)
-  var NON_VECTOR_TRANSFORMABLE_UNITS = ['<celsius>','<fahrenheit>','<temp-C>','<temp-F>'];
   var UNITY = '<1>';
   var UNITY_ARRAY= [UNITY];
   var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
@@ -911,10 +909,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       else if(this.isTemperature()||other.isTemperature()) {
         if(this.isUnitless()||other.isUnitless()) {
           if(this.isTemperature()) {
-            return multiplyTempScalar(this,other);
+            return multiplyTempUnitless(this,other);
           }
           else {
-            return multiplyTempScalar(other,this);
+            return multiplyTempUnitless(other,this);
           }
         }
         throw "Cannot multiply by temperatures";
@@ -990,17 +988,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
     return keys;
-  }
-
-  function isVectorTransformable(qty) {
-    // rates are vector-only calculations:
-    //   1mm/degF == 1.8mm/degC == 1.8mm/degK
-    //   1.8degF/sec == 1degC/sec == 1degK/sec
-    // unit calculations require using base:
-    //   32degF == 0degC == 273.15degK
-    return qty.numerator.length !== 1
-      || NON_VECTOR_TRANSFORMABLE_UNITS.indexOf(qty.numerator[0]) < 0
-      || !compareArray(qty.denominator, UNITY_ARRAY);
   }
 
   function getTransformationVector(sourceQty,targetUnits) {
@@ -1132,15 +1119,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var num_regex = /^-?(\d+)(?:\.(\d+))?$/;
   var exp_regex = /^-?(\d+)e-?(\d+)$/;
 
-  function multiplyTempScalar(temp,unitless) {
+  function multiplyTempUnitless(temp,unitless) {
     return new Qty({"scalar": temp.scalar * unitless.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
   }
 
   function subtractTemperatures(lhs,rhs) {
     var lhsUnits = lhs.units();
     var rhsConverted = rhs.to(lhsUnits);
-    var degrees = new Qty(getDegreeUnits(lhsUnits));
-    return new Qty({"scalar": lhs.scalar - rhsConverted.scalar, "numerator": degrees.numerator, "denominator": degrees.denominator});
+    var dstDegrees = new Qty(getDegreeUnits(lhsUnits));
+    return new Qty({"scalar": lhs.scalar - rhsConverted.scalar, "numerator": dstDegrees.numerator, "denominator": dstDegrees.denominator});
   }
 
   function subtractTempDegrees(temp,deg) {
