@@ -801,8 +801,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     // Returns a Qty that is the inverse of this Qty,
     inverse: function() {
-      if(this.scalar === 0)
+      if(this.isTemperature()) {
+        throw "Cannot divide with temperatures";
+      }
+      if(this.scalar === 0) {
         throw "Divide by zero";
+      }
       return new Qty({"scalar": 1/this.scalar, "numerator": this.denominator, "denominator": this.numerator});
     },
 
@@ -855,6 +859,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(!this.isCompatible(other)) {
         throw "Incompatible Units";
       }
+
+      if(this.isTemperature() && other.isTemperature()) {
+        throw "Cannot add two temperatures";
+      }
+      else if(this.isTemperature()) {
+        return addTempDegrees(this,other);
+      }
+      else if(other.isTemperature()) {
+        return addTempDegrees(other,this);
+      }
+
       var transformedUnits = getTransformationVector(other,this.units());
       return new Qty({"scalar": this.scalar + transformedUnits, "numerator": this.numerator, "denominator": this.denominator});
     },
@@ -868,6 +883,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw "Incompatible Units";
       }
 
+      if(this.isTemperature() && other.isTemperature()) {
+        return subtractTemperatures(this,other);
+      }
+      else if(this.isTemperature()) {
+        return subtractTempDegrees(this,other);
+      }
+      else if(other.isTemperature()) {
+        throw "Cannot subtract a temperature from a differential degree unit";
+      }
+
       var transformedUnits = getTransformationVector(other,this.units());
       return new Qty({"scalar": this.scalar - transformedUnits, "numerator": this.numerator, "denominator": this.denominator});
     },
@@ -878,6 +903,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
       else if(other && other.constructor === String) {
         other = new Qty(other);
+      }
+
+      if(this.isTemperature() && other.isTemperature()) {
+        throw "Cannot multiply by temperatures";
+      }
+      else if(this.isTemperature()||other.isTemperature()) {
+        if(this.isUnitless()||other.isUnitless()) {
+          if(this.isTemperature()) {
+            return multiplyTempScalar(this,other);
+          }
+          else {
+            return multiplyTempScalar(other,this);
+          }
+        }
+        throw "Cannot multiply by temperatures";
       }
 
       // Quantities should be multiplied with same units if compatible, with base units else
@@ -907,6 +947,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         other = new Qty(other);
       }
 
+      if(other.scalar === 0) {
+        throw "Divide by zero";
+      }
+
+      if(other.isTemperature()) {
+        throw "Cannot divide with temperatures";
+      }
+      else if(this.isTemperature()) {
+        if(!other.isUnitless()) {
+          throw "Cannot divide with temperatures";
+        }
+        return new Qty({"scalar": temp.scalar / unitless.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+      }
+
       // Quantities should be multiplied with same units if compatible, with base units else
       var op1 = this;
       var op2 = other;
@@ -917,9 +971,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if(op1.signature !== 400) {
           op2 = op2.to(op1);
         }
-      }
-      if(op2.scalar === 0) {
-        throw "Divide by zero";
       }
 
       var numden = cleanTerms(op1.numerator.concat(op2.denominator), op1.denominator.concat(op2.numerator));
@@ -1080,6 +1131,45 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   var num_regex = /^-?(\d+)(?:\.(\d+))?$/;
   var exp_regex = /^-?(\d+)e-?(\d+)$/;
+
+  function multiplyTempScalar(temp,unitless) {
+    return new Qty({"scalar": temp.scalar * unitless.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+  }
+
+  function subtractTemperatures(lhs,rhs) {
+    var lhsUnits = lhs.units();
+    var rhsConverted = rhs.to(lhsUnits);
+    var degrees = new Qty(getDegreeUnits(lhsUnits));
+    return new Qty({"scalar": lhs.scalar - rhsConverted.scalar, "numerator": degrees.numerator, "denominator": degrees.denominator});
+  }
+
+  function subtractTempDegrees(temp,deg) {
+    var tempDegrees = deg.to(getDegreeUnits(temp.units()));
+    return new Qty({"scalar": temp.scalar - tempDegrees.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+  }
+
+  function addTempDegrees(temp,deg) {
+    var tempDegrees = deg.to(getDegreeUnits(temp.units()));
+    return new Qty({"scalar": temp.scalar + tempDegrees.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+  }
+
+  function getDegreeUnits(units) {
+    if(units === 'tempK') {
+      return 'degK';
+    }
+    else if(units === 'tempC') {
+      return 'degC';
+    }
+    else if(units === 'tempF') {
+      return 'degF';
+    }
+    else if(units === 'tempR') {
+      return 'degR';
+    }
+    else {
+      throw "Unknown type for temp conversion from: " + tempUnits;
+    }
+  }
 
   function convertTemperatures(src,dst) {
     var srcUnits = src.units();
