@@ -47,11 +47,11 @@ Usage examples
     qty.to("m"); // converts quantity to meter if compatible or throws an error (new instance)
     qty1.to(qty2); // converts quantity to same unit of qty2 if compatible or throws an error (new instance)
 
-    // inverses can be used, but there is no special checking to rename the units
-    // new Qty('10ohm').inverse() => '.1/ohm' (not '.1S', although they are equivalent)
     qty.inverse(); // converts quantity to its inverse ('100 m/s' => '.01 s/m')
+    // inverses can be used, but there is no special checking to rename the units
+    new Qty('10ohm').inverse() // '.1/ohm' (not '.1S', although they are equivalent)
     // however, the 'to' command will convert between inverses also
-    // new Qty('10ohm').to('S') => '.1S'
+    new Qty('10ohm').to('S') // '.1S'
 
 ### Comparison
     qty1.eq(qty2); // => true if both quantities are equal (1m == 100cm => true)
