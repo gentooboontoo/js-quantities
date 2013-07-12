@@ -19,11 +19,50 @@ describe('js-quantities', function() {
       expect(qty.denominator).toEqual(['<1>']);
     });
 
+    it('temperatures should have base unit in kelvin', function() {
+      qty = new Qty('1 tempK').toBase();
+      expect(qty.scalar).toBe(1);
+      expect(qty.units()).toBe("tempK");
+
+      qty = new Qty('1 tempR').toBase();
+      expect(qty.scalar).toBe(5/9);
+      expect(qty.units()).toBe("tempK");
+
+      qty = new Qty('0 tempC').toBase();
+      expect(qty.scalar).toBe(273.15);
+      expect(qty.units()).toBe("tempK");
+
+      qty = new Qty('0 tempF').toBase();
+      expect(qty.scalar).toBeCloseTo(255.372, 3);
+      expect(qty.units()).toBe("tempK");
+    });
+
+    it('temperature degrees should have base unit in kelvin', function() {
+      qty = new Qty('1 degK').toBase();
+      expect(qty.scalar).toBe(1);
+      expect(qty.units()).toBe("degK");
+
+      qty = new Qty('1 degR').toBase();
+      expect(qty.scalar).toBe(5/9);
+      expect(qty.units()).toBe("degK");
+
+      qty = new Qty('1 degC').toBase();
+      expect(qty.scalar).toBe(1);
+      expect(qty.units()).toBe("degK");
+
+      qty = new Qty('1 degF').toBase();
+      expect(qty.scalar).toBe(5/9);
+      expect(qty.units()).toBe("degK");
+    });
+
     it('should not create temperatures below absolute zero', function() {
       expect(function() { new Qty('-1 tempK'); }).toThrow("Temperatures must not be less than absolute zero");
       expect(function() { new Qty('-273.16 tempC'); }).toThrow("Temperatures must not be less than absolute zero");
       expect(function() { new Qty('-459.68 tempF'); }).toThrow("Temperatures must not be less than absolute zero");
       expect(function() { new Qty('-1 tempR'); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('1 tempK');
+      expect(function() { qty.mul("-1"); }).toThrow("Temperatures must not be less than absolute zero");
 
       qty = new Qty('0 tempK');
       expect(function() { qty.sub("1 degK"); }).toThrow("Temperatures must not be less than absolute zero");
@@ -684,7 +723,7 @@ describe('js-quantities', function() {
       qty = new Qty("2tempF");
       expect(function() { qty.mul("1 tempC"); }).toThrow("Cannot multiply by temperatures");
       expect(function() { qty.mul("1 degC"); }).toThrow("Cannot multiply by temperatures");
-      expect(function() { new Qty("1 degC*s"); }).toThrow("Cannot multiply by temperatures");
+      expect(function() { new Qty("1 tempC*s"); }).toThrow("Cannot multiply by temperatures");
 
       result = qty.mul(2);
       expect(result.scalar).toBe(4);
@@ -748,6 +787,7 @@ describe('js-quantities', function() {
       expect(function() { new Qty("tempF").div("1 degC"); }).toThrow("Cannot divide with temperatures");
       expect(function() { new Qty("2").div("tempF"); }).toThrow("Cannot divide with temperatures");
       expect(function() { new Qty("2 tempF/s"); }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("2 s/tempF"); }).toThrow("Cannot divide with temperatures");
 
       // inverse is division: 1/x
       expect(function() { new Qty("tempF").inverse(); }).toThrow("Cannot divide with temperatures");

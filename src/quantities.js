@@ -341,8 +341,26 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       this.numerator = (init_value.numerator && init_value.numerator.length !== 0)? init_value.numerator : UNITY_ARRAY;
       this.denominator = (init_value.denominator && init_value.denominator.length !== 0)? init_value.denominator : UNITY_ARRAY;
     }
+
+    // math with temperatures is very limited
+    if(this.denominator.join('*').indexOf('temp') >= 0) {
+      throw "Cannot divide with temperatures";
+    }
+    if(this.numerator.join('*').indexOf('temp') >= 0) {
+      if(this.numerator.length > 1) {
+        throw "Cannot multiply by temperatures";
+      }
+      if(!compareArray(this.denominator, UNITY_ARRAY)) {
+        throw "Cannot divide with temperatures";
+      }
+    }
+
     this.init_value = init_value;
     updateBaseScalar.call(this);
+
+    if(this.isTemperature() && this.base_scalar < 0) {
+      throw "Temperatures must not be less than absolute zero";
+    }
   }
 
   /**
@@ -628,7 +646,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(this.is_base !== undefined) {
         return this.is_base;
       }
-      if(this.signature === 400 && this.numerator.length === 1 && compareArray(this.denominator, UNITY_ARRAY) && this.units.match(/(deg|temp)K/)) {
+      if(this.isDegrees() && this.numerator[0].match(/<(kelvin|temp-K)>/)) {
         this.is_base = true;
         return this.is_base;
       }
@@ -653,7 +671,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       if(this.isTemperature()) {
-        return convertTemperatures(this,new Qty("tempK"));
+        return toTempK(this);
       }
 
       var cached = unit_base_vector_cache[this.units()];
@@ -808,11 +826,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return new Qty({"scalar": 1/this.scalar, "numerator": this.denominator, "denominator": this.numerator});
     },
 
-    isTemperature: function() {
-      return this.signature === 400
+    isDegrees: function() {
+      // signature may not have been calculated yet
+      return (this.signature === null || this.signature === 400)
         && this.numerator.length === 1
         && compareArray(this.denominator, UNITY_ARRAY)
-        && this.units().match(/(temp)[CFRK]/);
+        && (this.numerator[0].match(/<temp-[CFRK]>/) || this.numerator[0].match(/<(kelvin|celsius|rankine|fahrenheit)>/));
+    },
+
+    isTemperature: function() {
+      return this.isDegrees() && this.numerator[0].match(/<temp-[CFRK]>/);
     },
 
     // convert to a specified unit string or to the same units as another Qty
@@ -840,7 +863,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       if(target.isTemperature()) {
-        return convertTemperatures(this,target);
+        return toTemp(this,target);
+      }
+      else if(target.isDegrees()) {
+        return toDegrees(this,target);
       }
 
       var q = div_safe(this.base_scalar, target.base_scalar);
@@ -1154,51 +1180,105 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return 'degR';
     }
     else {
-      throw "Unknown type for temp conversion from: " + tempUnits;
+      throw "Unknown type for temp conversion from: " + units;
     }
   }
 
-  function convertTemperatures(src,dst) {
-    var srcUnits = src.units();
+  function toDegrees(src,dst) {
+    var srcDegK = toDegK(src);
     var dstUnits = dst.units();
-    var srcKelvin, dstScalar;
+    var dstScalar;
 
-    if(srcUnits.match(/(deg)[CFRK]/)) {
-      srcKelvin = src.base_scalar;
+    if(dstUnits === 'degK') {
+      dstScalar = srcDegK.scalar;
     }
-    else if(srcUnits === 'tempK') {
-      srcKelvin = src.scalar;
+    else if(dstUnits === 'degC') {
+      dstScalar = srcDegK.scalar ;
     }
-    else if(srcUnits === 'tempC') {
-      srcKelvin = src.scalar + 273.15;
+    else if(dstUnits === 'degF') {
+      dstScalar = srcDegK.scalar * 9/5;
     }
-    else if(srcUnits === 'tempF') {
-      srcKelvin = (src.scalar + 459.67) * 5/9;
-    }
-    else if(srcUnits === 'tempR') {
-      srcKelvin = src.scalar * 5/9;
+    else if(dstUnits === 'degR') {
+      dstScalar = srcDegK.scalar * 9/5;
     }
     else {
-      throw "Unknown type for temp conversion from: " + srcUnits;
+      throw "Unknown type for degree conversion to: " + dstUnits;
     }
 
+    return new Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
+  }
+
+  function toDegK(qty) {
+    var units = qty.units();
+    var q;
+    if(units.match(/(deg)[CFRK]/)) {
+      q = qty.base_scalar;
+    }
+    else if(units === 'tempK') {
+      q = qty.scalar;
+    }
+    else if(units === 'tempC') {
+      q = qty.scalar;
+    }
+    else if(units === 'tempF') {
+      q = qty.scalar * 5/9;
+    }
+    else if(units === 'tempR') {
+      q = qty.scalar * 5/9;
+    }
+    else {
+      throw "Unknown type for temp conversion from: " + units;
+    }
+
+    return new Qty({"scalar": q, "numerator": ["<kelvin>"], "denominator": UNITY_ARRAY});
+  }
+
+  function toTemp(src,dst) {
+    var dstUnits = dst.units();
+    var dstScalar;
+
     if(dstUnits === 'tempK') {
-      dstScalar = srcKelvin;
+      dstScalar = src.base_scalar;
     }
     else if(dstUnits === 'tempC') {
-      dstScalar = srcKelvin - 273.15;
+      dstScalar = src.base_scalar - 273.15;
     }
     else if(dstUnits === 'tempF') {
-      dstScalar = (srcKelvin * 9/5) - 459.67;
+      dstScalar = (src.base_scalar * 9/5) - 459.67;
     }
     else if(dstUnits === 'tempR') {
-      dstScalar = srcKelvin * 9/5;
+      dstScalar = src.base_scalar * 9/5;
     }
     else {
       throw "Unknown type for temp conversion to: " + dstUnits;
     }
 
     return new Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
+  }
+
+  function toTempK(qty) {
+    var units = qty.units();
+    var q;
+    if(units.match(/(deg)[CFRK]/)) {
+      q = qty.base_scalar;
+    }
+    else if(units === 'tempK') {
+      q = qty.scalar;
+    }
+    else if(units === 'tempC') {
+      q = qty.scalar + 273.15;
+    }
+    else if(units === 'tempF') {
+      q = (qty.scalar + 459.67) * 5/9;
+    }
+    else if(units === 'tempR') {
+      q = qty.scalar * 5/9;
+    }
+    else {
+      throw "Unknown type for temp conversion from: " + units;
+    }
+
+    return new Qty({"scalar": q, "numerator": ["<temp-K>"], "denominator": UNITY_ARRAY});
   }
 
   // Multiply numbers avoiding floating errors
