@@ -19,6 +19,25 @@ describe('js-quantities', function() {
       expect(qty.denominator).toEqual(['<1>']);
     });
 
+    it('should not create temperatures below absolute zero', function() {
+      expect(function() { new Qty('-1 tempK'); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(function() { new Qty('-273.16 tempC'); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(function() { new Qty('-459.68 tempF'); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(function() { new Qty('-1 tempR'); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('0 tempK');
+      expect(function() { qty.sub("1 degK"); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('-273.15 tempC');
+      expect(function() { qty.sub("1 degC"); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('-459.67 tempF');
+      expect(function() { qty.sub("1 degF"); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('0 tempR');
+      expect(function() { qty.sub("1 degR"); }).toThrow("Temperatures must not be less than absolute zero");
+    });
+
     it('should create simple', function() {
       qty = new Qty('1m');
       expect(qty.scalar).toBe(1);
@@ -285,7 +304,7 @@ describe('js-quantities', function() {
 
       // cannot inverse a quantity with a 0 scalar
       qty = new Qty('0 ohm');
-      expect(function() { qty.inverse() }).toThrow("Divide by zero");
+      expect(function() { qty.inverse(); }).toThrow("Divide by zero");
 
       qty = new Qty('10 ohm').inverse();
       expect(qty.to("S").scalar).toBe(0.1);
@@ -573,8 +592,8 @@ describe('js-quantities', function() {
 
     it('should not add two temperatures', function() {
       qty = new Qty("2tempC");
-      expect(function() { qty.add("1 tempF") }).toThrow("Cannot add two temperatures");
-      expect(function() { qty.add("1 tempC") }).toThrow("Cannot add two temperatures");
+      expect(function() { qty.add("1 tempF"); }).toThrow("Cannot add two temperatures");
+      expect(function() { qty.add("1 tempC"); }).toThrow("Cannot add two temperatures");
     });
 
     it('should add temperatures to degrees', function() {
@@ -635,8 +654,8 @@ describe('js-quantities', function() {
 
     it('should not subtract temperatures from degrees', function() {
       qty = new Qty("2degC");
-      expect(function() { qty.sub("1 tempF") }).toThrow("Cannot subtract a temperature from a differential degree unit");
-      expect(function() { qty.sub("1 tempC") }).toThrow("Cannot subtract a temperature from a differential degree unit");
+      expect(function() { qty.sub("1 tempF"); }).toThrow("Cannot subtract a temperature from a differential degree unit");
+      expect(function() { qty.sub("1 tempC"); }).toThrow("Cannot subtract a temperature from a differential degree unit");
     });
 
     it('should multiply temperature degrees', function() {
@@ -663,8 +682,9 @@ describe('js-quantities', function() {
 
     it('should not multiply temperatures except by scalar', function() {
       qty = new Qty("2tempF");
-      expect(function() { qty.mul("1 tempC") }).toThrow("Cannot multiply by temperatures");
-      expect(function() { qty.mul("1 degC") }).toThrow("Cannot multiply by temperatures");
+      expect(function() { qty.mul("1 tempC"); }).toThrow("Cannot multiply by temperatures");
+      expect(function() { qty.mul("1 degC"); }).toThrow("Cannot multiply by temperatures");
+      expect(function() { new Qty("1 degC*s"); }).toThrow("Cannot multiply by temperatures");
 
       result = qty.mul(2);
       expect(result.scalar).toBe(4);
@@ -724,12 +744,13 @@ describe('js-quantities', function() {
     });
 
     it('should not divide with temperatures except by scalar', function() {
-      expect(function() { new Qty("tempF").div("1 tempC") }).toThrow("Cannot divide with temperatures");
-      expect(function() { new Qty("tempF").div("1 degC") }).toThrow("Cannot divide with temperatures");
-      expect(function() { new Qty("2").div("tempF") }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("tempF").div("1 tempC"); }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("tempF").div("1 degC"); }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("2").div("tempF"); }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("2 tempF/s"); }).toThrow("Cannot divide with temperatures");
 
       // inverse is division: 1/x
-      expect(function() { new Qty("tempF").inverse() }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("tempF").inverse(); }).toThrow("Cannot divide with temperatures");
 
       result = new Qty("4 tempF").div(2);
       expect(result.scalar).toBe(2);
