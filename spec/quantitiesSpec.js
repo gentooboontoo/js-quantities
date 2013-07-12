@@ -217,13 +217,13 @@ describe('js-quantities', function() {
       expect(qty.to("tempC").scalar).toBe(-273.15);
 
       qty = new Qty('0 tempF');
-      expect(qty.to("tempK").scalar).toBe(255.372);
+      expect(qty.to("tempK").scalar).toBeCloseTo(255.372, 3);
 
       qty = new Qty('32 tempF');
       expect(qty.to("tempC").scalar).toBe(0);
 
       qty = new Qty('0 tempC');
-      expect(qty.to("tempF").scalar).toBe(32);
+      expect(qty.to("tempF").scalar).toBeCloseTo(32, 10);
     });
 
     it('should convert temperature degrees to compatible units', function() {
@@ -243,13 +243,13 @@ describe('js-quantities', function() {
     it('should convert temperature degrees to temperatures', function() {
       // according to ruby-units, deg -> temp conversion adds the degress to 0 kelvin before converting
       qty = new Qty('100 degC');
-      expect(qty.to("tempC").scalar).toBe(-173.15);
+      expect(qty.to("tempC").scalar).toBeCloseTo(-173.15, 10);
 
       qty = new Qty('273.15 degC');
       expect(qty.to("tempC").scalar).toBe(0);
 
       qty = new Qty('460.67 degF');
-      expect(qty.to("tempF").scalar).toBe(1);
+      expect(qty.to("tempF").scalar).toBeCloseTo(1, 10);
     });
 
     it('should convert temperatures to temperature degrees', function() {
@@ -552,7 +552,7 @@ describe('js-quantities', function() {
 
     it('should add temperature degrees', function() {
       qty = new Qty("2degC");
-      expect(qty.add("3degF").scalar).toBe(11/3);
+      expect(qty.add("3degF").scalar).toBeCloseTo(11/3, 10);
       expect(qty.add("-1degC").scalar).toBe(1);
 
       qty = new Qty('2 degC');
