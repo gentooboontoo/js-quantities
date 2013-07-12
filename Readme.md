@@ -47,6 +47,12 @@ Usage examples
     qty.to("m"); // converts quantity to meter if compatible or throws an error (new instance)
     qty1.to(qty2); // converts quantity to same unit of qty2 if compatible or throws an error (new instance)
 
+    // inverses can be used, but there is no special checking to rename the units
+    // new Qty('10ohm').inverse() => '.1/ohm' (not '.1S', although they are equivalent)
+    qty.inverse(); // converts quantity to its inverse ('100 m/s' => '.01 s/m')
+    // however, the 'to' command will convert between inverses also
+    // new Qty('10ohm').to('S') => '.1S'
+
 ### Comparison
     qty1.eq(qty2); // => true if both quantities are equal (1m == 100cm => true)
     qty1.same(qty2); // => true if both quantities are same (1m == 100cm => false)
@@ -116,7 +122,7 @@ Unit math on temperatures is fairly limited.
     new Qty('100 tempC*unit')            # exception
     new Qty('100 tempC/unit')            # exception
     new Qty('100 unit/tempC')            # exception
-    new Qty('100 tempC').invers()        # exception
+    new Qty('100 tempC').inverse()       # exception
 
     new Qty('100 tempC').to('degC') #=> 100 degC
 This conversion references the 0 point on the scale of the temperature unit 
