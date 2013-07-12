@@ -96,7 +96,7 @@ Returns a new quantity.
 ### Temperatures
 Like ruby-units, js-quantities makes a distinction between a temperature (which technically is a property) and degrees of temperature (which temperatures are measured in).
 
-Temperature units (i.e., 'tempK') can be converted back and forth, and will take into account the differences in the zero points of the various scales. Differential temperature (e.g., '100 degC'.unit) units behave like most other units.
+Temperature units (i.e., 'tempK') can be converted back and forth, and will take into account the differences in the zero points of the various scales. Differential temperature (e.g., '100 degC') units behave like most other units.
 
     new Qty('37 tempC').to('tempF')      #=> 98.6 tempF
 
