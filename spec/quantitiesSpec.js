@@ -580,8 +580,8 @@ describe('js-quantities', function() {
     it('should add temperatures to degrees', function() {
       qty = new Qty("2degC");
       result = qty.add("3tempF");
-      expect(result.scalar).toBe(11/3);
-      expect(result.units()).toBe("tempC");
+      expect(result.scalar).toBe(33/5);
+      expect(result.units()).toBe("tempF");
 
       result = qty.add("-1tempC");
       expect(result.scalar).toBe(1);
