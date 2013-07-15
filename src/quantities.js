@@ -124,7 +124,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<fahrenheit>" : [["degF","fahrenheit"], 5/9, "temperature", ["<kelvin>"]],
     "<rankine>" : [["degR","rankine"], 5/9, "temperature", ["<kelvin>"]],
     "<temp-K>"  : [["tempK"], 1.0, "temperature", ["<kelvin>"]],
-    "<temp-C>"  : [["tempC", "tmpC"], 1.0, "temperature", ["<kelvin>"]],
+    "<temp-C>"  : [["tempC"], 1.0, "temperature", ["<kelvin>"]],
     "<temp-F>"  : [["tempF"], 5/9, "temperature", ["<kelvin>"]],
     "<temp-R>"  : [["tempR"], 5/9, "temperature", ["<kelvin>"]],
 
