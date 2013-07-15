@@ -421,6 +421,11 @@ describe('js-quantities', function() {
       result = qty2.add(qty1);
       expect(result.scalar).toBe(253);
       expect(result.units()).toBe("cm");
+
+      // make sure adding 2 of the same non-base units work
+      result = new Qty("5cm").add("3cm");
+      expect(result.scalar).toBe(8);
+      expect(result.units()).toBe("cm");
     });
 
     it('should fail to add unlike quantities', function() {

@@ -123,10 +123,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<celsius>" : [["degC","celsius","celsius","centigrade"], 1.0, "temperature", ["<kelvin>"]],
     "<fahrenheit>" : [["degF","fahrenheit"], 5/9, "temperature", ["<kelvin>"]],
     "<rankine>" : [["degR","rankine"], 5/9, "temperature", ["<kelvin>"]],
-    "<temp-K>"  : [["tempK"], 1.0, "temperature", ["<kelvin>"]],
-    "<temp-C>"  : [["tempC"], 1.0, "temperature", ["<kelvin>"]],
-    "<temp-F>"  : [["tempF"], 5/9, "temperature", ["<kelvin>"]],
-    "<temp-R>"  : [["tempR"], 5/9, "temperature", ["<kelvin>"]],
+    "<temp-K>"  : [["tempK"], 1.0, "temperature", ["<temp-K>"]],
+    "<temp-C>"  : [["tempC"], 1.0, "temperature", ["<temp-K>"]],
+    "<temp-F>"  : [["tempF"], 5/9, "temperature", ["<temp-K>"]],
+    "<temp-R>"  : [["tempR"], 5/9, "temperature", ["<temp-K>"]],
 
     /* time */
     "<second>":  [["s","sec","second","seconds"], 1.0, "time", ["<second>"]],
@@ -270,7 +270,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
 
-  var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>','<farad>','<ampere>','<radian>','<kelvin>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
+  var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>', '<farad>', '<ampere>','<radian>','<kelvin>','<temp-K>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
   var UNITY = '<1>';
   var UNITY_ARRAY= [UNITY];
   var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
@@ -322,7 +322,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "10240000000000": "capacitance"
   };
 
-  var unit_base_vector_cache = {};
+  var base_unit_cache = {};
 
   function Qty(init_value) {
     this.scalar = null;
@@ -674,10 +674,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return toTempK(this);
       }
 
-      var cached = unit_base_vector_cache[this.units()];
+      var cached = base_unit_cache[this.units()];
       if(!cached) {
         cached = toBaseUnits(this.numerator,this.denominator);
-        unit_base_vector_cache[this.units()] = cached;
+        base_unit_cache[this.units()] = cached;
       }
       return cached.mul(this.scalar);
     },
@@ -894,8 +894,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return addTempDegrees(other,this);
       }
 
-      var transformedUnits = getTransformationVector(other,this.units());
-      return new Qty({"scalar": this.scalar + transformedUnits, "numerator": this.numerator, "denominator": this.denominator});
+      return new Qty({"scalar": this.scalar + other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
     },
 
     sub: function(other) {
@@ -917,8 +916,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw "Cannot subtract a temperature from a differential degree unit";
       }
 
-      var transformedUnits = getTransformationVector(other,this.units());
-      return new Qty({"scalar": this.scalar - transformedUnits, "numerator": this.numerator, "denominator": this.denominator});
+      return new Qty({"scalar": this.scalar - other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
     },
 
     mul: function(other) {
@@ -929,18 +927,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         other = new Qty(other);
       }
 
-      if(this.isTemperature() && other.isTemperature()) {
-        throw "Cannot multiply by temperatures";
-      }
-      else if(this.isTemperature()||other.isTemperature()) {
-        if(this.isUnitless()||other.isUnitless()) {
-          if(this.isTemperature()) {
-            return multiplyTempUnitless(this,other);
-          }
-          else {
-            return multiplyTempUnitless(other,this);
-          }
-        }
+      if((this.isTemperature()||other.isTemperature()) && !(this.isUnitless()||other.isUnitless())) {
         throw "Cannot multiply by temperatures";
       }
 
@@ -948,12 +935,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var op1 = this;
       var op2 = other;
 
-      // so as not to confuse results, multiplication and division between temperature units will maintain original unit info in num/den
-      // multiplication and division between (deg|temp)[CFRK] can never factor each other out, only themselves
-      if(op1.isCompatible(op2)) {
-        if(op1.signature !== 400) {
-          op2 = op2.to(op1);
-        }
+      // so as not to confuse results, multiplication and division between temperature degrees will maintain original unit info in num/den
+      // multiplication and division between deg[CFRK] can never factor each other out, only themselves: "degK*degC/degC^2" == "degK/degC"
+      if(op1.isCompatible(op2) && op1.signature !== 400) {
+        op2 = op2.to(op1);
       }
       var numden = cleanTerms(op1.numerator.concat(op2.numerator), op1.denominator.concat(op2.denominator));
 
@@ -978,25 +963,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(other.isTemperature()) {
         throw "Cannot divide with temperatures";
       }
-      else if(this.isTemperature()) {
-        if(!other.isUnitless()) {
-          throw "Cannot divide with temperatures";
-        }
-        return new Qty({"scalar": temp.scalar / unitless.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+      else if(this.isTemperature() && !other.isUnitless()) {
+        throw "Cannot divide with temperatures";
       }
 
       // Quantities should be multiplied with same units if compatible, with base units else
       var op1 = this;
       var op2 = other;
 
-      // so as not to confuse results, multiplication and division between temperature units will maintain original unit info in num/den
-      // multiplication and division between (deg|temp)[CFRK] can never factor each other out, only themselves
-      if(op1.isCompatible(op2)) {
-        if(op1.signature !== 400) {
-          op2 = op2.to(op1);
-        }
+      // so as not to confuse results, multiplication and division between temperature degrees will maintain original unit info in num/den
+      // multiplication and division between deg[CFRK] can never factor each other out, only themselves: "degK*degC/degC^2" == "degK/degC"
+      if(op1.isCompatible(op2) && op1.signature !== 400) {
+        op2 = op2.to(op1);
       }
-
       var numden = cleanTerms(op1.numerator.concat(op2.denominator), op1.denominator.concat(op2.numerator));
 
       return new Qty({"scalar": op1.scalar / op2.scalar, "numerator": numden[0], "denominator": numden[1]});
@@ -1014,16 +993,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
     return keys;
-  }
-
-  function getTransformationVector(sourceQty,targetUnits) {
-    if(targetUnits === sourceQty.units()) {
-      return sourceQty.scalar;
-    }
-
-    var thisVectorCache = unit_base_vector_cache[sourceQty.units()] || { base_scalar: 1 };
-    var targetVectorCache = unit_base_vector_cache[targetUnits] || { base_scalar: 1 };
-    return sourceQty.scalar * div_safe(thisVectorCache.base_scalar, targetVectorCache.base_scalar);
   }
 
   function getOutputNames(units) {
@@ -1102,7 +1071,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return unique(units.map(function(x) {return [x, units.filter(function(z) {return z === x;}).length];})).map(function(x) {return x[0] + (x[1] > 1 ? x[1] : "");});
   }
 
-   // Return a new array without duplicate elements
+  // Return a new array without duplicate elements
   function unique(duplicates) {
     // Fix weird bug when third party libraries are used
     if(duplicates.length === 1) {
@@ -1144,10 +1113,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   var num_regex = /^-?(\d+)(?:\.(\d+))?$/;
   var exp_regex = /^-?(\d+)e-?(\d+)$/;
-
-  function multiplyTempUnitless(temp,unitless) {
-    return new Qty({"scalar": temp.scalar * unitless.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
-  }
 
   function subtractTemperatures(lhs,rhs) {
     var lhsUnits = lhs.units();
