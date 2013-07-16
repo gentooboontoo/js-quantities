@@ -116,7 +116,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<fps>"  : [["fps"], 0.3048, "speed", ["<meter>"], ["<second>"]],
 
     /* acceleration */
-    "<gee>" : [["gee"], 9.80655, "acceleration", ["<meter>"], ["<second>","<second>"]],
+    "<gee>" : [["gee"], 9.80665, "acceleration", ["<meter>"], ["<second>","<second>"]],
 
     /* temperature_difference */
     "<kelvin>" : [["degK","kelvin"], 1.0, "temperature", ["<kelvin>"]],
