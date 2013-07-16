@@ -47,6 +47,12 @@ Usage examples
     qty.to("m"); // converts quantity to meter if compatible or throws an error (new instance)
     qty1.to(qty2); // converts quantity to same unit of qty2 if compatible or throws an error (new instance)
 
+    qty.inverse(); // converts quantity to its inverse ('100 m/s' => '.01 s/m')
+    // inverses can be used, but there is no special checking to rename the units
+    new Qty('10ohm').inverse() // '.1/ohm' (not '.1S', although they are equivalent)
+    // however, the 'to' command will convert between inverses also
+    new Qty('10ohm').to('S') // '.1S'
+
 ### Comparison
     qty1.eq(qty2); // => true if both quantities are equal (1m == 100cm => true)
     qty1.same(qty2); // => true if both quantities are same (1m == 100cm => false)
@@ -64,7 +70,7 @@ Usage examples
 * div(other): Divide. other can be string, number or quantity.
 
 ### Rounding
-Qty#toPrec(precision) with precision as string or quantity standing for the minimum significative quantity.
+Qty#toPrec(precision) with precision as number, string or quantity standing for the minimum significative quantity.
 Returns a new quantity.
 
     var qty = new Qty('5.17 ft');
@@ -75,6 +81,7 @@ Returns a new quantity.
     qty.toPrec('0.01 ft'); // => 5.17 ft
     qty.toPrec('0.00001 ft'); // => 5.17 ft
     qty.toPrec('2 ft'); // => 6 ft
+    qty.toPrec('2'); // => 6 ft
 
     var qty = new Qty('6.3782 m');
     qty.toPrec('dm'); // => 6.4 m
@@ -82,6 +89,7 @@ Returns a new quantity.
     qty.toPrec('mm'); // => 6.378 m
     qty.toPrec('5 cm'); // => 6.4 m
     qty.toPrec('10 m'); // => 10 m
+    qty.toPrec(0.1); // => 6.3 m
 
 ### Text output
     // if target_units string passed, the unit will first be converted to target_units before output.
@@ -92,6 +100,41 @@ Returns a new quantity.
     qty.toString(target_units, max_decimals);
     qty.units(); // returns the unit parts of the quantity without the scalar
     qty.toString(quantity); // Helper using toPrec to round to nearest significative quantity
+
+### Temperatures
+Like ruby-units, js-quantities makes a distinction between a temperature (which technically is a property) and degrees of temperature (which temperatures are measured in).
+
+Temperature units (i.e., 'tempK') can be converted back and forth, and will take into account the differences in the zero points of the various scales. Differential temperature (e.g., '100 degC') units behave like most other units.
+
+    new Qty('37 tempC').to('tempF')      #=> 98.6 tempF
+
+Js-quantities will throw an exception if you attempt to create a temperature unit that would fall below absolute zero.
+
+Unit math on temperatures is fairly limited.  
+
+    new Qty('100 tempC').add('10 degC')  # 110 tempC
+    new Qty('100 tempC').sub('10 degC')  # 90 tempC
+    new Qty('100 tempC').add('50 tempC') # exception  
+    new Qty('100 tempC').sub('50 tempC') # 50 degC
+    new Qty('50 tempC').sub('100 tempC') # -50 degC
+    new Qty('100 tempC').mul(scalar)     # 100*scalar tempC
+    new Qty('100 tempC').div(scalar)     # 100/scalar tempC
+    new Qty('100 tempC').mul(qty)        # exception
+    new Qty('100 tempC').div(qty)        # exception
+    new Qty('100 tempC*unit')            # exception
+    new Qty('100 tempC/unit')            # exception
+    new Qty('100 unit/tempC')            # exception
+    new Qty('100 tempC').inverse()       # exception
+
+    new Qty('100 tempC').to('degC') #=> 100 degC
+This conversion references the 0 point on the scale of the temperature unit 
+
+    new Qty('100 degC').to('tempC') #=> -173.15 tempC
+These conversions are always interpreted as being relative to absolute zero.
+Conversions are probably better done like this...
+    
+    new Qty('0 tempC').add('100 degC') #=> 100 tempC
+
 
 Tests
 -----

@@ -19,6 +19,64 @@ describe('js-quantities', function() {
       expect(qty.denominator).toEqual(['<1>']);
     });
 
+    it('temperatures should have base unit in kelvin', function() {
+      qty = new Qty('1 tempK').toBase();
+      expect(qty.scalar).toBe(1);
+      expect(qty.units()).toBe("tempK");
+
+      qty = new Qty('1 tempR').toBase();
+      expect(qty.scalar).toBe(5/9);
+      expect(qty.units()).toBe("tempK");
+
+      qty = new Qty('0 tempC').toBase();
+      expect(qty.scalar).toBe(273.15);
+      expect(qty.units()).toBe("tempK");
+
+      qty = new Qty('0 tempF').toBase();
+      expect(qty.scalar).toBeCloseTo(255.372, 3);
+      expect(qty.units()).toBe("tempK");
+    });
+
+    it('temperature degrees should have base unit in kelvin', function() {
+      qty = new Qty('1 degK').toBase();
+      expect(qty.scalar).toBe(1);
+      expect(qty.units()).toBe("degK");
+
+      qty = new Qty('1 degR').toBase();
+      expect(qty.scalar).toBe(5/9);
+      expect(qty.units()).toBe("degK");
+
+      qty = new Qty('1 degC').toBase();
+      expect(qty.scalar).toBe(1);
+      expect(qty.units()).toBe("degK");
+
+      qty = new Qty('1 degF').toBase();
+      expect(qty.scalar).toBe(5/9);
+      expect(qty.units()).toBe("degK");
+    });
+
+    it('should not create temperatures below absolute zero', function() {
+      expect(function() { new Qty('-1 tempK'); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(function() { new Qty('-273.16 tempC'); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(function() { new Qty('-459.68 tempF'); }).toThrow("Temperatures must not be less than absolute zero");
+      expect(function() { new Qty('-1 tempR'); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('1 tempK');
+      expect(function() { qty.mul("-1"); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('0 tempK');
+      expect(function() { qty.sub("1 degK"); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('-273.15 tempC');
+      expect(function() { qty.sub("1 degC"); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('-459.67 tempF');
+      expect(function() { qty.sub("1 degF"); }).toThrow("Temperatures must not be less than absolute zero");
+
+      qty = new Qty('0 tempR');
+      expect(function() { qty.sub("1 degR"); }).toThrow("Temperatures must not be less than absolute zero");
+    });
+
     it('should create simple', function() {
       qty = new Qty('1m');
       expect(qty.scalar).toBe(1);
@@ -212,6 +270,99 @@ describe('js-quantities', function() {
       expect(qty.to("cm^3").scalar).toBe(773);
     });
 
+    it('should convert temperatures to compatible units', function() {
+      qty = new Qty('0 tempK');
+      expect(qty.to("tempC").scalar).toBe(-273.15);
+
+      qty = new Qty('0 tempF');
+      expect(qty.to("tempK").scalar).toBeCloseTo(255.372, 3);
+
+      qty = new Qty('32 tempF');
+      expect(qty.to("tempC").scalar).toBe(0);
+
+      qty = new Qty('0 tempC');
+      expect(qty.to("tempF").scalar).toBeCloseTo(32, 10);
+    });
+
+    it('should convert temperature degrees to compatible units', function() {
+      qty = new Qty('0 degK');
+      expect(qty.to("degC").scalar).toBe(0);
+
+      qty = new Qty('1 degK/s');
+      expect(qty.to("degC/min").scalar).toBe(60);
+
+      qty = new Qty('100 cm/degF');
+      expect(qty.to("m/degF").scalar).toBe(1);
+
+      qty = new Qty('10 degC');
+      expect(qty.to("degF").scalar).toBe(18);
+    });
+
+    it('should convert temperature degrees to temperatures', function() {
+      // according to ruby-units, deg -> temp conversion adds the degress to 0 kelvin before converting
+      qty = new Qty('100 degC');
+      expect(qty.to("tempC").scalar).toBeCloseTo(-173.15, 10);
+
+      qty = new Qty('273.15 degC');
+      expect(qty.to("tempC").scalar).toBe(0);
+
+      qty = new Qty('460.67 degF');
+      expect(qty.to("tempF").scalar).toBeCloseTo(1, 10);
+    });
+
+    it('should convert temperatures to temperature degrees', function() {
+      // according to ruby-units, temp -> deg conversion always uses the 0 relative degrees
+      qty = new Qty('100 tempC');
+      expect(qty.to("degC").scalar).toBe(100);
+
+      qty = new Qty('0 tempK');
+      expect(qty.to("degC").scalar).toBe(0);
+
+      qty = new Qty('0 tempF');
+      expect(qty.to("degK").scalar).toBe(0);
+
+      qty = new Qty('18 tempF');
+      expect(qty.to("degC").scalar).toBe(10);
+
+      qty = new Qty('10 tempC');
+      expect(qty.to("degF").scalar).toBe(18);
+    });
+
+    it('should calculate inverses', function() {
+      qty = new Qty('1 ohm');
+      result = qty.to("siemens");
+      expect(result.scalar).toBe(1);
+      expect(result.kind()).toBe("conductance");
+
+      qty = new Qty('10 ohm');
+      result = qty.to("siemens");
+      expect(result.scalar).toBe(0.1);
+      expect(result.kind()).toBe("conductance");
+
+      qty = new Qty('10 siemens');
+      result = qty.to("ohm");
+      expect(result.scalar).toBe(0.1);
+      expect(result.kind()).toBe("resistance");
+
+      qty = new Qty('10 siemens');
+      result = qty.inverse();
+      expect(result.eq(".1 ohm")).toBe(true);
+      expect(result.kind()).toBe("resistance");
+
+      // cannot inverse a quantity with a 0 scalar
+      qty = new Qty('0 ohm');
+      expect(function() { qty.inverse(); }).toThrow("Divide by zero");
+
+      qty = new Qty('10 ohm').inverse();
+      result = qty.to("S");
+      expect(result.scalar).toBe(0.1);
+      expect(result.kind()).toBe("conductance");
+
+      qty = new Qty('12 in').inverse();
+      // TODO: Swap toBeCloseTo with toBe once div_safe is fixed
+      expect(qty.to("ft").scalar).toBeCloseTo(1, 10);
+    });
+
     it('should return itself if target units are the same', function() {
       qty = new Qty("123 cm3");
 
@@ -280,9 +431,33 @@ describe('js-quantities', function() {
       result = qty2.add(qty1);
       expect(result.scalar).toBe(253);
       expect(result.units()).toBe("cm");
+
+      // make sure adding 2 of the same non-base units work
+      result = new Qty("5cm").add("3cm");
+      expect(result.scalar).toBe(8);
+      expect(result.units()).toBe("cm");
     });
 
-    it('should substract quantities', function() {
+    it('should fail to add unlike quantities', function() {
+      qty1 = new Qty("3m");
+      qty2 = new Qty("2s");
+      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+    });
+
+    it('should fail to add inverse quantities', function() {
+      qty1 = new Qty("10S");
+      qty2 = qty1.inverse();
+      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+
+      qty1 = new Qty("10S");
+      qty2 = new Qty("0.1ohm");
+      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+    });
+
+    it('should subtract quantities', function() {
       qty1 = new Qty("2.5m");
       qty2 = new Qty("3m");
       expect(qty1.sub(qty2).scalar).toBe(-0.5);
@@ -298,6 +473,25 @@ describe('js-quantities', function() {
       result = qty2.sub(qty1);
       expect(result.scalar).toBe(-247);
       expect(result.units()).toBe("cm");
+    });
+
+    it('should fail to subtract unlike quantities', function() {
+      qty1 = new Qty("3m");
+      qty2 = new Qty("2s");
+      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
+    });
+
+    it('should fail to subtract inverse quantities', function() {
+      qty1 = new Qty("10S");
+      qty2 = qty1.inverse();
+      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
+
+      qty1 = new Qty("10S");
+      qty2 = new Qty("0.1ohm");
+      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
     });
 
     it('should multiply quantities', function() {
@@ -350,13 +544,30 @@ describe('js-quantities', function() {
       expect(result.units()).toBe("kg");
     });
 
-    it('should divide unlike quantities', function() {
-      qty1 = new Qty("7.5kg");
-      qty2 = new Qty("2.5m^2");
+    it('should multiply inverse quantities', function() {
+      qty1 = new Qty("10S");
+      qty2 = new Qty(".5S").inverse(); // 2/S
+      qty3 = qty1.inverse();           // .1/S
 
-      result = qty1.div(qty2);
-      expect(result.scalar).toBe(3);
-      expect(result.units()).toBe("kg/m2");
+      result = qty1.mul(qty2);
+      expect(result.scalar).toBe(20);
+      expect(result.isUnitless()).toBe(true);
+      expect(result.units()).toBe("");
+      // swapping operands should give the same outcome
+      result = qty2.mul(qty1);
+      expect(result.scalar).toBe(20);
+      expect(result.isUnitless()).toBe(true);
+      expect(result.units()).toBe("");
+
+      result = qty1.mul(qty3);
+      expect(result.scalar).toBe(1);
+      expect(result.isUnitless()).toBe(true);
+      expect(result.units()).toBe("");
+      // swapping operands should give the same outcome
+      result = qty3.mul(qty1);
+      expect(result.scalar).toBe(1);
+      expect(result.isUnitless()).toBe(true);
+      expect(result.units()).toBe("");
     });
 
     it('should divide quantities', function() {
@@ -385,6 +596,230 @@ describe('js-quantities', function() {
       result = qty1.div(3.5);
       expect(result.scalar).toBe(2.5/3.5);
       expect(result.units()).toBe("m");
+    });
+
+    it('should divide unlike quantities', function() {
+      qty1 = new Qty("7.5kg");
+      qty2 = new Qty("2.5m^2");
+
+      result = qty1.div(qty2);
+      expect(result.scalar).toBe(3);
+      expect(result.units()).toBe("kg/m2");
+    });
+
+    it('should divide inverse quantities', function() {
+      qty1 = new Qty("10 S");
+      qty2 = new Qty(".5 S").inverse(); // 2/S
+      qty3 = qty1.inverse();            // .1/S
+
+      result = qty1.div(qty2);
+      expect(result.scalar).toBe(5);
+      expect(result.units()).toBe("S2");
+
+      result = qty2.div(qty1);
+      expect(result.scalar).toBe(.2);
+      expect(result.units()).toBe("1/S2");
+
+      result = qty1.div(qty3);
+      expect(result.scalar).toBe(100);
+      expect(result.units()).toBe("S2");
+
+      result = qty3.div(qty1);
+      expect(result.scalar).toBe(.01);
+      expect(result.units()).toBe("1/S2");
+    });
+
+  });
+
+  describe('math with temperatures', function() {
+
+    it('should add temperature degrees', function() {
+      qty = new Qty("2degC");
+      expect(qty.add("3degF").scalar).toBeCloseTo(11/3, 10);
+      expect(qty.add("-1degC").scalar).toBe(1);
+
+      qty = new Qty('2 degC');
+      result = qty.add("2 degF");
+      expect(result.scalar).toBe(28/9);
+      expect(result.units()).toBe("degC");
+
+      qty = new Qty("2degK");
+      result = qty.add("3degC");
+      expect(result.scalar).toBe(5);
+      expect(result.units()).toBe("degK");
+
+      qty = new Qty("2degC");
+      result = qty.add("2degK");
+      expect(result.scalar).toBe(4);
+      expect(result.units()).toBe("degC");
+    });
+
+    it('should not add two temperatures', function() {
+      qty = new Qty("2tempC");
+      expect(function() { qty.add("1 tempF"); }).toThrow("Cannot add two temperatures");
+      expect(function() { qty.add("1 tempC"); }).toThrow("Cannot add two temperatures");
+    });
+
+    it('should add temperatures to degrees', function() {
+      qty = new Qty("2degC");
+      result = qty.add("3tempF");
+      expect(result.scalar).toBe(33/5);
+      expect(result.units()).toBe("tempF");
+
+      result = qty.add("-1tempC");
+      expect(result.scalar).toBe(1);
+      expect(result.units()).toBe("tempC");
+
+      qty = new Qty('2 tempC');
+      result = qty.add("2 degF");
+      expect(result.scalar).toBe(28/9);
+      expect(result.units()).toBe("tempC");
+    });
+
+    it('should subtract degrees from degrees', function() {
+      qty = new Qty("2degC");
+      expect(qty.sub("1.5degK").scalar).toBe(0.5);
+      expect(qty.sub("-2degC").scalar).toBe(4);
+      expect(qty.sub("1degF").scalar).toBe(2-5/9);
+      expect(qty.sub("-1degC").scalar).toBe(3);
+
+      result = qty.sub("degC");
+      expect(result.scalar).toBe(1);
+      expect(result.units()).toBe("degC");
+    });
+
+    it('should subtract degrees from temperatures', function() {
+      qty = new Qty("2tempC");
+      expect(qty.sub("1.5degK").scalar).toBe(0.5);
+      expect(qty.sub("-2degC").scalar).toBe(4);
+      expect(qty.sub("1degF").scalar).toBe(2-5/9);
+      expect(qty.sub("-1degC").scalar).toBe(3);
+
+      result = qty.sub("degC");
+      expect(result.scalar).toBe(1);
+      expect(result.units()).toBe("tempC");
+    });
+
+    it('should subtract temperatures from temperatures', function() {
+      qty = new Qty("2tempC");
+
+      result = qty.sub("1.5tempK");
+      expect(result.scalar).toBe(273.65);
+      expect(result.units()).toBe("degC");
+
+      result = qty.sub("-2tempC");
+      expect(result.scalar).toBe(4);
+      expect(result.units()).toBe("degC");
+
+      result = qty.sub("32tempF");
+      expect(result.scalar).toBe(2);
+      expect(result.units()).toBe("degC");
+    });
+
+    it('should not subtract temperatures from degrees', function() {
+      qty = new Qty("2degC");
+      expect(function() { qty.sub("1 tempF"); }).toThrow("Cannot subtract a temperature from a differential degree unit");
+      expect(function() { qty.sub("1 tempC"); }).toThrow("Cannot subtract a temperature from a differential degree unit");
+    });
+
+    it('should multiply temperature degrees', function() {
+      qty = new Qty("2degF");
+      result = qty.mul(3);
+      expect(result.scalar).toBe(6);
+      expect(result.units()).toBe("degF");
+
+      result = qty.mul("3degF");
+      expect(result.scalar).toBe(6);
+      expect(result.units()).toBe("degF2");
+
+      // TODO: Should we convert degrees ("2 degK" to "degC") before we do the math?
+      qty = new Qty("2degC");
+      result = qty.mul("2degK");
+      expect(result.scalar).toBe(4);
+      expect(result.units()).toBe("degC*degK");
+
+      qty = new Qty("2degC");
+      result = qty.mul("degF");
+      expect(result.scalar).toBe(2);
+      expect(result.units()).toBe("degC*degF");
+    });
+
+    it('should not multiply temperatures except by scalar', function() {
+      qty = new Qty("2tempF");
+      expect(function() { qty.mul("1 tempC"); }).toThrow("Cannot multiply by temperatures");
+      expect(function() { qty.mul("1 degC"); }).toThrow("Cannot multiply by temperatures");
+      expect(function() { new Qty("1 tempC*s"); }).toThrow("Cannot multiply by temperatures");
+
+      result = qty.mul(2);
+      expect(result.scalar).toBe(4);
+      expect(result.units()).toBe("tempF");
+
+      result = new Qty("2").mul(qty);
+      expect(result.scalar).toBe(4);
+      expect(result.units()).toBe("tempF");
+    });
+
+    it('should multiply temperature degrees with unlike quantities', function() {
+      qty1 = new Qty("2.5 degF");
+      qty2 = new Qty("3 m");
+
+      result = qty1.mul(qty2);
+      expect(result.scalar).toBe(7.5);
+
+      qty1 = new Qty("2.5 degF");
+      qty2 = new Qty("3 kg/degF");
+
+      result = qty1.mul(qty2);
+      expect(result.scalar).toBe(7.5);
+      expect(result.units()).toBe("kg");
+    });
+
+    it('should divide temperature degrees with unlike quantities', function() {
+      qty1 = new Qty("7.5degF");
+      qty2 = new Qty("2.5m^2");
+
+      result = qty1.div(qty2);
+      expect(result.scalar).toBe(3);
+      expect(result.units()).toBe("degF/m2");
+    });
+
+    it('should divide temperature degree quantities', function() {
+      qty = new Qty("2.5 degF");
+
+      expect(function() { qty.div("0 degF") }).toThrow("Divide by zero");
+      expect(function() { qty.div(0) }).toThrow("Divide by zero");
+      expect(new Qty("0 degF").div(qty).scalar).toBe(0);
+      expect(new Qty("0 degF").div(qty).units()).toBe("");
+
+      result = qty.div("3 degF");
+      expect(result.scalar).toBe(2.5/3);
+      expect(result.units()).toBe("");
+      expect(result.kind()).toBe("unitless");
+
+      result = qty.div(3);
+      expect(result.scalar).toBe(2.5/3);
+      expect(result.units()).toBe("degF");
+      expect(result.kind()).toBe("temperature");
+
+      // TODO: Should we convert "2 degC" to "degF" before we do the math?
+      result = qty.div("2 degC");
+      expect(result.scalar).toBe(1.25);
+      expect(result.units()).toBe("degF/degC");
+    });
+
+    it('should not divide with temperatures except by scalar', function() {
+      expect(function() { new Qty("tempF").div("1 tempC"); }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("tempF").div("1 degC"); }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("2").div("tempF"); }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("2 tempF/s"); }).toThrow("Cannot divide with temperatures");
+      expect(function() { new Qty("2 s/tempF"); }).toThrow("Cannot divide with temperatures");
+
+      // inverse is division: 1/x
+      expect(function() { new Qty("tempF").inverse(); }).toThrow("Cannot divide with temperatures");
+
+      result = new Qty("4 tempF").div(2);
+      expect(result.scalar).toBe(2);
+      expect(result.units()).toBe("tempF");
     });
 
   });

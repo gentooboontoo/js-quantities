@@ -1,3 +1,13 @@
+/*!
+Copyright © 2006-2007 Kevin C. Olbrich
+Copyright © 2010-2013 LIM SAS (http://lim.eu) - Julien Sanchez
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 /*jshint eqeqeq:true, immed:true, undef:true */
 /*global module:false, define:false */
 (function (root, factory) {
@@ -46,7 +56,7 @@
     "<zepto>" :  [["z","Zepto","zepto"], 1e-21, "prefix"],
     "<yocto>" :  [["y","Yocto","yocto"], 1e-24, "prefix"],
 
-    "<1>"     :  [["1", "<1>"],1,""],
+    "<1>"     :  [["1", "<1>"], 1, ""],
     /* length units */
     "<meter>" :  [["m","meter","meters","metre","metres"], 1.0, "length", ["<meter>"] ],
     "<inch>"  :  [["in","inch","inches","\""], 0.0254, "length", ["<meter>"]],
@@ -79,7 +89,10 @@
     "<carat>" : [["ct","carat","carats"], 0.0002, "mass", ["<kilogram>"]],
     "<pound>" : [["lbs","lb","pound","pounds","#"], 0.45359237, "mass", ["<kilogram>"]],
     "<ounce>" : [["oz","ounce","ounces"], 0.0283495231, "mass", ["<kilogram>"]],
-    "<gram>"    :  [["g","gram","grams","gramme","grammes"],1e-3,"mass", ["<kilogram>"]],
+    "<gram>"    :  [["g","gram","grams","gramme","grammes"], 1e-3, "mass", ["<kilogram>"]],
+    "<grain>" : [["grain","grains","gr"], 6.479891e-5, "mass", ["<kilogram>"]],
+    "<dram>"  : [["dram","drams","dr"], 0.0017718452, "mass",["<kilogram>"]],
+    "<stone>" : [["stone","stones","st"],6.35029318, "mass",["<kilogram>"]],
 
     /* area */
     "<hectare>":[["hectare"], 10000, "area", ["<meter>","<meter>"]],
@@ -103,17 +116,17 @@
     "<fps>"  : [["fps"], 0.3048, "speed", ["<meter>"], ["<second>"]],
 
     /* acceleration */
-    "<gee>" : [["gee"], 9.80655, "acceleration", ["<meter>"], ["<second>","<second>"]],
+    "<gee>" : [["gee"], 9.80665, "acceleration", ["<meter>"], ["<second>","<second>"]],
 
     /* temperature_difference */
     "<kelvin>" : [["degK","kelvin"], 1.0, "temperature", ["<kelvin>"]],
     "<celsius>" : [["degC","celsius","celsius","centigrade"], 1.0, "temperature", ["<kelvin>"]],
-    "<fahrenheit>" : [["degF","fahrenheit"], 1/1.8, "temperature", ["<kelvin>"]],
-    "<rankine>" : [["degR","rankine"], 1/1.8, "temperature", ["<kelvin>"]],
+    "<fahrenheit>" : [["degF","fahrenheit"], 5/9, "temperature", ["<kelvin>"]],
+    "<rankine>" : [["degR","rankine"], 5/9, "temperature", ["<kelvin>"]],
     "<temp-K>"  : [["tempK"], 1.0, "temperature", ["<temp-K>"]],
     "<temp-C>"  : [["tempC"], 1.0, "temperature", ["<temp-K>"]],
-    "<temp-F>"  : [["tempF"], 1/1.8, "temperature", ["<temp-K>"]],
-    "<temp-R>"  : [["tempR"], 1/1.8, "temperature", ["<temp-K>"]],
+    "<temp-F>"  : [["tempF"], 5/9, "temperature", ["<temp-K>"]],
+    "<temp-R>"  : [["tempR"], 5/9, "temperature", ["<temp-K>"]],
 
     /* time */
     "<second>":  [["s","sec","second","seconds"], 1.0, "time", ["<second>"]],
@@ -129,13 +142,13 @@
     /* pressure */
     "<pascal>" : [["Pa","pascal","Pascal"], 1.0, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
     "<bar>" : [["bar","bars"], 100000, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<mmHg>" : [["mmHg"], 133.322368,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<inHg>" : [["inHg"], 3386.3881472,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<torr>" : [["torr"], 133.322368,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<atm>" : [["atm","ATM","atmosphere","atmospheres"], 101325,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<psi>" : [["psi"], 6894.76,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<cmh2o>" : [["cmH2O"], 98.0638,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
-    "<inh2o>" : [["inH2O"], 249.082052,"pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<mmHg>" : [["mmHg"], 133.322368, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<inHg>" : [["inHg"], 3386.3881472, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<torr>" : [["torr"], 133.322368, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<atm>" : [["atm","ATM","atmosphere","atmospheres"], 101325, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<psi>" : [["psi"], 6894.76, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<cmh2o>" : [["cmH2O"], 98.0638, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
+    "<inh2o>" : [["inH2O"], 249.082052, "pressure", ["<kilogram>"],["<meter>","<second>","<second>"]],
 
     /* viscosity */
     "<poise>"  : [["P","poise"], 0.1, "viscosity", ["<kilogram>"],["<meter>","<second>"] ],
@@ -162,7 +175,7 @@
     "<ampere>"  :  [["A","Ampere","ampere","amp","amps"], 1.0, "current", ["<ampere>"]],
 
     /* conductance */
-    "<siemens>" : [["S","Siemens","siemens"], 1.0, "resistance", ["<second>","<second>","<second>","<ampere>","<ampere>"], ["<kilogram>","<meter>","<meter>"]],
+    "<siemens>" : [["S","Siemens","siemens"], 1.0, "conductance", ["<second>","<second>","<second>","<ampere>","<ampere>"], ["<kilogram>","<meter>","<meter>"]],
 
     /* inductance */
     "<henry>" :  [["H","Henry","henry"], 1.0, "inductance", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>","<ampere>"]],
@@ -250,13 +263,11 @@
     "<molecule>" : [["molecule","molecules"], 1.0, "counting", ["<1>"]],
     "<dozen>" :  [["doz","dz","dozen"],12.0,"prefix_only", ["<each>"]],
     "<percent>": [["%","percent"], 0.01, "prefix_only", ["<1>"]],
-    "<ppm>" :  [["ppm"],1e-6,"prefix_only", ["<1>"]],
-    "<ppt>" :  [["ppt"],1e-9,"prefix_only", ["<1>"]],
+    "<ppm>" :  [["ppm"],1e-6, "prefix_only", ["<1>"]],
+    "<ppt>" :  [["ppt"],1e-9, "prefix_only", ["<1>"]],
     "<gross>" :  [["gr","gross"],144.0, "prefix_only", ["<dozen>","<dozen>"]],
     "<decibel>"  : [["dB","decibel","decibels"], 1.0, "logarithmic", ["<decibel>"]]
-
   };
-
 
 
   var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>', '<farad>', '<ampere>','<radian>','<kelvin>','<temp-K>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
@@ -298,7 +309,7 @@
     "159999": "magnetism",
     "160000": "current",
     "160020": "charge",
-    "312058": "resistance",
+    "312058": "conductance",
     "3199980": "activity",
     "3199997": "molar_concentration",
     "3200000": "substance",
@@ -321,9 +332,6 @@
     this.numerator = UNITY_ARRAY;
     this.denominator = UNITY_ARRAY;
 
-    // units caching property
-    this._units = null;
-
     if(init_value.constructor === String) {
       init_value = init_value.trim();
       parse.call(this, init_value);
@@ -333,8 +341,26 @@
       this.numerator = (init_value.numerator && init_value.numerator.length !== 0)? init_value.numerator : UNITY_ARRAY;
       this.denominator = (init_value.denominator && init_value.denominator.length !== 0)? init_value.denominator : UNITY_ARRAY;
     }
+
+    // math with temperatures is very limited
+    if(this.denominator.join('*').indexOf('temp') >= 0) {
+      throw "Cannot divide with temperatures";
+    }
+    if(this.numerator.join('*').indexOf('temp') >= 0) {
+      if(this.numerator.length > 1) {
+        throw "Cannot multiply by temperatures";
+      }
+      if(!compareArray(this.denominator, UNITY_ARRAY)) {
+        throw "Cannot divide with temperatures";
+      }
+    }
+
     this.init_value = init_value;
     updateBaseScalar.call(this);
+
+    if(this.isTemperature() && this.base_scalar < 0) {
+      throw "Temperatures must not be less than absolute zero";
+    }
   }
 
   /**
@@ -598,6 +624,19 @@
       }
     },
 
+    /*
+    check to see if units are inverse of each other, but not the scalar part
+    this check is done by comparing signatures for performance reasons
+    if passed a string, it will create a unit object with the string and then do the comparison
+    this permits a syntax like:
+    unit =~ "mm"
+    if you want to do a regexp on the unit string do this ...
+    unit.units =~ /regexp/
+    */
+    isInverse: function(other) {
+      return this.inverse().isCompatible(other);
+    },
+
     kind: function() {
       return KINDS[this.signature.toString()];
     },
@@ -607,15 +646,13 @@
       if(this.is_base !== undefined) {
         return this.is_base;
       }
-      if(this.signature === 400 && this.numerator.length === 1 && compareArray(this.denominator, UNITY_ARRAY) && this.units.match(/(deg|temp)K/)) {
+      if(this.isDegrees() && this.numerator[0].match(/<(kelvin|temp-K)>/)) {
         this.is_base = true;
         return this.is_base;
       }
 
       this.numerator.concat(this.denominator).forEach(function(item) {
-        if(item !== UNITY && !BASE_UNITS.some(function(base) {
-            return base === item;
-          })) {
+        if(item !== UNITY && BASE_UNITS.indexOf(item) === -1 ) {
           this.is_base = false;
         }
       }, this);
@@ -633,121 +670,34 @@
         return this;
       }
 
+      if(this.isTemperature()) {
+        return toTempK(this);
+      }
+
       var cached = base_unit_cache[this.units()];
-      if(cached) {
-        return cached.mul(this.scalar);
+      if(!cached) {
+        cached = toBaseUnits(this.numerator,this.denominator);
+        base_unit_cache[this.units()] = cached;
       }
-
-      var num = [];
-      var den = [];
-      var q = 1;
-      var unit;
-      for(var i = 0; i < this.numerator.length; i++) {
-        unit = this.numerator[i];
-        if(PREFIX_VALUES[unit]) {
-          // workaround to fix
-          // 0.1 * 0.1 => 0.010000000000000002
-          q = mul_safe(q, PREFIX_VALUES[unit]);
-        }
-        else {
-          if(UNIT_VALUES[unit]) {
-            q *= UNIT_VALUES[unit].scalar;
-
-            if(UNIT_VALUES[unit].numerator) {
-              num.push(UNIT_VALUES[unit].numerator);
-            }
-            if(UNIT_VALUES[unit].denominator) {
-              den.push(UNIT_VALUES[unit].denominator);
-            }
-          }
-        }
-      }
-      for(var j = 0; j < this.denominator.length; j++) {
-        unit = this.denominator[j];
-        if(PREFIX_VALUES[unit]) {
-          q /= PREFIX_VALUES[unit];
-        }
-        else {
-          if(UNIT_VALUES[unit]) {
-            q /= UNIT_VALUES[unit].scalar;
-
-            if(UNIT_VALUES[unit].numerator) {
-              den.push(UNIT_VALUES[unit].numerator);
-            }
-            if(UNIT_VALUES[unit].denominator) {
-              num.push(UNIT_VALUES[unit].denominator);
-            }
-          }
-        }
-      }
-
-      // Flatten
-      num = num.reduce(function(a,b) {
-        return a.concat(b);
-      }, []);
-      den = den.reduce(function(a,b) {
-        return a.concat(b);
-      }, []);
-
-      var base = new Qty({"scalar": q, "numerator": num, "denominator": den});
-      // Caching for later use
-      base_unit_cache[this.units()] = base;
-
-      return base.mul(this.scalar);
+      return cached.mul(this.scalar);
     },
 
     // returns the 'unit' part of the Unit object without the scalar
     units: function() {
-      if(compareArray(this.numerator, UNITY_ARRAY) && compareArray(this.denominator, UNITY_ARRAY)) {
-        return "";
-      }
-      if(this._units) {
+      if(this._units !== undefined) {
         return this._units;
       }
 
-      var output_n = [];
-      var output_d =[];
-
-      var token, token_next;
-      if(compareArray(this.numerator, UNITY_ARRAY)) {
-        output_n = ['1'];
-      }
-      else {
-        for(var i = 0; i < this.numerator.length; i++) {
-          token = this.numerator[i];
-          token_next = this.numerator[i+1];
-          if(PREFIX_VALUES[token]) {
-            output_n.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
-            i++;
-          }
-          else
-          {
-            output_n.push(OUTPUT_MAP[token]);
-          }
-        }
+      var numIsUnity = compareArray(this.numerator, UNITY_ARRAY),
+          denIsUnity = compareArray(this.denominator, UNITY_ARRAY);
+      if(numIsUnity && denIsUnity) {
+        this._units = "";
+        return this._units;
       }
 
-      if(compareArray(this.denominator, UNITY_ARRAY)) {
-        output_d = UNITY_ARRAY;
-      }
-      else {
-        for(var j = 0; j < this.denominator.length; j++) {
-          token = this.denominator[j];
-          token_next = this.denominator[j+1];
-          if(PREFIX_VALUES[token]) {
-            output_d.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
-            j++;
-          }
-          else
-          {
-            output_d.push(OUTPUT_MAP[token]);
-          }
-        }
-      }
-
-      var on = unique(output_n.map(function(x) {return [x, output_n.filter(function(z) {return z === x;}).length];})).map(function(x) {return x[0] + (x[1] > 1 ? x[1] : "");});
-      var od = unique(output_d.map(function(x) {return [x, output_d.filter(function(z) {return z === x;}).length];})).map(function(x) {return x[0] + (x[1] > 1 ? x[1] : "");});
-      this._units = on.join("*") + ((compareArray(output_d, UNITY_ARRAY)) ? '':'/' + od.join("*"));
+      var n_names = numIsUnity ? ['1'] : simplify(getOutputNames(this.numerator)),
+          d_names = denIsUnity ? null : simplify(getOutputNames(this.denominator));
+      this._units = n_names.join("*") + (denIsUnity ? '':('/' + d_names.join("*")));
       return this._units;
     },
 
@@ -774,9 +724,19 @@
       if(prec_quantity && prec_quantity.constructor === String) {
         prec_quantity = new Qty(prec_quantity);
       }
+      if(typeof prec_quantity === "number") {
+        prec_quantity = new Qty(prec_quantity+' '+this.units());
+      }
 
-      prec_quantity = prec_quantity.to(this.units());
+      if(!this.isUnitless()) {
+        prec_quantity = prec_quantity.to(this.units());
+      }
+      else if(!prec_quantity.isUnitless()) {
+        throw "Incompatible Units";
+      }
 
+      if(prec_quantity.scalar === 0)
+        throw "Divide by zero";
       var prec_rounded_result = Math.round(this.scalar/prec_quantity.scalar)*prec_quantity.scalar;
 
       // Remove potential floating error based on prec_quantity exponent
@@ -820,6 +780,16 @@
 
     // Compare two Qty objects. Throws an exception if they are not of compatible types.
     // Comparisons are done based on the value of the quantity in base SI units.
+    //
+    // NOTE: We cannot compare inverses as that breaks the general compareTo contract:
+    //   if a.compareTo(b) < 0 then b.compareTo(a) > 0
+    //   if a.compareTo(b) == 0 then b.compareTo(a) == 0
+    //
+    //   Since "10S" == ".1ohm" (10 > .1) and "10ohm" == ".1S" (10 > .1)
+    //     new Qty("10S").inverse().compareTo("10ohm") == -1
+    //     new Qty("10ohm").inverse().compareTo("10S") == -1
+    //
+    //   If including inverses in the sort is needed, I suggest writing: Qty.sort(qtyArray,units)
     compareTo: function(other) {
       if(other && other.constructor === String) {
         return this.compareTo(new Qty(other));
@@ -845,11 +815,34 @@
       return (this.scalar === other.scalar) && (this.units() === other.units());
     },
 
+    // Returns a Qty that is the inverse of this Qty,
+    inverse: function() {
+      if(this.isTemperature()) {
+        throw "Cannot divide with temperatures";
+      }
+      if(this.scalar === 0) {
+        throw "Divide by zero";
+      }
+      return new Qty({"scalar": 1/this.scalar, "numerator": this.denominator, "denominator": this.numerator});
+    },
+
+    isDegrees: function() {
+      // signature may not have been calculated yet
+      return (this.signature === null || this.signature === 400)
+        && this.numerator.length === 1
+        && compareArray(this.denominator, UNITY_ARRAY)
+        && (this.numerator[0].match(/<temp-[CFRK]>/) || this.numerator[0].match(/<(kelvin|celsius|rankine|fahrenheit)>/));
+    },
+
+    isTemperature: function() {
+      return this.isDegrees() && this.numerator[0].match(/<temp-[CFRK]>/);
+    },
+
     // convert to a specified unit string or to the same units as another Qty
     // qty.to("kg")  will convert to kilograms
-    // qty1.to(qty2) converts to same units as qty2 object
+    // qty1.to(qty2) converts to same units as qty2 object (ignoring scalar of qty2)
     //
-    // Throws an exception if the requested target units are incompatible with current Unit.
+    // Throws an exception if the requested target units are incompatible with current Unit or its inverse.
     to: function(other) {
       if(other && other.constructor !== String) {
         return this.to(other.units());
@@ -863,11 +856,20 @@
       }
 
       if(!this.isCompatible(target)) {
+        if(this.isInverse(target)) {
+          return this.inverse().to(other);
+        }
         throw "Incompatible Units";
       }
 
-      var q = div_safe(this.base_scalar, target.base_scalar);
+      if(target.isTemperature()) {
+        return toTemp(this,target);
+      }
+      else if(target.isDegrees()) {
+        return toDegrees(this,target);
+      }
 
+      var q = div_safe(this.base_scalar, target.base_scalar);
       return new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
     },
 
@@ -882,6 +884,16 @@
         throw "Incompatible Units";
       }
 
+      if(this.isTemperature() && other.isTemperature()) {
+        throw "Cannot add two temperatures";
+      }
+      else if(this.isTemperature()) {
+        return addTempDegrees(this,other);
+      }
+      else if(other.isTemperature()) {
+        return addTempDegrees(other,this);
+      }
+
       return new Qty({"scalar": this.scalar + other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
     },
 
@@ -892,6 +904,16 @@
 
       if(!this.isCompatible(other)) {
         throw "Incompatible Units";
+      }
+
+      if(this.isTemperature() && other.isTemperature()) {
+        return subtractTemperatures(this,other);
+      }
+      else if(this.isTemperature()) {
+        return subtractTempDegrees(this,other);
+      }
+      else if(other.isTemperature()) {
+        throw "Cannot subtract a temperature from a differential degree unit";
       }
 
       return new Qty({"scalar": this.scalar - other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
@@ -905,22 +927,19 @@
         other = new Qty(other);
       }
 
+      if((this.isTemperature()||other.isTemperature()) && !(this.isUnitless()||other.isUnitless())) {
+        throw "Cannot multiply by temperatures";
+      }
+
       // Quantities should be multiplied with same units if compatible, with base units else
       var op1 = this;
       var op2 = other;
 
-      if(op1.isCompatible(op2)) {
+      // so as not to confuse results, multiplication and division between temperature degrees will maintain original unit info in num/den
+      // multiplication and division between deg[CFRK] can never factor each other out, only themselves: "degK*degC/degC^2" == "degK/degC"
+      if(op1.isCompatible(op2) && op1.signature !== 400) {
         op2 = op2.to(op1);
       }
-      else {
-        if(!op1.isBase()) {
-          op1 = op1.toBase();
-        }
-        if(!op2.isBase()) {
-          op2 = op2.toBase();
-        }
-      }
-
       var numden = cleanTerms(op1.numerator.concat(op2.numerator), op1.denominator.concat(op2.denominator));
 
       return new Qty({"scalar": mul_safe(op1.scalar, op2.scalar) , "numerator": numden[0], "denominator": numden[1]});
@@ -936,24 +955,26 @@
       else if(other && other.constructor === String) {
         other = new Qty(other);
       }
+
       if(other.scalar === 0) {
         throw "Divide by zero";
+      }
+
+      if(other.isTemperature()) {
+        throw "Cannot divide with temperatures";
+      }
+      else if(this.isTemperature() && !other.isUnitless()) {
+        throw "Cannot divide with temperatures";
       }
 
       // Quantities should be multiplied with same units if compatible, with base units else
       var op1 = this;
       var op2 = other;
 
-      if(op1.isCompatible(op2)) {
+      // so as not to confuse results, multiplication and division between temperature degrees will maintain original unit info in num/den
+      // multiplication and division between deg[CFRK] can never factor each other out, only themselves: "degK*degC/degC^2" == "degK/degC"
+      if(op1.isCompatible(op2) && op1.signature !== 400) {
         op2 = op2.to(op1);
-      }
-      else {
-        if(!op1.isBase()) {
-          op1 = op1.toBase();
-        }
-        if(!op2.isBase()) {
-          op2 = op2.toBase();
-        }
       }
       var numden = cleanTerms(op1.numerator.concat(op2.denominator), op1.denominator.concat(op2.numerator));
 
@@ -972,6 +993,82 @@
       }
     }
     return keys;
+  }
+
+  function getOutputNames(units) {
+    var unitNames = [], token, token_next;
+    for(var i = 0; i < units.length; i++) {
+      token = units[i];
+      token_next = units[i+1];
+      if(PREFIX_VALUES[token]) {
+        unitNames.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
+        i++;
+      }
+      else {
+        unitNames.push(OUTPUT_MAP[token]);
+      }
+    }
+    return unitNames;
+  }
+
+  function toBaseUnits (numerator,denominator) {
+    var num = [];
+    var den = [];
+    var q = 1;
+    var unit;
+    for(var i = 0; i < numerator.length; i++) {
+      unit = numerator[i];
+      if(PREFIX_VALUES[unit]) {
+        // workaround to fix
+        // 0.1 * 0.1 => 0.010000000000000002
+        q = mul_safe(q, PREFIX_VALUES[unit]);
+      }
+      else {
+        if(UNIT_VALUES[unit]) {
+          q *= UNIT_VALUES[unit].scalar;
+
+          if(UNIT_VALUES[unit].numerator) {
+            num.push(UNIT_VALUES[unit].numerator);
+          }
+          if(UNIT_VALUES[unit].denominator) {
+            den.push(UNIT_VALUES[unit].denominator);
+          }
+        }
+      }
+    }
+    for(var j = 0; j < denominator.length; j++) {
+      unit = denominator[j];
+      if(PREFIX_VALUES[unit]) {
+        q /= PREFIX_VALUES[unit];
+      }
+      else {
+        if(UNIT_VALUES[unit]) {
+          q /= UNIT_VALUES[unit].scalar;
+
+          if(UNIT_VALUES[unit].numerator) {
+            den.push(UNIT_VALUES[unit].numerator);
+          }
+          if(UNIT_VALUES[unit].denominator) {
+            num.push(UNIT_VALUES[unit].denominator);
+          }
+        }
+      }
+    }
+
+    // Flatten
+    num = num.reduce(function(a,b) {
+      return a.concat(b);
+    }, []);
+    den = den.reduce(function(a,b) {
+      return a.concat(b);
+    }, []);
+
+    return new Qty({"scalar": q, "numerator": num, "denominator": den});
+  }
+
+  function simplify (units) {
+    // this turns ['s','m','s'] into ['s2','m']
+    return unique(units.map(function(x) {return [x, units.filter(function(z) {return z === x;}).length];})).map(function(x) {return x[0] + (x[1] > 1 ? x[1] : "");});
   }
 
   // Return a new array without duplicate elements
@@ -1017,38 +1114,169 @@
   var num_regex = /^-?(\d+)(?:\.(\d+))?$/;
   var exp_regex = /^-?(\d+)e-?(\d+)$/;
 
+  function subtractTemperatures(lhs,rhs) {
+    var lhsUnits = lhs.units();
+    var rhsConverted = rhs.to(lhsUnits);
+    var dstDegrees = new Qty(getDegreeUnits(lhsUnits));
+    return new Qty({"scalar": lhs.scalar - rhsConverted.scalar, "numerator": dstDegrees.numerator, "denominator": dstDegrees.denominator});
+  }
+
+  function subtractTempDegrees(temp,deg) {
+    var tempDegrees = deg.to(getDegreeUnits(temp.units()));
+    return new Qty({"scalar": temp.scalar - tempDegrees.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+  }
+
+  function addTempDegrees(temp,deg) {
+    var tempDegrees = deg.to(getDegreeUnits(temp.units()));
+    return new Qty({"scalar": temp.scalar + tempDegrees.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+  }
+
+  function getDegreeUnits(units) {
+    if(units === 'tempK') {
+      return 'degK';
+    }
+    else if(units === 'tempC') {
+      return 'degC';
+    }
+    else if(units === 'tempF') {
+      return 'degF';
+    }
+    else if(units === 'tempR') {
+      return 'degR';
+    }
+    else {
+      throw "Unknown type for temp conversion from: " + units;
+    }
+  }
+
+  function toDegrees(src,dst) {
+    var srcDegK = toDegK(src);
+    var dstUnits = dst.units();
+    var dstScalar;
+
+    if(dstUnits === 'degK') {
+      dstScalar = srcDegK.scalar;
+    }
+    else if(dstUnits === 'degC') {
+      dstScalar = srcDegK.scalar ;
+    }
+    else if(dstUnits === 'degF') {
+      dstScalar = srcDegK.scalar * 9/5;
+    }
+    else if(dstUnits === 'degR') {
+      dstScalar = srcDegK.scalar * 9/5;
+    }
+    else {
+      throw "Unknown type for degree conversion to: " + dstUnits;
+    }
+
+    return new Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
+  }
+
+  function toDegK(qty) {
+    var units = qty.units();
+    var q;
+    if(units.match(/(deg)[CFRK]/)) {
+      q = qty.base_scalar;
+    }
+    else if(units === 'tempK') {
+      q = qty.scalar;
+    }
+    else if(units === 'tempC') {
+      q = qty.scalar;
+    }
+    else if(units === 'tempF') {
+      q = qty.scalar * 5/9;
+    }
+    else if(units === 'tempR') {
+      q = qty.scalar * 5/9;
+    }
+    else {
+      throw "Unknown type for temp conversion from: " + units;
+    }
+
+    return new Qty({"scalar": q, "numerator": ["<kelvin>"], "denominator": UNITY_ARRAY});
+  }
+
+  function toTemp(src,dst) {
+    var dstUnits = dst.units();
+    var dstScalar;
+
+    if(dstUnits === 'tempK') {
+      dstScalar = src.base_scalar;
+    }
+    else if(dstUnits === 'tempC') {
+      dstScalar = src.base_scalar - 273.15;
+    }
+    else if(dstUnits === 'tempF') {
+      dstScalar = (src.base_scalar * 9/5) - 459.67;
+    }
+    else if(dstUnits === 'tempR') {
+      dstScalar = src.base_scalar * 9/5;
+    }
+    else {
+      throw "Unknown type for temp conversion to: " + dstUnits;
+    }
+
+    return new Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
+  }
+
+  function toTempK(qty) {
+    var units = qty.units();
+    var q;
+    if(units.match(/(deg)[CFRK]/)) {
+      q = qty.base_scalar;
+    }
+    else if(units === 'tempK') {
+      q = qty.scalar;
+    }
+    else if(units === 'tempC') {
+      q = qty.scalar + 273.15;
+    }
+    else if(units === 'tempF') {
+      q = (qty.scalar + 459.67) * 5/9;
+    }
+    else if(units === 'tempR') {
+      q = qty.scalar * 5/9;
+    }
+    else {
+      throw "Unknown type for temp conversion from: " + units;
+    }
+
+    return new Qty({"scalar": q, "numerator": ["<temp-K>"], "denominator": UNITY_ARRAY});
+  }
+
   // Multiply numbers avoiding floating errors
   // workaround to fix
   // 0.1 * 0.1 => 0.010000000000000002
   // mul_safe(0.1, 0.1) => 0.01
   function mul_safe() {
-    var decimals;
-    var fractional;
-    var result = 1;
+    var result = 1, decimals = 0;
     for(var i = 0; i < arguments.length; i++) {
       var arg = arguments[i];
-
-      var match;
-      fractional = undefined; // unset fractional
-      if((match = num_regex.exec(arg)) && match[2]) {
-        fractional = match[2].length;
-      }
-      else if((match = exp_regex.exec(arg))) {
-        fractional = parseInt(match[2], 10);
-      }
-      // arg could be Infinities
-      if(fractional) {
-        decimals = (decimals || 0) + fractional;
-      }
-
+      decimals = decimals + getFractional(arg);
       result *= arg;
     }
 
-    return decimals ? round(result, decimals) : result;
+    return decimals !== 0 ? round(result, decimals) : result;
   }
 
-  function div_safe(a, b) {
-    return mul_safe(a, 1/b);
+  function div_safe(num, den) {
+    if(den === 0)
+      throw "Divide by zero";
+    return mul_safe(num, 1/den);
+  }
+
+  function getFractional(num) {
+    var fractional, match;
+    if((match = num_regex.exec(num)) && match[2]) {
+      fractional = match[2].length;
+    }
+    else if((match = exp_regex.exec(num))) {
+      fractional = parseInt(match[2], 10);
+    }
+    // arg could be Infinities
+    return fractional || 0;
   }
 
   Qty.mul_safe = mul_safe;
@@ -1175,4 +1403,3 @@
 
   return Qty;
 }));
-
