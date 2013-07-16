@@ -330,23 +330,33 @@ describe('js-quantities', function() {
 
     it('should calculate inverses', function() {
       qty = new Qty('1 ohm');
-      expect(qty.to("siemens").scalar).toBe(1);
+      result = qty.to("siemens");
+      expect(result.scalar).toBe(1);
+      expect(result.kind()).toBe("conductance");
 
       qty = new Qty('10 ohm');
-      expect(qty.to("siemens").scalar).toBe(0.1);
+      result = qty.to("siemens");
+      expect(result.scalar).toBe(0.1);
+      expect(result.kind()).toBe("conductance");
 
       qty = new Qty('10 siemens');
-      expect(qty.to("ohm").scalar).toBe(0.1);
+      result = qty.to("ohm");
+      expect(result.scalar).toBe(0.1);
+      expect(result.kind()).toBe("resistance");
 
       qty = new Qty('10 siemens');
-      expect(qty.inverse().eq(".1 ohm")).toBe(true);
+      result = qty.inverse();
+      expect(result.eq(".1 ohm")).toBe(true);
+      expect(result.kind()).toBe("resistance");
 
       // cannot inverse a quantity with a 0 scalar
       qty = new Qty('0 ohm');
       expect(function() { qty.inverse(); }).toThrow("Divide by zero");
 
       qty = new Qty('10 ohm').inverse();
-      expect(qty.to("S").scalar).toBe(0.1);
+      result = qty.to("S");
+      expect(result.scalar).toBe(0.1);
+      expect(result.kind()).toBe("conductance");
 
       qty = new Qty('12 in').inverse();
       // TODO: Swap toBeCloseTo with toBe once div_safe is fixed
@@ -440,6 +450,11 @@ describe('js-quantities', function() {
       qty2 = qty1.inverse();
       expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
       expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+
+      qty1 = new Qty("10S");
+      qty2 = new Qty("0.1ohm");
+      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
     });
 
     it('should subtract quantities', function() {
@@ -470,6 +485,11 @@ describe('js-quantities', function() {
     it('should fail to subtract inverse quantities', function() {
       qty1 = new Qty("10S");
       qty2 = qty1.inverse();
+      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
+
+      qty1 = new Qty("10S");
+      qty2 = new Qty("0.1ohm");
       expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
       expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
     });

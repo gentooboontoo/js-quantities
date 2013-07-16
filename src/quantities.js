@@ -175,7 +175,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<ampere>"  :  [["A","Ampere","ampere","amp","amps"], 1.0, "current", ["<ampere>"]],
 
     /* conductance */
-    "<siemens>" : [["S","Siemens","siemens"], 1.0, "resistance", ["<second>","<second>","<second>","<ampere>","<ampere>"], ["<kilogram>","<meter>","<meter>"]],
+    "<siemens>" : [["S","Siemens","siemens"], 1.0, "conductance", ["<second>","<second>","<second>","<ampere>","<ampere>"], ["<kilogram>","<meter>","<meter>"]],
 
     /* inductance */
     "<henry>" :  [["H","Henry","henry"], 1.0, "inductance", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>","<ampere>"]],
@@ -309,7 +309,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "159999": "magnetism",
     "160000": "current",
     "160020": "charge",
-    "312058": "resistance",
+    "312058": "conductance",
     "3199980": "activity",
     "3199997": "molar_concentration",
     "3200000": "substance",

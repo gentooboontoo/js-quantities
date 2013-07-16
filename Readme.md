@@ -70,7 +70,7 @@ Usage examples
 * div(other): Divide. other can be string, number or quantity.
 
 ### Rounding
-Qty#toPrec(precision) with precision as string or quantity standing for the minimum significative quantity.
+Qty#toPrec(precision) with precision as number, string or quantity standing for the minimum significative quantity.
 Returns a new quantity.
 
     var qty = new Qty('5.17 ft');
@@ -81,6 +81,7 @@ Returns a new quantity.
     qty.toPrec('0.01 ft'); // => 5.17 ft
     qty.toPrec('0.00001 ft'); // => 5.17 ft
     qty.toPrec('2 ft'); // => 6 ft
+    qty.toPrec('2'); // => 6 ft
 
     var qty = new Qty('6.3782 m');
     qty.toPrec('dm'); // => 6.4 m
@@ -88,6 +89,7 @@ Returns a new quantity.
     qty.toPrec('mm'); // => 6.378 m
     qty.toPrec('5 cm'); // => 6.4 m
     qty.toPrec('10 m'); // => 10 m
+    qty.toPrec(0.1); // => 6.3 m
 
 ### Text output
     // if target_units string passed, the unit will first be converted to target_units before output.
