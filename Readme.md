@@ -1,5 +1,7 @@
 #JS-quantities
 
+[![Build Status](https://travis-ci.org/gentooboontoo/js-quantities.png)](https://travis-ci.org/gentooboontoo/js-quantities)
+
 JS-quantities is a JavaScript port of Kevin Olbrich's library Ruby Units
 (http://ruby-units.rubyforge.org/ruby-units).
 
