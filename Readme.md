@@ -157,6 +157,19 @@ To execute specs through node-jasmine, launch:
 
     jasmine-node spec/
 
+### Performance regression test
+
+There is a small benchmarking HTML page to spot performance regression between
+currently checked-out quantities.js and any committed version.
+Just execute:
+
+    bundle exec rake bench
+
+Library is benchmarked against HEAD by default but it could be changed by passing
+any commit SHA on the command line.
+
+    bundle exec rake bench COMMIT=e0c7fc468
+
 ## Contribute
 
 Feedback and contribution are welcomed.
