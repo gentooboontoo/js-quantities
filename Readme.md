@@ -1,5 +1,4 @@
-JS-quantities
-=============
+#JS-quantities
 
 JS-quantities is a JavaScript port of Kevin Olbrich's library Ruby Units
 (http://ruby-units.rubyforge.org/ruby-units).
@@ -10,9 +9,10 @@ units for scientific calculations involving quantities.
 JS-quantities is defined as an UMD module and can be used with AMD, Node
 and within browsers.
 
-Usage examples
------
+## Usage examples
+
 ### Creation
+
     qty = new Qty("1m");
     qty = new Qty('m'); // => 1 meter
 
@@ -32,6 +32,7 @@ Usage examples
     qty = new Qty("1 attoparsec/microfortnight");
 
 ### Quantity compatibility, kind and various queries
+
     qty1.isCompatible(qty2); // => true or false
 
     qty.kind(); // => "length", "area", etc...
@@ -40,6 +41,7 @@ Usage examples
     qty.isBase(); // => true if quantity is represented with base units
 
 ### Conversion
+
     qty.toBase(); // converts to SI units (10 cm => 0.1 m) (new instance)
 
     qty.toFloat(): // returns scalar of unitless quantity (otherwise throws error)
@@ -54,6 +56,7 @@ Usage examples
     new Qty('10ohm').to('S') // '.1S'
 
 ### Comparison
+
     qty1.eq(qty2); // => true if both quantities are equal (1m == 100cm => true)
     qty1.same(qty2); // => true if both quantities are same (1m == 100cm => false)
     qty1.lt(qty2); // => true if qty1 is stricty less than qty2
@@ -64,12 +67,14 @@ Usage examples
     qty1.compareTo(qty2); // => -1 if qty1 < qty2, 0 if qty1 == qty2; 1 if qty1 > qty2
 
 ### Operators
+
 * add(other): Add. other can be string or quantity. other should be unit compatible.
 * sub(other): Substract. other can be string or quantity. other should be unit compatible.
 * mul(other): Multiply. other can be string, number or quantity.
 * div(other): Divide. other can be string, number or quantity.
 
 ### Rounding
+
 Qty#toPrec(precision) with precision as number, string or quantity standing for the minimum significative quantity.
 Returns a new quantity.
 
@@ -92,6 +97,7 @@ Returns a new quantity.
     qty.toPrec(0.1); // => 6.3 m
 
 ### Text output
+
     // if target_units string passed, the unit will first be converted to target_units before output.
     // Output can be rounded to max_decimals when explicit target_units are specified.
     qty.toString();
@@ -102,6 +108,7 @@ Returns a new quantity.
     qty.toString(quantity); // Helper using toPrec to round to nearest significative quantity
 
 ### Temperatures
+
 Like ruby-units, js-quantities makes a distinction between a temperature (which technically is a property) and degrees of temperature (which temperatures are measured in).
 
 Temperature units (i.e., 'tempK') can be converted back and forth, and will take into account the differences in the zero points of the various scales. Differential temperature (e.g., '100 degC') units behave like most other units.
@@ -110,11 +117,11 @@ Temperature units (i.e., 'tempK') can be converted back and forth, and will take
 
 Js-quantities will throw an exception if you attempt to create a temperature unit that would fall below absolute zero.
 
-Unit math on temperatures is fairly limited.  
+Unit math on temperatures is fairly limited.
 
     new Qty('100 tempC').add('10 degC')  # 110 tempC
     new Qty('100 tempC').sub('10 degC')  # 90 tempC
-    new Qty('100 tempC').add('50 tempC') # exception  
+    new Qty('100 tempC').add('50 tempC') # exception
     new Qty('100 tempC').sub('50 tempC') # 50 degC
     new Qty('50 tempC').sub('100 tempC') # -50 degC
     new Qty('100 tempC').mul(scalar)     # 100*scalar tempC
@@ -127,20 +134,26 @@ Unit math on temperatures is fairly limited.
     new Qty('100 tempC').inverse()       # exception
 
     new Qty('100 tempC').to('degC') #=> 100 degC
-This conversion references the 0 point on the scale of the temperature unit 
+This conversion references the 0 point on the scale of the temperature unit
 
     new Qty('100 degC').to('tempC') #=> -173.15 tempC
 These conversions are always interpreted as being relative to absolute zero.
 Conversions are probably better done like this...
-    
+
     new Qty('0 tempC').add('100 degC') #=> 100 tempC
 
 
-Tests
------
-Tests are implemented with Jasmine (https://github.com/pivotal/jasmine).
-Just open SpecRunner.html file in a browser to execute them.
+## Tests
 
-Contribute
-----------
+Tests are implemented with Jasmine (https://github.com/pivotal/jasmine).
+You could use both HTML and jasmine-node runners.
+
+To execute specs through HTML runner, just open SpecRunner.html file in a
+browser to execute them.
+
+To execute specs through node-jasmine, launch
+    jasmine-node spec/
+
+## Contribute
+
 Feedback and contribution are welcomed.

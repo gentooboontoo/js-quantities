@@ -21,7 +21,13 @@
     "Rage Shadowman"
   ],
   "license": "MIT",
+  "scripts": {
+    "test": "jasmine-node spec/"
+  },
   "bugs": {
     "url": "https://github.com/gentooboontoo/js-quantities/issues"
+  },
+  "devDependencies": {
+    "jasmine-node": "1.x"
   }
 }

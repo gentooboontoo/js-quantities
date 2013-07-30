@@ -1,3 +1,11 @@
+var Qty;
+/*
+ * Needed when run through jasmine-node
+ * Qty is only defined when using Jasmine HTML runner
+ */
+if(!Qty) {
+  Qty = require(__dirname + "/../src/quantities");
+}
 
 describe('js-quantities', function() {
   describe('initialization', function() {
