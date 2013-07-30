@@ -151,7 +151,8 @@ You could use both HTML and jasmine-node runners.
 To execute specs through HTML runner, just open SpecRunner.html file in a
 browser to execute them.
 
-To execute specs through node-jasmine, launch
+To execute specs through node-jasmine, launch:
+
     jasmine-node spec/
 
 ## Contribute
