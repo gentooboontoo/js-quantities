@@ -1,0 +1,27 @@
+{
+  "name": "js-quantities",
+  "main": "./src/quantities.js",
+  "readmeFilename": "Readme.md",
+  "description": "JavaScript library for quantity calculation and unit conversion",
+  "version": "1.0.0",
+  "homepage": "https://github.com/gentooboontoo/js-quantities",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gentooboontoo/js-quantities.git"
+  },
+  "keywords": [
+    "quantity",
+    "quantities",
+    "units",
+    "physical"
+  ],
+  "author": "Julien Sanchez <julien.sanchez@gmail.com>",
+  "contributors": [
+    "Julien Sanchez <julien.sanchez@gmail.com>",
+    "Rage Shadowman"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gentooboontoo/js-quantities/issues"
+  }
+}
