@@ -1,5 +1,5 @@
 
-0.0.1 / YYYY-MM-DD
+1.0.0 / 2013-07-30
 ------------------
 
-* Initial release
+* First stable version
