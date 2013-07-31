@@ -323,6 +323,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   var base_unit_cache = {};
+  var normalizedUnitsCache = {};
 
   function Qty(init_value) {
     this.scalar = null;
@@ -1021,6 +1022,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       throw "Unit not recognized";
     }
 
+    var cached = normalizedUnitsCache[units];
+    if(cached) {
+      return cached;
+    }
+
     while((unit_match = UNIT_MATCH_REGEX.exec(units))) {
       normalizedUnits.push(unit_match.slice(1));
     }
@@ -1036,6 +1042,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     normalizedUnits = normalizedUnits.filter(function(item) {
       return item;
     });
+
+    normalizedUnitsCache[units] = normalizedUnits;
 
     return normalizedUnits;
   }
