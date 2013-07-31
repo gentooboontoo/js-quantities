@@ -1050,27 +1050,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   function simplify (units) {
     // this turns ['s','m','s'] into ['s2','m']
-    return unique(
-      units.map(function(x) {
-        return [x, units.filter(function(z) {return z === x;}).length];
-      }))
-      .map(function(x) {
-        return x[0] + (x[1] > 1 ? x[1] : "");
-      });
-  }
 
-  // Return a new array without duplicate elements
-  function unique(duplicates) {
-    // Fix weird bug when third party libraries are used
-    if(duplicates.length === 1) {
-      return duplicates;
-    }
-    return duplicates.reduce(function(previous, current, index, array) {
-      if(!previous.some(function(item) {return compareArray(item, current);})) {
-        previous.push(current);
+    var unitCounts = units.reduce(function(acc, unit) {
+      var unitCounter = acc[unit];
+      if(!unitCounter) {
+        acc.push(unitCounter = acc[unit] = [unit, 0]);
       }
-      return previous;
+
+      unitCounter[1]++;
+
+      return acc;
     }, []);
+
+    return unitCounts.map(function(unitCount) {
+      return unitCount[0] + (unitCount[1] > 1 ? unitCount[1] : "");
+    });
   }
 
   function compareArray(array1, array2) {
