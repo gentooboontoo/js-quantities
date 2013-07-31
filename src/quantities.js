@@ -520,63 +520,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       bottom = bottom.replace(result[0], nx, "g");
     }
 
-    var unit_match;
-    // Scan
     if(top) {
-      if(!UNIT_TEST_REGEX.test(top)) {
-        throw "Unit not recognized";
-      }
-      this.numerator = [];
-      while((unit_match = UNIT_MATCH_REGEX.exec(top))) {
-        this.numerator.push(unit_match.slice(1));
-      }
+      this.numerator = normalizeUnits(top);
     }
     if(bottom) {
-      if(!UNIT_TEST_REGEX.test(bottom)) {
-        throw "Unit not recognized";
-      }
-      this.denominator = [];
-      while((unit_match = UNIT_MATCH_REGEX.exec(bottom))) {
-        this.denominator.push(unit_match.slice(1));
-      }
+      this.denominator = normalizeUnits(bottom);
     }
 
-    this.numerator = function() {
-      var numerator = this.numerator.map(function(item) {
-        return PREFIX_MAP[item[0]] ? [PREFIX_MAP[item[0]], UNIT_MAP[item[1]]] : [UNIT_MAP[item[1]]];
-      });
-      return numerator;
-    }.call(this);
-
-    // Flatten and remove null elements
-    this.numerator = this.numerator.reduce(function(a,b) {
-      return a.concat(b);
-    }, []);
-    this.numerator = this.numerator.filter(function(item) {
-      return item;
-    });
-
-    this.denominator = function() {
-      var denominator = this.denominator.map(function(item) {
-        return PREFIX_MAP[item[0]] ? [PREFIX_MAP[item[0]], UNIT_MAP[item[1]]] : [UNIT_MAP[item[1]]];
-      });
-      return denominator;
-    }.call(this);
-
-    // Flatten
-    this.denominator = this.denominator.reduce(function(a,b) {
-      return a.concat(b);
-    }, []);
-    this.denominator = this.denominator.filter(function(item) {
-      return item;
-    });
-
-    if(this.numerator.length === 0) {
-      this.numerator = UNITY_ARRAY;
-    }
-    if(this.denominator.length === 0) {
-      this.denominator = UNITY_ARRAY;
-    }
   }
 
   Qty.prototype = {
@@ -1052,6 +1002,42 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }, []);
 
     return new Qty({"scalar": q, "numerator": num, "denominator": den});
+  }
+
+  /**
+   * Converts units string to normalized unit array
+   * @param {string} units Units string
+   * @returns {string[]} Array of normalized units
+   *
+   * @example
+   * // Returns ["<second>", "<meter>", "<second>"]
+   * normalizeUnits("s m s");
+   *
+   */
+  function normalizeUnits(units) {
+    var unit_match, normalizedUnits = [];
+    // Scan
+    if(!UNIT_TEST_REGEX.test(units)) {
+      throw "Unit not recognized";
+    }
+
+    while((unit_match = UNIT_MATCH_REGEX.exec(units))) {
+      normalizedUnits.push(unit_match.slice(1));
+    }
+
+    normalizedUnits = normalizedUnits.map(function(item) {
+      return PREFIX_MAP[item[0]] ? [PREFIX_MAP[item[0]], UNIT_MAP[item[1]]] : [UNIT_MAP[item[1]]];
+    });
+
+    // Flatten and remove null elements
+    normalizedUnits = normalizedUnits.reduce(function(a,b) {
+      return a.concat(b);
+    }, []);
+    normalizedUnits = normalizedUnits.filter(function(item) {
+      return item;
+    });
+
+    return normalizedUnits;
   }
 
   function simplify (units) {
