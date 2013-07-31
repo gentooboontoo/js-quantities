@@ -1042,7 +1042,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   function simplify (units) {
     // this turns ['s','m','s'] into ['s2','m']
-    return unique(units.map(function(x) {return [x, units.filter(function(z) {return z === x;}).length];})).map(function(x) {return x[0] + (x[1] > 1 ? x[1] : "");});
+    return unique(
+      units.map(function(x) {
+        return [x, units.filter(function(z) {return z === x;}).length];
+      }))
+      .map(function(x) {
+        return x[0] + (x[1] > 1 ? x[1] : "");
+      });
   }
 
   // Return a new array without duplicate elements
