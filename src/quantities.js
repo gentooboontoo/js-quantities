@@ -1016,15 +1016,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    *
    */
   function normalizeUnits(units) {
+    var cached = normalizedUnitsCache[units];
+    if(cached) {
+      return cached;
+    }
+
     var unit_match, normalizedUnits = [];
     // Scan
     if(!UNIT_TEST_REGEX.test(units)) {
       throw "Unit not recognized";
-    }
-
-    var cached = normalizedUnitsCache[units];
-    if(cached) {
-      return cached;
     }
 
     while((unit_match = UNIT_MATCH_REGEX.exec(units))) {
