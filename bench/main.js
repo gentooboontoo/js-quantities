@@ -2,16 +2,10 @@ requirejs.config({
   baseUrl: "../lib",
   paths: {
     "src": "../src"
-  },
-  shim: {
-    "JSLitmus": {
-      exports: "JSLitmus"
-    }
   }
 });
 
-require(["JSLitmus"], function(JSLitmus) {
-
+(function() {
   function unitConversion(Qty) {
     return function() {
       new Qty("2500 m/h").to("ft/s");
@@ -19,11 +13,13 @@ require(["JSLitmus"], function(JSLitmus) {
   }
 
   require(["src/quantities"], function(Qty) {
-    JSLitmus.test('Unit conversion (current)', unitConversion(Qty));
+    var convert = unitConversion(Qty);
+    JSLitmus.test('Unit conversion (current)', convert);
   });
 
   require(["src/.committed-quantities"], function(Qty) {
-    JSLitmus.test('Unit conversion (GIT)', unitConversion(Qty));
+    var convert = unitConversion(Qty);
+    JSLitmus.test('Unit conversion (GIT)', convert);
   });
-});
+}());
 
