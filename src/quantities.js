@@ -322,7 +322,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "10240000000000": "capacitance"
   };
 
-  var base_unit_cache = {};
+  var baseUnitCache = {};
   var normalizedUnitsCache = {};
 
   function Qty(init_value) {
@@ -625,10 +625,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return toTempK(this);
       }
 
-      var cached = base_unit_cache[this.units()];
+      var cached = baseUnitCache[this.units()];
       if(!cached) {
         cached = toBaseUnits(this.numerator,this.denominator);
-        base_unit_cache[this.units()] = cached;
+        baseUnitCache[this.units()] = cached;
       }
       return cached.mul(this.scalar);
     },
