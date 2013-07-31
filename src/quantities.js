@@ -421,9 +421,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   // calculates the unit signature vector used by unit_signature
   function unitSignatureVector() {
-    if(!this.isBase()) {
-      return unitSignatureVector.call(this.toBase());
-    }
 
     var vector = new Array(SIGNATURE_VECTOR.length);
     for(var i = 0; i < vector.length; i++) {
