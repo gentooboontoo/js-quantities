@@ -983,18 +983,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   };
 
-  // Utility functions
-  // return object keys
-  function objectKeys(obj) {
-    var keys = [];
-    for(var key in obj) {
-      if(obj.hasOwnProperty(key)) {
-        keys.push(key);
-      }
-    }
-    return keys;
-  }
-
   function getOutputNames(units) {
     var unitNames = [], token, token_next;
     for(var i = 0; i < units.length; i++) {
@@ -1391,10 +1379,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       OUTPUT_MAP[unit_def] = definition[0][0];
     }
   }
-  var PREFIX_REGEX = objectKeys(PREFIX_MAP).sort(function(a, b) {
+  var PREFIX_REGEX = Object.keys(PREFIX_MAP).sort(function(a, b) {
     return b.length - a.length;
   }).join('|');
-  var UNIT_REGEX = objectKeys(UNIT_MAP).sort(function(a, b) {
+  var UNIT_REGEX = Object.keys(UNIT_MAP).sort(function(a, b) {
     return b.length - a.length;
   }).join('|');
   var UNIT_MATCH = "(" + PREFIX_REGEX + ")*?(" + UNIT_REGEX + ")\\b";
