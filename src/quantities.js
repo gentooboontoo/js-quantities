@@ -521,10 +521,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
 
     if(top) {
-      this.numerator = normalizeUnits(top);
+      this.numerator = normalizeUnits(top.trim());
     }
     if(bottom) {
-      this.denominator = normalizeUnits(bottom);
+      this.denominator = normalizeUnits(bottom.trim());
     }
 
   }
