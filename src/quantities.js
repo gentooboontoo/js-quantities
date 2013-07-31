@@ -828,10 +828,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     isDegrees: function() {
       // signature may not have been calculated yet
-      return (this.signature === null || this.signature === 400)
-        && this.numerator.length === 1
-        && compareArray(this.denominator, UNITY_ARRAY)
-        && (this.numerator[0].match(/<temp-[CFRK]>/) || this.numerator[0].match(/<(kelvin|celsius|rankine|fahrenheit)>/));
+      return (this.signature === null || this.signature === 400) &&
+        this.numerator.length === 1 &&
+        compareArray(this.denominator, UNITY_ARRAY) &&
+        (this.numerator[0].match(/<temp-[CFRK]>/) || this.numerator[0].match(/<(kelvin|celsius|rankine|fahrenheit)>/));
     },
 
     isTemperature: function() {
