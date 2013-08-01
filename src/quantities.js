@@ -323,7 +323,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   var baseUnitCache = {};
-  var normalizedUnitsCache = {};
 
   function Qty(init_value) {
     this.scalar = null;
@@ -522,10 +521,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
 
     if(top) {
-      this.numerator = normalizeUnits(top.trim());
+      this.numerator = parseUnits(top.trim());
     }
     if(bottom) {
-      this.denominator = normalizeUnits(bottom.trim());
+      this.denominator = parseUnits(bottom.trim());
     }
 
   }
@@ -1005,18 +1004,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return new Qty({"scalar": q, "numerator": num, "denominator": den});
   }
 
+  var parsedUnitsCache = {};
   /**
-   * Converts units string to normalized unit array
+   * Parses and converts units string to normalized unit array.
+   * Result is cached to speed up next calls.
+   *
    * @param {string} units Units string
    * @returns {string[]} Array of normalized units
    *
    * @example
    * // Returns ["<second>", "<meter>", "<second>"]
-   * normalizeUnits("s m s");
+   * parseUnits("s m s");
    *
    */
-  function normalizeUnits(units) {
-    var cached = normalizedUnitsCache[units];
+  function parseUnits(units) {
+    var cached = parsedUnitsCache[units];
     if(cached) {
       return cached;
     }
@@ -1043,7 +1045,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return item;
     });
 
-    normalizedUnitsCache[units] = normalizedUnits;
+    parsedUnitsCache[units] = normalizedUnits;
 
     return normalizedUnits;
   }
