@@ -645,9 +645,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return this._units;
       }
 
-      var n_names = numIsUnity ? ['1'] : simplify(getOutputNames(this.numerator)),
-          d_names = denIsUnity ? null : simplify(getOutputNames(this.denominator));
-      this._units = n_names.join("*") + (denIsUnity ? '':('/' + d_names.join("*")));
+      var numUnits = stringifyUnits(this.numerator),
+          denUnits = stringifyUnits(this.denominator);
+      this._units = numUnits + (denIsUnity ? '':('/' + denUnits));
       return this._units;
     },
 
@@ -933,22 +933,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   };
 
-  function getOutputNames(units) {
-    var unitNames = [], token, token_next;
-    for(var i = 0; i < units.length; i++) {
-      token = units[i];
-      token_next = units[i+1];
-      if(PREFIX_VALUES[token]) {
-        unitNames.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
-        i++;
-      }
-      else {
-        unitNames.push(OUTPUT_MAP[token]);
-      }
-    }
-    return unitNames;
-  }
-
   function toBaseUnits (numerator,denominator) {
     var num = [];
     var den = [];
@@ -1048,6 +1032,39 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     parsedUnitsCache[units] = normalizedUnits;
 
     return normalizedUnits;
+  }
+
+  /**
+   * Returns a string representing a normalized unit array
+   *
+   * @param {string[]} units Normalized unit array
+   * @returns {string} String representing passed normalized unit array and
+   *   suitable for output
+   *
+   */
+  function stringifyUnits(units) {
+    var isUnity = compareArray(units, UNITY_ARRAY);
+    if(isUnity) {
+      return "1";
+    }
+
+    return simplify(getOutputNames(units)).join("*");
+  }
+
+  function getOutputNames(units) {
+    var unitNames = [], token, token_next;
+    for(var i = 0; i < units.length; i++) {
+      token = units[i];
+      token_next = units[i+1];
+      if(PREFIX_VALUES[token]) {
+        unitNames.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
+        i++;
+      }
+      else {
+        unitNames.push(OUTPUT_MAP[token]);
+      }
+    }
+    return unitNames;
   }
 
   function simplify (units) {
