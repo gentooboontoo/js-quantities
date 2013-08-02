@@ -60,9 +60,9 @@ and within browsers.
 Qty.swiftConverter() could be useful to efficiently convert large array of values. It
 configures a function accepting a value and converting it.
 
-   var convert = Qty.swiftConverter("m/h", "ft/s"); // Configures converter
-   var convertedSerie = largeSerie.map(convert); // Usage with map()
-   var converted = convert(2500); // Standalone usage
+    var convert = Qty.swiftConverter("m/h", "ft/s"); // Configures converter
+    var convertedSerie = largeSerie.map(convert); // Usage with map()
+    var converted = convert(2500); // Standalone usage
 
 The main drawback of this conversion method is that it does not take care of
 rounding issues.
