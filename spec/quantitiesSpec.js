@@ -1018,4 +1018,34 @@ describe('js-quantities', function() {
     });
   });
 
+  describe("Qty.swiftConverter", function() {
+    it("should return a function", function() {
+      expect(typeof Qty.swiftConverter("m/h", "ft/s")).toBe("function");
+    });
+
+    it("should throw when passing incompatible units", function() {
+      expect(function() { Qty.swiftConverter("m", "s"); }).toThrow("Incompatible units");
+    });
+
+    describe("converter", function() {
+      it("should convert value", function() {
+        var converter = Qty.swiftConverter("m/h", "ft/s");
+
+        expect(converter(2500)).toEqual(new Qty("2500 m/h").to("ft/s").scalar);
+      });
+
+      it("should convert temperatures", function() {
+        var converter = Qty.swiftConverter("tempF", "tempC");
+
+        expect(converter(32)).toEqual(0);
+      });
+
+      it("should convert degrees", function() {
+        var converter = Qty.swiftConverter("degC", "degF");
+
+        expect(converter(10)).toEqual(18);
+      });
+    });
+  });
+
 });

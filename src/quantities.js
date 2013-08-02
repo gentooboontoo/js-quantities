@@ -382,6 +382,48 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
   };
 
+  /**
+   * Configures and returns a fast function to convert
+   * Number values from units to others.
+   * Useful to efficiently convert large array of values
+   * with same units into others with iterative methods.
+   * Does not take care of rounding issues.
+   *
+   * @param {string} srcUnits Units of values to convert
+   * @param {string} dstUnits Units to convert to
+   *
+   * @returns {Function} Converting function accepting Number value
+   *   and returning converted value
+   *
+   * @throws "Incompatible units" if units are incompatible
+   *
+   * @example
+   * // Converting large array of numbers with the same units
+   * // into other units
+   * var converter = Qty.swiftConverter("m/h", "ft/s");
+   * var convertedSerie = largeSerie.map(converter);
+   *
+   */
+  Qty.swiftConverter = function swiftConverter(srcUnits, dstUnits) {
+    var srcQty = new Qty(srcUnits);
+    var dstQty = new Qty(dstUnits);
+    if(!srcQty.isCompatible(dstQty)) {
+      throw "Incompatible units";
+    }
+
+    if(!srcQty.isTemperature()) {
+      return function(value) {
+        return value * srcQty.base_scalar / dstQty.base_scalar;
+      };
+    }
+    else {
+      return function(value) {
+        // TODO Not optimized
+        return srcQty.mul(value).to(dstQty).scalar;
+      };
+    }
+  };
+
   function updateBaseScalar() {
     if(this.base_scalar) {
       return this.base_scalar;

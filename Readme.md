@@ -57,6 +57,16 @@ and within browsers.
     // however, the 'to' command will convert between inverses also
     new Qty('10ohm').to('S') // '.1S'
 
+Qty.swiftConverter() could be useful to efficiently convert large array of values. It
+configures a function accepting a value and converting it.
+
+   var convert = Qty.swiftConverter("m/h", "ft/s"); // Configures converter
+   var convertedSerie = largeSerie.map(convert); // Usage with map()
+   var converted = convert(2500); // Standalone usage
+
+The main drawback of this conversion method is that it does not take care of
+rounding issues.
+
 ### Comparison
 
     qty1.eq(qty2); // => true if both quantities are equal (1m == 100cm => true)
