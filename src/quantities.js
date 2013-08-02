@@ -1034,6 +1034,60 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return normalizedUnits;
   }
 
+  function NestedMap() {}
+
+  NestedMap.prototype.get = function(keys) {
+
+    // Allows to pass key1, key2, ... instead of [key1, key2, ...]
+    if(arguments.length > 1) {
+      // Slower with Firefox but faster with Chrome than
+      // Array.prototype.slice.call(arguments)
+      // See http://jsperf.com/array-apply-versus-array-prototype-slice-call
+      keys = Array.apply(null, arguments);
+    }
+
+    return keys.reduce(function(map, key, index) {
+      if (map) {
+
+        var childMap = map[key];
+
+        if (index === keys.length - 1) {
+          return childMap ? childMap.data : undefined;
+        }
+        else {
+          return childMap;
+        }
+      }
+    },
+    this);
+  };
+
+  NestedMap.prototype.set = function(keys, value) {
+
+      if(arguments.length > 2) {
+        keys = Array.prototype.slice.call(arguments, 0, -1);
+        value = arguments[arguments.length - 1];
+      }
+
+      return keys.reduce(function(map, key, index) {
+
+        var childMap = map[key];
+        if (childMap === undefined) {
+          childMap = map[key] = {};
+        }
+
+        if (index === keys.length - 1) {
+          childMap.data = value;
+          return value;
+        }
+        else {
+          return childMap;
+        }
+      },
+      this);
+  };
+
+  var stringifiedUnitsCache = new NestedMap();
   /**
    * Returns a string representing a normalized unit array
    *
@@ -1043,12 +1097,24 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    *
    */
   function stringifyUnits(units) {
-    var isUnity = compareArray(units, UNITY_ARRAY);
-    if(isUnity) {
-      return "1";
+
+    var stringified = stringifiedUnitsCache.get(units);
+    if(stringified) {
+      return stringified;
     }
 
-    return simplify(getOutputNames(units)).join("*");
+    var isUnity = compareArray(units, UNITY_ARRAY);
+    if(isUnity) {
+      stringified = "1";
+    }
+    else {
+      stringified = simplify(getOutputNames(units)).join("*");
+    }
+
+    // Cache result
+    stringifiedUnitsCache.set(units, stringified);
+
+    return stringified;
   }
 
   function getOutputNames(units) {
