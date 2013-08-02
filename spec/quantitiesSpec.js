@@ -185,16 +185,16 @@ describe('js-quantities', function() {
     });
 
     it('should throw "Unit not recognized" error when initializing with an invalid unit', function() {
-      expect(function() { new Qty("aa") }).toThrow('Unit not recognized');
-      expect(function() { new Qty("m/aa") }).toThrow('Unit not recognized');
-      expect(function() { new Qty(" ") }).toThrow('Unit not recognized');
-      expect(function() { new Qty("m-") }).toThrow('Unit not recognized');
-      expect(function() { new Qty("N*m") }).not.toThrow
+      expect(function() { new Qty("aa"); }).toThrow('Unit not recognized');
+      expect(function() { new Qty("m/aa"); }).toThrow('Unit not recognized');
+      expect(function() { new Qty(" "); }).toThrow('Unit not recognized');
+      expect(function() { new Qty("m-"); }).toThrow('Unit not recognized');
+      expect(function() { new Qty("N*m"); }).not.toThrow('Unit not recognized');
     });
 
     it('should throw "Unit not recognized" error when initializing with an invalid unit and a 0 exponent', function() {
-      expect(function() { new Qty("3p0") }).toThrow();
-      expect(function() { new Qty("3p-0") }).toThrow();
+      expect(function() { new Qty("3p0"); }).toThrow();
+      expect(function() { new Qty("3p-0"); }).toThrow();
     });
 
     it('should set base_scalar', function() {
@@ -212,7 +212,7 @@ describe('js-quantities', function() {
     });
 
     it('should allow whitespace-wrapped value', function() {
-      expect(function() { new Qty("  2 MPa  ") }).not.toThrow();
+      expect(function() { new Qty("  2 MPa  "); }).not.toThrow();
     });
   });
 
@@ -394,7 +394,7 @@ describe('js-quantities', function() {
       expect(qty1.compareTo(qty2)).toBe(1);
       expect(qty2.compareTo(qty1)).toBe(-1);
       expect(qty1.compareTo(qty3)).toBe(0);
-      expect(function() { qty1.compareTo(qty4) }).toThrow("Incompatible quantities");
+      expect(function() { qty1.compareTo(qty4); }).toThrow("Incompatible quantities");
 
       expect(qty1.lt(qty2)).toBe(false);
       expect(qty1.lt(qty3)).toBe(false);
@@ -449,20 +449,20 @@ describe('js-quantities', function() {
     it('should fail to add unlike quantities', function() {
       qty1 = new Qty("3m");
       qty2 = new Qty("2s");
-      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
-      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible Units");
     });
 
     it('should fail to add inverse quantities', function() {
       qty1 = new Qty("10S");
       qty2 = qty1.inverse();
-      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
-      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible Units");
 
       qty1 = new Qty("10S");
       qty2 = new Qty("0.1ohm");
-      expect(function() { qty1.add(qty2) }).toThrow("Incompatible Units");
-      expect(function() { qty2.add(qty1) }).toThrow("Incompatible Units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible Units");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible Units");
     });
 
     it('should subtract quantities', function() {
@@ -486,20 +486,20 @@ describe('js-quantities', function() {
     it('should fail to subtract unlike quantities', function() {
       qty1 = new Qty("3m");
       qty2 = new Qty("2s");
-      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
-      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible Units");
     });
 
     it('should fail to subtract inverse quantities', function() {
       qty1 = new Qty("10S");
       qty2 = qty1.inverse();
-      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
-      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible Units");
 
       qty1 = new Qty("10S");
       qty2 = new Qty("0.1ohm");
-      expect(function() { qty1.sub(qty2) }).toThrow("Incompatible Units");
-      expect(function() { qty2.sub(qty1) }).toThrow("Incompatible Units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible Units");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible Units");
     });
 
     it('should multiply quantities', function() {
@@ -583,8 +583,8 @@ describe('js-quantities', function() {
       qty2 = new Qty("3m");
       qty3 = new Qty("0m");
 
-      expect(function() { qty1.div(qty3) }).toThrow("Divide by zero");
-      expect(function() { qty1.div(0) }).toThrow("Divide by zero");
+      expect(function() { qty1.div(qty3); }).toThrow("Divide by zero");
+      expect(function() { qty1.div(0); }).toThrow("Divide by zero");
       expect(qty3.div(qty1).scalar).toBe(0);
 
       result = qty1.div(qty2);
@@ -625,7 +625,7 @@ describe('js-quantities', function() {
       expect(result.units()).toBe("S2");
 
       result = qty2.div(qty1);
-      expect(result.scalar).toBe(.2);
+      expect(result.scalar).toBe(0.2);
       expect(result.units()).toBe("1/S2");
 
       result = qty1.div(qty3);
@@ -633,7 +633,7 @@ describe('js-quantities', function() {
       expect(result.units()).toBe("S2");
 
       result = qty3.div(qty1);
-      expect(result.scalar).toBe(.01);
+      expect(result.scalar).toBe(0.01);
       expect(result.units()).toBe("1/S2");
     });
 
@@ -794,8 +794,8 @@ describe('js-quantities', function() {
     it('should divide temperature degree quantities', function() {
       qty = new Qty("2.5 degF");
 
-      expect(function() { qty.div("0 degF") }).toThrow("Divide by zero");
-      expect(function() { qty.div(0) }).toThrow("Divide by zero");
+      expect(function() { qty.div("0 degF"); }).toThrow("Divide by zero");
+      expect(function() { qty.div(0); }).toThrow("Divide by zero");
       expect(new Qty("0 degF").div(qty).scalar).toBe(0);
       expect(new Qty("0 degF").div(qty).units()).toBe("");
 
@@ -879,11 +879,11 @@ describe('js-quantities', function() {
       expect(qty.toString()).toBe("2 m");
       expect(qty.toString("cm")).toBe("200 cm");
       expect(qty.toString("km")).toBe("0.002 km");
-      expect(function() { qty.toString("A") }).toThrow("Incompatible Units");
+      expect(function() { qty.toString("A"); }).toThrow("Incompatible Units");
 
       qty = new Qty("24.5m/s");
       expect(qty.toString()).toBe("24.5 m/s");
-      expect(function() { qty.toString("m") }).toThrow("Incompatible Units");
+      expect(function() { qty.toString("m"); }).toThrow("Incompatible Units");
       // TODO uncomment and fix
       // Problem due to div_safe use in Qty#to
       //expect(qty.toString("km/h")).toBe("88.2 km/h");
@@ -1002,11 +1002,11 @@ describe('js-quantities', function() {
 
   describe('Qty.parse', function() {
     it('should throw if parsed argument is not a string', function() {
-      expect(function() { Qty.parse(5) }).toThrow("Argument should be a string");
+      expect(function() { Qty.parse(5); }).toThrow("Argument should be a string");
     });
 
     it('should not throw if parsed argument is a string', function() {
-      expect(function() { Qty.parse('foo') }).not.toThrow("Argument should be a string");
+      expect(function() { Qty.parse('foo'); }).not.toThrow("Argument should be a string");
     });
 
     it('should return parsed quantity when passing a valid quantity', function() {
