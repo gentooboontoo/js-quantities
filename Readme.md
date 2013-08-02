@@ -165,10 +165,12 @@ Just execute:
 
     bundle exec rake bench
 
-Library is benchmarked against HEAD by default but it could be changed by passing
-any commit SHA on the command line.
+then open http://0.0.0.0:3000/bench
 
-    bundle exec rake bench COMMIT=e0c7fc468
+Checked-out version is benchmarked against HEAD by default but it could be changed by passing
+any commit SHA on the command line. Port (default 3000) is also configurable.
+
+    bundle exec rake bench COMMIT=e0c7fc468 PORT=5000
 
 ## Contribute
 
