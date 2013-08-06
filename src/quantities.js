@@ -407,8 +407,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   Qty.swiftConverter = function swiftConverter(srcUnits, dstUnits) {
     var srcQty = new Qty(srcUnits);
     var dstQty = new Qty(dstUnits);
-    if(!srcQty.isCompatible(dstQty)) {
-      throwIncompatibleUnits();
+
+    if(srcQty.eq(dstQty)) {
+      return identity;
     }
 
     if(!srcQty.isTemperature()) {
@@ -1479,6 +1480,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }, []);
 
     return [num, den];
+  }
+
+  /*
+   * Identity function
+   */
+  function identity(value) {
+    return value;
   }
 
   // Setup

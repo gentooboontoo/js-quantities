@@ -1034,6 +1034,12 @@ describe('js-quantities', function() {
         expect(converter(2500)).toEqual(new Qty("2500 m/h").to("ft/s").scalar);
       });
 
+      it("should returned value unchanged when units are identical", function() {
+        var converter = Qty.swiftConverter("m/h", "m/h");
+
+        expect(converter(2500)).toEqual(2500);
+      });
+
       it("should convert temperatures", function() {
         var converter = Qty.swiftConverter("tempF", "tempC");
 
