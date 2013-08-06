@@ -394,7 +394,7 @@ describe('js-quantities', function() {
       expect(qty1.compareTo(qty2)).toBe(1);
       expect(qty2.compareTo(qty1)).toBe(-1);
       expect(qty1.compareTo(qty3)).toBe(0);
-      expect(function() { qty1.compareTo(qty4); }).toThrow("Incompatible quantities");
+      expect(function() { qty1.compareTo(qty4); }).toThrow("Incompatible units");
 
       expect(qty1.lt(qty2)).toBe(false);
       expect(qty1.lt(qty3)).toBe(false);
@@ -449,20 +449,20 @@ describe('js-quantities', function() {
     it('should fail to add unlike quantities', function() {
       qty1 = new Qty("3m");
       qty2 = new Qty("2s");
-      expect(function() { qty1.add(qty2); }).toThrow("Incompatible Units");
-      expect(function() { qty2.add(qty1); }).toThrow("Incompatible Units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units");
     });
 
     it('should fail to add inverse quantities', function() {
       qty1 = new Qty("10S");
       qty2 = qty1.inverse();
-      expect(function() { qty1.add(qty2); }).toThrow("Incompatible Units");
-      expect(function() { qty2.add(qty1); }).toThrow("Incompatible Units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units");
 
       qty1 = new Qty("10S");
       qty2 = new Qty("0.1ohm");
-      expect(function() { qty1.add(qty2); }).toThrow("Incompatible Units");
-      expect(function() { qty2.add(qty1); }).toThrow("Incompatible Units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units");
     });
 
     it('should subtract quantities', function() {
@@ -486,20 +486,20 @@ describe('js-quantities', function() {
     it('should fail to subtract unlike quantities', function() {
       qty1 = new Qty("3m");
       qty2 = new Qty("2s");
-      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible Units");
-      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible Units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units");
     });
 
     it('should fail to subtract inverse quantities', function() {
       qty1 = new Qty("10S");
       qty2 = qty1.inverse();
-      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible Units");
-      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible Units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units");
 
       qty1 = new Qty("10S");
       qty2 = new Qty("0.1ohm");
-      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible Units");
-      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible Units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units");
     });
 
     it('should multiply quantities', function() {
@@ -879,11 +879,11 @@ describe('js-quantities', function() {
       expect(qty.toString()).toBe("2 m");
       expect(qty.toString("cm")).toBe("200 cm");
       expect(qty.toString("km")).toBe("0.002 km");
-      expect(function() { qty.toString("A"); }).toThrow("Incompatible Units");
+      expect(function() { qty.toString("A"); }).toThrow("Incompatible units");
 
       qty = new Qty("24.5m/s");
       expect(qty.toString()).toBe("24.5 m/s");
-      expect(function() { qty.toString("m"); }).toThrow("Incompatible Units");
+      expect(function() { qty.toString("m"); }).toThrow("Incompatible units");
       // TODO uncomment and fix
       // Problem due to div_safe use in Qty#to
       //expect(qty.toString("km/h")).toBe("88.2 km/h");

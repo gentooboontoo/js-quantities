@@ -408,7 +408,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var srcQty = new Qty(srcUnits);
     var dstQty = new Qty(dstUnits);
     if(!srcQty.isCompatible(dstQty)) {
-      throw "Incompatible units";
+      throwIncompatibleUnits();
     }
 
     if(!srcQty.isTemperature()) {
@@ -571,6 +571,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   }
 
+  /*
+   * Throws incompatible units error
+   *
+   * @throws "Incompatible units" error
+   */
+  function throwIncompatibleUnits() {
+    throw "Incompatible units";
+  }
+
   Qty.prototype = {
 
     // Properly set up constructor
@@ -724,7 +733,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         prec_quantity = prec_quantity.to(this.units());
       }
       else if(!prec_quantity.isUnitless()) {
-        throw "Incompatible Units";
+        throwIncompatibleUnits();
       }
 
       if(prec_quantity.scalar === 0)
@@ -787,7 +796,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return this.compareTo(new Qty(other));
       }
       if(!this.isCompatible(other)) {
-        throw "Incompatible quantities";
+        throwIncompatibleUnits();
       }
       if(this.base_scalar < other.base_scalar) {
         return -1;
@@ -851,7 +860,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if(this.isInverse(target)) {
           return this.inverse().to(other);
         }
-        throw "Incompatible Units";
+        throwIncompatibleUnits();
       }
 
       if(target.isTemperature()) {
@@ -873,7 +882,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       if(!this.isCompatible(other)) {
-        throw "Incompatible Units";
+        throwIncompatibleUnits();
       }
 
       if(this.isTemperature() && other.isTemperature()) {
@@ -895,7 +904,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       if(!this.isCompatible(other)) {
-        throw "Incompatible Units";
+        throwIncompatibleUnits();
       }
 
       if(this.isTemperature() && other.isTemperature()) {
