@@ -15,7 +15,7 @@ and within browsers.
 
 ### Browser
 
-Download at [latest release](https://raw.github.com/gentooboontoo/js-quantities/v1.0.0/src/quantities.js).
+Download at [latest release](https://raw.github.com/gentooboontoo/js-quantities/v1.1.0/src/quantities.js).
 
 You could also use Bower to install:
 
@@ -30,7 +30,7 @@ When using [Require.JS](http://requirejs.org/):
     define(['quantities'], function(Qty) {
       ...
     });
-    
+
 ### Node
 
     $ npm install js-quantities
