@@ -11,7 +11,33 @@ units for scientific calculations involving quantities.
 JS-quantities is defined as an UMD module and can be used with AMD, Node
 and within browsers.
 
-## Usage examples
+## Installing JS-quantities
+
+### Browser
+
+Download at [latest release](https://raw.github.com/gentooboontoo/js-quantities/v1.0.0/src/quantities.js).
+
+You could also use Bower to install:
+
+    bower install js-quantities
+
+Then include it:
+
+    <script src='quantities.js'></script>
+
+When using [Require.JS](http://requirejs.org/):
+
+    define(['quantities'], function(Qty) {
+      ...
+    });
+    
+### Node
+
+    $ npm install js-quantities
+    $ node
+    > var Qty = require('js-quantities);
+
+## Synopsis
 
 ### Creation
 
