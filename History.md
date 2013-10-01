@@ -1,3 +1,7 @@
+1.1.1 / 2013-10-01
+------------------
+* Fix Qty#toPrec() returning wrong result with some precision
+
 1.1.0 / 2013-09-20
 ------------------
 
