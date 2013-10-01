@@ -950,6 +950,7 @@ describe('js-quantities', function() {
       expect(qty.toPrec(new Qty('0.05 ft')).toString()).toBe("5.15 ft");
       expect(qty.toPrec(new Qty('0.01 ft')).toString()).toBe("5.17 ft");
       expect(qty.toPrec(new Qty('0.0001 ft')).toString()).toBe("5.17 ft");
+      expect(qty.toPrec(new Qty('0.25 ft')).toString()).toBe("5.25 ft");
     });
 
     it('should allow string as precision parameter', function() {
@@ -976,11 +977,13 @@ describe('js-quantities', function() {
       expect(qty.toPrec(new Qty('0.01 MPa')).toString()).toBe("1.15 MPa");
       expect(qty.toPrec(new Qty('dbar')).toString()).toBe("1.15 MPa");
 
+      // Tests below are mainly a safety net because not sure if there is
+      // any usefulness to do things like that
       qty = new Qty('5.171234568 ft');
-      expect(qty.toPrec(new Qty('m')).toString()).toBe("7 ft");
-      expect(qty.toPrec(new Qty('dm')).toString()).toBe("5.2 ft");
-      expect(qty.toPrec(new Qty('cm')).toString()).toBe("5.18 ft");
-      expect(qty.toPrec(new Qty('mm')).toString()).toBe("5.171 ft");
+      expect(qty.toPrec(new Qty('m')).toString()).toBe("6.561679790026246 ft");
+      expect(qty.toPrec(new Qty('dm')).toString()).toBe("5.249343832020998 ft");
+      expect(qty.toPrec(new Qty('cm')).toString()).toBe("5.183727034120736 ft");
+      expect(qty.toPrec(new Qty('mm')).toString()).toBe("5.170603674540682 ft");
     });
   });
 

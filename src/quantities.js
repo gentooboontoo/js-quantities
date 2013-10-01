@@ -722,12 +722,28 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     // return a new quantity with same units rounded
     // at the nearest value according to quantity passed
     // as precision
+    /**
+     * Returns the nearest multiple of quantity passed as
+     * precision
+     *
+     * @param {(Qty|string|number)} prec-quantity - Quantity, string formated
+     *   quantity or number as expected precision
+     *
+     * @returns {Qty} Nearest multiple of prec_quantity
+     *
+     * @example
+     * new Qty('5.5 ft').toPrec('2 ft'); // returns 6 ft
+     * new Qty('0.8 cu').toPrec('0.25 cu'); // returns 0.75 cu
+     * new Qty('6.3782 m').toPrec('cm'); // returns 6.38 m
+     * new Qty('1.146 MPa').toPrec('0.1 bar'); // returns 1.15 MPa
+     *
+     */
     toPrec: function(prec_quantity) {
       if(prec_quantity && prec_quantity.constructor === String) {
         prec_quantity = new Qty(prec_quantity);
       }
       if(typeof prec_quantity === "number") {
-        prec_quantity = new Qty(prec_quantity+' '+this.units());
+        prec_quantity = new Qty(prec_quantity + ' ' + this.units());
       }
 
       if(!this.isUnitless()) {
@@ -739,11 +755,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
       if(prec_quantity.scalar === 0)
         throw "Divide by zero";
-      var prec_rounded_result = Math.round(this.scalar/prec_quantity.scalar)*prec_quantity.scalar;
-
-      // Remove potential floating error based on prec_quantity exponent
-      var prec_exponent = exponent_of(prec_quantity.scalar);
-      prec_rounded_result = round(prec_rounded_result, -prec_exponent);
+      var prec_rounded_result = mul_safe(Math.round(this.scalar/prec_quantity.scalar),
+                                         prec_quantity.scalar);
 
       return new Qty(prec_rounded_result + this.units());
     },

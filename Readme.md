@@ -113,12 +113,12 @@ rounding issues.
 
 ### Rounding
 
-Qty#toPrec(precision) with precision as number, string or quantity standing for the minimum significative quantity.
-Returns a new quantity.
+Qty#toPrec(precision) : returns the nearest multiple of quantity passed as precision
 
     var qty = new Qty('5.17 ft');
     qty.toPrec('ft'); // => 5 ft
     qty.toPrec('0.5 ft'); // => 5 ft
+    qty.toPrec('0.25 ft'); // => 5.25 ft
     qty.toPrec('0.1 ft'); // => 5.2 ft
     qty.toPrec('0.05 ft'); // => 5.15 ft
     qty.toPrec('0.01 ft'); // => 5.17 ft
@@ -133,6 +133,9 @@ Returns a new quantity.
     qty.toPrec('5 cm'); // => 6.4 m
     qty.toPrec('10 m'); // => 10 m
     qty.toPrec(0.1); // => 6.3 m
+
+    var qty = new Qty('1.146 MPa');
+    qty.toPrec('0.1 bar'); // => 1.15 MPa
 
 ### Text output
 
