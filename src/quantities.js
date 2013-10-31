@@ -1378,10 +1378,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return new Qty({"scalar": q, "numerator": ["<temp-K>"], "denominator": UNITY_ARRAY});
   }
 
-  // Multiply numbers avoiding floating errors
-  // workaround to fix
-  // 0.1 * 0.1 => 0.010000000000000002
-  // mul_safe(0.1, 0.1) => 0.01
+  /**
+   * Safely multiplies numbers while avoiding floating errors
+   * like 0.1 * 0.1 => 0.010000000000000002
+   *
+   * @returns {number} result
+   * @param {...number} number
+   */
   function mul_safe() {
     var result = 1, decimals = 0;
     for(var i = 0; i < arguments.length; i++) {
@@ -1393,10 +1396,22 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return decimals !== 0 ? round(result, decimals) : result;
   }
 
+  /**
+   * Safely divides two numbers while avoiding floating errors
+   * like 0.3 / 0.05 => 5.999999999999999
+   *
+   * @returns {number} result
+   * @param {number} num Numerator
+   * @param {number} den Denominator
+   */
   function div_safe(num, den) {
     if(den === 0)
       throw "Divide by zero";
-    return mul_safe(num, 1/den);
+
+    var factor = Math.pow(10, getFractional(den));
+    var invDen = factor/(factor*den);
+
+    return mul_safe(num, invDen);
   }
 
   function getFractional(num) {
