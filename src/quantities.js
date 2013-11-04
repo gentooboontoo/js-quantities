@@ -11,12 +11,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 /*jshint eqeqeq:true, immed:true, undef:true */
 /*global module:false, define:false */
 (function (root, factory) {
-    if (typeof exports === 'object') {
+    "use strict";
+
+    if (typeof exports === "object") {
         // Node. Does not work with strict CommonJS, but
         // only CommonJS-like enviroments that support module.exports,
         // like Node.
         module.exports = factory();
-    } else if (typeof define === 'function' && define.amd) {
+    } else if (typeof define === "function" && define.amd) {
         // AMD. Register as an anonymous module.
         define(factory);
     } else {
@@ -24,6 +26,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         root.Qty = factory();
     }
 }(this, function() {
+  "use strict";
+
   var UNITS = {
     /* prefixes */
     "<googol>" : [["googol"], 1e100, "prefix"],
@@ -270,11 +274,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
 
-  var BASE_UNITS = ['<meter>','<kilogram>','<second>','<mole>', '<farad>', '<ampere>','<radian>','<kelvin>','<temp-K>','<byte>','<dollar>','<candela>','<each>','<steradian>','<decibel>'];
-  var UNITY = '<1>';
+  var BASE_UNITS = ["<meter>","<kilogram>","<second>","<mole>", "<farad>", "<ampere>","<radian>","<kelvin>","<temp-K>","<byte>","<dollar>","<candela>","<each>","<steradian>","<decibel>"];
+  var UNITY = "<1>";
   var UNITY_ARRAY= [UNITY];
   var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
-  var SCI_NUMBER_REGEX = new RegExp(SCI_NUMBER);
+  //var SCI_NUMBER_REGEX = new RegExp(SCI_NUMBER);
   var QTY_STRING = SCI_NUMBER + "\\s*([^/]*)(?:\/(.+))?";
   var QTY_STRING_REGEX = new RegExp("^" + QTY_STRING + "$");
   var POWER_OP = "\\^|\\*{2}";
@@ -324,29 +328,29 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   var baseUnitCache = {};
 
-  function Qty(init_value) {
+  function Qty(initValue) {
     this.scalar = null;
-    this.base_scalar = null;
+    this.baseScalar = null;
     this.signature = null;
     this.output = {};
     this.numerator = UNITY_ARRAY;
     this.denominator = UNITY_ARRAY;
 
-    if(init_value.constructor === String) {
-      init_value = init_value.trim();
-      parse.call(this, init_value);
+    if(initValue.constructor === String) {
+      initValue = initValue.trim();
+      parse.call(this, initValue);
     }
     else {
-      this.scalar = init_value.scalar;
-      this.numerator = (init_value.numerator && init_value.numerator.length !== 0)? init_value.numerator : UNITY_ARRAY;
-      this.denominator = (init_value.denominator && init_value.denominator.length !== 0)? init_value.denominator : UNITY_ARRAY;
+      this.scalar = initValue.scalar;
+      this.numerator = (initValue.numerator && initValue.numerator.length !== 0)? initValue.numerator : UNITY_ARRAY;
+      this.denominator = (initValue.denominator && initValue.denominator.length !== 0)? initValue.denominator : UNITY_ARRAY;
     }
 
     // math with temperatures is very limited
-    if(this.denominator.join('*').indexOf('temp') >= 0) {
+    if(this.denominator.join("*").indexOf("temp") >= 0) {
       throw "Cannot divide with temperatures";
     }
-    if(this.numerator.join('*').indexOf('temp') >= 0) {
+    if(this.numerator.join("*").indexOf("temp") >= 0) {
       if(this.numerator.length > 1) {
         throw "Cannot multiply by temperatures";
       }
@@ -355,10 +359,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
 
-    this.init_value = init_value;
+    this.initValue = initValue;
     updateBaseScalar.call(this);
 
-    if(this.isTemperature() && this.base_scalar < 0) {
+    if(this.isTemperature() && this.baseScalar < 0) {
       throw "Temperatures must not be less than absolute zero";
     }
   }
@@ -370,7 +374,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * @returns {Qty|null} Parsed quantity or null if unrecognized
    */
   Qty.parse = function parse(value) {
-    if(typeof value !== 'string' && !(value instanceof String)) {
+    if(typeof value !== "string" && !(value instanceof String)) {
       throw "Argument should be a string";
     }
 
@@ -414,7 +418,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     if(!srcQty.isTemperature()) {
       return function(value) {
-        return value * srcQty.base_scalar / dstQty.base_scalar;
+        return value * srcQty.baseScalar / dstQty.baseScalar;
       };
     }
     else {
@@ -425,20 +429,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
   };
 
-  function updateBaseScalar() {
-    if(this.base_scalar) {
-      return this.base_scalar;
+  var updateBaseScalar = function updateBaseScalar() {
+    if(this.baseScalar) {
+      return this.baseScalar;
     }
     if(this.isBase()) {
-      this.base_scalar = this.scalar;
+      this.baseScalar = this.scalar;
       this.signature = unitSignature.call(this);
     }
     else {
       var base = this.toBase();
-      this.base_scalar = base.scalar;
+      this.baseScalar = base.scalar;
       this.signature = base.signature;
     }
-  }
+  };
 
   /*
   calculates the unit signature id for use in comparing compatible units and simplification
@@ -449,7 +453,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   doi://10.1109/32.403789
   http://ieeexplore.ieee.org/Xplore/login.jsp?url=/iel1/32/9079/00403789.pdf?isnumber=9079&prod=JNL&arnumber=403789&arSt=651&ared=661&arAuthor=Novak%2C+G.S.%2C+Jr.
   */
-  function unitSignature() {
+  var unitSignature = function unitSignature() {
     if(this.signature) {
       return this.signature;
     }
@@ -458,11 +462,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       vector[i] *= Math.pow(20, i);
     }
 
-    return vector.reduce(function(previous, current, index, array) {return previous + current;}, 0);
-  }
+    return vector.reduce(function(previous, current) {return previous + current;}, 0);
+  };
 
   // calculates the unit signature vector used by unit_signature
-  function unitSignatureVector() {
+  var unitSignatureVector = function unitSignatureVector() {
     if(!this.isBase()) {
       return unitSignatureVector.call(this.toBase());
     }
@@ -490,7 +494,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
     }
     return vector;
-  }
+  };
 
   /* parse a string into a unit object.
    * Typical formats like :
@@ -504,13 +508,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * 6'4"  -- recognized as 6 feet + 4 inches
    * 8 lbs 8 oz -- recognized as 8 lbs + 8 ounces
    */
-  function parse(val) {
+  var parse = function parse(val) {
     var result = QTY_STRING_REGEX.exec(val);
     if(!result) {
       throw val + ": Quantity not recognized";
     }
 
-    if(val.trim() === '') {
+    if(val.trim() === "") {
       throw "Unit not recognized";
     }
 
@@ -570,7 +574,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       this.denominator = parseUnits(bottom.trim());
     }
 
-  }
+  };
 
   /*
    * Throws incompatible units error
@@ -645,24 +649,24 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     // Returns 'true' if the Unit is represented in base units
     isBase: function() {
-      if(this.is_base !== undefined) {
-        return this.is_base;
+      if(this._isBase !== undefined) {
+        return this._isBase;
       }
       if(this.isDegrees() && this.numerator[0].match(/<(kelvin|temp-K)>/)) {
-        this.is_base = true;
-        return this.is_base;
+        this._isBase = true;
+        return this._isBase;
       }
 
       this.numerator.concat(this.denominator).forEach(function(item) {
         if(item !== UNITY && BASE_UNITS.indexOf(item) === -1 ) {
-          this.is_base = false;
+          this._isBase = false;
         }
       }, this);
-      if(this.is_base === false) {
-        return this.is_base;
+      if(this._isBase === false) {
+        return this._isBase;
       }
-      this.is_base = true;
-      return this.is_base;
+      this._isBase = true;
+      return this._isBase;
     },
 
     // convert to base SI units
@@ -699,7 +703,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
       var numUnits = stringifyUnits(this.numerator),
           denUnits = stringifyUnits(this.denominator);
-      this._units = numUnits + (denIsUnity ? '':('/' + denUnits));
+      this._units = numUnits + (denIsUnity ? "":("/" + denUnits));
       return this._units;
     },
 
@@ -719,9 +723,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return this.eq(other) || this.gt(other);
     },
 
-    // return a new quantity with same units rounded
-    // at the nearest value according to quantity passed
-    // as precision
     /**
      * Returns the nearest multiple of quantity passed as
      * precision
@@ -729,7 +730,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      * @param {(Qty|string|number)} prec-quantity - Quantity, string formated
      *   quantity or number as expected precision
      *
-     * @returns {Qty} Nearest multiple of prec_quantity
+     * @returns {Qty} Nearest multiple of precQuantity
      *
      * @example
      * new Qty('5.5 ft').toPrec('2 ft'); // returns 6 ft
@@ -738,58 +739,61 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      * new Qty('1.146 MPa').toPrec('0.1 bar'); // returns 1.15 MPa
      *
      */
-    toPrec: function(prec_quantity) {
-      if(prec_quantity && prec_quantity.constructor === String) {
-        prec_quantity = new Qty(prec_quantity);
+    toPrec: function(precQuantity) {
+      if(precQuantity && precQuantity.constructor === String) {
+        precQuantity = new Qty(precQuantity);
       }
-      if(typeof prec_quantity === "number") {
-        prec_quantity = new Qty(prec_quantity + ' ' + this.units());
+      if(typeof precQuantity === "number") {
+        precQuantity = new Qty(precQuantity + " " + this.units());
       }
 
       if(!this.isUnitless()) {
-        prec_quantity = prec_quantity.to(this.units());
+        precQuantity = precQuantity.to(this.units());
       }
-      else if(!prec_quantity.isUnitless()) {
+      else if(!precQuantity.isUnitless()) {
         throwIncompatibleUnits();
       }
 
-      if(prec_quantity.scalar === 0)
+      if(precQuantity.scalar === 0)
+      {
         throw "Divide by zero";
-      var prec_rounded_result = mul_safe(Math.round(this.scalar/prec_quantity.scalar),
-                                         prec_quantity.scalar);
+      }
 
-      return new Qty(prec_rounded_result + this.units());
+      var precRoundedResult = mul_safe(Math.round(this.scalar/precQuantity.scalar),
+                                         precQuantity.scalar);
+
+      return new Qty(precRoundedResult + this.units());
     },
 
     // Generate human readable output.
     // If the name of a unit is passed, the unit will first be converted to the target unit before output.
     // output is cached so subsequent calls for the same format will be fast
-    toString: function(target_units_or_max_decimals_or_prec, max_decimals) {
-      var target_units;
-      if(typeof target_units_or_max_decimals_or_prec === "number") {
-        max_decimals = target_units_or_max_decimals_or_prec;
+    toString: function(targetUnitsOrMaxDecimalsOrPrec, maxDecimals) {
+      var targetUnits;
+      if(typeof targetUnitsOrMaxDecimalsOrPrec === "number") {
+        maxDecimals = targetUnitsOrMaxDecimalsOrPrec;
       }
-      else if(typeof target_units_or_max_decimals_or_prec === "string") {
-        target_units = target_units_or_max_decimals_or_prec;
+      else if(typeof targetUnitsOrMaxDecimalsOrPrec === "string") {
+        targetUnits = targetUnitsOrMaxDecimalsOrPrec;
       }
-      else if(target_units_or_max_decimals_or_prec instanceof Qty) {
-        return this.toPrec(target_units_or_max_decimals_or_prec).toString(max_decimals);
+      else if(targetUnitsOrMaxDecimalsOrPrec instanceof Qty) {
+        return this.toPrec(targetUnitsOrMaxDecimalsOrPrec).toString(maxDecimals);
       }
 
       var out;
-      if(!max_decimals && this.output[target_units]) {
-        out = this.output[target_units];
+      if(!maxDecimals && this.output[targetUnits]) {
+        out = this.output[targetUnits];
       }
-      else if(target_units) {
-        out = this.to(target_units);
+      else if(targetUnits) {
+        out = this.to(targetUnits);
         // Caching simple unit conversion
-        this.output[target_units] = out;
+        this.output[targetUnits] = out;
       }
       else {
         out = this;
       }
-      var out_scalar = max_decimals !== undefined ? round(out.scalar, max_decimals) : out.scalar;
-      out = (out_scalar + " " + out.units()).trim();
+      var outScalar = maxDecimals !== undefined ? round(out.scalar, maxDecimals) : out.scalar;
+      out = (outScalar + " " + out.units()).trim();
       return out;
     },
 
@@ -812,13 +816,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(!this.isCompatible(other)) {
         throwIncompatibleUnits();
       }
-      if(this.base_scalar < other.base_scalar) {
+      if(this.baseScalar < other.baseScalar) {
         return -1;
       }
-      else if(this.base_scalar === other.base_scalar) {
+      else if(this.baseScalar === other.baseScalar) {
         return 0;
       }
-      else if(this.base_scalar > other.base_scalar) {
+      else if(this.baseScalar > other.baseScalar) {
         return 1;
       }
     },
@@ -884,7 +888,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return toDegrees(this,target);
       }
 
-      var q = div_safe(this.base_scalar, target.base_scalar);
+      var q = div_safe(this.baseScalar, target.baseScalar);
       return new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
     },
 
@@ -1072,14 +1076,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return cached;
     }
 
-    var unit_match, normalizedUnits = [];
+    var unitMatch, normalizedUnits = [];
     // Scan
     if(!UNIT_TEST_REGEX.test(units)) {
       throw "Unit not recognized";
     }
 
-    while((unit_match = UNIT_MATCH_REGEX.exec(units))) {
-      normalizedUnits.push(unit_match.slice(1));
+    while((unitMatch = UNIT_MATCH_REGEX.exec(units))) {
+      normalizedUnits.push(unitMatch.slice(1));
     }
 
     normalizedUnits = normalizedUnits.map(function(item) {
@@ -1183,12 +1187,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 
   function getOutputNames(units) {
-    var unitNames = [], token, token_next;
+    var unitNames = [], token, tokenNext;
     for(var i = 0; i < units.length; i++) {
       token = units[i];
-      token_next = units[i+1];
+      tokenNext = units[i+1];
       if(PREFIX_VALUES[token]) {
-        unitNames.push(OUTPUT_MAP[token] + OUTPUT_MAP[token_next]);
+        unitNames.push(OUTPUT_MAP[token] + OUTPUT_MAP[tokenNext]);
         i++;
       }
       else {
@@ -1238,13 +1242,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return Math.round(val*Math.pow(10, decimals))/Math.pow(10, decimals);
   }
 
-  // significand x 10 ^ exponent
-  function exponent_of(val) {
-    return Math.floor(Math.log(Math.abs(val)) / Math.LN10);
-  }
-
-  var num_regex = /^-?(\d+)(?:\.(\d+))?$/;
-  var exp_regex = /^-?(\d+)e-?(\d+)$/;
+  var numRegex = /^-?(\d+)(?:\.(\d+))?$/;
+  var expRegex = /^-?(\d+)e-?(\d+)$/;
 
   function subtractTemperatures(lhs,rhs) {
     var lhsUnits = lhs.units();
@@ -1264,17 +1263,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 
   function getDegreeUnits(units) {
-    if(units === 'tempK') {
-      return 'degK';
+    if(units === "tempK") {
+      return "degK";
     }
-    else if(units === 'tempC') {
-      return 'degC';
+    else if(units === "tempC") {
+      return "degC";
     }
-    else if(units === 'tempF') {
-      return 'degF';
+    else if(units === "tempF") {
+      return "degF";
     }
-    else if(units === 'tempR') {
-      return 'degR';
+    else if(units === "tempR") {
+      return "degR";
     }
     else {
       throw "Unknown type for temp conversion from: " + units;
@@ -1286,16 +1285,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var dstUnits = dst.units();
     var dstScalar;
 
-    if(dstUnits === 'degK') {
+    if(dstUnits === "degK") {
       dstScalar = srcDegK.scalar;
     }
-    else if(dstUnits === 'degC') {
+    else if(dstUnits === "degC") {
       dstScalar = srcDegK.scalar ;
     }
-    else if(dstUnits === 'degF') {
+    else if(dstUnits === "degF") {
       dstScalar = srcDegK.scalar * 9/5;
     }
-    else if(dstUnits === 'degR') {
+    else if(dstUnits === "degR") {
       dstScalar = srcDegK.scalar * 9/5;
     }
     else {
@@ -1309,18 +1308,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var units = qty.units();
     var q;
     if(units.match(/(deg)[CFRK]/)) {
-      q = qty.base_scalar;
+      q = qty.baseScalar;
     }
-    else if(units === 'tempK') {
+    else if(units === "tempK") {
       q = qty.scalar;
     }
-    else if(units === 'tempC') {
+    else if(units === "tempC") {
       q = qty.scalar;
     }
-    else if(units === 'tempF') {
+    else if(units === "tempF") {
       q = qty.scalar * 5/9;
     }
-    else if(units === 'tempR') {
+    else if(units === "tempR") {
       q = qty.scalar * 5/9;
     }
     else {
@@ -1334,17 +1333,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var dstUnits = dst.units();
     var dstScalar;
 
-    if(dstUnits === 'tempK') {
-      dstScalar = src.base_scalar;
+    if(dstUnits === "tempK") {
+      dstScalar = src.baseScalar;
     }
-    else if(dstUnits === 'tempC') {
-      dstScalar = src.base_scalar - 273.15;
+    else if(dstUnits === "tempC") {
+      dstScalar = src.baseScalar - 273.15;
     }
-    else if(dstUnits === 'tempF') {
-      dstScalar = (src.base_scalar * 9/5) - 459.67;
+    else if(dstUnits === "tempF") {
+      dstScalar = (src.baseScalar * 9/5) - 459.67;
     }
-    else if(dstUnits === 'tempR') {
-      dstScalar = src.base_scalar * 9/5;
+    else if(dstUnits === "tempR") {
+      dstScalar = src.baseScalar * 9/5;
     }
     else {
       throw "Unknown type for temp conversion to: " + dstUnits;
@@ -1357,18 +1356,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var units = qty.units();
     var q;
     if(units.match(/(deg)[CFRK]/)) {
-      q = qty.base_scalar;
+      q = qty.baseScalar;
     }
-    else if(units === 'tempK') {
+    else if(units === "tempK") {
       q = qty.scalar;
     }
-    else if(units === 'tempC') {
+    else if(units === "tempC") {
       q = qty.scalar + 273.15;
     }
-    else if(units === 'tempF') {
+    else if(units === "tempF") {
       q = (qty.scalar + 459.67) * 5/9;
     }
-    else if(units === 'tempR') {
+    else if(units === "tempR") {
       q = qty.scalar * 5/9;
     }
     else {
@@ -1406,7 +1405,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    */
   function div_safe(num, den) {
     if(den === 0)
+    {
       throw "Divide by zero";
+    }
 
     var factor = Math.pow(10, getFractional(den));
     var invDen = factor/(factor*den);
@@ -1416,10 +1417,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   function getFractional(num) {
     var fractional, match;
-    if((match = num_regex.exec(num)) && match[2]) {
+    if((match = numRegex.exec(num)) && match[2]) {
       fractional = match[2].length;
     }
-    else if((match = exp_regex.exec(num))) {
+    else if((match = expRegex.exec(num))) {
       fractional = parseInt(match[2], 10);
     }
     // arg could be Infinities
@@ -1523,34 +1524,34 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var UNIT_VALUES = {};
   var UNIT_MAP = {};
   var OUTPUT_MAP = {};
-  for(var unit_def in UNITS) {
-    if(UNITS.hasOwnProperty(unit_def)) {
-      var definition = UNITS[unit_def];
+  for(var unitDef in UNITS) {
+    if(UNITS.hasOwnProperty(unitDef)) {
+      var definition = UNITS[unitDef];
       if(definition[2] === "prefix") {
-        PREFIX_VALUES[unit_def] = definition[1];
+        PREFIX_VALUES[unitDef] = definition[1];
         for(var i = 0; i < definition[0].length; i++) {
-          PREFIX_MAP[definition[0][i]] = unit_def;
+          PREFIX_MAP[definition[0][i]] = unitDef;
         }
       }
       else {
-        UNIT_VALUES[unit_def] = {
+        UNIT_VALUES[unitDef] = {
           scalar: definition[1],
           numerator: definition[3],
           denominator: definition[4]
         };
         for(var j = 0; j < definition[0].length; j++) {
-          UNIT_MAP[definition[0][j]] = unit_def;
+          UNIT_MAP[definition[0][j]] = unitDef;
         }
       }
-      OUTPUT_MAP[unit_def] = definition[0][0];
+      OUTPUT_MAP[unitDef] = definition[0][0];
     }
   }
   var PREFIX_REGEX = Object.keys(PREFIX_MAP).sort(function(a, b) {
     return b.length - a.length;
-  }).join('|');
+  }).join("|");
   var UNIT_REGEX = Object.keys(UNIT_MAP).sort(function(a, b) {
     return b.length - a.length;
-  }).join('|');
+  }).join("|");
   var UNIT_MATCH = "(" + PREFIX_REGEX + ")*?(" + UNIT_REGEX + ")\\b";
   var UNIT_MATCH_REGEX = new RegExp(UNIT_MATCH, "g"); // g flag for multiple occurences
   var UNIT_TEST_REGEX = new RegExp("^\\s*(" + UNIT_MATCH + "\\s*\\*?\\s*)+$");

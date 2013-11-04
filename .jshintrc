@@ -1,0 +1,17 @@
+{
+  "bitwise": true,
+  "browser": true,
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "globals": {
+    "define": false,
+    "require": false
+  },
+  "immed": true,
+  "quotmark": true,
+  "strict": true,
+  "undef": true,
+  "unused": true
+}

@@ -197,18 +197,18 @@ describe('js-quantities', function() {
       expect(function() { new Qty("3p-0"); }).toThrow();
     });
 
-    it('should set base_scalar', function() {
+    it('should set baseScalar', function() {
       qty = new Qty("0.018 MPa");
-      expect(qty.base_scalar).toBe(18000);
+      expect(qty.baseScalar).toBe(18000);
 
       qty = new Qty("66 cm3");
-      expect(qty.base_scalar).toBe(0.000066);
+      expect(qty.baseScalar).toBe(0.000066);
     });
 
     it('should trim init value', function() {
       qty = new Qty("  66 cm3  ");
 
-      expect(qty.init_value).toEqual("66 cm3");
+      expect(qty.initValue).toEqual("66 cm3");
     });
 
     it('should allow whitespace-wrapped value', function() {
