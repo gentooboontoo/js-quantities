@@ -429,7 +429,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
   };
 
-  var updateBaseScalar = function updateBaseScalar() {
+  var updateBaseScalar = function () {
     if(this.baseScalar) {
       return this.baseScalar;
     }
@@ -453,7 +453,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   doi://10.1109/32.403789
   http://ieeexplore.ieee.org/Xplore/login.jsp?url=/iel1/32/9079/00403789.pdf?isnumber=9079&prod=JNL&arnumber=403789&arSt=651&ared=661&arAuthor=Novak%2C+G.S.%2C+Jr.
   */
-  var unitSignature = function unitSignature() {
+  var unitSignature = function () {
     if(this.signature) {
       return this.signature;
     }
@@ -466,7 +466,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   // calculates the unit signature vector used by unit_signature
-  var unitSignatureVector = function unitSignatureVector() {
+  var unitSignatureVector = function () {
     if(!this.isBase()) {
       return unitSignatureVector.call(this.toBase());
     }
@@ -508,7 +508,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * 6'4"  -- recognized as 6 feet + 4 inches
    * 8 lbs 8 oz -- recognized as 8 lbs + 8 ounces
    */
-  var parse = function parse(val) {
+  var parse = function (val) {
     var result = QTY_STRING_REGEX.exec(val);
     if(!result) {
       throw val + ": Quantity not recognized";
@@ -754,8 +754,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throwIncompatibleUnits();
       }
 
-      if(precQuantity.scalar === 0)
-      {
+      if(precQuantity.scalar === 0) {
         throw "Divide by zero";
       }
 
@@ -1404,8 +1403,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * @param {number} den Denominator
    */
   function div_safe(num, den) {
-    if(den === 0)
-    {
+    if(den === 0) {
       throw "Divide by zero";
     }
 
