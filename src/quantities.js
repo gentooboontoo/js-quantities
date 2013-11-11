@@ -76,6 +76,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<fathom>" : [["fathom","fathoms"], 1.829, "length", ["<meter>"]],
     "<pica>"  : [["pica","picas"], 0.004217, "length", ["<meter>"]],
     "<point>" : [["pt","point","points"], 0.0003514, "length", ["<meter>"]],
+    "<postscript-point>" : [["ppoint","ppoints"], 0.000352777778, "length", ["<meter>"]],
     "<redshift>" : [["z","red-shift"], 1.302773e26, "length", ["<meter>"]],
     "<AU>"    : [["AU","astronomical-unit"], 149597900000, "length", ["<meter>"]],
     "<light-second>":[["ls","light-second"], 299792500, "length", ["<meter>"]],
