@@ -514,10 +514,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       throw val + ": Quantity not recognized";
     }
 
-    if(val.trim() === "") {
-      throw "Unit not recognized";
-    }
-
     this.scalar = result[1] ? parseFloat(result[1]) : 1.0;
     var top = result[2];
     var bottom = result[3];

@@ -184,10 +184,15 @@ describe('js-quantities', function() {
       expect(qty1.eq(qty2)).toBe(true);
     });
 
+    it('should accept empty string and create a unitless quantity', function() {
+      qty = new Qty(" ");
+
+      expect(qty.eq(new Qty("1"))).toBe(true);
+    });
+
     it('should throw "Unit not recognized" error when initializing with an invalid unit', function() {
       expect(function() { new Qty("aa"); }).toThrow('Unit not recognized');
       expect(function() { new Qty("m/aa"); }).toThrow('Unit not recognized');
-      expect(function() { new Qty(" "); }).toThrow('Unit not recognized');
       expect(function() { new Qty("m-"); }).toThrow('Unit not recognized');
       expect(function() { new Qty("N*m"); }).not.toThrow('Unit not recognized');
     });
