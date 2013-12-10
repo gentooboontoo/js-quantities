@@ -150,29 +150,29 @@ Qty#toPrec(precision) : returns the nearest multiple of quantity passed as preci
 
 ### Temperatures
 
-Like ruby-units, js-quantities makes a distinction between a temperature (which technically is a property) and degrees of temperature (which temperatures are measured in).
+Like ruby-units, JS-quantities makes a distinction between a temperature (which technically is a property) and degrees of temperature (which temperatures are measured in).
 
 Temperature units (i.e., 'tempK') can be converted back and forth, and will take into account the differences in the zero points of the various scales. Differential temperature (e.g., '100 degC') units behave like most other units.
 
     new Qty('37 tempC').to('tempF')      #=> 98.6 tempF
 
-Js-quantities will throw an exception if you attempt to create a temperature unit that would fall below absolute zero.
+JS-quantities will throw an error if you attempt to create a temperature unit that would fall below absolute zero.
 
 Unit math on temperatures is fairly limited.
 
     new Qty('100 tempC').add('10 degC')  # 110 tempC
     new Qty('100 tempC').sub('10 degC')  # 90 tempC
-    new Qty('100 tempC').add('50 tempC') # exception
+    new Qty('100 tempC').add('50 tempC') # throws error
     new Qty('100 tempC').sub('50 tempC') # 50 degC
     new Qty('50 tempC').sub('100 tempC') # -50 degC
     new Qty('100 tempC').mul(scalar)     # 100*scalar tempC
     new Qty('100 tempC').div(scalar)     # 100/scalar tempC
-    new Qty('100 tempC').mul(qty)        # exception
-    new Qty('100 tempC').div(qty)        # exception
-    new Qty('100 tempC*unit')            # exception
-    new Qty('100 tempC/unit')            # exception
-    new Qty('100 unit/tempC')            # exception
-    new Qty('100 tempC').inverse()       # exception
+    new Qty('100 tempC').mul(qty)        # throws error
+    new Qty('100 tempC').div(qty)        # throws error
+    new Qty('100 tempC*unit')            # throws error
+    new Qty('100 tempC/unit')            # throws error
+    new Qty('100 unit/tempC')            # throws error
+    new Qty('100 tempC').inverse()       # throws error
 
     new Qty('100 tempC').to('degC') #=> 100 degC
 This conversion references the 0 point on the scale of the temperature unit
@@ -183,6 +183,21 @@ Conversions are probably better done like this...
 
     new Qty('0 tempC').add('100 degC') #=> 100 tempC
 
+### Errors
+
+Every error thrown by JS-quantities is an instance of Qty.Error.
+
+    try {
+      // code triggering an error inside JS-quantities
+    }
+    catch(e) {
+      if(e instanceof Qty.Error) {
+        // ...
+      }
+      else {
+        // ...
+      }
+    }
 
 ## Tests
 

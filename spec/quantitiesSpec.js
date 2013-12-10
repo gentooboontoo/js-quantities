@@ -842,6 +842,17 @@ describe("js-quantities", function() {
 
   });
 
+  describe("errors", function() {
+    it("should be instance of Qty.Error", function() {
+      try {
+        new Qty("aa");
+      }
+      catch(e) {
+        expect(e instanceof Qty.Error).toBeTruthy();
+      }
+    });
+  });
+
   describe("utility methods", function() {
 
     it("should accept string as parameter for compatibility tests", function() {

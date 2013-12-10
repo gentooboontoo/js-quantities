@@ -348,14 +348,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     // math with temperatures is very limited
     if(this.denominator.join("*").indexOf("temp") >= 0) {
-      throw "Cannot divide with temperatures";
+      throw new QtyError("Cannot divide with temperatures");
     }
     if(this.numerator.join("*").indexOf("temp") >= 0) {
       if(this.numerator.length > 1) {
-        throw "Cannot multiply by temperatures";
+        throw new QtyError("Cannot multiply by temperatures");
       }
       if(!compareArray(this.denominator, UNITY_ARRAY)) {
-        throw "Cannot divide with temperatures";
+        throw new QtyError("Cannot divide with temperatures");
       }
     }
 
@@ -363,7 +363,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     updateBaseScalar.call(this);
 
     if(this.isTemperature() && this.baseScalar < 0) {
-      throw "Temperatures must not be less than absolute zero";
+      throw new QtyError("Temperatures must not be less than absolute zero");
     }
   }
 
@@ -375,7 +375,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    */
   Qty.parse = function parse(value) {
     if(typeof value !== "string" && !(value instanceof String)) {
-      throw "Argument should be a string";
+      throw new QtyError("Argument should be a string");
     }
 
     try {
@@ -511,7 +511,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var parse = function (val) {
     var result = QTY_STRING_REGEX.exec(val);
     if(!result) {
-      throw val + ": Quantity not recognized";
+      throw new QtyError(val + ": Quantity not recognized");
     }
 
     this.scalar = result[1] ? parseFloat(result[1]) : 1.0;
@@ -524,11 +524,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       n = parseFloat(result[2]);
       if(isNaN(n)) {
         // Prevents infinite loops
-        throw "Unit exponent is not a number";
+        throw new QtyError("Unit exponent is not a number");
       }
       // Disallow unrecognized unit even if exponent is 0
       if(n === 0 && !UNIT_TEST_REGEX.test(result[1])) {
-        throw "Unit not recognized";
+        throw new QtyError("Unit not recognized");
       }
       x = result[1] + " ";
       nx = "";
@@ -548,11 +548,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       n = parseFloat(result[2]);
       if(isNaN(n)) {
         // Prevents infinite loops
-        throw "Unit exponent is not a number";
+        throw new QtyError("Unit exponent is not a number");
       }
       // Disallow unrecognized unit even if exponent is 0
       if(n === 0 && !UNIT_TEST_REGEX.test(result[1])) {
-        throw "Unit not recognized";
+        throw new QtyError("Unit not recognized");
       }
       x = result[1] + " ";
       nx = "";
@@ -578,7 +578,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * @throws "Incompatible units" error
    */
   function throwIncompatibleUnits() {
-    throw "Incompatible units";
+    throw new QtyError("Incompatible units");
   }
 
   Qty.prototype = {
@@ -591,7 +591,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(this.isUnitless()) {
         return this.scalar;
       }
-      throw "Can't convert to Float unless unitless.  Use Unit#scalar";
+      throw new QtyError("Can't convert to Float unless unitless.  Use Unit#scalar");
     },
 
     // returns true if no associated units
@@ -751,7 +751,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       if(precQuantity.scalar === 0) {
-        throw "Divide by zero";
+        throw new QtyError("Divide by zero");
       }
 
       var precRoundedResult = mul_safe(Math.round(this.scalar/precQuantity.scalar),
@@ -832,10 +832,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     // Returns a Qty that is the inverse of this Qty,
     inverse: function() {
       if(this.isTemperature()) {
-        throw "Cannot divide with temperatures";
+        throw new QtyError("Cannot divide with temperatures");
       }
       if(this.scalar === 0) {
-        throw "Divide by zero";
+        throw new QtyError("Divide by zero");
       }
       return new Qty({"scalar": 1/this.scalar, "numerator": this.denominator, "denominator": this.numerator});
     },
@@ -899,7 +899,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       if(this.isTemperature() && other.isTemperature()) {
-        throw "Cannot add two temperatures";
+        throw new QtyError("Cannot add two temperatures");
       }
       else if(this.isTemperature()) {
         return addTempDegrees(this,other);
@@ -927,7 +927,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return subtractTempDegrees(this,other);
       }
       else if(other.isTemperature()) {
-        throw "Cannot subtract a temperature from a differential degree unit";
+        throw new QtyError("Cannot subtract a temperature from a differential degree unit");
       }
 
       return new Qty({"scalar": this.scalar - other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
@@ -942,7 +942,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       if((this.isTemperature()||other.isTemperature()) && !(this.isUnitless()||other.isUnitless())) {
-        throw "Cannot multiply by temperatures";
+        throw new QtyError("Cannot multiply by temperatures");
       }
 
       // Quantities should be multiplied with same units if compatible, with base units else
@@ -962,7 +962,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     div: function(other) {
       if(typeof other === "number") {
         if(other === 0) {
-          throw "Divide by zero";
+          throw new QtyError("Divide by zero");
         }
         return new Qty({"scalar": this.scalar / other, "numerator": this.numerator, "denominator": this.denominator});
       }
@@ -971,14 +971,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       if(other.scalar === 0) {
-        throw "Divide by zero";
+        throw new QtyError("Divide by zero");
       }
 
       if(other.isTemperature()) {
-        throw "Cannot divide with temperatures";
+        throw new QtyError("Cannot divide with temperatures");
       }
       else if(this.isTemperature() && !other.isUnitless()) {
-        throw "Cannot divide with temperatures";
+        throw new QtyError("Cannot divide with temperatures");
       }
 
       // Quantities should be multiplied with same units if compatible, with base units else
@@ -1074,7 +1074,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var unitMatch, normalizedUnits = [];
     // Scan
     if(!UNIT_TEST_REGEX.test(units)) {
-      throw "Unit not recognized";
+      throw new QtyError("Unit not recognized");
     }
 
     while((unitMatch = UNIT_MATCH_REGEX.exec(units))) {
@@ -1271,7 +1271,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return "degR";
     }
     else {
-      throw "Unknown type for temp conversion from: " + units;
+      throw new QtyError("Unknown type for temp conversion from: " + units);
     }
   }
 
@@ -1293,7 +1293,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       dstScalar = srcDegK.scalar * 9/5;
     }
     else {
-      throw "Unknown type for degree conversion to: " + dstUnits;
+      throw new QtyError("Unknown type for degree conversion to: " + dstUnits);
     }
 
     return new Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
@@ -1318,7 +1318,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       q = qty.scalar * 5/9;
     }
     else {
-      throw "Unknown type for temp conversion from: " + units;
+      throw new QtyError("Unknown type for temp conversion from: " + units);
     }
 
     return new Qty({"scalar": q, "numerator": ["<kelvin>"], "denominator": UNITY_ARRAY});
@@ -1341,7 +1341,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       dstScalar = src.baseScalar * 9/5;
     }
     else {
-      throw "Unknown type for temp conversion to: " + dstUnits;
+      throw new QtyError("Unknown type for temp conversion to: " + dstUnits);
     }
 
     return new Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
@@ -1366,7 +1366,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       q = qty.scalar * 5/9;
     }
     else {
-      throw "Unknown type for temp conversion from: " + units;
+      throw new QtyError("Unknown type for temp conversion from: " + units);
     }
 
     return new Qty({"scalar": q, "numerator": ["<temp-K>"], "denominator": UNITY_ARRAY});
@@ -1400,7 +1400,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    */
   function div_safe(num, den) {
     if(den === 0) {
-      throw "Divide by zero";
+      throw new QtyError("Divide by zero");
     }
 
     var factor = Math.pow(10, getFractional(den));
@@ -1549,6 +1549,25 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var UNIT_MATCH = "(" + PREFIX_REGEX + ")*?(" + UNIT_REGEX + ")\\b";
   var UNIT_MATCH_REGEX = new RegExp(UNIT_MATCH, "g"); // g flag for multiple occurences
   var UNIT_TEST_REGEX = new RegExp("^\\s*(" + UNIT_MATCH + "\\s*\\*?\\s*)+$");
+
+  /**
+   * Custom error type definition
+   * @constructor
+   */
+  function QtyError() {
+    var err;
+    if(!this) { // Allows to instantiate QtyError without new()
+      err = Object.create(QtyError.prototype);
+      QtyError.apply(err, arguments);
+      return err;
+    }
+    err = Error.apply(this, arguments);
+    this.name = "QtyError";
+    this.message = err.message;
+    this.stack = err.stack;
+  }
+  QtyError.prototype = Object.create(Error.prototype, {constructor: { value: QtyError }});
+  Qty.Error = QtyError;
 
   return Qty;
 }));
