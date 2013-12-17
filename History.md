@@ -1,3 +1,11 @@
+1.2.0 / 2013-12-17
+------------------
+
+* Throw QtyError instead of plain string
+* Cache conversion results from Qty#to instead of Qty#toString
+* Fix point and pica unit definitions
+* Fix error when initializing a quantity with an empty string
+
 1.1.2 / 2013-11-04
 ------------------
 
