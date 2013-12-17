@@ -332,7 +332,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     this.scalar = null;
     this.baseScalar = null;
     this.signature = null;
-    this.output = {};
+    this._conversionCache = {};
     this.numerator = UNITY_ARRAY;
     this.denominator = UNITY_ARRAY;
 
@@ -760,12 +760,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return new Qty(precRoundedResult + this.units());
     },
 
-    // Generate human readable output.
-    // If the name of a unit is passed, the unit will first be converted to the target unit before output.
-    // output is cached so subsequent calls for the same format will be fast
+    /**
+     * Stringifies the quantity
+     *
+     * @param {(number|string|Qty)} targetUnitsOrMaxDecimalsOrPrec -
+     *                              target units if string,
+     *                              max number of decimals if number,
+     *                              passed to #toPrec before converting if Qty
+     *
+     * @param {number=} maxDecimals - Maximum number of decimals of
+     *                                formatted output
+     *
+     * @returns {string} reparseable quantity as string
+     */
     toString: function(targetUnitsOrMaxDecimalsOrPrec, maxDecimals) {
       var targetUnits;
       if(typeof targetUnitsOrMaxDecimalsOrPrec === "number") {
+        targetUnits = this.units();
         maxDecimals = targetUnitsOrMaxDecimalsOrPrec;
       }
       else if(typeof targetUnitsOrMaxDecimalsOrPrec === "string") {
@@ -775,18 +786,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return this.toPrec(targetUnitsOrMaxDecimalsOrPrec).toString(maxDecimals);
       }
 
-      var out;
-      if(!maxDecimals && this.output[targetUnits]) {
-        out = this.output[targetUnits];
-      }
-      else if(targetUnits) {
-        out = this.to(targetUnits);
-        // Caching simple unit conversion
-        this.output[targetUnits] = out;
-      }
-      else {
-        out = this;
-      }
+      var out = this.to(targetUnits);
+
       var outScalar = maxDecimals !== undefined ? round(out.scalar, maxDecimals) : out.scalar;
       out = (outScalar + " " + out.units()).trim();
       return out;
@@ -852,39 +853,67 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return this.isDegrees() && this.numerator[0].match(/<temp-[CFRK]>/);
     },
 
-    // convert to a specified unit string or to the same units as another Qty
-    // qty.to("kg")  will convert to kilograms
-    // qty1.to(qty2) converts to same units as qty2 object (ignoring scalar of qty2)
-    //
-    // Throws an exception if the requested target units are incompatible with current Unit or its inverse.
+    /**
+     * Converts to other compatible units.
+     * Instance's converted quantities are cached for faster subsequent calls.
+     *
+     * @param {(string|Qty)} other - Target units as string or retrieved from
+     *                               other Qty instance (scalar is ignored)
+     *
+     * @returns {Qty} New converted Qty instance with target units
+     *
+     * @throws {QtyError} if target units are incompatible
+     *
+     * @example
+     * var weight = new Qty("25 kg");
+     * weight.to("lb"); // => new Qty("55.11556554621939 lbs");
+     * weight.to(new Qty("3 g")); // => new Qty("25000 g"); // scalar of passed Qty is ignored
+     */
     to: function(other) {
-      if(other && other.constructor !== String) {
+      var cached, target;
+
+      if(!other) {
+        return this;
+      }
+
+      if(other.constructor !== String) {
         return this.to(other.units());
       }
 
-      // Instantiating target to normalize units
-      var target = new Qty(other);
+      cached = this._conversionCache[other];
+      if(cached) {
+        return cached;
+      }
 
+      // Instantiating target to normalize units
+      target = new Qty(other);
       if(target.units() === this.units()) {
         return this;
       }
 
       if(!this.isCompatible(target)) {
         if(this.isInverse(target)) {
-          return this.inverse().to(other);
+          target = this.inverse().to(other);
         }
-        throwIncompatibleUnits();
+        else {
+          throwIncompatibleUnits();
+        }
+      }
+      else {
+        if(target.isTemperature()) {
+          target = toTemp(this,target);
+        }
+        else if(target.isDegrees()) {
+          target = toDegrees(this,target);
+        }
+        else {
+          var q = div_safe(this.baseScalar, target.baseScalar);
+          target = new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
+        }
       }
 
-      if(target.isTemperature()) {
-        return toTemp(this,target);
-      }
-      else if(target.isDegrees()) {
-        return toDegrees(this,target);
-      }
-
-      var q = div_safe(this.baseScalar, target.baseScalar);
-      return new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
+      this._conversionCache[other] = target;
+      return target;
     },
 
     // Quantity operators

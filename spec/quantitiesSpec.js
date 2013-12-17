@@ -387,6 +387,13 @@ describe("js-quantities", function() {
       expect(qty.to("cm3")).toBe(qty);
       expect(qty.to("cm^3")).toBe(qty);
     });
+
+    it("should be cached", function() {
+      var qty = new Qty("100 m"),
+          converted = qty.to("ft");
+
+      expect(qty.to("ft") === converted).toBe(true);
+    });
   });
 
   describe("comparison", function() {
