@@ -754,7 +754,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw new QtyError("Divide by zero");
       }
 
-      var precRoundedResult = mul_safe(Math.round(this.scalar/precQuantity.scalar),
+      var precRoundedResult = mulSafe(Math.round(this.scalar/precQuantity.scalar),
                                          precQuantity.scalar);
 
       return new Qty(precRoundedResult + this.units());
@@ -907,7 +907,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
           target = toDegrees(this,target);
         }
         else {
-          var q = div_safe(this.baseScalar, target.baseScalar);
+          var q = divSafe(this.baseScalar, target.baseScalar);
           target = new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
         }
       }
@@ -964,7 +964,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     mul: function(other) {
       if(typeof other === "number") {
-        return new Qty({"scalar": mul_safe(this.scalar, other), "numerator": this.numerator, "denominator": this.denominator});
+        return new Qty({"scalar": mulSafe(this.scalar, other), "numerator": this.numerator, "denominator": this.denominator});
       }
       else if(other && other.constructor === String) {
         other = new Qty(other);
@@ -985,7 +985,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
       var numden = cleanTerms(op1.numerator.concat(op2.numerator), op1.denominator.concat(op2.denominator));
 
-      return new Qty({"scalar": mul_safe(op1.scalar, op2.scalar) , "numerator": numden[0], "denominator": numden[1]});
+      return new Qty({"scalar": mulSafe(op1.scalar, op2.scalar) , "numerator": numden[0], "denominator": numden[1]});
     },
 
     div: function(other) {
@@ -1036,7 +1036,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(PREFIX_VALUES[unit]) {
         // workaround to fix
         // 0.1 * 0.1 => 0.010000000000000002
-        q = mul_safe(q, PREFIX_VALUES[unit]);
+        q = mulSafe(q, PREFIX_VALUES[unit]);
       }
       else {
         if(UNIT_VALUES[unit]) {
@@ -1408,7 +1408,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * @returns {number} result
    * @param {...number} number
    */
-  function mul_safe() {
+  function mulSafe() {
     var result = 1, decimals = 0;
     for(var i = 0; i < arguments.length; i++) {
       var arg = arguments[i];
@@ -1427,7 +1427,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * @param {number} num Numerator
    * @param {number} den Denominator
    */
-  function div_safe(num, den) {
+  function divSafe(num, den) {
     if(den === 0) {
       throw new QtyError("Divide by zero");
     }
@@ -1435,7 +1435,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var factor = Math.pow(10, getFractional(den));
     var invDen = factor/(factor*den);
 
-    return mul_safe(num, invDen);
+    return mulSafe(num, invDen);
   }
 
   function getFractional(num) {
@@ -1450,8 +1450,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return fractional || 0;
   }
 
-  Qty.mul_safe = mul_safe;
-  Qty.div_safe = div_safe;
+  Qty.mulSafe = mulSafe;
+  Qty.divSafe = divSafe;
 
   function cleanTerms(num, den) {
     num = num.filter(function(val) {return val !== UNITY;});

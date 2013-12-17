@@ -267,7 +267,7 @@ describe("js-quantities", function() {
 
     it("should convert to compatible units", function() {
       var qty = new Qty("10 cm");
-      expect(qty.to("ft").scalar).toBe(Qty.div_safe(0.1, 0.3048));
+      expect(qty.to("ft").scalar).toBe(Qty.divSafe(0.1, 0.3048));
       qty = new Qty("2m^3");
       expect(qty.to("l").scalar).toBe(2000);
 
@@ -377,7 +377,7 @@ describe("js-quantities", function() {
       expect(result.kind()).toBe("conductance");
 
       qty = new Qty("12 in").inverse();
-      // TODO: Swap toBeCloseTo with toBe once div_safe is fixed
+      // TODO: Swap toBeCloseTo with toBe once divSafe is fixed
       expect(qty.to("ft").scalar).toBeCloseTo(1, 10);
     });
 
@@ -913,7 +913,7 @@ describe("js-quantities", function() {
       expect(qty.toString()).toBe("24.5 m/s");
       expect(function() { qty.toString("m"); }).toThrow("Incompatible units");
       // TODO uncomment and fix
-      // Problem due to div_safe use in Qty#to
+      // Problem due to divSafe use in Qty#to
       //expect(qty.toString("km/h")).toBe("88.2 km/h");
 
       qty = new Qty("254kg/m^2");
@@ -1015,19 +1015,19 @@ describe("js-quantities", function() {
     });
   });
 
-  describe("mul_safe", function() {
+  describe("mulSafe", function() {
     it("should multiply while trying to avoid numerical errors", function() {
-      expect(Qty.mul_safe(0.1, 0.1)).toBe(0.01);
-      expect(Qty.mul_safe(1e-11, 123.456789)).toBe(1.23456789e-9);
-      expect(Qty.mul_safe(6e-12, 100000)).toBe(6e-7);
+      expect(Qty.mulSafe(0.1, 0.1)).toBe(0.01);
+      expect(Qty.mulSafe(1e-11, 123.456789)).toBe(1.23456789e-9);
+      expect(Qty.mulSafe(6e-12, 100000)).toBe(6e-7);
     });
   });
 
-  describe("div_safe", function() {
+  describe("divSafe", function() {
     it("should divide while trying to avoid numerical errors", function() {
-      expect(Qty.div_safe(0.000773, 0.000001)).toBe(773);
+      expect(Qty.divSafe(0.000773, 0.000001)).toBe(773);
       // TODO uncomment and fix
-      //expect(Qty.div_safe(24.5, 0.2777777777777778)).toBe(88.2);
+      //expect(Qty.divSafe(24.5, 0.2777777777777778)).toBe(88.2);
     });
   });
 
