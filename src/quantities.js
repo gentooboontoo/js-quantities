@@ -429,6 +429,31 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
   };
 
+  /**
+   * Default formatter
+   *
+   * @param {number} scalar
+   * @param {string} units
+   *
+   * @returns {string} formatted result
+   */
+  function defaultFormatter(scalar, units) {
+    return (scalar + " " + units).trim();
+  }
+
+  /**
+   *
+   * Configurable Qty default formatter
+   *
+   * @type {function}
+   *
+   * @param {number} scalar
+   * @param {string} units
+   *
+   * @returns {string} formatted result
+   */
+  Qty.formatter = defaultFormatter;
+
   var updateBaseScalar = function () {
     if(this.baseScalar) {
       return this.baseScalar;
@@ -761,36 +786,43 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     },
 
     /**
-     * Stringifies the quantity
+     * Stringifies the quantity according to optional passed target units
+     * and formatter
      *
-     * @param {(number|string|Qty)} targetUnitsOrMaxDecimalsOrPrec -
-     *                              target units if string,
-     *                              max number of decimals if number,
-     *                              passed to #toPrec before converting if Qty
+     * @param {string} [targetUnits=current units] -
+     *                 optional units to convert to before formatting
      *
-     * @param {number=} maxDecimals - Maximum number of decimals of
-     *                                formatted output
+     * @param {function} [formatter=Qty.formatter] -
+     *                   delegates formatting to formatter callback.
+     *                   formatter is called back with two parameters (scalar, units)
+     *                   and should return formatted result.
+     *                   If unspecified, formatting is delegated to default formatter
+     *                   set to Qty.formatter
      *
-     * @returns {string} reparseable quantity as string
+     * @example
+     * var roundingAndLocalizingFormatter = function(scalar, units) {
+     *   // localize or limit scalar to n max decimals for instance
+     *   // return formatted result
+     * };
+     * var qty = new Qty('1.1234 m');
+     * qty.toString(); // same units, default formatter => "1.234 m"
+     * qty.toString("cm"); // converted to "cm", default formatter => "123.45 cm"
+     * qty.toString(roundingAndLocalizingFormatter); // same units, custom formatter => "1,2 m"
+     * qty.toString("cm", roundingAndLocalizingFormatter); // convert to "cm", custom formatter => "123,4 cm"
+     *
+     * @returns {string} quantity as string
      */
-    toString: function(targetUnitsOrMaxDecimalsOrPrec, maxDecimals) {
-      var targetUnits;
-      if(typeof targetUnitsOrMaxDecimalsOrPrec === "number") {
-        targetUnits = this.units();
-        maxDecimals = targetUnitsOrMaxDecimalsOrPrec;
-      }
-      else if(typeof targetUnitsOrMaxDecimalsOrPrec === "string") {
-        targetUnits = targetUnitsOrMaxDecimalsOrPrec;
-      }
-      else if(targetUnitsOrMaxDecimalsOrPrec instanceof Qty) {
-        return this.toPrec(targetUnitsOrMaxDecimalsOrPrec).toString(maxDecimals);
+    toString: function(targetUnits, formatter) {
+      if(arguments.length === 1) {
+        if(typeof targetUnits === "function") {
+          formatter = targetUnits;
+          targetUnits = undefined;
+        }
       }
 
-      var out = this.to(targetUnits);
-
-      var outScalar = maxDecimals !== undefined ? round(out.scalar, maxDecimals) : out.scalar;
-      out = (outScalar + " " + out.units()).trim();
-      return out;
+      formatter = formatter || Qty.formatter;
+      var targetQty = this.to(targetUnits);
+      return formatter.call(this, targetQty.scalar, targetQty.units());
     },
 
     // Compare two Qty objects. Throws an exception if they are not of compatible types.

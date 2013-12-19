@@ -137,16 +137,42 @@ Qty#toPrec(precision) : returns the nearest multiple of quantity passed as preci
     var qty = new Qty('1.146 MPa');
     qty.toPrec('0.1 bar'); // => 1.15 MPa
 
-### Text output
+### Formatting quantities
 
-    // if target_units string passed, the unit will first be converted to target_units before output.
-    // Output can be rounded to max_decimals when explicit target_units are specified.
-    qty.toString();
-    qty.toString(target_units);
-    qty.toString(max_decimals);
-    qty.toString(target_units, max_decimals);
-    qty.units(); // returns the unit parts of the quantity without the scalar
-    qty.toString(quantity); // Helper using toPrec to round to nearest significative quantity
+Quantities can be transformed into strings through Qty#toString according to
+optional target units and formatter. If target units are specified,
+the quantity is converted before formatting.
+
+If no formatter is specified, quantities are formatted according to default
+js-quantities' formatter.
+
+    var qty = new Qty('1.1234 m');
+    qty.toString(); // same units, default formatter => "1.234 m"
+    qty.toString("cm"); // converted to "cm", default formatter => "123.45 cm"
+
+Qty#toString could delegates formatting to a custom formatter if localization,
+rounding or any other custom customization is required. A formatter is a
+callback function accepting scalar and units as parameters and returning
+a formatted string representing the quantity.
+
+    var configurableRoundingFormatter = function(maxDecimals) {
+      return function(scalar, units) {
+        var pow = Math.pow(10, maxDecimals);
+        var rounded = Math.round(scalar * pow) / pow;
+
+        return rounded + " " + units;
+      };
+    };
+
+    var qty = new Qty('1.1234 m');
+    qty.toString(configurableRoundingFormatter(2)); // same units, custom formatter => "1.12 m"
+    qty.toString("cm", configurableRoundingFormatter(1)); // convert to "cm", custom formatter => "123.4 cm"
+
+Custom formatter can be configured globally by setting Qty.formatter.
+
+    Qty.formatter = configurableRoundingFormatter(2);
+    var qty = new Qty('1.1234 m');
+    qty.toString(); // same units, current default formatter => "1.12 m"
 
 ### Temperatures
 
