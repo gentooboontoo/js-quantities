@@ -1266,9 +1266,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return Math.round(val*Math.pow(10, decimals))/Math.pow(10, decimals);
   }
 
-  var numRegex = /^-?(\d+)(?:\.(\d+))?$/;
-  var expRegex = /^-?(\d+)e-?(\d+)$/;
-
   function subtractTemperatures(lhs,rhs) {
     var lhsUnits = lhs.units();
     var rhsConverted = rhs.to(lhsUnits);
@@ -1439,15 +1436,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 
   function getFractional(num) {
-    var fractional, match;
-    if((match = numRegex.exec(num)) && match[2]) {
-      fractional = match[2].length;
+    // Check for NaNs or Infinities
+    if(!isFinite(num)) {
+      return 0;
     }
-    else if((match = expRegex.exec(num))) {
-      fractional = parseInt(match[2], 10);
+
+    // Faster than parsing strings
+    // http://jsperf.com/count-decimals/2
+    var count = 0;
+    while(num % 1 !== 0) {
+      num *= 10;
+      count++;
     }
-    // arg could be Infinities
-    return fractional || 0;
+    return count;
   }
 
   Qty.mulSafe = mulSafe;

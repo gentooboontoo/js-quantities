@@ -1008,10 +1008,10 @@ describe("js-quantities", function() {
       // Tests below are mainly a safety net because not sure if there is
       // any usefulness to do things like that
       qty = new Qty("5.171234568 ft");
-      expect(qty.toPrec(new Qty("m")).toString()).toBe("6.561679790026247 ft");
-      expect(qty.toPrec(new Qty("dm")).toString()).toBe("5.2493438320209975 ft");
-      expect(qty.toPrec(new Qty("cm")).toString()).toBe("5.183727034120735 ft");
-      expect(qty.toPrec(new Qty("mm")).toString()).toBe("5.170603674540683 ft");
+      expect(qty.toPrec(new Qty("m")).toString()).toBe("6.561679790026248 ft");
+      expect(qty.toPrec(new Qty("dm")).toString()).toBe("5.249343832020998 ft");
+      expect(qty.toPrec(new Qty("cm")).toString()).toBe("5.183727034120736 ft");
+      expect(qty.toPrec(new Qty("mm")).toString()).toBe("5.170603674540684 ft");
     });
   });
 
