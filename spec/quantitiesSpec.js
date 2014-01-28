@@ -388,6 +388,9 @@ describe("js-quantities", function() {
 
       expect(qty.to("cm3")).toBe(qty);
       expect(qty.to("cm^3")).toBe(qty);
+
+      qty = new Qty("123 mcg");
+      expect(qty.to("ug")).toBe(qty);
     });
 
     it("should be cached", function() {

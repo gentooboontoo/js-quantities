@@ -52,7 +52,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<deci>"  :  [["d","Deci","deci"], 1e-1, "prefix"],
     "<centi>"  : [["c","Centi","centi"], 1e-2, "prefix"],
     "<milli>" :  [["m","Milli","milli"], 1e-3, "prefix"],
-    "<micro>"  : [["u","Micro","micro"], 1e-6, "prefix"],
+    "<micro>"  : [["u","Micro","mc","micro"], 1e-6, "prefix"],
     "<nano>"  :  [["n","Nano","nano"], 1e-9, "prefix"],
     "<pico>"  :  [["p","Pico","pico"], 1e-12, "prefix"],
     "<femto>" :  [["f","Femto","femto"], 1e-15, "prefix"],
