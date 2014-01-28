@@ -1576,7 +1576,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var UNIT_REGEX = Object.keys(UNIT_MAP).sort(function(a, b) {
     return b.length - a.length;
   }).join("|");
-  var UNIT_MATCH = "(" + PREFIX_REGEX + ")*?(" + UNIT_REGEX + ")\\b";
+  var UNIT_MATCH = "(" + PREFIX_REGEX + ")??(" + UNIT_REGEX + ")\\b";
   var UNIT_MATCH_REGEX = new RegExp(UNIT_MATCH, "g"); // g flag for multiple occurences
   var UNIT_TEST_REGEX = new RegExp("^\\s*(" + UNIT_MATCH + "\\s*\\*?\\s*)+$");
 
