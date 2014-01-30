@@ -197,6 +197,8 @@ describe("js-quantities", function() {
       expect(function() { new Qty("m/aa"); }).toThrow("Unit not recognized");
       expect(function() { new Qty("m-"); }).toThrow("Unit not recognized");
       expect(function() { new Qty("N*m"); }).not.toThrow("Unit not recognized");
+      // mm is millimeter, but mmm is not a valid unit
+      expect(function() { new Qty("mmm"); }).toThrow("Unit not recognized");
     });
 
     it("should throw 'Unit not recognized' error when initializing with an invalid unit and a 0 exponent", function() {
@@ -386,6 +388,9 @@ describe("js-quantities", function() {
 
       expect(qty.to("cm3")).toBe(qty);
       expect(qty.to("cm^3")).toBe(qty);
+
+      qty = new Qty("123 mcg");
+      expect(qty.to("ug")).toBe(qty);
     });
 
     it("should be cached", function() {
