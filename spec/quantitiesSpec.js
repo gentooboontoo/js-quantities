@@ -912,9 +912,7 @@ describe("js-quantities", function() {
       qty = new Qty("24.5m/s");
       expect(qty.toString()).toBe("24.5 m/s");
       expect(function() { qty.toString("m"); }).toThrow("Incompatible units");
-      // TODO uncomment and fix
-      // Problem due to divSafe use in Qty#to
-      //expect(qty.toString("km/h")).toBe("88.2 km/h");
+      expect(qty.toString("km/h")).toBe("88.2 km/h");
 
       qty = new Qty("254kg/m^2");
       expect(qty.toString()).toBe("254 kg/m2");
