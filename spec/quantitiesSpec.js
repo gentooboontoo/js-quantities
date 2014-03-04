@@ -921,11 +921,50 @@ describe("js-quantities", function() {
       expect(qty.toString()).toBe("2");
     });
 
+    it("should round readable human output when max decimals is specified", function() {
+      var qty = (new Qty("2m")).div(3);
+      expect(qty.toString("cm", 2)).toBe("66.67 cm");
+
+      qty = new Qty("2.8m");
+      expect(qty.toString("m", 0)).toBe("3 m");
+      expect(qty.toString("cm", 0)).toBe("280 cm");
+      qty = new Qty("2.818m");
+      expect(qty.toString("cm", 0)).toBe("282 cm");
+    });
+
+    it("should round to max decimals", function() {
+      var qty = (new Qty("2.987654321 m"));
+
+      expect(qty.toString(3)).toBe("2.988 m");
+      expect(qty.toString(0)).toBe("3 m");
+    });
+
+    it("should round according to precision passed as quantity", function() {
+      var qty = new Qty("5.17 ft");
+
+      expect(qty.toString(new Qty("ft"))).toBe("5 ft");
+      expect(qty.toString(new Qty("2 ft"))).toBe("6 ft");
+      expect(qty.toString(new Qty("0.5 ft"))).toBe("5 ft");
+      expect(qty.toString(new Qty("0.1 ft"))).toBe("5.2 ft");
+      expect(qty.toString(new Qty("0.05 ft"))).toBe("5.15 ft");
+      expect(qty.toString(new Qty("0.01 ft"))).toBe("5.17 ft");
+      expect(qty.toString(new Qty("0.0001 ft"))).toBe("5.17 ft");
+    });
+
+    it("should return same output with successive calls", function() {
+      var qty = new Qty("123 cm3");
+      expect(qty.toString("cm3", 0)).toBe("123 cm3");
+      expect(qty.toString("cm3", 0)).toBe("123 cm3");
+    });
+
     it("should return identical output when called with no parameters or same units", function() {
       var qty = new Qty("123 cm3");
       expect(qty.toString()).toBe(qty.toString("cm3"));
     });
 
+  });
+
+  describe("format", function() {
     describe("custom formatter", function() {
       var roundingFormatter = function(maxDecimals) {
         return function(scalar, units) {
@@ -939,23 +978,23 @@ describe("js-quantities", function() {
       it("should be applied to output", function() {
         var qty = (new Qty("2.987654321 m"));
 
-        expect(qty.toString(roundingFormatter(3))).toBe("2.988 m");
-        expect(qty.toString(roundingFormatter(0))).toBe("3 m");
+        expect(qty.format(roundingFormatter(3))).toBe("2.988 m");
+        expect(qty.format(roundingFormatter(0))).toBe("3 m");
       });
 
       it("should be applied after conversion to target units", function() {
         var qty = (new Qty("2m")).div(3);
-        expect(qty.toString("cm", roundingFormatter(2))).toBe("66.67 cm");
+        expect(qty.format("cm", roundingFormatter(2))).toBe("66.67 cm");
 
         var intRoundingFormatter = roundingFormatter(0);
         qty = new Qty("2.8m", intRoundingFormatter);
-        expect(qty.toString("m", intRoundingFormatter)).toBe("3 m");
-        expect(qty.toString("cm", intRoundingFormatter)).toBe("280 cm");
+        expect(qty.format("m", intRoundingFormatter)).toBe("3 m");
+        expect(qty.format("cm", intRoundingFormatter)).toBe("280 cm");
         qty = new Qty("2.818m");
-        expect(qty.toString("cm", intRoundingFormatter)).toBe("282 cm");
+        expect(qty.format("cm", intRoundingFormatter)).toBe("282 cm");
       });
 
-      describe("set as default formatter", function() {
+      describe("globally set as default formatter", function() {
         var previousFormatter;
 
         beforeEach(function() {
@@ -971,7 +1010,7 @@ describe("js-quantities", function() {
         it("should be applied when no formatter is passed", function() {
           var qty = (new Qty("2.987654321 m"));
 
-          expect(qty.toString()).toBe("2.988 m");
+          expect(qty.format()).toBe("2.988 m");
         });
       });
     });

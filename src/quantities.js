@@ -786,7 +786,41 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     },
 
     /**
-     * Stringifies the quantity according to optional passed target units
+     * Stringifies the quantity
+     * Parameters other than a single unit are now silently deprecated.
+     *
+     * @param {(number|string|Qty)} targetUnitsOrMaxDecimalsOrPrec -
+     *                              target units if string,
+     *                              max number of decimals if number,
+     *                              passed to #toPrec before converting if Qty
+     *
+     * @param {number=} maxDecimals - Maximum number of decimals of
+     *                                formatted output
+     *
+     * @returns {string} reparseable quantity as string
+     */
+    toString: function(targetUnitsOrMaxDecimalsOrPrec, maxDecimals) {
+      var targetUnits;
+      if(typeof targetUnitsOrMaxDecimalsOrPrec === "number") {
+        targetUnits = this.units();
+        maxDecimals = targetUnitsOrMaxDecimalsOrPrec;
+      }
+      else if(typeof targetUnitsOrMaxDecimalsOrPrec === "string") {
+        targetUnits = targetUnitsOrMaxDecimalsOrPrec;
+      }
+      else if(targetUnitsOrMaxDecimalsOrPrec instanceof Qty) {
+        return this.toPrec(targetUnitsOrMaxDecimalsOrPrec).toString(maxDecimals);
+      }
+
+      var out = this.to(targetUnits);
+
+      var outScalar = maxDecimals !== undefined ? round(out.scalar, maxDecimals) : out.scalar;
+      out = (outScalar + " " + out.units()).trim();
+      return out;
+    },
+
+    /**
+     * Format the quantity according to optional passed target units
      * and formatter
      *
      * @param {string} [targetUnits=current units] -
@@ -805,14 +839,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      *   // return formatted result
      * };
      * var qty = new Qty('1.1234 m');
-     * qty.toString(); // same units, default formatter => "1.234 m"
-     * qty.toString("cm"); // converted to "cm", default formatter => "123.45 cm"
-     * qty.toString(roundingAndLocalizingFormatter); // same units, custom formatter => "1,2 m"
-     * qty.toString("cm", roundingAndLocalizingFormatter); // convert to "cm", custom formatter => "123,4 cm"
+     * qty.format(); // same units, default formatter => "1.234 m"
+     * qty.format("cm"); // converted to "cm", default formatter => "123.45 cm"
+     * qty.format(roundingAndLocalizingFormatter); // same units, custom formatter => "1,2 m"
+     * qty.format("cm", roundingAndLocalizingFormatter); // convert to "cm", custom formatter => "123,4 cm"
      *
      * @returns {string} quantity as string
      */
-    toString: function(targetUnits, formatter) {
+    format: function(targetUnits, formatter) {
       if(arguments.length === 1) {
         if(typeof targetUnits === "function") {
           formatter = targetUnits;
