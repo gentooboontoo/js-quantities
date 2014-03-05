@@ -329,6 +329,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var baseUnitCache = {};
 
   function Qty(initValue) {
+    if(!(this instanceof Qty)) {
+      return new Qty(initValue);
+    }
+
     this.scalar = null;
     this.baseScalar = null;
     this.signature = null;
@@ -379,7 +383,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
 
     try {
-      return new Qty(value);
+      return Qty(value);
     }
     catch(e) {
       return null;
@@ -409,8 +413,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    *
    */
   Qty.swiftConverter = function swiftConverter(srcUnits, dstUnits) {
-    var srcQty = new Qty(srcUnits);
-    var dstQty = new Qty(dstUnits);
+    var srcQty = Qty(srcUnits);
+    var dstQty = Qty(dstUnits);
 
     if(srcQty.eq(dstQty)) {
       return identity;
@@ -636,7 +640,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     */
     isCompatible: function(other) {
       if(other && other.constructor === String) {
-        return this.isCompatible(new Qty(other));
+        return this.isCompatible(Qty(other));
       }
 
       if(!(other instanceof Qty)) {
@@ -754,18 +758,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      * @returns {Qty} Nearest multiple of precQuantity
      *
      * @example
-     * new Qty('5.5 ft').toPrec('2 ft'); // returns 6 ft
-     * new Qty('0.8 cu').toPrec('0.25 cu'); // returns 0.75 cu
-     * new Qty('6.3782 m').toPrec('cm'); // returns 6.38 m
-     * new Qty('1.146 MPa').toPrec('0.1 bar'); // returns 1.15 MPa
+     * Qty('5.5 ft').toPrec('2 ft'); // returns 6 ft
+     * Qty('0.8 cu').toPrec('0.25 cu'); // returns 0.75 cu
+     * Qty('6.3782 m').toPrec('cm'); // returns 6.38 m
+     * Qty('1.146 MPa').toPrec('0.1 bar'); // returns 1.15 MPa
      *
      */
     toPrec: function(precQuantity) {
       if(precQuantity && precQuantity.constructor === String) {
-        precQuantity = new Qty(precQuantity);
+        precQuantity = Qty(precQuantity);
       }
       if(typeof precQuantity === "number") {
-        precQuantity = new Qty(precQuantity + " " + this.units());
+        precQuantity = Qty(precQuantity + " " + this.units());
       }
 
       if(!this.isUnitless()) {
@@ -782,7 +786,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var precRoundedResult = mulSafe(Math.round(this.scalar/precQuantity.scalar),
                                          precQuantity.scalar);
 
-      return new Qty(precRoundedResult + this.units());
+      return Qty(precRoundedResult + this.units());
     },
 
     /**
@@ -838,7 +842,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      *   // localize or limit scalar to n max decimals for instance
      *   // return formatted result
      * };
-     * var qty = new Qty('1.1234 m');
+     * var qty = Qty('1.1234 m');
      * qty.format(); // same units, default formatter => "1.234 m"
      * qty.format("cm"); // converted to "cm", default formatter => "123.45 cm"
      * qty.format(roundingAndLocalizingFormatter); // same units, custom formatter => "1,2 m"
@@ -867,13 +871,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     //   if a.compareTo(b) == 0 then b.compareTo(a) == 0
     //
     //   Since "10S" == ".1ohm" (10 > .1) and "10ohm" == ".1S" (10 > .1)
-    //     new Qty("10S").inverse().compareTo("10ohm") == -1
-    //     new Qty("10ohm").inverse().compareTo("10S") == -1
+    //     Qty("10S").inverse().compareTo("10ohm") == -1
+    //     Qty("10ohm").inverse().compareTo("10S") == -1
     //
     //   If including inverses in the sort is needed, I suggest writing: Qty.sort(qtyArray,units)
     compareTo: function(other) {
       if(other && other.constructor === String) {
-        return this.compareTo(new Qty(other));
+        return this.compareTo(Qty(other));
       }
       if(!this.isCompatible(other)) {
         throwIncompatibleUnits();
@@ -904,7 +908,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(this.scalar === 0) {
         throw new QtyError("Divide by zero");
       }
-      return new Qty({"scalar": 1/this.scalar, "numerator": this.denominator, "denominator": this.numerator});
+      return Qty({"scalar": 1/this.scalar, "numerator": this.denominator, "denominator": this.numerator});
     },
 
     isDegrees: function() {
@@ -931,9 +935,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      * @throws {QtyError} if target units are incompatible
      *
      * @example
-     * var weight = new Qty("25 kg");
-     * weight.to("lb"); // => new Qty("55.11556554621939 lbs");
-     * weight.to(new Qty("3 g")); // => new Qty("25000 g"); // scalar of passed Qty is ignored
+     * var weight = Qty("25 kg");
+     * weight.to("lb"); // => Qty("55.11556554621939 lbs");
+     * weight.to(Qty("3 g")); // => Qty("25000 g"); // scalar of passed Qty is ignored
      */
     to: function(other) {
       var cached, target;
@@ -952,7 +956,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
 
       // Instantiating target to normalize units
-      target = new Qty(other);
+      target = Qty(other);
       if(target.units() === this.units()) {
         return this;
       }
@@ -974,7 +978,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
         else {
           var q = divSafe(this.baseScalar, target.baseScalar);
-          target = new Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
+          target = Qty({"scalar": q, "numerator": target.numerator, "denominator": target.denominator});
         }
       }
 
@@ -986,7 +990,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     // Returns new instance with this units
     add: function(other) {
       if(other && other.constructor === String) {
-        other = new Qty(other);
+        other = Qty(other);
       }
 
       if(!this.isCompatible(other)) {
@@ -1003,12 +1007,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return addTempDegrees(other,this);
       }
 
-      return new Qty({"scalar": this.scalar + other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
+      return Qty({"scalar": this.scalar + other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
     },
 
     sub: function(other) {
       if(other && other.constructor === String) {
-        other = new Qty(other);
+        other = Qty(other);
       }
 
       if(!this.isCompatible(other)) {
@@ -1025,15 +1029,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         throw new QtyError("Cannot subtract a temperature from a differential degree unit");
       }
 
-      return new Qty({"scalar": this.scalar - other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
+      return Qty({"scalar": this.scalar - other.to(this).scalar, "numerator": this.numerator, "denominator": this.denominator});
     },
 
     mul: function(other) {
       if(typeof other === "number") {
-        return new Qty({"scalar": mulSafe(this.scalar, other), "numerator": this.numerator, "denominator": this.denominator});
+        return Qty({"scalar": mulSafe(this.scalar, other), "numerator": this.numerator, "denominator": this.denominator});
       }
       else if(other && other.constructor === String) {
-        other = new Qty(other);
+        other = Qty(other);
       }
 
       if((this.isTemperature()||other.isTemperature()) && !(this.isUnitless()||other.isUnitless())) {
@@ -1051,7 +1055,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
       var numden = cleanTerms(op1.numerator.concat(op2.numerator), op1.denominator.concat(op2.denominator));
 
-      return new Qty({"scalar": mulSafe(op1.scalar, op2.scalar) , "numerator": numden[0], "denominator": numden[1]});
+      return Qty({"scalar": mulSafe(op1.scalar, op2.scalar) , "numerator": numden[0], "denominator": numden[1]});
     },
 
     div: function(other) {
@@ -1059,10 +1063,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if(other === 0) {
           throw new QtyError("Divide by zero");
         }
-        return new Qty({"scalar": this.scalar / other, "numerator": this.numerator, "denominator": this.denominator});
+        return Qty({"scalar": this.scalar / other, "numerator": this.numerator, "denominator": this.denominator});
       }
       else if(other && other.constructor === String) {
-        other = new Qty(other);
+        other = Qty(other);
       }
 
       if(other.scalar === 0) {
@@ -1087,7 +1091,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       }
       var numden = cleanTerms(op1.numerator.concat(op2.denominator), op1.denominator.concat(op2.numerator));
 
-      return new Qty({"scalar": op1.scalar / op2.scalar, "numerator": numden[0], "denominator": numden[1]});
+      return Qty({"scalar": op1.scalar / op2.scalar, "numerator": numden[0], "denominator": numden[1]});
     }
 
   };
@@ -1144,7 +1148,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return a.concat(b);
     }, []);
 
-    return new Qty({"scalar": q, "numerator": num, "denominator": den});
+    return Qty({"scalar": q, "numerator": num, "denominator": den});
   }
 
   var parsedUnitsCache = {};
@@ -1335,18 +1339,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   function subtractTemperatures(lhs,rhs) {
     var lhsUnits = lhs.units();
     var rhsConverted = rhs.to(lhsUnits);
-    var dstDegrees = new Qty(getDegreeUnits(lhsUnits));
-    return new Qty({"scalar": lhs.scalar - rhsConverted.scalar, "numerator": dstDegrees.numerator, "denominator": dstDegrees.denominator});
+    var dstDegrees = Qty(getDegreeUnits(lhsUnits));
+    return Qty({"scalar": lhs.scalar - rhsConverted.scalar, "numerator": dstDegrees.numerator, "denominator": dstDegrees.denominator});
   }
 
   function subtractTempDegrees(temp,deg) {
     var tempDegrees = deg.to(getDegreeUnits(temp.units()));
-    return new Qty({"scalar": temp.scalar - tempDegrees.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+    return Qty({"scalar": temp.scalar - tempDegrees.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
   }
 
   function addTempDegrees(temp,deg) {
     var tempDegrees = deg.to(getDegreeUnits(temp.units()));
-    return new Qty({"scalar": temp.scalar + tempDegrees.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
+    return Qty({"scalar": temp.scalar + tempDegrees.scalar, "numerator": temp.numerator, "denominator": temp.denominator});
   }
 
   function getDegreeUnits(units) {
@@ -1388,7 +1392,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       throw new QtyError("Unknown type for degree conversion to: " + dstUnits);
     }
 
-    return new Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
+    return Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
   }
 
   function toDegK(qty) {
@@ -1413,7 +1417,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       throw new QtyError("Unknown type for temp conversion from: " + units);
     }
 
-    return new Qty({"scalar": q, "numerator": ["<kelvin>"], "denominator": UNITY_ARRAY});
+    return Qty({"scalar": q, "numerator": ["<kelvin>"], "denominator": UNITY_ARRAY});
   }
 
   function toTemp(src,dst) {
@@ -1436,7 +1440,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       throw new QtyError("Unknown type for temp conversion to: " + dstUnits);
     }
 
-    return new Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
+    return Qty({"scalar": dstScalar, "numerator": dst.numerator, "denominator": dst.denominator});
   }
 
   function toTempK(qty) {
@@ -1461,7 +1465,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       throw new QtyError("Unknown type for temp conversion from: " + units);
     }
 
-    return new Qty({"scalar": q, "numerator": ["<temp-K>"], "denominator": UNITY_ARRAY});
+    return Qty({"scalar": q, "numerator": ["<temp-K>"], "denominator": UNITY_ARRAY});
   }
 
   /**
