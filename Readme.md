@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/gentooboontoo/js-quantities.png)](https://travis-ci.org/gentooboontoo/js-quantities)
 
-JS-quantities is a JavaScript port of Kevin Olbrich's library Ruby Units
-(http://ruby-units.rubyforge.org/ruby-units).
+JS-quantities is originally a JavaScript port of Kevin Olbrich's library Ruby
+Units (http://ruby-units.rubyforge.org/ruby-units).
 
-As described by its author, the library aims to simplify the handling of
-units for scientific calculations involving quantities.
+The library aims to simplify the handling of units for scientific calculations
+involving quantities.
 
 JS-quantities is defined as an UMD module and can be used with AMD, Node
 and within browsers.
@@ -41,29 +41,29 @@ When using [Require.JS](http://requirejs.org/):
 
 ### Creation
 
-    qty = new Qty("1m");
+    qty = new Qty('1m');
     qty = new Qty('m'); // => 1 meter
 
     qty = new Qty('1 N*m');
     qty = new Qty('1 N m'); // * is optional
 
-    qty = new Qty("1 m/s");
+    qty = new Qty('1 m/s');
 
-    qty = new Qty("1 m^2/s^2");
-    qty = new Qty("1 m^2 s^-2"); // negative powers
-    qty = new Qty("1 m2 s-2"); // ^ is optional
+    qty = new Qty('1 m^2/s^2');
+    qty = new Qty('1 m^2 s^-2'); // negative powers
+    qty = new Qty('1 m2 s-2'); // ^ is optional
 
-    qty = new Qty("1 m^2 kg^2 J^2/s^2 A");
+    qty = new Qty('1 m^2 kg^2 J^2/s^2 A');
 
     qty = new Qty('1.5'); // unitless quantity
 
-    qty = new Qty("1 attoparsec/microfortnight");
+    qty = new Qty('1 attoparsec/microfortnight');
 
 ### Quantity compatibility, kind and various queries
 
     qty1.isCompatible(qty2); // => true or false
 
-    qty.kind(); // => "length", "area", etc...
+    qty.kind(); // => 'length', 'area', etc...
 
     qty.isUnitless(); // => true or false
     qty.isBase(); // => true if quantity is represented with base units
@@ -74,8 +74,10 @@ When using [Require.JS](http://requirejs.org/):
 
     qty.toFloat(): // returns scalar of unitless quantity (otherwise throws error)
 
-    qty.to("m"); // converts quantity to meter if compatible or throws an error (new instance)
-    qty1.to(qty2); // converts quantity to same unit of qty2 if compatible or throws an error (new instance)
+    qty.to('m'); // converts quantity to meter if compatible
+                 // or throws an error (new instance)
+    qty1.to(qty2); // converts quantity to same unit of qty2 if compatible
+                   // or throws an error (new instance)
 
     qty.inverse(); // converts quantity to its inverse ('100 m/s' => '.01 s/m')
     // inverses can be used, but there is no special checking to rename the units
@@ -86,7 +88,7 @@ When using [Require.JS](http://requirejs.org/):
 Qty.swiftConverter() could be useful to efficiently convert large array of values. It
 configures a function accepting a value and converting it.
 
-    var convert = Qty.swiftConverter("m/h", "ft/s"); // Configures converter
+    var convert = Qty.swiftConverter('m/h', 'ft/s'); // Configures converter
     var convertedSerie = largeSerie.map(convert); // Usage with map()
     var converted = convert(2500); // Standalone usage
 
@@ -137,16 +139,70 @@ Qty#toPrec(precision) : returns the nearest multiple of quantity passed as preci
     var qty = new Qty('1.146 MPa');
     qty.toPrec('0.1 bar'); // => 1.15 MPa
 
-### Text output
+### Formatting quantities
 
-    // if target_units string passed, the unit will first be converted to target_units before output.
-    // Output can be rounded to max_decimals when explicit target_units are specified.
-    qty.toString();
-    qty.toString(target_units);
-    qty.toString(max_decimals);
-    qty.toString(target_units, max_decimals);
-    qty.units(); // returns the unit parts of the quantity without the scalar
-    qty.toString(quantity); // Helper using toPrec to round to nearest significative quantity
+Qty#toString returns a string using the canonical form of the quantity (that
+is it could be seamlessly reparsed by Qty).
+
+    var qty = new Qty('1.146 MPa');
+    qty.toString(); // => '1.146 MPa'
+
+As a shorthand, units could be passed to Qty#toString and is equivalent to
+successively call Qty#to then Qty#toString.
+
+    var qty = new Qty('1.146 MPa');
+    qty.toString('bar'); // => '11.46 bar'
+    qty.to('bar').toString(); // => '11.46 bar'
+
+Qty#toString could also be used with any method from Qty to make some sort of
+formatting. For instance, one could use Qty#toPrec to fix the maximum number of
+decimals:
+
+    var qty = new Qty('1.146 MPa');
+    qty.toPrec(0.1).toString(); // => '1.1 MPa'
+    qty.to('bar').toPrec(0.1).toString(); // => '11.5 bar'
+
+For advanced formatting needs as localization, specific rounding or any other
+custom customization, quantities can be transformed into strings through
+Qty#format according to optional target units and formatter. If target units are
+specified, the quantity is converted into them before formatting.
+
+Such a string is not intended to be reparsed to construct a new instance of Qty
+(unlike output of Qty#toString).
+
+If no formatter is specified, quantities are formatted according to default
+js-quantities' formatter and is equivalent to Qty#toString.
+
+    var qty = new Qty('1.1234 m');
+    qty.format(); // same units, default formatter => '1.234 m'
+    qty.format('cm'); // converted to 'cm', default formatter => '123.45 cm'
+
+Qty#format could delegates formatting to a custom formatter if required. A
+formatter is a callback function accepting scalar and units as parameters and
+returning a formatted string representing the quantity.
+
+    var configurableRoundingFormatter = function(maxDecimals) {
+      return function(scalar, units) {
+        var pow = Math.pow(10, maxDecimals);
+        var rounded = Math.round(scalar * pow) / pow;
+
+        return rounded + ' ' + units;
+      };
+    };
+
+    var qty = new Qty('1.1234 m');
+
+    // same units, custom formatter => '1.12 m'
+    qty.format(configurableRoundingFormatter(2));
+
+    // convert to 'cm', custom formatter => '123.4 cm'
+    qty.format('cm', configurableRoundingFormatter(1));
+
+Custom formatter can be configured globally by setting Qty.formatter.
+
+    Qty.formatter = configurableRoundingFormatter(2);
+    var qty = new Qty('1.1234 m');
+    qty.format(); // same units, current default formatter => '1.12 m'
 
 ### Temperatures
 

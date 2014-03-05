@@ -1,4 +1,4 @@
-/* global __dirname, describe, expect, it */
+/* global __dirname, describe, expect, it, beforeEach, afterEach */
 var Qty;
 /*
  * Needed when run through jasmine-node
@@ -917,9 +917,7 @@ describe("js-quantities", function() {
       qty = new Qty("24.5m/s");
       expect(qty.toString()).toBe("24.5 m/s");
       expect(function() { qty.toString("m"); }).toThrow("Incompatible units");
-      // TODO uncomment and fix
-      // Problem due to divSafe use in Qty#to
-      //expect(qty.toString("km/h")).toBe("88.2 km/h");
+      expect(qty.toString("km/h")).toBe("88.2 km/h");
 
       qty = new Qty("254kg/m^2");
       expect(qty.toString()).toBe("254 kg/m2");
@@ -964,11 +962,63 @@ describe("js-quantities", function() {
       expect(qty.toString("cm3", 0)).toBe("123 cm3");
     });
 
-    it("should be the same when called with no parameters or same units", function() {
+    it("should return identical output when called with no parameters or same units", function() {
       var qty = new Qty("123 cm3");
       expect(qty.toString()).toBe(qty.toString("cm3"));
     });
 
+  });
+
+  describe("format", function() {
+    describe("custom formatter", function() {
+      var roundingFormatter = function(maxDecimals) {
+        return function(scalar, units) {
+          var pow = Math.pow(10, maxDecimals);
+          var rounded = Math.round(scalar * pow) / pow;
+
+          return rounded + " " + units;
+        };
+      };
+
+      it("should be applied to output", function() {
+        var qty = (new Qty("2.987654321 m"));
+
+        expect(qty.format(roundingFormatter(3))).toBe("2.988 m");
+        expect(qty.format(roundingFormatter(0))).toBe("3 m");
+      });
+
+      it("should be applied after conversion to target units", function() {
+        var qty = (new Qty("2m")).div(3);
+        expect(qty.format("cm", roundingFormatter(2))).toBe("66.67 cm");
+
+        var intRoundingFormatter = roundingFormatter(0);
+        qty = new Qty("2.8m", intRoundingFormatter);
+        expect(qty.format("m", intRoundingFormatter)).toBe("3 m");
+        expect(qty.format("cm", intRoundingFormatter)).toBe("280 cm");
+        qty = new Qty("2.818m");
+        expect(qty.format("cm", intRoundingFormatter)).toBe("282 cm");
+      });
+
+      describe("globally set as default formatter", function() {
+        var previousFormatter;
+
+        beforeEach(function() {
+          previousFormatter = Qty.formatter;
+          Qty.formatter = roundingFormatter(3);
+        });
+
+        afterEach(function() {
+          // Restore previous formatter
+          Qty.formatter = previousFormatter;
+        });
+
+        it("should be applied when no formatter is passed", function() {
+          var qty = (new Qty("2.987654321 m"));
+
+          expect(qty.format()).toBe("2.988 m");
+        });
+      });
+    });
   });
 
   describe("precision rounding", function() {

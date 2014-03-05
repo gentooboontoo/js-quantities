@@ -429,6 +429,31 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
   };
 
+  /**
+   * Default formatter
+   *
+   * @param {number} scalar
+   * @param {string} units
+   *
+   * @returns {string} formatted result
+   */
+  function defaultFormatter(scalar, units) {
+    return (scalar + " " + units).trim();
+  }
+
+  /**
+   *
+   * Configurable Qty default formatter
+   *
+   * @type {function}
+   *
+   * @param {number} scalar
+   * @param {string} units
+   *
+   * @returns {string} formatted result
+   */
+  Qty.formatter = defaultFormatter;
+
   var updateBaseScalar = function () {
     if(this.baseScalar) {
       return this.baseScalar;
@@ -762,6 +787,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     /**
      * Stringifies the quantity
+     * Deprecation notice: only units parameter is supported.
      *
      * @param {(number|string|Qty)} targetUnitsOrMaxDecimalsOrPrec -
      *                              target units if string,
@@ -791,6 +817,46 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       var outScalar = maxDecimals !== undefined ? round(out.scalar, maxDecimals) : out.scalar;
       out = (outScalar + " " + out.units()).trim();
       return out;
+    },
+
+    /**
+     * Format the quantity according to optional passed target units
+     * and formatter
+     *
+     * @param {string} [targetUnits=current units] -
+     *                 optional units to convert to before formatting
+     *
+     * @param {function} [formatter=Qty.formatter] -
+     *                   delegates formatting to formatter callback.
+     *                   formatter is called back with two parameters (scalar, units)
+     *                   and should return formatted result.
+     *                   If unspecified, formatting is delegated to default formatter
+     *                   set to Qty.formatter
+     *
+     * @example
+     * var roundingAndLocalizingFormatter = function(scalar, units) {
+     *   // localize or limit scalar to n max decimals for instance
+     *   // return formatted result
+     * };
+     * var qty = new Qty('1.1234 m');
+     * qty.format(); // same units, default formatter => "1.234 m"
+     * qty.format("cm"); // converted to "cm", default formatter => "123.45 cm"
+     * qty.format(roundingAndLocalizingFormatter); // same units, custom formatter => "1,2 m"
+     * qty.format("cm", roundingAndLocalizingFormatter); // convert to "cm", custom formatter => "123,4 cm"
+     *
+     * @returns {string} quantity as string
+     */
+    format: function(targetUnits, formatter) {
+      if(arguments.length === 1) {
+        if(typeof targetUnits === "function") {
+          formatter = targetUnits;
+          targetUnits = undefined;
+        }
+      }
+
+      formatter = formatter || Qty.formatter;
+      var targetQty = this.to(targetUnits);
+      return formatter.call(this, targetQty.scalar, targetQty.units());
     },
 
     // Compare two Qty objects. Throws an exception if they are not of compatible types.
