@@ -59,24 +59,23 @@ and within browsers.</p>
 <h3>
 <a name="browser" class="anchor" href="#browser"><span class="octicon octicon-link"></span></a>Browser</h3>
 
-<p>Download at <a href="https://raw.github.com/gentooboontoo/js-quantities/v1.1.0/src/quantities.js">latest release</a>.</p>
-
-<p>You could also use Bower to install:</p>
+<p>Download <a href="https://raw.github.com/gentooboontoo/js-quantities/v1.2.0/src/quantities.js">latest release</a>
+or install it with Bower:</p>
 
 <pre><code>bower install js-quantities
 </code></pre>
 
 <p>Then include it:</p>
 
-<pre><code>&lt;script src='quantities.js'&gt;&lt;/script&gt;
-</code></pre>
+<div class="highlight highlight-html"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">'quantities.js'</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
 
 <p>When using <a href="http://requirejs.org/">Require.JS</a>:</p>
 
-<pre><code>define(['quantities'], function(Qty) {
-  ...
-});
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="nx">define</span><span class="p">([</span><span class="s1">'quantities'</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Qty</span><span class="p">)</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">});</span>
+</pre></div>
 
 <h3>
 <a name="node" class="anchor" href="#node"><span class="octicon octicon-link"></span></a>Node</h3>
@@ -95,69 +94,69 @@ $ node
 <p>Instances of quantities are made by means of Qty() method. Qty can both be used
 as a constructor (with new) or as a factory (without new):</p>
 
-<pre><code>qty = new Qty('23 ft'); // constructor
-qty = Qty('23 ft'); // factory
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="nx">qty</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'23 ft'</span><span class="p">);</span> <span class="c1">// constructor</span>
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'23 ft'</span><span class="p">);</span> <span class="c1">// factory</span>
+</pre></div>
 
 <p>For the sake of simplicity, one will use the factory way below but using
 new Qty() is equivalent.</p>
 
-<pre><code>qty = Qty('1m'); // =&gt; 1 meter
-qty = Qty('m'); // =&gt;  1 meter (scalar defaults to 1)
+<div class="highlight highlight-javascript"><pre><span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">);</span> <span class="c1">// =&gt; 1 meter</span>
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'m'</span><span class="p">);</span> <span class="c1">// =&gt;  1 meter (scalar defaults to 1)</span>
 
-qty = Qty('1 N*m');
-qty = Qty('1 N m'); // * is optional
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 N*m'</span><span class="p">);</span>
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 N m'</span><span class="p">);</span> <span class="c1">// * is optional</span>
 
-qty = Qty('1 m/s');
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 m/s'</span><span class="p">);</span>
 
-qty = Qty('1 m^2/s^2');
-qty = Qty('1 m^2 s^-2'); // negative powers
-qty = Qty('1 m2 s-2'); // ^ is optional
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 m^2/s^2'</span><span class="p">);</span>
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 m^2 s^-2'</span><span class="p">);</span> <span class="c1">// negative powers</span>
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 m2 s-2'</span><span class="p">);</span> <span class="c1">// ^ is optional</span>
 
-qty = Qty('1 m^2 kg^2 J^2/s^2 A');
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 m^2 kg^2 J^2/s^2 A'</span><span class="p">);</span>
 
-qty = Qty('1.5'); // unitless quantity
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.5'</span><span class="p">);</span> <span class="c1">// unitless quantity</span>
 
-qty = Qty('1 attoparsec/microfortnight');
-</code></pre>
+<span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 attoparsec/microfortnight'</span><span class="p">);</span>
+</pre></div>
 
 <h3>
 <a name="quantity-compatibility-kind-and-various-queries" class="anchor" href="#quantity-compatibility-kind-and-various-queries"><span class="octicon octicon-link"></span></a>Quantity compatibility, kind and various queries</h3>
 
-<pre><code>qty1.isCompatible(qty2); // =&gt; true or false
+<div class="highlight highlight-javascript"><pre><span class="nx">qty1</span><span class="p">.</span><span class="nx">isCompatible</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// =&gt; true or false</span>
 
-qty.kind(); // =&gt; 'length', 'area', etc...
+<span class="nx">qty</span><span class="p">.</span><span class="nx">kind</span><span class="p">();</span> <span class="c1">// =&gt; 'length', 'area', etc...</span>
 
-qty.isUnitless(); // =&gt; true or false
-qty.isBase(); // =&gt; true if quantity is represented with base units
-</code></pre>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">isUnitless</span><span class="p">();</span> <span class="c1">// =&gt; true or false</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">isBase</span><span class="p">();</span> <span class="c1">// =&gt; true if quantity is represented with base units</span>
+</pre></div>
 
 <h3>
 <a name="conversion" class="anchor" href="#conversion"><span class="octicon octicon-link"></span></a>Conversion</h3>
 
-<pre><code>qty.toBase(); // converts to SI units (10 cm =&gt; 0.1 m) (new instance)
+<div class="highlight highlight-javascript"><pre><span class="nx">qty</span><span class="p">.</span><span class="nx">toBase</span><span class="p">();</span> <span class="c1">// converts to SI units (10 cm =&gt; 0.1 m) (new instance)</span>
 
-qty.toFloat(): // returns scalar of unitless quantity (otherwise throws error)
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toFloat</span><span class="p">()</span><span class="o">:</span> <span class="c1">// returns scalar of unitless quantity (otherwise throws error)</span>
 
-qty.to('m'); // converts quantity to meter if compatible
-             // or throws an error (new instance)
-qty1.to(qty2); // converts quantity to same unit of qty2 if compatible
-               // or throws an error (new instance)
+<span class="nx">qty</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">'m'</span><span class="p">);</span> <span class="c1">// converts quantity to meter if compatible</span>
+             <span class="c1">// or throws an error (new instance)</span>
+<span class="nx">qty1</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// converts quantity to same unit of qty2 if compatible</span>
+               <span class="c1">// or throws an error (new instance)</span>
 
-qty.inverse(); // converts quantity to its inverse ('100 m/s' =&gt; '.01 s/m')
-// inverses can be used, but there is no special checking to rename the units
-Qty('10ohm').inverse() // '.1/ohm' (not '.1S', although they are equivalent)
-// however, the 'to' command will convert between inverses also
-Qty('10ohm').to('S') // '.1S'
-</code></pre>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">inverse</span><span class="p">();</span> <span class="c1">// converts quantity to its inverse ('100 m/s' =&gt; '.01 s/m')</span>
+<span class="c1">// inverses can be used, but there is no special checking to rename the units</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'10ohm'</span><span class="p">).</span><span class="nx">inverse</span><span class="p">()</span> <span class="c1">// '.1/ohm' (not '.1S', although they are equivalent)</span>
+<span class="c1">// however, the 'to' command will convert between inverses also</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'10ohm'</span><span class="p">).</span><span class="nx">to</span><span class="p">(</span><span class="s1">'S'</span><span class="p">)</span> <span class="c1">// '.1S'</span>
+</pre></div>
 
 <p>Qty.swiftConverter() could be useful to efficiently convert large array of values. It
 configures a function accepting a value and converting it.</p>
 
-<pre><code>var convert = Qty.swiftConverter('m/h', 'ft/s'); // Configures converter
-var convertedSerie = largeSerie.map(convert); // Usage with map()
-var converted = convert(2500); // Standalone usage
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">convert</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">.</span><span class="nx">swiftConverter</span><span class="p">(</span><span class="s1">'m/h'</span><span class="p">,</span> <span class="s1">'ft/s'</span><span class="p">);</span> <span class="c1">// Configures converter</span>
+<span class="kd">var</span> <span class="nx">convertedSerie</span> <span class="o">=</span> <span class="nx">largeSerie</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">convert</span><span class="p">);</span> <span class="c1">// Usage with map()</span>
+<span class="kd">var</span> <span class="nx">converted</span> <span class="o">=</span> <span class="nx">convert</span><span class="p">(</span><span class="mi">2500</span><span class="p">);</span> <span class="c1">// Standalone usage</span>
+</pre></div>
 
 <p>The main drawback of this conversion method is that it does not take care of
 rounding issues.</p>
@@ -165,15 +164,15 @@ rounding issues.</p>
 <h3>
 <a name="comparison" class="anchor" href="#comparison"><span class="octicon octicon-link"></span></a>Comparison</h3>
 
-<pre><code>qty1.eq(qty2); // =&gt; true if both quantities are equal (1m == 100cm =&gt; true)
-qty1.same(qty2); // =&gt; true if both quantities are same (1m == 100cm =&gt; false)
-qty1.lt(qty2); // =&gt; true if qty1 is stricty less than qty2
-qty1.lte(qty2); // =&gt; true if qty1 is less than or equal to qty2
-qty1.gt(qty2); // =&gt; true if qty1 is stricty greater than qty2
-qty1.gte(qty2); // =&gt; true if qty1 is greater than or equal to qty2
+<div class="highlight highlight-javascript"><pre><span class="nx">qty1</span><span class="p">.</span><span class="nx">eq</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// =&gt; true if both quantities are equal (1m == 100cm =&gt; true)</span>
+<span class="nx">qty1</span><span class="p">.</span><span class="nx">same</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// =&gt; true if both quantities are same (1m == 100cm =&gt; false)</span>
+<span class="nx">qty1</span><span class="p">.</span><span class="nx">lt</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// =&gt; true if qty1 is stricty less than qty2</span>
+<span class="nx">qty1</span><span class="p">.</span><span class="nx">lte</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// =&gt; true if qty1 is less than or equal to qty2</span>
+<span class="nx">qty1</span><span class="p">.</span><span class="nx">gt</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// =&gt; true if qty1 is stricty greater than qty2</span>
+<span class="nx">qty1</span><span class="p">.</span><span class="nx">gte</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// =&gt; true if qty1 is greater than or equal to qty2</span>
 
-qty1.compareTo(qty2); // =&gt; -1 if qty1 &lt; qty2, 0 if qty1 == qty2; 1 if qty1 &gt; qty2
-</code></pre>
+<span class="nx">qty1</span><span class="p">.</span><span class="nx">compareTo</span><span class="p">(</span><span class="nx">qty2</span><span class="p">);</span> <span class="c1">// =&gt; -1 if qty1 &lt; qty2, 0 if qty1 == qty2; 1 if qty1 &gt; qty2</span>
+</pre></div>
 
 <h3>
 <a name="operators" class="anchor" href="#operators"><span class="octicon octicon-link"></span></a>Operators</h3>
@@ -188,28 +187,28 @@ qty1.compareTo(qty2); // =&gt; -1 if qty1 &lt; qty2, 0 if qty1 == qty2; 1 if qty
 
 <p>Qty#toPrec(precision) : returns the nearest multiple of quantity passed as precision</p>
 
-<pre><code>var qty = Qty('5.17 ft');
-qty.toPrec('ft'); // =&gt; 5 ft
-qty.toPrec('0.5 ft'); // =&gt; 5 ft
-qty.toPrec('0.25 ft'); // =&gt; 5.25 ft
-qty.toPrec('0.1 ft'); // =&gt; 5.2 ft
-qty.toPrec('0.05 ft'); // =&gt; 5.15 ft
-qty.toPrec('0.01 ft'); // =&gt; 5.17 ft
-qty.toPrec('0.00001 ft'); // =&gt; 5.17 ft
-qty.toPrec('2 ft'); // =&gt; 6 ft
-qty.toPrec('2'); // =&gt; 6 ft
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'5.17 ft'</span><span class="p">);</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'ft'</span><span class="p">);</span> <span class="c1">// =&gt; 5 ft</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'0.5 ft'</span><span class="p">);</span> <span class="c1">// =&gt; 5 ft</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'0.25 ft'</span><span class="p">);</span> <span class="c1">// =&gt; 5.25 ft</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'0.1 ft'</span><span class="p">);</span> <span class="c1">// =&gt; 5.2 ft</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'0.05 ft'</span><span class="p">);</span> <span class="c1">// =&gt; 5.15 ft</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'0.01 ft'</span><span class="p">);</span> <span class="c1">// =&gt; 5.17 ft</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'0.00001 ft'</span><span class="p">);</span> <span class="c1">// =&gt; 5.17 ft</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'2 ft'</span><span class="p">);</span> <span class="c1">// =&gt; 6 ft</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'2'</span><span class="p">);</span> <span class="c1">// =&gt; 6 ft</span>
 
-var qty = Qty('6.3782 m');
-qty.toPrec('dm'); // =&gt; 6.4 m
-qty.toPrec('cm'); // =&gt; 6.38 m
-qty.toPrec('mm'); // =&gt; 6.378 m
-qty.toPrec('5 cm'); // =&gt; 6.4 m
-qty.toPrec('10 m'); // =&gt; 10 m
-qty.toPrec(0.1); // =&gt; 6.3 m
+<span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'6.3782 m'</span><span class="p">);</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'dm'</span><span class="p">);</span> <span class="c1">// =&gt; 6.4 m</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'cm'</span><span class="p">);</span> <span class="c1">// =&gt; 6.38 m</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'mm'</span><span class="p">);</span> <span class="c1">// =&gt; 6.378 m</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'5 cm'</span><span class="p">);</span> <span class="c1">// =&gt; 6.4 m</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'10 m'</span><span class="p">);</span> <span class="c1">// =&gt; 10 m</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="mf">0.1</span><span class="p">);</span> <span class="c1">// =&gt; 6.3 m</span>
 
-var qty = Qty('1.146 MPa');
-qty.toPrec('0.1 bar'); // =&gt; 1.15 MPa
-</code></pre>
+<span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.146 MPa'</span><span class="p">);</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="s1">'0.1 bar'</span><span class="p">);</span> <span class="c1">// =&gt; 1.15 MPa</span>
+</pre></div>
 
 <h3>
 <a name="formatting-quantities" class="anchor" href="#formatting-quantities"><span class="octicon octicon-link"></span></a>Formatting quantities</h3>
@@ -217,26 +216,26 @@ qty.toPrec('0.1 bar'); // =&gt; 1.15 MPa
 <p>Qty#toString returns a string using the canonical form of the quantity (that
 is it could be seamlessly reparsed by Qty).</p>
 
-<pre><code>var qty = Qty('1.146 MPa');
-qty.toString(); // =&gt; '1.146 MPa'
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.146 MPa'</span><span class="p">);</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span> <span class="c1">// =&gt; '1.146 MPa'</span>
+</pre></div>
 
 <p>As a shorthand, units could be passed to Qty#toString and is equivalent to
 successively call Qty#to then Qty#toString.</p>
 
-<pre><code>var qty = Qty('1.146 MPa');
-qty.toString('bar'); // =&gt; '11.46 bar'
-qty.to('bar').toString(); // =&gt; '11.46 bar'
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.146 MPa'</span><span class="p">);</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">);</span> <span class="c1">// =&gt; '11.46 bar'</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span> <span class="c1">// =&gt; '11.46 bar'</span>
+</pre></div>
 
 <p>Qty#toString could also be used with any method from Qty to make some sort of
 formatting. For instance, one could use Qty#toPrec to fix the maximum number of
 decimals:</p>
 
-<pre><code>var qty = Qty('1.146 MPa');
-qty.toPrec(0.1).toString(); // =&gt; '1.1 MPa'
-qty.to('bar').toPrec(0.1).toString(); // =&gt; '11.5 bar'
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.146 MPa'</span><span class="p">);</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">toPrec</span><span class="p">(</span><span class="mf">0.1</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span> <span class="c1">// =&gt; '1.1 MPa'</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">'bar'</span><span class="p">).</span><span class="nx">toPrec</span><span class="p">(</span><span class="mf">0.1</span><span class="p">).</span><span class="nx">toString</span><span class="p">();</span> <span class="c1">// =&gt; '11.5 bar'</span>
+</pre></div>
 
 <p>For advanced formatting needs as localization, specific rounding or any other
 custom customization, quantities can be transformed into strings through
@@ -249,39 +248,39 @@ specified, the quantity is converted into them before formatting.</p>
 <p>If no formatter is specified, quantities are formatted according to default
 js-quantities' formatter and is equivalent to Qty#toString.</p>
 
-<pre><code>var qty = Qty('1.1234 m');
-qty.format(); // same units, default formatter =&gt; '1.234 m'
-qty.format('cm'); // converted to 'cm', default formatter =&gt; '123.45 cm'
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.1234 m'</span><span class="p">);</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">format</span><span class="p">();</span> <span class="c1">// same units, default formatter =&gt; '1.234 m'</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">'cm'</span><span class="p">);</span> <span class="c1">// converted to 'cm', default formatter =&gt; '123.45 cm'</span>
+</pre></div>
 
 <p>Qty#format could delegates formatting to a custom formatter if required. A
 formatter is a callback function accepting scalar and units as parameters and
 returning a formatted string representing the quantity.</p>
 
-<pre><code>var configurableRoundingFormatter = function(maxDecimals) {
-  return function(scalar, units) {
-    var pow = Math.pow(10, maxDecimals);
-    var rounded = Math.round(scalar * pow) / pow;
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">configurableRoundingFormatter</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">maxDecimals</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">scalar</span><span class="p">,</span> <span class="nx">units</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">pow</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nx">maxDecimals</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">rounded</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">scalar</span> <span class="o">*</span> <span class="nx">pow</span><span class="p">)</span> <span class="o">/</span> <span class="nx">pow</span><span class="p">;</span>
 
-    return rounded + ' ' + units;
-  };
-};
+    <span class="k">return</span> <span class="nx">rounded</span> <span class="o">+</span> <span class="s1">' '</span> <span class="o">+</span> <span class="nx">units</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
 
-var qty = Qty('1.1234 m');
+<span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.1234 m'</span><span class="p">);</span>
 
-// same units, custom formatter =&gt; '1.12 m'
-qty.format(configurableRoundingFormatter(2));
+<span class="c1">// same units, custom formatter =&gt; '1.12 m'</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">configurableRoundingFormatter</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
 
-// convert to 'cm', custom formatter =&gt; '123.4 cm'
-qty.format('cm', configurableRoundingFormatter(1));
-</code></pre>
+<span class="c1">// convert to 'cm', custom formatter =&gt; '123.4 cm'</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">format</span><span class="p">(</span><span class="s1">'cm'</span><span class="p">,</span> <span class="nx">configurableRoundingFormatter</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+</pre></div>
 
 <p>Custom formatter can be configured globally by setting Qty.formatter.</p>
 
-<pre><code>Qty.formatter = configurableRoundingFormatter(2);
-var qty = Qty('1.1234 m');
-qty.format(); // same units, current default formatter =&gt; '1.12 m'
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="nx">Qty</span><span class="p">.</span><span class="nx">formatter</span> <span class="o">=</span> <span class="nx">configurableRoundingFormatter</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.1234 m'</span><span class="p">);</span>
+<span class="nx">qty</span><span class="p">.</span><span class="nx">format</span><span class="p">();</span> <span class="c1">// same units, current default formatter =&gt; '1.12 m'</span>
+</pre></div>
 
 <h3>
 <a name="temperatures" class="anchor" href="#temperatures"><span class="octicon octicon-link"></span></a>Temperatures</h3>
@@ -290,58 +289,59 @@ qty.format(); // same units, current default formatter =&gt; '1.12 m'
 
 <p>Temperature units (i.e., 'tempK') can be converted back and forth, and will take into account the differences in the zero points of the various scales. Differential temperature (e.g., '100 degC') units behave like most other units.</p>
 
-<pre><code>Qty('37 tempC').to('tempF')      #=&gt; 98.6 tempF
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="nx">Qty</span><span class="p">(</span><span class="s1">'37 tempC'</span><span class="p">).</span><span class="nx">to</span><span class="p">(</span><span class="s1">'tempF'</span><span class="p">)</span> <span class="c1">// =&gt; 98.6 tempF</span>
+</pre></div>
 
 <p>JS-quantities will throw an error if you attempt to create a temperature unit that would fall below absolute zero.</p>
 
 <p>Unit math on temperatures is fairly limited.</p>
 
-<pre><code>Qty('100 tempC').add('10 degC')  # 110 tempC
-Qty('100 tempC').sub('10 degC')  # 90 tempC
-Qty('100 tempC').add('50 tempC') # throws error
-Qty('100 tempC').sub('50 tempC') # 50 degC
-Qty('50 tempC').sub('100 tempC') # -50 degC
-Qty('100 tempC').mul(scalar)     # 100*scalar tempC
-Qty('100 tempC').div(scalar)     # 100/scalar tempC
-Qty('100 tempC').mul(qty)        # throws error
-Qty('100 tempC').div(qty)        # throws error
-Qty('100 tempC*unit')            # throws error
-Qty('100 tempC/unit')            # throws error
-Qty('100 unit/tempC')            # throws error
-Qty('100 tempC').inverse()       # throws error
+<div class="highlight highlight-javascript"><pre><span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">'10 degC'</span><span class="p">)</span>  <span class="c1">// 110 tempC</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">sub</span><span class="p">(</span><span class="s1">'10 degC'</span><span class="p">)</span>  <span class="c1">// 90 tempC</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">'50 tempC'</span><span class="p">)</span> <span class="c1">// throws error</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">sub</span><span class="p">(</span><span class="s1">'50 tempC'</span><span class="p">)</span> <span class="c1">// 50 degC</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'50 tempC'</span><span class="p">).</span><span class="nx">sub</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">)</span> <span class="c1">// -50 degC</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">mul</span><span class="p">(</span><span class="nx">scalar</span><span class="p">)</span>     <span class="c1">// 100*scalar tempC</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">div</span><span class="p">(</span><span class="nx">scalar</span><span class="p">)</span>     <span class="c1">// 100/scalar tempC</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">mul</span><span class="p">(</span><span class="nx">qty</span><span class="p">)</span>        <span class="c1">// throws error</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">div</span><span class="p">(</span><span class="nx">qty</span><span class="p">)</span>        <span class="c1">// throws error</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC*unit'</span><span class="p">)</span>            <span class="c1">// throws error</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC/unit'</span><span class="p">)</span>            <span class="c1">// throws error</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 unit/tempC'</span><span class="p">)</span>            <span class="c1">// throws error</span>
+<span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">inverse</span><span class="p">()</span>       <span class="c1">// throws error</span>
+</pre></div>
 
-Qty('100 tempC').to('degC') #=&gt; 100 degC
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 tempC'</span><span class="p">).</span><span class="nx">to</span><span class="p">(</span><span class="s1">'degC'</span><span class="p">)</span> <span class="c1">// =&gt; 100 degC</span>
+</pre></div>
 
 <p>This conversion references the 0 point on the scale of the temperature unit</p>
 
-<pre><code>Qty('100 degC').to('tempC') #=&gt; -173.15 tempC
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="nx">Qty</span><span class="p">(</span><span class="s1">'100 degC'</span><span class="p">).</span><span class="nx">to</span><span class="p">(</span><span class="s1">'tempC'</span><span class="p">)</span> <span class="c1">// =&gt; -173.15 tempC</span>
+</pre></div>
 
 <p>These conversions are always interpreted as being relative to absolute zero.
 Conversions are probably better done like this...</p>
 
-<pre><code>Qty('0 tempC').add('100 degC') #=&gt; 100 tempC
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="nx">Qty</span><span class="p">(</span><span class="s1">'0 tempC'</span><span class="p">).</span><span class="nx">add</span><span class="p">(</span><span class="s1">'100 degC'</span><span class="p">)</span> <span class="c1">// =&gt; 100 tempC</span>
+</pre></div>
 
 <h3>
 <a name="errors" class="anchor" href="#errors"><span class="octicon octicon-link"></span></a>Errors</h3>
 
 <p>Every error thrown by JS-quantities is an instance of Qty.Error.</p>
 
-<pre><code>try {
-  // code triggering an error inside JS-quantities
-}
-catch(e) {
-  if(e instanceof Qty.Error) {
-    // ...
-  }
-  else {
-    // ...
-  }
-}
-</code></pre>
+<div class="highlight highlight-javascript"><pre><span class="k">try</span> <span class="p">{</span>
+  <span class="c1">// code triggering an error inside JS-quantities</span>
+<span class="p">}</span>
+<span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">e</span> <span class="k">instanceof</span> <span class="nx">Qty</span><span class="p">.</span><span class="nb">Error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">}</span>
+  <span class="k">else</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
 
 <h2>
 <a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h2>
