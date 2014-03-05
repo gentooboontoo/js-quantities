@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.org/gentooboontoo/js-quantities.png)](https://travis-ci.org/gentooboontoo/js-quantities)
 
-JS-quantities is a JavaScript port of Kevin Olbrich's library Ruby Units
-(http://ruby-units.rubyforge.org/ruby-units).
+JS-quantities is originally a JavaScript port of Kevin Olbrich's library Ruby
+Units (http://ruby-units.rubyforge.org/ruby-units).
 
-As described by its author, the library aims to simplify the handling of
-units for scientific calculations involving quantities.
+The library aims to simplify the handling of units for scientific calculations
+involving quantities.
 
 JS-quantities is defined as an UMD module and can be used with AMD, Node
 and within browsers.
@@ -74,8 +74,10 @@ When using [Require.JS](http://requirejs.org/):
 
     qty.toFloat(): // returns scalar of unitless quantity (otherwise throws error)
 
-    qty.to('m'); // converts quantity to meter if compatible or throws an error (new instance)
-    qty1.to(qty2); // converts quantity to same unit of qty2 if compatible or throws an error (new instance)
+    qty.to('m'); // converts quantity to meter if compatible
+                 // or throws an error (new instance)
+    qty1.to(qty2); // converts quantity to same unit of qty2 if compatible
+                   // or throws an error (new instance)
 
     qty.inverse(); // converts quantity to its inverse ('100 m/s' => '.01 s/m')
     // inverses can be used, but there is no special checking to rename the units
@@ -153,7 +155,7 @@ successively call Qty#to then Qty#toString.
     qty.to('bar').toString(); // => '11.46 bar'
 
 Qty#toString could also be used with any method from Qty to make some sort of
-formatting. For instance, one could use #toPrec to fix the maximum number of
+formatting. For instance, one could use Qty#toPrec to fix the maximum number of
 decimals:
 
     var qty = new Qty('1.146 MPa');
@@ -165,8 +167,8 @@ custom customization, quantities can be transformed into strings through
 Qty#format according to optional target units and formatter. If target units are
 specified, the quantity is converted into them before formatting.
 
-Of course, such a string is not expected to be reparsed to construct a new
-instance of Qty (unlike Qty#toString).
+Such a string is not intended to be reparsed to construct a new instance of Qty
+(unlike output of Qty#toString).
 
 If no formatter is specified, quantities are formatted according to default
 js-quantities' formatter and is equivalent to Qty#toString.
@@ -189,8 +191,12 @@ returning a formatted string representing the quantity.
     };
 
     var qty = new Qty('1.1234 m');
-    qty.format(configurableRoundingFormatter(2)); // same units, custom formatter => '1.12 m'
-    qty.format('cm', configurableRoundingFormatter(1)); // convert to 'cm', custom formatter => '123.4 cm'
+
+    // same units, custom formatter => '1.12 m'
+    qty.format(configurableRoundingFormatter(2));
+
+    // convert to 'cm', custom formatter => '123.4 cm'
+    qty.format('cm', configurableRoundingFormatter(1));
 
 Custom formatter can be configured globally by setting Qty.formatter.
 

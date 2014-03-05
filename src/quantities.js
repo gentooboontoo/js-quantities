@@ -787,7 +787,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     /**
      * Stringifies the quantity
-     * Parameters other than a single unit are now silently deprecated.
+     * Deprecation notice: only units parameter is supported.
      *
      * @param {(number|string|Qty)} targetUnitsOrMaxDecimalsOrPrec -
      *                              target units if string,
