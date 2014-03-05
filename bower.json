@@ -13,7 +13,7 @@
     "Julien Sanchez <julien.sanchez@gmail.com>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/gentooboontoo/js-quantities",
+  "homepage": "http://gentooboontoo.github.io/js-quantities/",
   "ignore": [
     "**/.*",
     "node_modules",
