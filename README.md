@@ -15,7 +15,7 @@ and within browsers.
 
 ### Browser
 
-Download [latest release](https://raw.github.com/gentooboontoo/js-quantities/v1.2.0/src/quantities.js)
+Download [latest release v1.3.0](https://raw.github.com/gentooboontoo/js-quantities/v1.3.0/src/quantities.js)
 or install it with Bower:
 
     bower install js-quantities

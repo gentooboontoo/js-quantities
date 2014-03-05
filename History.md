@@ -1,3 +1,16 @@
+1.3.0 / 2014-03-05
+------------------
+
+* Add Qty#format and accept custom formatters
+* Allow to call Qty() without new to create Qty instances (Qty could be used
+  both as a constructor or as a factory)
+* Qty#toString only supports to be passed output units as single parameters
+  Former parameters are now deprecated but still supported to not introduce
+  a breaking change
+* Add mc as alternate definition for prefix "micro"
+* Throw error with mmm as unit
+* Add rounding optimization
+
 1.2.0 / 2013-12-17
 ------------------
 
