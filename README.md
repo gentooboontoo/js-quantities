@@ -46,8 +46,8 @@ $ node
 
 ### Creation
 
-Instances of quantities are made by means of Qty() method. Qty can both be used
-as a constructor (with new) or as a factory (without new):
+Instances of quantities are made by means of `Qty()` method. `Qty` can both be
+used as a constructor (with new) or as a factory (without new):
 
 ```javascript
 qty = new Qty('23 ft'); // constructor
@@ -55,7 +55,7 @@ qty = Qty('23 ft'); // factory
 ```
 
 For the sake of simplicity, one will use the factory way below but using
-new Qty() is equivalent.
+`new Qty()` is equivalent.
 
 ```javascript
 qty = Qty('1m'); // => 1 meter
@@ -93,32 +93,36 @@ qty.isBase(); // => true if quantity is represented with base units
 ```javascript
 qty.toBase(); // converts to SI units (10 cm => 0.1 m) (new instance)
 
-qty.toFloat(): // returns scalar of unitless quantity (otherwise throws error)
+qty.toFloat(); // returns scalar of unitless quantity
+               // (otherwise throws error)
 
 qty.to('m'); // converts quantity to meter if compatible
              // or throws an error (new instance)
 qty1.to(qty2); // converts quantity to same unit of qty2 if compatible
                // or throws an error (new instance)
 
-qty.inverse(); // converts quantity to its inverse ('100 m/s' => '.01 s/m')
-// inverses can be used, but there is no special checking to rename the units
-Qty('10ohm').inverse() // '.1/ohm' (not '.1S', although they are equivalent)
+qty.inverse(); // converts quantity to its inverse
+               // ('100 m/s' => '.01 s/m')
+// Inverses can be used, but there is no special checking to
+// rename the units
+Qty('10ohm').inverse() // '.1/ohm'
+                       // (not '.1S', although they are equivalent)
 // however, the 'to' command will convert between inverses also
 Qty('10ohm').to('S') // '.1S'
 ```
 
-Qty.swiftConverter() is a fast way to efficiently convert large array of Number
-values. It configures a function accepting a value or an array of Number values
-to convert.
+`Qty.swiftConverter()` is a fast way to efficiently convert large array of
+Number values. It configures a function accepting a value or an array of Number
+values to convert.
 
 ```javascript
 var convert = Qty.swiftConverter('m/h', 'ft/s'); // Configures converter
 
 // Converting single value
-var converted = convert(2500); // => 2.278...
+var converted = convert(2500); // => 2.278..
 
 // Converting large array of values
-var convertedSerie = convert([2500, 5000, ...]); // => [2.278..., 4.556..., ...]
+var convertedSerie = convert([2500, 5000, ...]); // => [2.278.., 4.556.., ...]
 ```
 
 The main drawback of this conversion method is that it does not take care of
@@ -134,7 +138,9 @@ qty1.lte(qty2); // => true if qty1 is less than or equal to qty2
 qty1.gt(qty2); // => true if qty1 is stricty greater than qty2
 qty1.gte(qty2); // => true if qty1 is greater than or equal to qty2
 
-qty1.compareTo(qty2); // => -1 if qty1 < qty2, 0 if qty1 == qty2; 1 if qty1 > qty2
+qty1.compareTo(qty2); // => -1 if qty1 < qty2,
+                      // => 0 if qty1 == qty2,
+                      // => 1 if qty1 > qty2
 ```
 
 ### Operators
@@ -146,7 +152,8 @@ qty1.compareTo(qty2); // => -1 if qty1 < qty2, 0 if qty1 == qty2; 1 if qty1 > qt
 
 ### Rounding
 
-Qty#toPrec(precision) : returns the nearest multiple of quantity passed as precision
+`Qty#toPrec(precision)` : returns the nearest multiple of quantity passed as
+precision.
 
 ```javascript
 var qty = Qty('5.17 ft');
@@ -174,16 +181,16 @@ qty.toPrec('0.1 bar'); // => 1.15 MPa
 
 ### Formatting quantities
 
-Qty#toString returns a string using the canonical form of the quantity (that
-is it could be seamlessly reparsed by Qty).
+`Qty#toString` returns a string using the canonical form of the quantity (that
+is it could be seamlessly reparsed by `Qty`).
 
 ```javascript
 var qty = Qty('1.146 MPa');
 qty.toString(); // => '1.146 MPa'
 ```
 
-As a shorthand, units could be passed to Qty#toString and is equivalent to
-successively call Qty#to then Qty#toString.
+As a shorthand, units could be passed to `Qty#toString` and is equivalent to
+successively call `Qty#to` then `Qty#toString`.
 
 ```javascript
 var qty = Qty('1.146 MPa');
@@ -191,9 +198,9 @@ qty.toString('bar'); // => '11.46 bar'
 qty.to('bar').toString(); // => '11.46 bar'
 ```
 
-Qty#toString could also be used with any method from Qty to make some sort of
-formatting. For instance, one could use Qty#toPrec to fix the maximum number of
-decimals:
+`Qty#toString` could also be used with any method from `Qty` to make some sort
+of formatting. For instance, one could use `Qty#toPrec` to fix the maximum
+number of decimals:
 
 ```javascript
 var qty = Qty('1.146 MPa');
@@ -203,14 +210,14 @@ qty.to('bar').toPrec(0.1).toString(); // => '11.5 bar'
 
 For advanced formatting needs as localization, specific rounding or any other
 custom customization, quantities can be transformed into strings through
-Qty#format according to optional target units and formatter. If target units are
-specified, the quantity is converted into them before formatting.
+`Qty#format` according to optional target units and formatter. If target units
+are specified, the quantity is converted into them before formatting.
 
-Such a string is not intended to be reparsed to construct a new instance of Qty
-(unlike output of Qty#toString).
+Such a string is not intended to be reparsed to construct a new instance of
+`Qty` (unlike output of `Qty#toString`).
 
 If no formatter is specified, quantities are formatted according to default
-js-quantities' formatter and is equivalent to Qty#toString.
+js-quantities' formatter and is equivalent to `Qty#toString`.
 
 ```javascript
 var qty = Qty('1.1234 m');
@@ -218,7 +225,7 @@ qty.format(); // same units, default formatter => '1.234 m'
 qty.format('cm'); // converted to 'cm', default formatter => '123.45 cm'
 ```
 
-Qty#format could delegates formatting to a custom formatter if required. A
+`Qty#format` could delegates formatting to a custom formatter if required. A
 formatter is a callback function accepting scalar and units as parameters and
 returning a formatted string representing the quantity.
 
@@ -241,7 +248,7 @@ qty.format(configurableRoundingFormatter(2));
 qty.format('cm', configurableRoundingFormatter(1));
 ```
 
-Custom formatter can be configured globally by setting Qty.formatter.
+Custom formatter can be configured globally by setting `Qty.formatter`.
 
 ```javascript
 Qty.formatter = configurableRoundingFormatter(2);
@@ -251,15 +258,20 @@ qty.format(); // same units, current default formatter => '1.12 m'
 
 ### Temperatures
 
-Like ruby-units, JS-quantities makes a distinction between a temperature (which technically is a property) and degrees of temperature (which temperatures are measured in).
+Like ruby-units, JS-quantities makes a distinction between a temperature (which
+technically is a property) and degrees of temperature (which temperatures are
+measured in).
 
-Temperature units (i.e., 'tempK') can be converted back and forth, and will take into account the differences in the zero points of the various scales. Differential temperature (e.g., '100 degC') units behave like most other units.
+Temperature units (i.e., 'tempK') can be converted back and forth, and will take
+into account the differences in the zero points of the various scales.
+Differential temperature (e.g., '100 degC') units behave like most other units.
 
 ```javascript
 Qty('37 tempC').to('tempF') // => 98.6 tempF
 ```
 
-JS-quantities will throw an error if you attempt to create a temperature unit that would fall below absolute zero.
+JS-quantities will throw an error if you attempt to create a temperature unit
+that would fall below absolute zero.
 
 Unit math on temperatures is fairly limited.
 
@@ -298,7 +310,7 @@ Qty('0 tempC').add('100 degC') // => 100 tempC
 
 ### Errors
 
-Every error thrown by JS-quantities is an instance of Qty.Error.
+Every error thrown by JS-quantities is an instance of `Qty.Error`.
 
 ```javascript
 try {
