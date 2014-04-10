@@ -1114,30 +1114,42 @@ describe("js-quantities", function() {
     });
 
     describe("converter", function() {
-      it("should convert value", function() {
-        // TODO Same test but with m/h -> ft/s triggers rounding issue
-        // (For the sake of speed, converter does not check and fix rounding issues)
-        var converter = Qty.swiftConverter("m/h", "m/s");
+      describe("single value", function() {
+        it("should convert value", function() {
+          // TODO Same test but with m/h -> ft/s triggers rounding issue
+          // (For the sake of speed, converter does not check and fix rounding issues)
+          var converter = Qty.swiftConverter("m/h", "m/s");
 
-        expect(converter(2500)).toEqual(Qty("2500 m/h").to("m/s").scalar);
+          expect(converter(2500)).toEqual(Qty("2500 m/h").to("m/s").scalar);
+        });
+
+        it("should returned value unchanged when units are identical", function() {
+          var converter = Qty.swiftConverter("m/h", "m/h");
+
+          expect(converter(2500)).toEqual(2500);
+        });
+
+        it("should convert temperatures", function() {
+          var converter = Qty.swiftConverter("tempF", "tempC");
+
+          expect(converter(32)).toEqual(0);
+        });
+
+        it("should convert degrees", function() {
+          var converter = Qty.swiftConverter("degC", "degF");
+
+          expect(converter(10)).toEqual(18);
+        });
       });
 
-      it("should returned value unchanged when units are identical", function() {
-        var converter = Qty.swiftConverter("m/h", "m/h");
+      describe("array of values", function() {
+        it("should be converted", function() {
+          var converter = Qty.swiftConverter("MPa", "bar"),
+              values = [250, 10, 15],
+              expected = [2500, 100, 150];
 
-        expect(converter(2500)).toEqual(2500);
-      });
-
-      it("should convert temperatures", function() {
-        var converter = Qty.swiftConverter("tempF", "tempC");
-
-        expect(converter(32)).toEqual(0);
-      });
-
-      it("should convert degrees", function() {
-        var converter = Qty.swiftConverter("degC", "degF");
-
-        expect(converter(10)).toEqual(18);
+          expect(converter(values)).toEqual(expected);
+        });
       });
     });
   });

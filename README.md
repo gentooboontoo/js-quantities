@@ -107,13 +107,18 @@ Qty('10ohm').inverse() // '.1/ohm' (not '.1S', although they are equivalent)
 Qty('10ohm').to('S') // '.1S'
 ```
 
-Qty.swiftConverter() could be useful to efficiently convert large array of values. It
-configures a function accepting a value and converting it.
+Qty.swiftConverter() is a fast way to efficiently convert large array of Number
+values. It configures a function accepting a value or an array of Number values
+to convert.
 
 ```javascript
 var convert = Qty.swiftConverter('m/h', 'ft/s'); // Configures converter
-var convertedSerie = largeSerie.map(convert); // Usage with map()
-var converted = convert(2500); // Standalone usage
+
+// Converting single value
+var converted = convert(2500); // => 2.278...
+
+// Converting large array of values
+var convertedSerie = convert([2500, 5000, ...]); // => [2.278..., 4.556..., ...]
 ```
 
 The main drawback of this conversion method is that it does not take care of

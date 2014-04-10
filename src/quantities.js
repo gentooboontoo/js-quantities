@@ -421,17 +421,35 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return identity;
     }
 
+    var convert;
     if(!srcQty.isTemperature()) {
-      return function(value) {
+      convert = function(value) {
         return value * srcQty.baseScalar / dstQty.baseScalar;
       };
     }
     else {
-      return function(value) {
+      convert = function(value) {
         // TODO Not optimized
         return srcQty.mul(value).to(dstQty).scalar;
       };
     }
+
+    return function converter(value) {
+      var i,
+          length,
+          result;
+      if(!Array.isArray(value)) {
+        return convert(value);
+      }
+      else {
+        length = value.length;
+        result = [];
+        for(i = 0; i < length; i++) {
+          result.push(convert(value[i]));
+        }
+        return result;
+      }
+    };
   };
 
   /**
