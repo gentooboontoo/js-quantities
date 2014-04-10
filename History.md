@@ -1,3 +1,9 @@
+1.4.0 / 2014-04-10
+------------------
+
+* Directly convert array of values when using swiftConverter
+* Add support for bushel units
+
 1.3.0 / 2014-03-05
 ------------------
 
