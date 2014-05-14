@@ -1,3 +1,8 @@
+1.4.1 / 2014-05-14
+------------------
+
+* Use a little more robust to test string type and factorize it
+
 1.4.0 / 2014-04-10
 ------------------
 
