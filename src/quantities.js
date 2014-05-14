@@ -341,7 +341,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     this.numerator = UNITY_ARRAY;
     this.denominator = UNITY_ARRAY;
 
-    if(initValue.constructor === String) {
+    if(isString(initValue)) {
       initValue = initValue.trim();
       parse.call(this, initValue);
     }
@@ -379,7 +379,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * @returns {Qty|null} Parsed quantity or null if unrecognized
    */
   Qty.parse = function parse(value) {
-    if(typeof value !== "string" && !(value instanceof String)) {
+    if(!isString(value)) {
       throw new QtyError("Argument should be a string");
     }
 
@@ -658,7 +658,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     unit.units =~ /regexp/
     */
     isCompatible: function(other) {
-      if(other && other.constructor === String) {
+      if(isString(other)) {
         return this.isCompatible(Qty(other));
       }
 
@@ -784,7 +784,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      *
      */
     toPrec: function(precQuantity) {
-      if(precQuantity && precQuantity.constructor === String) {
+      if(isString(precQuantity)) {
         precQuantity = Qty(precQuantity);
       }
       if(typeof precQuantity === "number") {
@@ -828,7 +828,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         targetUnits = this.units();
         maxDecimals = targetUnitsOrMaxDecimalsOrPrec;
       }
-      else if(typeof targetUnitsOrMaxDecimalsOrPrec === "string") {
+      else if(isString(targetUnitsOrMaxDecimalsOrPrec)) {
         targetUnits = targetUnitsOrMaxDecimalsOrPrec;
       }
       else if(targetUnitsOrMaxDecimalsOrPrec instanceof Qty) {
@@ -895,7 +895,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     //
     //   If including inverses in the sort is needed, I suggest writing: Qty.sort(qtyArray,units)
     compareTo: function(other) {
-      if(other && other.constructor === String) {
+      if(isString(other)) {
         return this.compareTo(Qty(other));
       }
       if(!this.isCompatible(other)) {
@@ -965,7 +965,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return this;
       }
 
-      if(other.constructor !== String) {
+      if(!isString(other)) {
         return this.to(other.units());
       }
 
@@ -1008,7 +1008,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     // Quantity operators
     // Returns new instance with this units
     add: function(other) {
-      if(other && other.constructor === String) {
+      if(isString(other)) {
         other = Qty(other);
       }
 
@@ -1030,7 +1030,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     },
 
     sub: function(other) {
-      if(other && other.constructor === String) {
+      if(isString(other)) {
         other = Qty(other);
       }
 
@@ -1055,7 +1055,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(typeof other === "number") {
         return Qty({"scalar": mulSafe(this.scalar, other), "numerator": this.numerator, "denominator": this.denominator});
       }
-      else if(other && other.constructor === String) {
+      else if(isString(other)) {
         other = Qty(other);
       }
 
@@ -1084,7 +1084,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
         return Qty({"scalar": this.scalar / other, "numerator": this.numerator, "denominator": this.denominator});
       }
-      else if(other && other.constructor === String) {
+      else if(isString(other)) {
         other = Qty(other);
       }
 
@@ -1629,6 +1629,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    */
   function identity(value) {
     return value;
+  }
+
+  /**
+   * Tests if a value is a string
+   *
+   * @param value - Value to test
+   *
+   * @returns {boolean} true if value is a string, false otherwise
+   */
+  function isString(value) {
+    return typeof value === "string" || value instanceof String;
   }
 
   // Setup
