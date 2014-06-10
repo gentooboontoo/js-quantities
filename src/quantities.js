@@ -134,8 +134,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<temp-R>"  : [["tempR"], 5/9, "temperature", ["<temp-K>"]],
 
     /* time */
-    "<second>":  [["s","sec","second","seconds"], 1.0, "time", ["<second>"]],
-    "<minute>":  [["min","minute","minutes"], 60.0, "time", ["<second>"]],
+    "<second>":  [["s","sec","secs","second","seconds"], 1.0, "time", ["<second>"]],
+    "<minute>":  [["min","mins","minute","minutes"], 60.0, "time", ["<second>"]],
     "<hour>":  [["h","hr","hrs","hour","hours"], 3600.0, "time", ["<second>"]],
     "<day>":  [["d","day","days"], 3600*24, "time", ["<second>"]],
     "<week>":  [["wk","week","weeks"], 7*3600*24, "time", ["<second>"]],
@@ -215,7 +215,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<hertz>" : [["Hz","hertz","Hertz"], 1.0, "frequency", ["<1>"], ["<second>"]],
 
     /* angle */
-    "<radian>" :[["rad","radian","radian"], 1.0, "angle", ["<radian>"]],
+    "<radian>" :[["rad","radian","radians"], 1.0, "angle", ["<radian>"]],
     "<degree>" :[["deg","degree","degrees"], Math.PI / 180.0, "angle", ["<radian>"]],
     "<grad>"   :[["grad","gradian","grads"], Math.PI / 200.0, "angle", ["<radian>"]],
     "<steradian>"  : [["sr","steradian","steradians"], 1.0, "solid_angle", ["<steradian>"]],
