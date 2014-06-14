@@ -1170,6 +1170,12 @@ describe("js-quantities", function() {
 
       expect(kinds.indexOf("resistance")).not.toBe(-1);
     });
+
+    it("should not contain empty strings", function() {
+      var kinds = Qty.getKinds();
+
+      expect(kinds.indexOf("")).toBe(-1);
+    });
   });
 
   describe("Qty.getUnits", function() {
@@ -1178,7 +1184,7 @@ describe("js-quantities", function() {
           expectedKey = "meter",
           expectedValue = ["m","meter","meters","metre","metres"];
 
-      expect(units[expectedKey]).toEqual(expectedValue);
+      expect(units.length[expectedKey]).toEqual(expectedValue);
     });
 
     it ("should optionally restrict returned units to one kind", function() {
