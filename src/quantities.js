@@ -461,6 +461,59 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   /**
+   * Returns an object with the names of all available prefixes.
+   *
+   * @returns {Object<string, Array<string>>} prefix names
+   */
+  Qty.getPrefixes = function() {
+    var prefixes = {};
+    for (var unitId in UNITS) {
+      if (UNITS[unitId][2] === "prefix") {
+        prefixes[unitId.substr(1, unitId.length - 2)] = UNITS[unitId][0];
+      }
+    }
+    return prefixes;
+  };
+
+  /**
+   * Returns an array of the names of the different kinds of units, e.g.
+   * "radiation" or "length".
+   *
+   * @returns {Array<string>} names of kinds
+   */
+  Qty.getKinds = function() {
+    var kinds = {}; // use object as a set
+    for (var unitId in UNITS) {
+      kinds[UNITS[unitId][2]] = true;
+    }
+    return Object.keys(kinds).filter(function(kind) {
+      return kind.length > 0;
+    });
+  };
+
+  Qty.getUnits = function(kind) {
+    var kinds = {},
+        k;
+    for (var unitId in UNITS) {
+      k = UNITS[unitId][2];
+      if (k.length === 0) {
+        continue;
+      }
+      if (kinds[k] === undefined) {
+        kinds[k] = {};
+      }
+      kinds[k][unitId.substr(1, unitId.length - 2)] = UNITS[unitId][0];
+    }
+    if (kind) {
+      if (kinds[kind] === undefined) {
+        throw new QtyError(kind + ": Kind not recognized.");
+      }
+      return kinds[kind];
+    }
+    return kinds;
+  };
+
+  /**
    * Default formatter
    *
    * @param {number} scalar
