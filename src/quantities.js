@@ -483,6 +483,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     });
   };
 
+  /**
+   * Returns an object with the names of the available units, categorized by
+   * kind. Can optionally be restricted to only one kind.
+   *
+   * @param {string} kind optionally restrict to this kind
+   * @returns {Object<string, Array<string>} unit names
+   */
   Qty.getUnits = function(kind) {
     var kinds = {},
         k;
