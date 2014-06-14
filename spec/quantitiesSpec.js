@@ -1154,30 +1154,6 @@ describe("js-quantities", function() {
     });
   });
 
-  describe("Qty.getPrefixes", function() {
-    it("should return a populated <string, Array<string>> dictionary", function() {
-      var prefixes = Qty.getPrefixes(),
-          expectedKey = "kibi",
-          expectedValue = ["Ki","Kibi","kibi"];
-
-      expect(prefixes[expectedKey]).toEqual(expectedValue);
-    });
-  });
-
-  describe("Qty.getKinds", function() {
-    it("should return an array of kind names", function() {
-      var kinds = Qty.getKinds();
-
-      expect(kinds.indexOf("resistance")).not.toBe(-1);
-    });
-
-    it("should not contain empty strings", function() {
-      var kinds = Qty.getKinds();
-
-      expect(kinds.indexOf("")).toBe(-1);
-    });
-  });
-
   describe("Qty.getUnits", function() {
     it("should return a populated <string, Array<string>> dictionary of all unit names", function() {
       var units = Qty.getUnits(),
