@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/gentooboontoo/js-quantities.png)](https://travis-ci.org/gentooboontoo/js-quantities)
 
 JS-quantities is originally a JavaScript port of Kevin Olbrich's library Ruby
-Units (http://ruby-units.rubyforge.org/ruby-units).
+Units (http://github.com/olbrich/ruby-units).
 
 The library aims to simplify the handling of units for scientific calculations
 involving quantities.
