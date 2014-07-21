@@ -217,7 +217,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     /* angle */
     "<radian>" :[["rad","radian","radians"], 1.0, "angle", ["<radian>"]],
     "<degree>" :[["deg","degree","degrees"], Math.PI / 180.0, "angle", ["<radian>"]],
-    "<grad>"   :[["grad","gradian","grads"], Math.PI / 200.0, "angle", ["<radian>"]],
+    "<grad>"   :[["gon","grad","gradian","grads"], Math.PI / 200.0, "angle", ["<radian>"]],
     "<steradian>"  : [["sr","steradian","steradians"], 1.0, "solid_angle", ["<steradian>"]],
 
     /* rotation */
