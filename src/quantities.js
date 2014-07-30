@@ -308,7 +308,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "7959": "pressure",
     "7962": "energy",
     "7979": "viscosity",
-    "7981": "force",
+    "7961": "force",
     "7997": "mass_concentration",
     "8000": "mass",
     "159999": "magnetism",
