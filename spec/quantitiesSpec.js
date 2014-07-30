@@ -877,6 +877,9 @@ describe("js-quantities", function() {
     it("should return kind", function() {
       var qty = Qty("1 mm");
       expect(qty.kind()).toBe("length");
+      
+      qty = Qty("1 N");
+      expect(qty.kind()).toBe("force");
     });
 
     it("should know if a quantity is in base units", function() {
