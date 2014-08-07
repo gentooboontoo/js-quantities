@@ -1,4 +1,4 @@
-import Qty from 'quantities';
+import Qty from 'qty';
 (function (root, factory) {
   if (typeof exports === "object") {
     // Node. Does not work with strict CommonJS, but
