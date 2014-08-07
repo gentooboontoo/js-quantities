@@ -4,7 +4,7 @@ build: $(BUILD_DIR)/quantities.js
 
 $(BUILD_DIR)/quantities.js: src/quantities.js
 	compile-modules convert --include src/ \
-	                        --output build/quantities.js \
+	                        --output $(BUILD_DIR)/quantities.js \
 	                        --format bundle src/*.js
 
 clean:
