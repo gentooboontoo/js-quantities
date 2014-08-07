@@ -2,7 +2,7 @@ BUILD_DIR := build
 
 build: $(BUILD_DIR)/quantities.js
 
-$(BUILD_DIR)/quantities.js: src/quantities.js
+$(BUILD_DIR)/quantities.js: src/*.js
 	compile-modules convert --include src/ \
 	                        --output $(BUILD_DIR)/quantities.js \
 	                        --format bundle src/*.js
