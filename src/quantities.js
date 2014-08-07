@@ -10,24 +10,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 */
 /*jshint eqeqeq:true, immed:true, undef:true */
 /*global module:false, define:false */
-(function (root, factory) {
-    "use strict";
-
-    if (typeof exports === "object") {
-        // Node. Does not work with strict CommonJS, but
-        // only CommonJS-like enviroments that support module.exports,
-        // like Node.
-        module.exports = factory();
-    } else if (typeof define === "function" && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(factory);
-    } else {
-        // Browser globals
-        root.Qty = factory();
-    }
-}(this, function() {
-  "use strict";
-
   var UNITS = {
     /* prefixes */
     "<googol>" : [["googol"], 1e100, "prefix"],
@@ -1699,5 +1681,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   QtyError.prototype = Object.create(Error.prototype, {constructor: { value: QtyError }});
   Qty.Error = QtyError;
 
-  return Qty;
-}));
+  export default Qty;

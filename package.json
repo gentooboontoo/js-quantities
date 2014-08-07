@@ -22,12 +22,13 @@
   ],
   "license": "MIT",
   "scripts": {
-    "test": "jasmine-node spec/"
+    "test": "make spec"
   },
   "bugs": {
     "url": "https://github.com/gentooboontoo/js-quantities/issues"
   },
   "devDependencies": {
+    "es6-module-transpiler": "0.6.x",
     "jasmine-node": "1.x"
   }
 }

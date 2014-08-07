@@ -5,7 +5,7 @@ var Qty;
  * Qty is only defined when using Jasmine HTML runner
  */
 if(!Qty) {
-  Qty = require(__dirname + "/../src/quantities");
+  Qty = require(__dirname + "/../build/quantities");
 }
 
 describe("js-quantities", function() {
