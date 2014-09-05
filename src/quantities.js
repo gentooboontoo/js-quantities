@@ -278,9 +278,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var BASE_UNITS = ["<meter>","<kilogram>","<second>","<mole>", "<farad>", "<ampere>","<radian>","<kelvin>","<temp-K>","<byte>","<dollar>","<candela>","<each>","<steradian>","<decibel>"];
   var UNITY = "<1>";
   var UNITY_ARRAY= [UNITY];
-  var SCI_NUMBER = "([+-]?\\s*\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
-  //var SCI_NUMBER_REGEX = new RegExp(SCI_NUMBER);
-  var QTY_STRING = SCI_NUMBER + "\\s*([^/]*)(?:\/(.+))?";
+  var SIGN = "[+-]";
+  var INTEGER = "\\d+";
+  var SIGNED_INTEGER = SIGN + "?" + INTEGER;
+  var FRACTION = "\\." + INTEGER;
+  var FLOAT = "(?:" + INTEGER + "(?:" + FRACTION + ")?" + ")" +
+              "|" +
+              "(?:" + FRACTION + ")";
+  var EXPONENT = "[Ee]" + SIGNED_INTEGER;
+  var SCI_NUMBER = "(?:" + FLOAT + ")(?:" + EXPONENT + ")?";
+  var SIGNED_NUMBER = SIGN + "?\\s*" + SCI_NUMBER;
+  var QTY_STRING = "(" + SIGNED_NUMBER + ")?" + "\\s*([^/]*)(?:\/(.+))?";
   var QTY_STRING_REGEX = new RegExp("^" + QTY_STRING + "$");
   var POWER_OP = "\\^|\\*{2}";
   var TOP_REGEX = new RegExp ("([^ \\*]+?)(?:" + POWER_OP + ")?(-?\\d+)");

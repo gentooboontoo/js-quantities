@@ -230,6 +230,11 @@ describe("js-quantities", function() {
       expect(qty.scalar).toEqual(-1);
       expect(qty.units()).toEqual("m");
     });
+
+    it("should throw an error when parsing negative quantity " +
+       "with no scalar", function() {
+      expect(function() { Qty("-m"); }).toThrow();
+    });
   });
 
   describe("isCompatible", function() {
