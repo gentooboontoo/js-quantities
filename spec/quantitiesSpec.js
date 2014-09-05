@@ -223,6 +223,13 @@ describe("js-quantities", function() {
     it("should allow whitespace-wrapped value", function() {
       expect(function() { Qty("  2 MPa  "); }).not.toThrow();
     });
+
+    it("should allow whitespaces between sign and scalar", function() {
+      var qty = Qty("-  1m");
+
+      expect(qty.scalar).toEqual(-1);
+      expect(qty.units()).toEqual("m");
+    });
   });
 
   describe("isCompatible", function() {
@@ -877,7 +884,7 @@ describe("js-quantities", function() {
     it("should return kind", function() {
       var qty = Qty("1 mm");
       expect(qty.kind()).toBe("length");
-      
+
       qty = Qty("1 N");
       expect(qty.kind()).toBe("force");
     });

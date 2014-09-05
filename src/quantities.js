@@ -278,7 +278,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var BASE_UNITS = ["<meter>","<kilogram>","<second>","<mole>", "<farad>", "<ampere>","<radian>","<kelvin>","<temp-K>","<byte>","<dollar>","<candela>","<each>","<steradian>","<decibel>"];
   var UNITY = "<1>";
   var UNITY_ARRAY= [UNITY];
-  var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
+  var SCI_NUMBER = "([+-]?\\s*\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
   //var SCI_NUMBER_REGEX = new RegExp(SCI_NUMBER);
   var QTY_STRING = SCI_NUMBER + "\\s*([^/]*)(?:\/(.+))?";
   var QTY_STRING_REGEX = new RegExp("^" + QTY_STRING + "$");
@@ -562,7 +562,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       throw new QtyError(val + ": Quantity not recognized");
     }
 
-    this.scalar = result[1] ? parseFloat(result[1]) : 1.0;
+    var scalarMatch = result[1];
+    if(scalarMatch) {
+      // Allow whitespaces between sign and scalar for loose parsing
+      scalarMatch = scalarMatch.replace(/\s/g, "");
+      this.scalar = parseFloat(scalarMatch);
+    }
+    else {
+      this.scalar = 1;
+    }
     var top = result[2];
     var bottom = result[3];
 
