@@ -202,8 +202,8 @@ describe("js-quantities", function() {
     });
 
     it("should throw 'Unit not recognized' error when initializing with an invalid unit and a 0 exponent", function() {
-      expect(function() { Qty("3p0"); }).toThrow();
-      expect(function() { Qty("3p-0"); }).toThrow();
+      expect(function() { Qty("3p0"); }).toThrow("Unit not recognized");
+      expect(function() { Qty("3p-0"); }).toThrow("Unit not recognized");
     });
 
     it("should set baseScalar", function() {
@@ -233,7 +233,7 @@ describe("js-quantities", function() {
 
     it("should throw an error when parsing negative quantity " +
        "with no scalar", function() {
-      expect(function() { Qty("-m"); }).toThrow();
+      expect(function() { Qty("-m"); }).toThrow("Unit not recognized");
     });
   });
 
