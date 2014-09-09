@@ -45,7 +45,7 @@
 <p><a href="https://travis-ci.org/gentooboontoo/js-quantities"><img src="https://travis-ci.org/gentooboontoo/js-quantities.png" alt="Build Status"></a></p>
 
 <p>JS-quantities is originally a JavaScript port of Kevin Olbrich's library Ruby
-Units (<a href="http://ruby-units.rubyforge.org/ruby-units">http://ruby-units.rubyforge.org/ruby-units</a>).</p>
+Units (<a href="http://github.com/olbrich/ruby-units">http://github.com/olbrich/ruby-units</a>).</p>
 
 <p>The library aims to simplify the handling of units for scientific calculations
 involving quantities.</p>
@@ -59,7 +59,7 @@ and within browsers.</p>
 <h3>
 <a name="browser" class="anchor" href="#browser"><span class="octicon octicon-link"></span></a>Browser</h3>
 
-<p>Download <a href="https://raw.github.com/gentooboontoo/js-quantities/v1.4.1/src/quantities.js">latest release v1.4.1</a>
+<p>Download <a href="https://raw.github.com/gentooboontoo/js-quantities/v1.4.2/src/quantities.js">latest release v1.4.2</a>
 or install it with Bower:</p>
 
 <pre><code>bower install js-quantities
@@ -118,6 +118,14 @@ used as a constructor (with new) or as a factory (without new):</p>
 <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1.5'</span><span class="p">);</span> <span class="c1">// unitless quantity</span>
 
 <span class="nx">qty</span> <span class="o">=</span> <span class="nx">Qty</span><span class="p">(</span><span class="s1">'1 attoparsec/microfortnight'</span><span class="p">);</span>
+</pre></div>
+
+<p><code>Qty.parse</code> utility method is also provided to parse and create
+quantities from strings. Unlike the constructor, it will return <code>null</code>
+instead throwing an error when parsing an invalid quantity.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">Qty</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s1">'1 m'</span><span class="p">);</span> <span class="c1">// =&gt; 1 meter</span>
+<span class="nx">Qty</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span> <span class="c1">// =&gt; null</span>
 </pre></div>
 
 <h3>
