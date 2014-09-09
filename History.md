@@ -1,3 +1,12 @@
+1.4.2 / 2014-09-09
+------------------
+
+* Fix plural for radian and add missing ones for time units
+* Add "gon" international standard symbol as gradian alias
+* Fix units of force
+* Allow whitespaces between sign and scalar and do not accept sign
+  without scalar
+
 1.4.1 / 2014-05-14
 ------------------
 
