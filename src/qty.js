@@ -17,9 +17,17 @@ import QtyError from "error";
 
 var UNITY = "<1>";
 var UNITY_ARRAY= [UNITY];
-var SCI_NUMBER = "([+-]?\\d*(?:\\.\\d+)?(?:[Ee][+-]?\\d+)?)";
-//var SCI_NUMBER_REGEX = new RegExp(SCI_NUMBER);
-var QTY_STRING = SCI_NUMBER + "\\s*([^/]*)(?:\/(.+))?";
+var SIGN = "[+-]";
+var INTEGER = "\\d+";
+var SIGNED_INTEGER = SIGN + "?" + INTEGER;
+var FRACTION = "\\." + INTEGER;
+var FLOAT = "(?:" + INTEGER + "(?:" + FRACTION + ")?" + ")" +
+            "|" +
+            "(?:" + FRACTION + ")";
+var EXPONENT = "[Ee]" + SIGNED_INTEGER;
+var SCI_NUMBER = "(?:" + FLOAT + ")(?:" + EXPONENT + ")?";
+var SIGNED_NUMBER = SIGN + "?\\s*" + SCI_NUMBER;
+var QTY_STRING = "(" + SIGNED_NUMBER + ")?" + "\\s*([^/]*)(?:\/(.+))?";
 var QTY_STRING_REGEX = new RegExp("^" + QTY_STRING + "$");
 var POWER_OP = "\\^|\\*{2}";
 var TOP_REGEX = new RegExp ("([^ \\*]+?)(?:" + POWER_OP + ")?(-?\\d+)");
@@ -260,7 +268,15 @@ var parse = function (val) {
     throw new QtyError(val + ": Quantity not recognized");
   }
 
-  this.scalar = result[1] ? parseFloat(result[1]) : 1.0;
+  var scalarMatch = result[1];
+  if(scalarMatch) {
+    // Allow whitespaces between sign and scalar for loose parsing
+    scalarMatch = scalarMatch.replace(/\s/g, "");
+    this.scalar = parseFloat(scalarMatch);
+  }
+  else {
+    this.scalar = 1;
+  }
   var top = result[2];
   var bottom = result[3];
 

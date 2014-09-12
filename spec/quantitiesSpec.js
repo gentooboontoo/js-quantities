@@ -202,8 +202,8 @@ describe("js-quantities", function() {
     });
 
     it("should throw 'Unit not recognized' error when initializing with an invalid unit and a 0 exponent", function() {
-      expect(function() { Qty("3p0"); }).toThrow();
-      expect(function() { Qty("3p-0"); }).toThrow();
+      expect(function() { Qty("3p0"); }).toThrow("Unit not recognized");
+      expect(function() { Qty("3p-0"); }).toThrow("Unit not recognized");
     });
 
     it("should set baseScalar", function() {
@@ -222,6 +222,18 @@ describe("js-quantities", function() {
 
     it("should allow whitespace-wrapped value", function() {
       expect(function() { Qty("  2 MPa  "); }).not.toThrow();
+    });
+
+    it("should allow whitespaces between sign and scalar", function() {
+      var qty = Qty("-  1m");
+
+      expect(qty.scalar).toEqual(-1);
+      expect(qty.units()).toEqual("m");
+    });
+
+    it("should throw an error when parsing negative quantity " +
+       "with no scalar", function() {
+      expect(function() { Qty("-m"); }).toThrow("Unit not recognized");
     });
   });
 
@@ -877,7 +889,7 @@ describe("js-quantities", function() {
     it("should return kind", function() {
       var qty = Qty("1 mm");
       expect(qty.kind()).toBe("length");
-      
+
       qty = Qty("1 N");
       expect(qty.kind()).toBe("force");
     });

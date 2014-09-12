@@ -15,7 +15,7 @@ and within browsers.
 
 ### Browser
 
-Download [latest release v1.4.1](https://raw.github.com/gentooboontoo/js-quantities/v1.4.1/src/quantities.js)
+Download [latest release v1.4.2](https://raw.github.com/gentooboontoo/js-quantities/v1.4.2/src/quantities.js)
 or install it with Bower:
 
     bower install js-quantities
@@ -75,6 +75,15 @@ qty = Qty('1 m^2 kg^2 J^2/s^2 A');
 qty = Qty('1.5'); // unitless quantity
 
 qty = Qty('1 attoparsec/microfortnight');
+```
+
+`Qty.parse` utility method is also provided to parse and create
+quantities from strings. Unlike the constructor, it will return `null`
+instead throwing an error when parsing an invalid quantity.
+
+```javascript
+Qty.parse('1 m'); // => 1 meter
+Qty.parse('foo') // => null
 ```
 
 ### Quantity compatibility, kind and various queries
