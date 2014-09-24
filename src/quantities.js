@@ -838,7 +838,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      *
      * @returns {string} reparseable quantity as string
      */
-    toString: function(targetUnitsOrMaxDecimalsOrPrec, maxDecimals) {
+    toString: function(targetUnitsOrMaxDecimalsOrPrec, maxDecimals, onlyNumber) {
       var targetUnits;
       if(typeof targetUnitsOrMaxDecimalsOrPrec === "number") {
         targetUnits = this.units();
@@ -848,14 +848,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         targetUnits = targetUnitsOrMaxDecimalsOrPrec;
       }
       else if(targetUnitsOrMaxDecimalsOrPrec instanceof Qty) {
-        return this.toPrec(targetUnitsOrMaxDecimalsOrPrec).toString(maxDecimals);
+        if (onlyNumber) {
+            return this.toPrec(targetUnitsOrMaxDecimalsOrPrec).toString(maxDecimals).split(' ')[0];
+        } else {
+            return this.toPrec(targetUnitsOrMaxDecimalsOrPrec).toString(maxDecimals);
+        }
       }
 
       var out = this.to(targetUnits);
 
       var outScalar = maxDecimals !== undefined ? round(out.scalar, maxDecimals) : out.scalar;
       out = (outScalar + " " + out.units()).trim();
-      return out;
+      return (onlyNumber) ? outScalar : out;
     },
 
     /**
