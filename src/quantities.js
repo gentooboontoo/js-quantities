@@ -368,6 +368,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 
   /**
+   * Expose constants
+   */
+  Qty.constants = {
+    KINDS: KINDS,
+    UNITS: UNITS,
+    BASE_UNITS: BASE_UNITS,
+    SIGNATURE_VECTOR: SIGNATURE_VECTOR
+  };
+  
+
+  /**
    * Parses a string as a quantity
    * @param {string} value - quantity as text
    * @throws if value is not a string
