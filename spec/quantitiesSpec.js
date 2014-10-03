@@ -1181,15 +1181,7 @@ describe("js-quantities", function() {
 
   describe("Qty.getKinds", function() {
     it("should return an array of kind names", function() {
-      var kinds = Qty.getKinds();
-
-      expect(kinds.indexOf("resistance")).not.toBe(-1);
-    });
-
-    it("should not contain empty strings", function() {
-      var kinds = Qty.getKinds();
-
-      expect(kinds.indexOf("")).toBe(-1);
+      expect(Qty.getKinds()).toContain('resistance');
     });
   });
 

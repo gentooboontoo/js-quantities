@@ -476,19 +476,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   /**
-   * Returns an array of the names of the different kinds of units, e.g.
+   * Returns the list of available well-known kinds of units, e.g.
    * "radiation" or "length".
    *
-   * @returns {Array<string>} names of kinds
+   * @returns {string[]} names of kinds of units
    */
   Qty.getKinds = function() {
-    var kinds = {}; // use object as a set
-    for (var unitId in UNITS) {
-      kinds[UNITS[unitId][2]] = true;
-    }
-    return Object.keys(kinds).filter(function(kind) {
-      return kind.length > 0;
-    });
+    var knownKinds = Object.keys(KINDS).map(function(knownSignature) {
+      return KINDS[knownSignature];
+    }).sort();
+    return knownKinds;
   };
 
   /**
