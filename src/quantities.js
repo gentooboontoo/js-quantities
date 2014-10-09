@@ -461,21 +461,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   /**
-   * Returns an object with the names of all available prefixes.
-   *
-   * @returns {Object<string, Array<string>>} prefix names
-   */
-  Qty.getPrefixes = function() {
-    var prefixes = {};
-    for (var unitId in UNITS) {
-      if (UNITS[unitId][2] === "prefix") {
-        prefixes[unitId.substr(1, unitId.length - 2)] = UNITS[unitId][0];
-      }
-    }
-    return prefixes;
-  };
-
-  /**
    * Returns the list of available well-known kinds of units, e.g.
    * "radiation" or "length".
    *
@@ -486,35 +471,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       return KINDS[knownSignature];
     }).sort();
     return knownKinds;
-  };
-
-  /**
-   * Returns an object with the names of the available units, categorized by
-   * kind. Can optionally be restricted to only one kind.
-   *
-   * @param {string} kind optionally restrict to this kind
-   * @returns {Object<string, Array<string>} unit names
-   */
-  Qty.getUnits = function(kind) {
-    var kinds = {},
-        k;
-    for (var unitId in UNITS) {
-      k = UNITS[unitId][2];
-      if (k.length === 0) {
-        continue;
-      }
-      if (kinds[k] === undefined) {
-        kinds[k] = {};
-      }
-      kinds[k][unitId.substr(1, unitId.length - 2)] = UNITS[unitId][0];
-    }
-    if (kind) {
-      if (kinds[kind] === undefined) {
-        throw new QtyError(kind + ": Kind not recognized.");
-      }
-      return kinds[kind];
-    }
-    return kinds;
   };
 
   /**
