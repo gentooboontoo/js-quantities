@@ -29,6 +29,13 @@ describe("js-quantities", function() {
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
+    it("should create unitless from numbers", function() {
+      var qty = Qty(1.5);
+      expect(qty.toFloat()).toBe(1.5);
+      expect(qty.numerator).toEqual(["<1>"]);
+      expect(qty.denominator).toEqual(["<1>"]);
+    });
+
     it("temperatures should have base unit in kelvin", function() {
       var qty = Qty("1 tempK").toBase();
       expect(qty.scalar).toBe(1);

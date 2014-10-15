@@ -566,6 +566,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * 8 lbs 8 oz -- recognized as 8 lbs + 8 ounces
    */
   var parse = function (val) {
+    if (!isString(val)) {
+      val = val.toString();
+    }
     val = val.trim();
     if (val.length === 0) {
       throw new QtyError("Unit not recognized");
