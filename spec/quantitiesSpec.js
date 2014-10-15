@@ -186,12 +186,6 @@ describe("js-quantities", function() {
       expect(qty1.eq(qty2)).toBe(true);
     });
 
-    it("should accept empty string and create a unitless quantity", function() {
-      var qty = Qty(" ");
-
-      expect(qty.eq(Qty("1"))).toBe(true);
-    });
-
     it("should throw 'Unit not recognized' error when initializing with an invalid unit", function() {
       expect(function() { Qty("aa"); }).toThrow("Unit not recognized");
       expect(function() { Qty("m/aa"); }).toThrow("Unit not recognized");
@@ -199,6 +193,15 @@ describe("js-quantities", function() {
       expect(function() { Qty("N*m"); }).not.toThrow("Unit not recognized");
       // mm is millimeter, but mmm is not a valid unit
       expect(function() { Qty("mmm"); }).toThrow("Unit not recognized");
+    });
+
+    it("should throw error when passing an empty string", function() {
+      expect(
+        function() { Qty(""); }
+      ).toThrow("Unit not recognized");
+      expect(
+        function() { Qty("   "); }
+      ).toThrow("Unit not recognized");
     });
 
     it("should throw error when passing a null value", function() {
