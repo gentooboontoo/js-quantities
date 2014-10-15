@@ -803,7 +803,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       if(isString(precQuantity)) {
         precQuantity = Qty(precQuantity);
       }
-      if(typeof precQuantity === "number") {
+      if(isNumber(precQuantity)) {
         precQuantity = Qty(precQuantity + " " + this.units());
       }
 
@@ -840,7 +840,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
      */
     toString: function(targetUnitsOrMaxDecimalsOrPrec, maxDecimals) {
       var targetUnits;
-      if(typeof targetUnitsOrMaxDecimalsOrPrec === "number") {
+      if(isNumber(targetUnitsOrMaxDecimalsOrPrec)) {
         targetUnits = this.units();
         maxDecimals = targetUnitsOrMaxDecimalsOrPrec;
       }
@@ -1068,7 +1068,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     },
 
     mul: function(other) {
-      if(typeof other === "number") {
+      if(isNumber(other)) {
         return Qty({"scalar": mulSafe(this.scalar, other), "numerator": this.numerator, "denominator": this.denominator});
       }
       else if(isString(other)) {
@@ -1094,7 +1094,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     },
 
     div: function(other) {
-      if(typeof other === "number") {
+      if(isNumber(other)) {
         if(other === 0) {
           throw new QtyError("Divide by zero");
         }
@@ -1650,12 +1650,23 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   /**
    * Tests if a value is a string
    *
-   * @param value - Value to test
+   * @param {} value - Value to test
    *
    * @returns {boolean} true if value is a string, false otherwise
    */
   function isString(value) {
     return typeof value === "string" || value instanceof String;
+  }
+
+  /**
+   * Tests if a value is a number
+   *
+   * @param {} value - Value to test
+   *
+   * @returns {boolean} true if value is a number, false otherwise
+   */
+  function isNumber(value) {
+    return typeof value === "number";
   }
 
   // Setup
