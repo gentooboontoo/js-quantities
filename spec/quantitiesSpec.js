@@ -201,6 +201,13 @@ describe("js-quantities", function() {
       expect(function() { Qty("mmm"); }).toThrow("Unit not recognized");
     });
 
+    it("should throw error when passing a null value", function() {
+      expect(
+        function() { Qty(null); }
+      ).toThrow("Only strings, numbers or quantities accepted as " +
+                "initialization values");
+    });
+
     it("should throw 'Unit not recognized' error when initializing with an invalid unit and a 0 exponent", function() {
       expect(function() { Qty("3p0"); }).toThrow("Unit not recognized");
       expect(function() { Qty("3p-0"); }).toThrow("Unit not recognized");

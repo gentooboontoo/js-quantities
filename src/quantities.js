@@ -338,6 +338,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var baseUnitCache = {};
 
   function Qty(initValue) {
+    assertValidInitializationValueType(initValue);
+
     if(!(isQty(this))) {
       return new Qty(initValue);
     }
@@ -1678,6 +1680,31 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    */
   function isQty(value) {
     return value instanceof Qty;
+  }
+
+  /**
+   * Tests if a value is a Qty definition object
+   *
+   * @param {} value - Value to test
+   *
+   * @returns {boolean} true if value is a definition object, false otherwise
+   */
+  function isDefinitionObject(value) {
+    return value && typeof value === "object" && value.hasOwnProperty("scalar");
+  }
+
+  /**
+   * Asserts initialization value type is valid
+   *
+   * @param {} value - Value to test
+   *
+   * @throws {QtyError} if initialization value type is not valid
+   */
+  function assertValidInitializationValueType(value) {
+    if (!(isString(value) || isNumber(value) || isQty(value) || isDefinitionObject(value))) {
+      throw new QtyError("Only strings, numbers or quantities " +
+                         "accepted as initialization values");
+    }
   }
 
   // Setup
