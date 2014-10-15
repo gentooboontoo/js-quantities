@@ -54,6 +54,9 @@ qty = new Qty('23 ft'); // constructor
 qty = Qty('23 ft'); // factory
 ```
 
+`Qty` constructor accepts strings, numbers and `Qty` instances as
+initializing values.
+
 For the sake of simplicity, one will use the factory way below but using
 `new Qty()` is equivalent.
 
@@ -73,8 +76,12 @@ qty = Qty('1 m2 s-2'); // ^ is optional
 qty = Qty('1 m^2 kg^2 J^2/s^2 A');
 
 qty = Qty('1.5'); // unitless quantity
+qty = Qty(1.5); // number as initializing value
 
 qty = Qty('1 attoparsec/microfortnight');
+
+qtyCopy = Qty(qty); // quantity could be copied when used as
+                    // initializing value
 ```
 
 `Qty.parse` utility method is also provided to parse and create
