@@ -338,7 +338,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var baseUnitCache = {};
 
   function Qty(initValue) {
-    if(!(this instanceof Qty)) {
+    if(!(isQty(this))) {
       return new Qty(initValue);
     }
 
@@ -678,7 +678,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         return this.isCompatible(Qty(other));
       }
 
-      if(!(other instanceof Qty)) {
+      if(!(isQty(other))) {
         return false;
       }
 
@@ -847,7 +847,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       else if(isString(targetUnitsOrMaxDecimalsOrPrec)) {
         targetUnits = targetUnitsOrMaxDecimalsOrPrec;
       }
-      else if(targetUnitsOrMaxDecimalsOrPrec instanceof Qty) {
+      else if(isQty(targetUnitsOrMaxDecimalsOrPrec)) {
         return this.toPrec(targetUnitsOrMaxDecimalsOrPrec).toString(maxDecimals);
       }
 
@@ -1667,6 +1667,17 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    */
   function isNumber(value) {
     return typeof value === "number";
+  }
+
+  /**
+   * Tests if a value is a Qty instance
+   *
+   * @param {} value - Value to test
+   *
+   * @returns {boolean} true if value is a Qty instance, false otherwise
+   */
+  function isQty(value) {
+    return value instanceof Qty;
   }
 
   // Setup
