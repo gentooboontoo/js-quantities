@@ -221,10 +221,11 @@ describe("js-quantities", function() {
       expect(qty.baseScalar).toBe(0.000066);
     });
 
-    it("should trim init value", function() {
-      var qty = Qty("  66 cm3  ");
+    it("should keep init value as is", function() {
+      var initValue = "  66 cm3  ";
+      var qty = Qty(initValue);
 
-      expect(qty.initValue).toEqual("66 cm3");
+      expect(qty.initValue).toEqual(initValue);
     });
 
     it("should allow whitespace-wrapped value", function() {

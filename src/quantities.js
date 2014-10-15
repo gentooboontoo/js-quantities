@@ -351,14 +351,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     this.numerator = UNITY_ARRAY;
     this.denominator = UNITY_ARRAY;
 
-    if(isString(initValue)) {
-      initValue = initValue.trim();
-      parse.call(this, initValue);
-    }
-    else {
+    if (isDefinitionObject(initValue)) {
       this.scalar = initValue.scalar;
       this.numerator = (initValue.numerator && initValue.numerator.length !== 0)? initValue.numerator : UNITY_ARRAY;
       this.denominator = (initValue.denominator && initValue.denominator.length !== 0)? initValue.denominator : UNITY_ARRAY;
+    }
+    else {
+      parse.call(this, initValue);
     }
 
     // math with temperatures is very limited
