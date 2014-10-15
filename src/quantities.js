@@ -1675,7 +1675,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * @returns {boolean} true if value is a number, false otherwise
    */
   function isNumber(value) {
-    return typeof value === "number";
+    // Number.isFinite allows not to consider NaN or '1' as numbers
+    return Number.isFinite(value);
   }
 
   /**

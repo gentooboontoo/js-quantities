@@ -218,6 +218,13 @@ describe("js-quantities", function() {
                 "initialization values");
     });
 
+    it("should throw error when passing NaN", function() {
+      expect(
+        function() { Qty(NaN); }
+      ).toThrow("Only strings, numbers or quantities accepted as " +
+                "initialization values");
+    });
+
     it("should throw 'Unit not recognized' error when initializing with an invalid unit and a 0 exponent", function() {
       expect(function() { Qty("3p0"); }).toThrow("Unit not recognized");
       expect(function() { Qty("3p-0"); }).toThrow("Unit not recognized");
