@@ -1194,4 +1194,12 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("Qty.constants", function() {
+    ['KINDS', 'UNITS', 'BASE_UNITS', 'SIGNATURE_VECTOR'].forEach(function(type) {
+      it('should expose ' + type, function() {
+        expect(Qty.constants[type]).toBeDefined();
+      });
+    });
+  });
+
 });
