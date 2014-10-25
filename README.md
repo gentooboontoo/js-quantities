@@ -272,6 +272,25 @@ var qty = Qty('1.1234 m');
 qty.format(); // same units, current default formatter => '1.12 m'
 ```
 
+### Unit names
+
+Unit names can be extracted using `Qty#getUnits`, which returns an object with
+all available unit names, including prefixes, and their synonyms, categorized by
+kind. Can optionally be restricted to only one kind.
+
+```javascript
+var units = Qty.getUnits(); // dictionary containing all units, by category
+                            // { ...,
+                            // length: { m: ["m","meter","meters",
+                            //     "metre","metres"], ...},
+                            //  ... }
+
+var lengthUnits = Qty.getUnits("length"); // dictionary containing all length
+                                          // units
+                                          // { m: ["m","meter","meters","metre",
+                                          //     "metres"] }
+```
+
 ### Temperatures
 
 Like ruby-units, JS-quantities makes a distinction between a temperature (which

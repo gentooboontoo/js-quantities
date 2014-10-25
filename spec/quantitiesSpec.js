@@ -1194,4 +1194,24 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("Qty.getUnits", function() {
+    it("should return a populated <string, Array<string>> dictionary of all unit names", function() {
+      var units = Qty.getUnits(),
+          expectedKey = "meter",
+          expectedValue = ["m","meter","meters","metre","metres"];
+
+      expect(units.length[expectedKey]).toEqual(expectedValue);
+    });
+
+    it ("should optionally restrict returned units to one kind", function() {
+      var resistanceUnits = Qty.getUnits("resistance"),
+          unexpectedKey = "meter",
+          expectedKey = "ohm",
+          expectedValue = ["Ohm", "ohm"];
+
+      expect(Object.keys(resistanceUnits).indexOf(unexpectedKey)).toBe(-1);
+      expect(resistanceUnits[expectedKey]).toEqual(expectedValue);
+    });
+  });
+
 });
