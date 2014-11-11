@@ -481,6 +481,17 @@ describe("js-quantities", function() {
 
   });
 
+  describe("non-ASCII character", function() {
+    describe("µ", function() {
+      it("should be supported as prefix", function() {
+        // µ as greek letter
+        expect(Qty("1 \u03BCm").eq(Qty("1 um"))).toBe(true);
+        // µ as micro sign
+        expect(Qty("1 \u00B5m").eq(Qty("1 um"))).toBe(true);
+      });
+    });
+  });
+
   describe("math", function() {
 
     it("should add quantities", function() {
