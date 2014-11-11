@@ -93,6 +93,12 @@ Qty.parse('1 m'); // => 1 meter
 Qty.parse('foo') // => null
 ```
 
+### Available well-known kinds
+
+```javascript
+Qty.getKinds(); // => Array of names of every well-known kind of units
+```
+
 ### Quantity compatibility, kind and various queries
 
 ```javascript

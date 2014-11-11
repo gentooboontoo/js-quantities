@@ -462,6 +462,19 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   /**
+   * Returns the list of available well-known kinds of units, e.g.
+   * "radiation" or "length".
+   *
+   * @returns {string[]} names of kinds of units
+   */
+  Qty.getKinds = function() {
+    var knownKinds = Object.keys(KINDS).map(function(knownSignature) {
+      return KINDS[knownSignature];
+    }).sort();
+    return knownKinds;
+  };
+
+  /**
    * Default formatter
    *
    * @param {number} scalar

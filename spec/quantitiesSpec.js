@@ -1194,4 +1194,10 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("Qty.getKinds", function() {
+    it("should return an array of kind names", function() {
+      expect(Qty.getKinds()).toContain('resistance');
+    });
+  });
+
 });
