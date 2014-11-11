@@ -1680,6 +1680,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return typeof value === "string" || value instanceof String;
   }
 
+  /*
+   * Prefer stricter Number.isFinite if currently supported.
+   * To be dropped when ES6 is finalized. Obsolete browsers will
+   * have to use ES6 polyfills.
+   */
+  var isFinite = Number.isFinite || window.isFinite;
   /**
    * Tests if a value is a number
    *
@@ -1689,7 +1695,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    */
   function isNumber(value) {
     // Number.isFinite allows not to consider NaN or '1' as numbers
-    return Number.isFinite(value);
+    return isFinite(value);
   }
 
   /**
