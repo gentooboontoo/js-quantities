@@ -39,7 +39,7 @@ define(['quantities'], function(Qty) {
 ```
 $ npm install js-quantities
 $ node
-> var Qty = require('js-quantities);
+> var Qty = require('js-quantities');
 ```
 
 ## Synopsis
