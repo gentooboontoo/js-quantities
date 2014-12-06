@@ -490,6 +490,15 @@ describe("js-quantities", function() {
         expect(Qty("1 \u00B5m").eq(Qty("1 um"))).toBe(true);
       });
     });
+
+    describe("Ω", function() {
+      it("should be accepted as unit for ohm", function() {
+        // Ω as greek letter
+        expect(Qty("1 \u03A9").eq(Qty("1 ohm"))).toBe(true);
+        // Ω as ohm sign
+        expect(Qty("1 \u2126").eq(Qty("1 ohm"))).toBe(true);
+      });
+    });
   });
 
   describe("math", function() {

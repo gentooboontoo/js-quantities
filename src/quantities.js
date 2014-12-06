@@ -193,8 +193,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<volt>"  :  [["V","Volt","volt","volts"], 1.0, "potential", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<second>","<ampere>"]],
 
     /* resistance */
-    "<ohm>" :  [["Ohm","ohm"], 1.0, "resistance", ["<meter>","<meter>","<kilogram>"],["<second>","<second>","<second>","<ampere>","<ampere>"]],
-
+    "<ohm>" :  [
+      ["Ohm","ohm","\u03A9"/*Ω as greek letter*/,"\u2126"/*Ω as ohm sign*/],
+      1.0,
+      "resistance",
+      ["<meter>","<meter>","<kilogram>"],["<second>","<second>","<second>","<ampere>","<ampere>"]
+    ],
     /* magnetism */
     "<weber>" : [["Wb","weber","webers"], 1.0, "magnetism", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>","<ampere>"]],
     "<tesla>"  : [["T","tesla","teslas"], 1.0, "magnetism", ["<kilogram>"], ["<second>","<second>","<ampere>"]],
@@ -1772,7 +1776,14 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var UNIT_REGEX = Object.keys(UNIT_MAP).sort(function(a, b) {
     return b.length - a.length;
   }).join("|");
-  var UNIT_MATCH = "(" + PREFIX_REGEX + ")??(" + UNIT_REGEX + ")\\b";
+  /*
+   * Minimal boundary regex to support units with Unicode characters
+   * \b only works for ASCII
+   */
+  var BOUNDARY_REGEX = "\\b|$";
+  var UNIT_MATCH = "(" + PREFIX_REGEX + ")??(" +
+                   UNIT_REGEX +
+                   ")(?:" + BOUNDARY_REGEX + ")";
   var UNIT_MATCH_REGEX = new RegExp(UNIT_MATCH, "g"); // g flag for multiple occurences
   var UNIT_TEST_REGEX = new RegExp("^\\s*(" + UNIT_MATCH + "\\s*\\*?\\s*)+$");
 
