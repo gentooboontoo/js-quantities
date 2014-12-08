@@ -1,3 +1,11 @@
+1.5.0 / 2014-12-08
+------------------
+
+* Add `Qty.getKinds` returning known kinds of units
+* Add µ symbol as micro prefix alias
+* Add Ω symbol as ohm unit alias
+* Minor internal improvements and fixes
+
 1.4.2 / 2014-09-09
 ------------------
 
