@@ -89,8 +89,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
     /* mass */
     "<kilogram>" : [["kg","kilogram","kilograms"], 1.0, "mass", ["<kilogram>"]],
-    "<AMU>" : [["u","AMU","amu"], 6.0221415e26, "mass", ["<kilogram>"]],
-    "<dalton>" : [["Da","Dalton","Daltons","dalton","daltons"], 6.0221415e26, "mass", ["<kilogram>"]],
+    "<AMU>" : [["u","AMU","amu"], 1.660538921e-27, "mass", ["<kilogram>"]],
+    "<dalton>" : [["Da","Dalton","Daltons","dalton","daltons"], 1.660538921e-27, "mass", ["<kilogram>"]],
     "<slug>" : [["slug","slugs"], 14.5939029, "mass", ["<kilogram>"]],
     "<short-ton>" : [["tn","ton"], 907.18474, "mass", ["<kilogram>"]],
     "<metric-ton>":[["tonne"], 1000, "mass", ["<kilogram>"]],
