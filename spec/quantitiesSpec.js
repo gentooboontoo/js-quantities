@@ -499,6 +499,33 @@ describe("js-quantities", function() {
         expect(Qty("1 \u2126").eq(Qty("1 ohm"))).toBe(true);
       });
     });
+    
+    describe("K", function() {
+      it("should be accepted as unit for kelvin", function() {
+        // K as kelvin sign
+        expect(Qty("1 \u212A").eq(Qty("1 degK"))).toBe(true);
+      });
+    });
+    
+    describe("°C", function() {
+      it("should be accepted as unit for celsius", function() {
+        // °C as celsius sign
+        expect(Qty("1 \u2103").eq(Qty("1 degC"))).toBe(true);
+        // °C as degree sign followed by C
+        expect(Qty("1 \u00B0C").eq(Qty("1 degC"))).toBe(true);
+        expect(Qty("1 °C").eq(Qty("1 degC"))).toBe(true);
+      });
+    });
+    
+    describe("°F", function() {
+      it("should be accepted as unit for fahrenheit", function() {
+        // °F as fahrenheit sign
+        expect(Qty("1 \u2109").eq(Qty("1 degF"))).toBe(true);
+        // °F as degree sign followed by F
+        expect(Qty("1 \u00B0F").eq(Qty("1 degF"))).toBe(true);
+        expect(Qty("1 °F").eq(Qty("1 degF"))).toBe(true);
+      });
+    });
   });
 
   describe("math", function() {

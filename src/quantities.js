@@ -128,9 +128,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<gee>" : [["gee"], 9.80665, "acceleration", ["<meter>"], ["<second>","<second>"]],
 
     /* temperature_difference */
-    "<kelvin>" : [["degK","kelvin"], 1.0, "temperature", ["<kelvin>"]],
-    "<celsius>" : [["degC","celsius","celsius","centigrade"], 1.0, "temperature", ["<kelvin>"]],
-    "<fahrenheit>" : [["degF","fahrenheit"], 5/9, "temperature", ["<kelvin>"]],
+    "<kelvin>" : [["degK","\u212A"/*K as kelvin symbol*/,"kelvin"], 1.0, "temperature", ["<kelvin>"]],
+    "<celsius>" : [["degC","\u2103"/*°C as symbol*/,"\u00B0C"/*°C as degree sign followed by C*/,"celsius","celsius","centigrade"], 1.0, "temperature", ["<kelvin>"]],
+    "<fahrenheit>" : [["degF","\u2109"/*°F as symbol*/,"\u00B0F"/*°F as degree sign followed by F*/,"fahrenheit"], 5/9, "temperature", ["<kelvin>"]],
     "<rankine>" : [["degR","rankine"], 5/9, "temperature", ["<kelvin>"]],
     "<temp-K>"  : [["tempK"], 1.0, "temperature", ["<temp-K>"]],
     "<temp-C>"  : [["tempC"], 1.0, "temperature", ["<temp-K>"]],
