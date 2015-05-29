@@ -1220,4 +1220,15 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("non regression tests", function() {
+    describe("Wh (#38)", function() {
+      it("should be parsed", function() {
+        expect(Qty("Wh").eq(Qty("3600 J"))).toBe(true);
+      });
+
+      it("should be parsed when prefixed", function() {
+        expect(Qty("kWh").eq(Qty("1000 Wh"))).toBe(true);
+      });
+    });
+  });
 });
