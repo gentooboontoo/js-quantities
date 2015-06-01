@@ -1230,5 +1230,15 @@ describe("js-quantities", function() {
         expect(Qty("kWh").eq(Qty("1000 Wh"))).toBe(true);
       });
     });
+
+    describe("Ah (#25)", function() {
+      it("should be parsed", function() {
+        expect(Qty("Ah").eq(Qty("3600 C"))).toBe(true);
+      });
+
+      it("should be parsed when prefixed", function() {
+        expect(Qty("mAh").eq(Qty("3.6 C"))).toBe(true);
+      });
+    });
   });
 });
