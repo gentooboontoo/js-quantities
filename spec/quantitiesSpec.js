@@ -1218,6 +1218,15 @@ describe("js-quantities", function() {
     it("should return an array of kind names", function() {
       expect(Qty.getKinds()).toContain("resistance");
     });
+    
+    it("should not contain duplicate kind names", function() {
+      var kinds = Qty.getKinds();
+      var map = {};
+      kinds.forEach(function(kind) {
+        map[kind] = 1;
+      });
+      expect(kinds.length).toEqual(Object.keys(map).length);
+    });
   });
 
   describe("non regression tests", function() {
