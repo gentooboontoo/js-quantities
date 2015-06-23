@@ -480,7 +480,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   Qty.getKinds = function() {
     var knownKinds = Object.keys(KINDS).map(function(knownSignature) {
       return KINDS[knownSignature];
-    }).sort();
+    }).sort().filter(function(kind, index, arr) {
+      if (kind === arr[index-1]) {
+        return false;
+      }
+      return true;
+    });
     return knownKinds;
   };
 
