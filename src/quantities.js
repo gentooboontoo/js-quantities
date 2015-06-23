@@ -105,7 +105,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     /* area */
     "<hectare>":[["hectare"], 10000, "area", ["<meter>","<meter>"]],
     "<acre>":[["acre","acres"], 4046.85642, "area", ["<meter>","<meter>"]],
-    "<sqft>":[["sqft"], 1, "area", ["<feet>","<feet>"]],
+    "<sqft>":[["sqft"], 1, "area", ["<foot>","<foot>"]],
 
     /* volume */
     "<liter>" : [["l","L","liter","liters","litre","litres"], 0.001, "volume", ["<meter>","<meter>","<meter>"]],
@@ -1744,6 +1744,38 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
   }
 
+  /**
+   * Asserts unit definition is valid
+   *
+   * @param {} unitDef - Name of unit to test
+   * @param {} definition - Definition of unit to test
+   *
+   * @throws {QtyError} if unit definition is not valid
+   */
+  function validateUnitDefinition(unitDef, definition) {
+    var scalar = definition[1];
+    var numerator = definition[3] || [];
+    var denominator = definition[4] || [];
+    if (!isNumber(scalar)) {
+      throw new QtyError(unitDef + ": Invalid unit definition. " +
+                         "'scalar' must be a number");
+    }
+
+    numerator.forEach(function (unit) {
+      if (UNITS[unit] === undefined) {
+        throw new QtyError(unitDef + ": Invalid unit definition. " +
+                           "Unit " + unit + " in 'numerator' is not recognized");
+        }
+    });
+
+    denominator.forEach(function (unit) {
+      if (UNITS[unit] === undefined) {
+        throw new QtyError(unitDef + ": Invalid unit definition. " +
+                           "Unit " + unit + " in 'denominator' is not recognized");
+        }
+    });
+  }
+
   // Setup
   var PREFIX_VALUES = {};
   var PREFIX_MAP = {};
@@ -1760,6 +1792,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         }
       }
       else {
+        validateUnitDefinition(unitDef, definition);
         UNIT_VALUES[unitDef] = {
           scalar: definition[1],
           numerator: definition[3],
