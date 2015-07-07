@@ -234,9 +234,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<rotation>" : [["rotation"], 2.0*Math.PI, "angle", ["<radian>"]],
     "<rpm>"   :[["rpm"], 2.0*Math.PI / 60.0, "angular_velocity", ["<radian>"], ["<second>"]],
 
-    /* memory */
-    "<byte>"  :[["B","byte"], 1.0, "memory", ["<byte>"]],
-    "<bit>"  :[["b","bit"], 0.125, "memory", ["<byte>"]],
+    /* information */
+    "<byte>"  :[["B","byte"], 1.0, "information", ["<byte>"]],
+    "<bit>"  :[["b","bit"], 0.125, "information", ["<byte>"]],
 
     /* currency */
     "<dollar>":[["USD","dollar"], 1.0, "currency", ["<dollar>"]],
@@ -304,7 +304,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var TOP_REGEX = new RegExp ("([^ \\*]+?)(?:" + POWER_OP + ")?(-?\\d+)");
   var BOTTOM_REGEX = new RegExp("([^ \\*]+?)(?:" + POWER_OP + ")?(\\d+)");
 
-  var SIGNATURE_VECTOR = ["length", "time", "temperature", "mass", "current", "substance", "luminosity", "currency", "memory", "angle", "capacitance"];
+  var SIGNATURE_VECTOR = ["length", "time", "temperature", "mass", "current", "substance", "luminosity", "currency", "information", "angle", "capacitance"];
   var KINDS = {
     "-312058": "resistance",
     "-312038": "inductance",
@@ -339,7 +339,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "63999998": "illuminance",
     "64000000": "luminous_power",
     "1280000000": "currency",
-    "25600000000": "memory",
+    "25600000000": "information",
     "511999999980": "angular_velocity",
     "512000000000": "angle",
     "10240000000000": "capacitance"

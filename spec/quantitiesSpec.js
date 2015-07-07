@@ -1220,6 +1220,13 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("information", function() {
+    it("bits and bytes should have 'information' as kind", function() {
+      expect(Qty("3 b").kind()).toBe("information");
+      expect(Qty("5 B").kind()).toBe("information");
+    });
+  });
+
   describe("non regression tests", function() {
     describe("Wh (#38)", function() {
       it("should be parsed", function() {
