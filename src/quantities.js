@@ -238,10 +238,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<byte>"  :[["B","byte","bytes"], 1.0, "memory", ["<byte>"]],
     "<bit>"  :[["b","bit","bits"], 0.125, "memory", ["<byte>"]],
 
-    /* memory speed */
-    "<Bps>" : [["Bps"], 1.0, "memory speed", ["<byte>"], ["<second>"]],
-    "<bps>" : [["bps"], 0.125, "memory speed", ["<byte>"], ["<second>"]],
-
     /* currency */
     "<dollar>":[["USD","dollar"], 1.0, "currency", ["<dollar>"]],
     "<cents>" :[["cents"], 0.01, "currency", ["<dollar>"]],
