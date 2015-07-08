@@ -239,8 +239,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<bit>"  :[["b","bit","bits"], 0.125, "information", ["<byte>"]],
     
     /* information rate */
-    "<Bps>" : [["Bps"], 1.0, "information-rate", ["<byte>"], ["<second>"]],
-    "<bps>" : [["bps"], 0.125, "information-rate", ["<byte>"], ["<second>"]],
+    "<Bps>" : [["Bps"], 1.0, "information_rate", ["<byte>"], ["<second>"]],
+    "<bps>" : [["bps"], 0.125, "information_rate", ["<byte>"], ["<second>"]],
 
     /* currency */
     "<dollar>":[["USD","dollar"], 1.0, "currency", ["<dollar>"]],
@@ -344,6 +344,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "64000000": "luminous_power",
     "1280000000": "currency",
     "25600000000": "information",
+    "25599999980": "information_rate",
     "511999999980": "angular_velocity",
     "512000000000": "angle",
     "10240000000000": "capacitance"
