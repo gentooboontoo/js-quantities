@@ -937,6 +937,10 @@ describe("js-quantities", function() {
 
       qty = Qty("1 N");
       expect(qty.kind()).toBe("force");
+      
+      expect(Qty("2 bytes").kind()).toBe("information");
+      expect(Qty("1 Mbps").kind()).toBe("information_rate");
+      expect(Qty("1 Bps").kind()).toBe("information_rate");
     });
 
     it("should know if a quantity is in base units", function() {
