@@ -235,8 +235,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     "<rpm>"   :[["rpm"], 2.0*Math.PI / 60.0, "angular_velocity", ["<radian>"], ["<second>"]],
 
     /* information */
-    "<byte>"  :[["B","byte"], 1.0, "information", ["<byte>"]],
-    "<bit>"  :[["b","bit"], 0.125, "information", ["<byte>"]],
+    "<byte>"  :[["B","byte","bytes"], 1.0, "information", ["<byte>"]],
+    "<bit>"  :[["b","bit","bits"], 0.125, "information", ["<byte>"]],
 
     /* currency */
     "<dollar>":[["USD","dollar"], 1.0, "currency", ["<dollar>"]],

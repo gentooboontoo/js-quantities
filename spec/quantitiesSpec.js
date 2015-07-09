@@ -1221,9 +1221,16 @@ describe("js-quantities", function() {
   });
 
   describe("information", function() {
-    it("bits and bytes should have 'information' as kind", function() {
-      expect(Qty("3 b").kind()).toBe("information");
-      expect(Qty("5 B").kind()).toBe("information");
+    describe("bits and bytes", function() {
+      it("should have 'information' as kind", function() {
+        expect(Qty("3 b").kind()).toBe("information");
+        expect(Qty("5 B").kind()).toBe("information");
+      });
+
+      it("could be pluralized", function() {
+        expect(Qty("3 bits").eq(Qty("3 b"))).toBe(true);
+        expect(Qty("5 bytes").eq(Qty("5 B"))).toBe(true);
+      });
     });
   });
 
