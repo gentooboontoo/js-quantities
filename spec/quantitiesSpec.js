@@ -1232,6 +1232,23 @@ describe("js-quantities", function() {
         expect(Qty("5 bytes").eq(Qty("5 B"))).toBe(true);
       });
     });
+
+    describe("rate", function() {
+      it("should accept bps and Bps aliases", function() {
+        expect(Qty("3 bps").eq(Qty("3 b/s"))).toBe(true);
+        expect(Qty("5 Bps").eq(Qty("5 B/s"))).toBe(true);
+      });
+
+      it("should be parsed when prefixed", function() {
+        expect(Qty("3 kbps").eq(Qty("3 kb/s"))).toBe(true);
+        expect(Qty("5 MBps").eq(Qty("5 MB/s"))).toBe(true);
+      });
+
+      it("should have 'information_rate' as kind", function() {
+        expect(Qty("3 bps").kind()).toBe("information_rate");
+        expect(Qty("5 Bps").kind()).toBe("information_rate");
+      });
+    });
   });
 
   describe("non regression tests", function() {
