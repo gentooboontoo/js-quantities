@@ -483,10 +483,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    * @returns {string[]} names of kinds of units
    */
   Qty.getKinds = function() {
-    var knownKinds = Object.keys(KINDS).map(function(knownSignature) {
+    return uniq(Object.keys(KINDS).map(function(knownSignature) {
       return KINDS[knownSignature];
-    }).sort();
-    return knownKinds;
+    }));
   };
 
   /**
@@ -1682,6 +1681,21 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
    */
   function identity(value) {
     return value;
+  }
+
+  /**
+   * Returns unique strings from list
+   *
+   * @param {string[]} array of strings
+   *
+   *
+   * @returns {string[]} a new array of strings without duplicates
+   */
+  function uniq(strings) {
+    var seen = {};
+    return strings.filter(function(item) {
+      return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+    });
   }
 
   /**
