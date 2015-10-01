@@ -115,6 +115,16 @@ describe("js-quantities", function() {
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
+    it("should create pressure units in term of height of water", function() {
+      var qty = Qty("1 inH2O");
+      expect(qty.scalar).toBe(1);
+      expect(qty.numerator).toEqual(["<inh2o>"]);
+
+      qty = Qty("1 cmH2O");
+      expect(qty.scalar).toBe(1);
+      expect(qty.numerator).toEqual(["<cmh2o>"]);
+    });
+
     it("should create with denominator", function() {
       var qty = Qty("1 m/s");
       expect(qty.scalar).toBe(1);
