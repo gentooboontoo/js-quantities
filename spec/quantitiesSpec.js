@@ -1239,6 +1239,34 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("Qty.getUnits", function() {
+    it("should return a dictionary of categories with array units grouped by alises", function() {
+      var units = Qty.getUnits(),
+        expectedKey = "length",
+        expectedValue = ["m","meter","meters","metre","metres"];
+
+      expect(units[expectedKey]).toContain(expectedValue);
+    });
+
+    it("should optionally restrict returned units to one category", function() {
+      var units = Qty.getUnits("area"),
+        unexpectedValue = ["stone","stones","st"],
+        expectedValue = ["acre","acres"];
+
+      expect(units).not.toContain(unexpectedValue);
+      expect(units).toContain(expectedValue);
+    });
+  });
+
+  describe("Qty.getPrefix", function() {
+    it("should return an array of array grouped by pefix", function() {
+      var prefixes = Qty.getPrefix(),
+          expectedValue = ["Ki","Kibi","kibi"];
+
+      expect(prefixes).toContain(expectedValue);
+    });
+  });
+
   describe("information", function() {
     describe("bits and bytes", function() {
       it("should have 'information' as kind", function() {

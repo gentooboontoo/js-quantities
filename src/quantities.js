@@ -500,6 +500,77 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return (scalar + " " + units).trim();
   }
 
+/**
+   * Returns the object of available well-known units of per category 
+   * returning a list of list per category e.g.
+   *
+   * @param {EMPTY} no parameter
+   *
+   * @returns {Object[]} names of categoires as keys, with array of units grouped
+   * by aliases
+   *   mass:
+   *        [ [ 'kg', 'kilogram', 'kilograms' ], 
+   *        [ 'u', 'AMU', 'amu' ],
+   *        [ 'Da', 'Dalton', 'Daltons', 'dalton', 'daltons' ]]
+   *
+   * @param {string} kind - kind, string formated
+   *
+   * @returns {array} List of all units, group by alias
+   *
+   *  [ [ 'kg', 'kilogram', 'kilograms' ], 
+   *  ['u', 'AMU', 'amu' ],
+   *  [ 'Da', 'Dalton', 'Daltons', 'dalton', 'daltons']] 
+   */
+  Qty.getUnits = function(kind) {
+    var kinds = {},
+        k;
+    for (var unitId in UNITS) {
+        k = UNITS[unitId][2];
+        if (k.length === 0) {
+            continue;
+        }
+        if (kinds[k] === undefined) {
+            kinds[k] = [];
+        }
+        kinds[k].push(UNITS[unitId][0]);
+    }
+    if(kind) {
+        if(kinds[kind] === undefined) {
+            throw new QtyError(kind + ": Category not recognized.");
+        }
+        return kinds[kind];
+    }
+    return kinds;
+  };
+
+/**
+   * Returns the list of prefixes groups by prefix aliases e.g.
+   *   ["Ki","Kibi","kibi"]
+   *
+   * @returns {array[]} names of kinds as keys, with values of 
+   */
+  Qty.getPrefix = function() {
+    var prefixes = [];
+    for (var unitId in UNITS) {
+        if (UNITS[unitId][2] == "prefix"){
+            prefixes.push(UNITS[unitId][0]);
+        }
+    }
+    return prefixes;
+  };
+
+  /**
+   * Default formatter
+   *
+   * @param {number} scalar
+   * @param {string} units
+   *
+   * @returns {string} formatted result
+   */
+  function defaultFormatter(scalar, units) {
+    return (scalar + " " + units).trim();
+  }
+
   /**
    *
    * Configurable Qty default formatter
