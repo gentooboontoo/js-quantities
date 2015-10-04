@@ -99,6 +99,19 @@ Qty.parse('foo') // => null
 Qty.getKinds(); // => Array of names of every well-known kind of units
 ```
 
+### Available unit names by category
+
+```javascript
+Qty.getUnits(); // => Object of unit arrays of every well-known kind of units
+// Can be optionally restricted to only one kind
+Qty.getUnits("length"); // => Array of all units of type length
+```
+### Available well-known prefixes
+
+```javascript
+Qty.getPrefix(); // => Array of arrays of every well-known kind of prefixes grouped by alias
+```
+
 ### Quantity compatibility, kind and various queries
 
 ```javascript
