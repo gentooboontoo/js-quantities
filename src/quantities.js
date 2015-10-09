@@ -524,6 +524,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   /**
+   * Returns a list of alternative names for a unit
+   *
+   * @param {string} unit
+   * @returns {string[]} aliases for unit
+   * @throws {QtyError} if unit is unknown
+   */
+  Qty.getAliases = function(unitName) {
+    if (!UNIT_MAP[unitName]) {
+        throw new QtyError('Unit not recognized');
+    }
+    return UNITS[UNIT_MAP[unitName]][0];
+  };
+
+  /**
    * Default formatter
    *
    * @param {number} scalar
@@ -1826,7 +1840,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       OUTPUT_MAP[unitDef] = definition[0][0];
     }
   }
-
   var PREFIX_REGEX = Object.keys(PREFIX_MAP).sort(function(a, b) {
     return b.length - a.length;
   }).join("|");

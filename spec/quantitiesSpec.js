@@ -1251,6 +1251,14 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("Qty.getAliases", function() {
+    it("should return array of alternative names for unit", function() {
+      expect(Qty.getAliases("m")).toContain("meter");
+      expect(Qty.getAliases("meter")).toContain("metre");
+      expect(Qty.getAliases("N")).toContain("newton");
+    });
+  });
+
   describe("information", function() {
     describe("bits and bytes", function() {
       it("should have 'information' as kind", function() {

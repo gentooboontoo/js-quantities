@@ -107,6 +107,12 @@ Qty.getUnits('currency'); // => [ 'dollar', 'cents' ]
 Qty.getUnits(); // => [ 'acre','Ah','ampere','AMU','angstrom']
 ```
 
+### Alternative names of a unit
+
+```javascript
+Qty.getAliases('m'); // => [ 'm', 'meter', 'meters', 'metre', 'metres' ]
+```
+
 ### Quantity compatibility, kind and various queries
 
 ```javascript
