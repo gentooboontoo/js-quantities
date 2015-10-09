@@ -1239,6 +1239,18 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("Qty.getUnits", function() {
+    it("should return an array of units of kind", function() {
+      expect(Qty.getUnits("currency")).toContain("dollar");
+    });
+    it("should return an array of all units without arg", function () {
+      expect(Qty.getUnits()).toContain("sievert");
+    });
+    it("should throw unknown kind", function () {
+      expect(function () {Qty.getUnits('bogusKind')}).toThrow("Kind not recognized");
+    });
+  });
+
   describe("information", function() {
     describe("bits and bytes", function() {
       it("should have 'information' as kind", function() {

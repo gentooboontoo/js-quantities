@@ -99,6 +99,14 @@ Qty.parse('foo') // => null
 Qty.getKinds(); // => Array of names of every well-known kind of units
 ```
 
+### Available units of a particular kind
+
+```javascript
+Qty.getUnits('currency'); // => [ 'dollar', 'cents' ]
+// Or all alphabetically sorted
+Qty.getUnits(); // => [ 'acre','Ah','ampere','AMU','angstrom']
+```
+
 ### Quantity compatibility, kind and various queries
 
 ```javascript
