@@ -489,6 +489,55 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   };
 
   /**
+   * Returns a list of available units of kind
+   *
+   * @param {string} [kind]
+   * @returns {array} names of units
+   * @throws {QtyError} if kind is unknown
+   */
+  Qty.getUnits = function(kind) {
+    var units = [];
+    var unitKeys = Object.keys(UNITS);
+    if (typeof kind === 'undefined') {
+      for(var i = 0; i < unitKeys.length; i++) {
+        if (['', 'prefix'].indexOf(UNITS[unitKeys[i]][2]) == -1) {
+          units.push(unitKeys[i].substr(1, unitKeys[i].length - 2));
+        }
+      }
+    }
+    else if (Qty.getKinds().indexOf(kind) === -1) {
+      throw new QtyError('Kind not recognized');
+    }
+    else {
+      for(var i = 0; i < unitKeys.length; i++) {
+        if (UNITS[unitKeys[i]][2] === kind) {
+          units.push(unitKeys[i].substr(1, unitKeys[i].length - 2));
+        }
+      }
+    }
+
+    return units.sort(function(a, b){
+      if(a.toLowerCase() < b.toLowerCase()) return -1;
+      if(a.toLowerCase() > b.toLowerCase()) return 1;
+      return 0;
+    });
+  };
+
+  /**
+   * Returns a list of alternative names for a unit
+   *
+   * @param {string} unit
+   * @returns {string[]} aliases for unit
+   * @throws {QtyError} if unit is unknown
+   */
+  Qty.getAliases = function(unitName) {
+    if (!UNIT_MAP[unitName]) {
+        throw new QtyError('Unit not recognized');
+    }
+    return UNITS[UNIT_MAP[unitName]][0];
+  };
+
+  /**
    * Default formatter
    *
    * @param {number} scalar
