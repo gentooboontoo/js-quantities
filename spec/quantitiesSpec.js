@@ -36,6 +36,13 @@ describe("js-quantities", function() {
       expect(qty.denominator).toEqual(["<1>"]);
     });
 
+    it("should create from numbers with explicit units", function() {
+      var qty = Qty(1.5, "m");
+      expect(qty.scalar).toBe(1.5);
+      expect(qty.numerator).toEqual(["<meter>"]);
+      expect(qty.denominator).toEqual(["<1>"]);
+    });
+
     it("temperatures should have base unit in kelvin", function() {
       var qty = Qty("1 tempK").toBase();
       expect(qty.scalar).toBe(1);
@@ -1062,7 +1069,7 @@ describe("js-quantities", function() {
         expect(qty.format("cm", roundingFormatter(2))).toBe("66.67 cm");
 
         var intRoundingFormatter = roundingFormatter(0);
-        qty = Qty("2.8m", intRoundingFormatter);
+        qty = Qty("2.8m");
         expect(qty.format("m", intRoundingFormatter)).toBe("3 m");
         expect(qty.format("cm", intRoundingFormatter)).toBe("280 cm");
         qty = Qty("2.818m");
@@ -1228,7 +1235,7 @@ describe("js-quantities", function() {
     it("should return an array of kind names", function() {
       expect(Qty.getKinds()).toContain("resistance");
     });
-    
+
     it("should not contain duplicate kind names", function() {
       var kinds = Qty.getKinds();
       var map = {};

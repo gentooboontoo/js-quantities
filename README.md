@@ -93,6 +93,12 @@ Qty.parse('1 m'); // => 1 meter
 Qty.parse('foo') // => null
 ```
 
+If scalars and their respective units are available programmatically, the two argument signature may be useful:
+
+```javascript
+Qty.parse(124, 'cm'); // => 1.24 meter
+```
+
 ### Available well-known kinds
 
 ```javascript
