@@ -372,7 +372,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       this.denominator = (initValue.denominator && initValue.denominator.length !== 0)? initValue.denominator : UNITY_ARRAY;
     } else if (initUnits) {
       parse.call(this, initUnits);
-      this.scalar *= initValue;
+      this.scalar = initValue;
     } else {
       parse.call(this, initValue);
     }
