@@ -57,6 +57,14 @@ qty = Qty('23 ft'); // factory
 `Qty` constructor accepts strings, numbers and `Qty` instances as
 initializing values.
 
+If scalars and their respective units are available programmatically, the
+two argument signature may be useful:
+
+```javascript
+qty = new Qty(124, 'cm'); // => 1.24 meter
+qty = Qty(124, 'cm'); // => 1.24 meter
+```
+
 For the sake of simplicity, one will use the factory way below but using
 `new Qty()` is equivalent.
 
@@ -86,7 +94,7 @@ qtyCopy = Qty(qty); // quantity could be copied when used as
 
 `Qty.parse` utility method is also provided to parse and create
 quantities from strings. Unlike the constructor, it will return `null`
-instead throwing an error when parsing an invalid quantity.
+instead of throwing an error when parsing an invalid quantity.
 
 ```javascript
 Qty.parse('1 m'); // => 1 meter

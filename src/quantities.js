@@ -352,11 +352,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
   var baseUnitCache = {};
 
-  function Qty(initValue) {
-    assertValidInitializationValueType(initValue);
+  function Qty(initValue, initUnits) {
+    assertValidConstructorArgs.apply(null, arguments);
 
     if(!(isQty(this))) {
-      return new Qty(initValue);
+      return new Qty(initValue, initUnits);
     }
 
     this.scalar = null;
@@ -370,8 +370,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
       this.scalar = initValue.scalar;
       this.numerator = (initValue.numerator && initValue.numerator.length !== 0)? initValue.numerator : UNITY_ARRAY;
       this.denominator = (initValue.denominator && initValue.denominator.length !== 0)? initValue.denominator : UNITY_ARRAY;
-    }
-    else {
+    } else if (initUnits) {
+      parse.call(this, initUnits);
+      this.scalar = initValue;
+    } else {
       parse.call(this, initValue);
     }
 
@@ -1799,16 +1801,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 
   /**
-   * Asserts initialization value type is valid
+   * Asserts constructor arguments are valid
    *
    * @param {} value - Value to test
+   * @param {string} [units] - Optional units when value is passed as a number
    *
-   * @throws {QtyError} if initialization value type is not valid
+   * @throws {QtyError} if constructor arguments are invalid
    */
-  function assertValidInitializationValueType(value) {
-    if (!(isString(value) || isNumber(value) || isQty(value) || isDefinitionObject(value))) {
-      throw new QtyError("Only strings, numbers or quantities " +
-                         "accepted as initialization values");
+  function assertValidConstructorArgs(value, units) {
+    if (units) {
+      if (!(isNumber(value) && isString(units))) {
+        throw new QtyError("Only number accepted as initialization value " +
+                           "when units are explicitly provided");
+      }
+    } else {
+      if (!(isString(value) ||
+            isNumber(value) ||
+            isQty(value)    ||
+            isDefinitionObject(value))) {
+        throw new QtyError("Only string, number or quantity accepted as " +
+                           "single initialization value");
+      }
     }
   }
 
