@@ -86,7 +86,7 @@ qtyCopy = Qty(qty); // quantity could be copied when used as
 
 `Qty.parse` utility method is also provided to parse and create
 quantities from strings. Unlike the constructor, it will return `null`
-instead throwing an error when parsing an invalid quantity.
+instead of throwing an error when parsing an invalid quantity.
 
 ```javascript
 Qty.parse('1 m'); // => 1 meter
