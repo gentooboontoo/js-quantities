@@ -353,7 +353,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   var baseUnitCache = {};
 
   function Qty(initValue, initUnits) {
-    assertValidInitializationValueType(initValue, initUnits);
+    assertValidConstructorArgs.apply(null, arguments);
 
     if(!(isQty(this))) {
       return new Qty(initValue, initUnits);
@@ -1801,22 +1801,26 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   }
 
   /**
-   * Asserts initialization value type is valid
+   * Asserts constructor arguments are valid
    *
    * @param {} value - Value to test
+   * @param {string} [units] - Optional units when value is passed as a number
    *
-   * @throws {QtyError} if initialization value type is not valid
+   * @throws {QtyError} if constructor arguments are invalid
    */
-  function assertValidInitializationValueType(value, units) {
+  function assertValidConstructorArgs(value, units) {
     if (units) {
       if (!(isNumber(value) && isString(units))) {
-        throw new QtyError("Only numbers " +
-                           "accepted as initialization values when units are provided explicitly");
+        throw new QtyError("Only number accepted as initialization value " +
+                           "when units are explicitly provided");
       }
     } else {
-      if (!(isString(value) || isNumber(value) || isQty(value) || isDefinitionObject(value))) {
-        throw new QtyError("Only strings, numbers or quantities " +
-                           "accepted as initialization values");
+      if (!(isString(value) ||
+            isNumber(value) ||
+            isQty(value)    ||
+            isDefinitionObject(value))) {
+        throw new QtyError("Only string, number or quantity accepted as " +
+                           "single initialization value");
       }
     }
   }
