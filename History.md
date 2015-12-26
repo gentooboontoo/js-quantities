@@ -1,3 +1,19 @@
+1.6.0 / 2015-12-26
+------------------
+
+* Add `Qty.getUnits` to return available units of a well-known kind
+* Add `Qty.getAliases` to return every alias of a specific unit
+* Allow to initialize a quantity with scalar and units as separate arguments
+* Rename `memory` kind to `information`
+* Add `information_rate` kind
+* Accept Wh and Ah as units
+* Fix hang when using water height pressure units
+* Add plural for fluid ounce
+* Fix `amu` and `dalton` definitions
+* Add `tb` as tablespoon alias
+* Add plural for `information` units
+* Minor fixes or improvements
+
 1.5.0 / 2014-12-08
 ------------------
 
