@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>JS-quantities by gentooboontoo</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="javascripts/main.js"></script>
     <!--[if lt IE 9]>
@@ -59,7 +59,7 @@ and within browsers.</p>
 <h3>
 <a id="browser" class="anchor" href="#browser" aria-hidden="true"><span class="octicon octicon-link"></span></a>Browser</h3>
 
-<p>Download <a href="https://raw.github.com/gentooboontoo/js-quantities/v1.5.0/src/quantities.js">latest release v1.5.0</a>
+<p>Download <a href="https://raw.github.com/gentooboontoo/js-quantities/v1.6.0/src/quantities.js">latest release v1.6.0</a>
 or install it with Bower:</p>
 
 <pre><code>bower install js-quantities
@@ -67,11 +67,11 @@ or install it with Bower:</p>
 
 <p>Then include it:</p>
 
-<div class="highlight highlight-html"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s1"><span class="pl-pds">'</span>quantities.js<span class="pl-pds">'</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">'</span>quantities.js<span class="pl-pds">'</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
 
 <p>When using <a href="http://requirejs.org/">Require.JS</a>:</p>
 
-<div class="highlight highlight-javascript"><pre>define([<span class="pl-s1"><span class="pl-pds">'</span>quantities<span class="pl-pds">'</span></span>], <span class="pl-st">function</span>(<span class="pl-vpf">Qty</span>) {
+<div class="highlight highlight-source-js"><pre><span class="pl-en">define</span>([<span class="pl-s"><span class="pl-pds">'</span>quantities<span class="pl-pds">'</span></span>], <span class="pl-k">function</span>(<span class="pl-smi">Qty</span>) {
   ...
 });</pre></div>
 
@@ -92,92 +92,110 @@ $ node
 <p>Instances of quantities are made by means of <code>Qty()</code> method. <code>Qty</code> can both be
 used as a constructor (with new) or as a factory (without new):</p>
 
-<div class="highlight highlight-javascript"><pre>qty <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Qty</span>(<span class="pl-s1"><span class="pl-pds">'</span>23 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// constructor</span>
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>23 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// factory</span></pre></div>
+<div class="highlight highlight-source-js"><pre>qty <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>23 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// constructor</span>
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>23 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// factory</span></pre></div>
 
 <p><code>Qty</code> constructor accepts strings, numbers and <code>Qty</code> instances as
 initializing values.</p>
 
+<p>If scalars and their respective units are available programmatically, the
+two argument signature may be useful:</p>
+
+<div class="highlight highlight-source-js"><pre>qty <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Qty</span>(<span class="pl-c1">124</span>, <span class="pl-s"><span class="pl-pds">'</span>cm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 1.24 meter</span>
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-c1">124</span>, <span class="pl-s"><span class="pl-pds">'</span>cm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 1.24 meter</span></pre></div>
+
 <p>For the sake of simplicity, one will use the factory way below but using
 <code>new Qty()</code> is equivalent.</p>
 
-<div class="highlight highlight-javascript"><pre>qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 1 meter</span>
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt;  1 meter (scalar defaults to 1)</span>
+<div class="highlight highlight-source-js"><pre>qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 1 meter</span>
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt;  1 meter (scalar defaults to 1)</span>
 
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1 N*m<span class="pl-pds">'</span></span>);
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1 N m<span class="pl-pds">'</span></span>); <span class="pl-c">// * is optional</span>
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1 N*m<span class="pl-pds">'</span></span>);
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1 N m<span class="pl-pds">'</span></span>); <span class="pl-c">// * is optional</span>
 
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1 m/s<span class="pl-pds">'</span></span>);
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1 m/s<span class="pl-pds">'</span></span>);
 
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1 m^2/s^2<span class="pl-pds">'</span></span>);
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1 m^2 s^-2<span class="pl-pds">'</span></span>); <span class="pl-c">// negative powers</span>
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1 m2 s-2<span class="pl-pds">'</span></span>); <span class="pl-c">// ^ is optional</span>
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1 m^2/s^2<span class="pl-pds">'</span></span>);
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1 m^2 s^-2<span class="pl-pds">'</span></span>); <span class="pl-c">// negative powers</span>
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1 m2 s-2<span class="pl-pds">'</span></span>); <span class="pl-c">// ^ is optional</span>
 
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1 m^2 kg^2 J^2/s^2 A<span class="pl-pds">'</span></span>);
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1 m^2 kg^2 J^2/s^2 A<span class="pl-pds">'</span></span>);
 
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1.5<span class="pl-pds">'</span></span>); <span class="pl-c">// unitless quantity</span>
-qty <span class="pl-k">=</span> Qty(<span class="pl-c1">1.5</span>); <span class="pl-c">// number as initializing value</span>
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1.5<span class="pl-pds">'</span></span>); <span class="pl-c">// unitless quantity</span>
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-c1">1.5</span>); <span class="pl-c">// number as initializing value</span>
 
-qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1 attoparsec/microfortnight<span class="pl-pds">'</span></span>);
+qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1 attoparsec/microfortnight<span class="pl-pds">'</span></span>);
 
-qtyCopy <span class="pl-k">=</span> Qty(qty); <span class="pl-c">// quantity could be copied when used as</span>
+qtyCopy <span class="pl-k">=</span> <span class="pl-en">Qty</span>(qty); <span class="pl-c">// quantity could be copied when used as</span>
                     <span class="pl-c">// initializing value</span></pre></div>
 
 <p><code>Qty.parse</code> utility method is also provided to parse and create
 quantities from strings. Unlike the constructor, it will return <code>null</code>
-instead throwing an error when parsing an invalid quantity.</p>
+instead of throwing an error when parsing an invalid quantity.</p>
 
-<div class="highlight highlight-javascript"><pre>Qty.<span class="pl-s3">parse</span>(<span class="pl-s1"><span class="pl-pds">'</span>1 m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 1 meter</span>
-Qty.<span class="pl-s3">parse</span>(<span class="pl-s1"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; null</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">Qty</span>.<span class="pl-c1">parse</span>(<span class="pl-s"><span class="pl-pds">'</span>1 m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 1 meter</span>
+<span class="pl-smi">Qty</span>.<span class="pl-c1">parse</span>(<span class="pl-s"><span class="pl-pds">'</span>foo<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; null</span></pre></div>
 
 <h3>
 <a id="available-well-known-kinds" class="anchor" href="#available-well-known-kinds" aria-hidden="true"><span class="octicon octicon-link"></span></a>Available well-known kinds</h3>
 
-<div class="highlight highlight-javascript"><pre>Qty.getKinds(); <span class="pl-c">// =&gt; Array of names of every well-known kind of units</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">Qty</span>.<span class="pl-en">getKinds</span>(); <span class="pl-c">// =&gt; Array of names of every well-known kind of units</span></pre></div>
+
+<h3>
+<a id="available-units-of-a-particular-kind" class="anchor" href="#available-units-of-a-particular-kind" aria-hidden="true"><span class="octicon octicon-link"></span></a>Available units of a particular kind</h3>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">Qty</span>.<span class="pl-en">getUnits</span>(<span class="pl-s"><span class="pl-pds">'</span>currency<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; [ 'dollar', 'cents' ]</span>
+<span class="pl-c">// Or all alphabetically sorted</span>
+<span class="pl-smi">Qty</span>.<span class="pl-en">getUnits</span>(); <span class="pl-c">// =&gt; [ 'acre','Ah','ampere','AMU','angstrom']</span></pre></div>
+
+<h3>
+<a id="alternative-names-of-a-unit" class="anchor" href="#alternative-names-of-a-unit" aria-hidden="true"><span class="octicon octicon-link"></span></a>Alternative names of a unit</h3>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">Qty</span>.<span class="pl-en">getAliases</span>(<span class="pl-s"><span class="pl-pds">'</span>m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; [ 'm', 'meter', 'meters', 'metre', 'metres' ]</span></pre></div>
 
 <h3>
 <a id="quantity-compatibility-kind-and-various-queries" class="anchor" href="#quantity-compatibility-kind-and-various-queries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Quantity compatibility, kind and various queries</h3>
 
-<div class="highlight highlight-javascript"><pre>qty1.isCompatible(qty2); <span class="pl-c">// =&gt; true or false</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">qty1</span>.<span class="pl-en">isCompatible</span>(qty2); <span class="pl-c">// =&gt; true or false</span>
 
-qty.kind(); <span class="pl-c">// =&gt; 'length', 'area', etc...</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">kind</span>(); <span class="pl-c">// =&gt; 'length', 'area', etc...</span>
 
-qty.isUnitless(); <span class="pl-c">// =&gt; true or false</span>
-qty.isBase(); <span class="pl-c">// =&gt; true if quantity is represented with base units</span></pre></div>
+<span class="pl-smi">qty</span>.<span class="pl-en">isUnitless</span>(); <span class="pl-c">// =&gt; true or false</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">isBase</span>(); <span class="pl-c">// =&gt; true if quantity is represented with base units</span></pre></div>
 
 <h3>
 <a id="conversion" class="anchor" href="#conversion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conversion</h3>
 
-<div class="highlight highlight-javascript"><pre>qty.toBase(); <span class="pl-c">// converts to SI units (10 cm =&gt; 0.1 m) (new instance)</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">qty</span>.<span class="pl-en">toBase</span>(); <span class="pl-c">// converts to SI units (10 cm =&gt; 0.1 m) (new instance)</span>
 
-qty.toFloat(); <span class="pl-c">// returns scalar of unitless quantity</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toFloat</span>(); <span class="pl-c">// returns scalar of unitless quantity</span>
                <span class="pl-c">// (otherwise throws error)</span>
 
-qty.to(<span class="pl-s1"><span class="pl-pds">'</span>m<span class="pl-pds">'</span></span>); <span class="pl-c">// converts quantity to meter if compatible</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">to</span>(<span class="pl-s"><span class="pl-pds">'</span>m<span class="pl-pds">'</span></span>); <span class="pl-c">// converts quantity to meter if compatible</span>
              <span class="pl-c">// or throws an error (new instance)</span>
-qty1.to(qty2); <span class="pl-c">// converts quantity to same unit of qty2 if compatible</span>
+<span class="pl-smi">qty1</span>.<span class="pl-en">to</span>(qty2); <span class="pl-c">// converts quantity to same unit of qty2 if compatible</span>
                <span class="pl-c">// or throws an error (new instance)</span>
 
-qty.inverse(); <span class="pl-c">// converts quantity to its inverse</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">inverse</span>(); <span class="pl-c">// converts quantity to its inverse</span>
                <span class="pl-c">// ('100 m/s' =&gt; '.01 s/m')</span>
 <span class="pl-c">// Inverses can be used, but there is no special checking to</span>
 <span class="pl-c">// rename the units</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>10ohm<span class="pl-pds">'</span></span>).inverse() <span class="pl-c">// '.1/ohm'</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>10ohm<span class="pl-pds">'</span></span>).<span class="pl-en">inverse</span>() <span class="pl-c">// '.1/ohm'</span>
                        <span class="pl-c">// (not '.1S', although they are equivalent)</span>
 <span class="pl-c">// however, the 'to' command will convert between inverses also</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>10ohm<span class="pl-pds">'</span></span>).to(<span class="pl-s1"><span class="pl-pds">'</span>S<span class="pl-pds">'</span></span>) <span class="pl-c">// '.1S'</span></pre></div>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>10ohm<span class="pl-pds">'</span></span>).<span class="pl-en">to</span>(<span class="pl-s"><span class="pl-pds">'</span>S<span class="pl-pds">'</span></span>) <span class="pl-c">// '.1S'</span></pre></div>
 
 <p><code>Qty.swiftConverter()</code> is a fast way to efficiently convert large array of
 Number values. It configures a function accepting a value or an array of Number
 values to convert.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> convert <span class="pl-k">=</span> Qty.swiftConverter(<span class="pl-s1"><span class="pl-pds">'</span>m/h<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>ft/s<span class="pl-pds">'</span></span>); <span class="pl-c">// Configures converter</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> convert <span class="pl-k">=</span> <span class="pl-smi">Qty</span>.<span class="pl-en">swiftConverter</span>(<span class="pl-s"><span class="pl-pds">'</span>m/h<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>ft/s<span class="pl-pds">'</span></span>); <span class="pl-c">// Configures converter</span>
 
 <span class="pl-c">// Converting single value</span>
-<span class="pl-s">var</span> converted <span class="pl-k">=</span> convert(<span class="pl-c1">2500</span>); <span class="pl-c">// =&gt; 2.278..</span>
+<span class="pl-k">var</span> converted <span class="pl-k">=</span> <span class="pl-en">convert</span>(<span class="pl-c1">2500</span>); <span class="pl-c">// =&gt; 2.278..</span>
 
 <span class="pl-c">// Converting large array of values</span>
-<span class="pl-s">var</span> convertedSerie <span class="pl-k">=</span> convert([<span class="pl-c1">2500</span>, <span class="pl-c1">5000</span>, ...]); <span class="pl-c">// =&gt; [2.278.., 4.556.., ...]</span></pre></div>
+<span class="pl-k">var</span> convertedSerie <span class="pl-k">=</span> <span class="pl-en">convert</span>([<span class="pl-c1">2500</span>, <span class="pl-c1">5000</span>, ...]); <span class="pl-c">// =&gt; [2.278.., 4.556.., ...]</span></pre></div>
 
 <p>The main drawback of this conversion method is that it does not take care of
 rounding issues.</p>
@@ -185,14 +203,14 @@ rounding issues.</p>
 <h3>
 <a id="comparison" class="anchor" href="#comparison" aria-hidden="true"><span class="octicon octicon-link"></span></a>Comparison</h3>
 
-<div class="highlight highlight-javascript"><pre>qty1.eq(qty2); <span class="pl-c">// =&gt; true if both quantities are equal (1m == 100cm =&gt; true)</span>
-qty1.same(qty2); <span class="pl-c">// =&gt; true if both quantities are same (1m == 100cm =&gt; false)</span>
-qty1.lt(qty2); <span class="pl-c">// =&gt; true if qty1 is stricty less than qty2</span>
-qty1.lte(qty2); <span class="pl-c">// =&gt; true if qty1 is less than or equal to qty2</span>
-qty1.gt(qty2); <span class="pl-c">// =&gt; true if qty1 is stricty greater than qty2</span>
-qty1.gte(qty2); <span class="pl-c">// =&gt; true if qty1 is greater than or equal to qty2</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">qty1</span>.<span class="pl-en">eq</span>(qty2); <span class="pl-c">// =&gt; true if both quantities are equal (1m == 100cm =&gt; true)</span>
+<span class="pl-smi">qty1</span>.<span class="pl-en">same</span>(qty2); <span class="pl-c">// =&gt; true if both quantities are same (1m == 100cm =&gt; false)</span>
+<span class="pl-smi">qty1</span>.<span class="pl-en">lt</span>(qty2); <span class="pl-c">// =&gt; true if qty1 is stricty less than qty2</span>
+<span class="pl-smi">qty1</span>.<span class="pl-en">lte</span>(qty2); <span class="pl-c">// =&gt; true if qty1 is less than or equal to qty2</span>
+<span class="pl-smi">qty1</span>.<span class="pl-en">gt</span>(qty2); <span class="pl-c">// =&gt; true if qty1 is stricty greater than qty2</span>
+<span class="pl-smi">qty1</span>.<span class="pl-en">gte</span>(qty2); <span class="pl-c">// =&gt; true if qty1 is greater than or equal to qty2</span>
 
-qty1.compareTo(qty2); <span class="pl-c">// =&gt; -1 if qty1 &lt; qty2,</span>
+<span class="pl-smi">qty1</span>.<span class="pl-en">compareTo</span>(qty2); <span class="pl-c">// =&gt; -1 if qty1 &lt; qty2,</span>
                       <span class="pl-c">// =&gt; 0 if qty1 == qty2,</span>
                       <span class="pl-c">// =&gt; 1 if qty1 &gt; qty2</span></pre></div>
 
@@ -212,27 +230,27 @@ qty1.compareTo(qty2); <span class="pl-c">// =&gt; -1 if qty1 &lt; qty2,</span>
 <p><code>Qty#toPrec(precision)</code> : returns the nearest multiple of quantity passed as
 precision.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>5.17 ft<span class="pl-pds">'</span></span>);
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5 ft</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>0.5 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5 ft</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>0.25 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.25 ft</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>0.1 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.2 ft</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>0.05 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.15 ft</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>0.01 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.17 ft</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>0.00001 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.17 ft</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>2 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6 ft</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>2<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6 ft</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>5.17 ft<span class="pl-pds">'</span></span>);
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5 ft</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>0.5 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5 ft</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>0.25 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.25 ft</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>0.1 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.2 ft</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>0.05 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.15 ft</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>0.01 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.17 ft</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>0.00001 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 5.17 ft</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>2 ft<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6 ft</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>2<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6 ft</span>
 
-<span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>6.3782 m<span class="pl-pds">'</span></span>);
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>dm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6.4 m</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>cm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6.38 m</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>mm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6.378 m</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>5 cm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6.4 m</span>
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>10 m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 10 m</span>
-qty.toPrec(<span class="pl-c1">0.1</span>); <span class="pl-c">// =&gt; 6.3 m</span>
+<span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>6.3782 m<span class="pl-pds">'</span></span>);
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>dm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6.4 m</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>cm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6.38 m</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>mm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6.378 m</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>5 cm<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 6.4 m</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>10 m<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 10 m</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-c1">0.1</span>); <span class="pl-c">// =&gt; 6.3 m</span>
 
-<span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1.146 MPa<span class="pl-pds">'</span></span>);
-qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>0.1 bar<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 1.15 MPa</span></pre></div>
+<span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1.146 MPa<span class="pl-pds">'</span></span>);
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-s"><span class="pl-pds">'</span>0.1 bar<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; 1.15 MPa</span></pre></div>
 
 <h3>
 <a id="formatting-quantities" class="anchor" href="#formatting-quantities" aria-hidden="true"><span class="octicon octicon-link"></span></a>Formatting quantities</h3>
@@ -240,23 +258,23 @@ qty.toPrec(<span class="pl-s1"><span class="pl-pds">'</span>0.1 bar<span class="
 <p><code>Qty#toString</code> returns a string using the canonical form of the quantity (that
 is it could be seamlessly reparsed by <code>Qty</code>).</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1.146 MPa<span class="pl-pds">'</span></span>);
-qty.<span class="pl-s3">toString</span>(); <span class="pl-c">// =&gt; '1.146 MPa'</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1.146 MPa<span class="pl-pds">'</span></span>);
+<span class="pl-smi">qty</span>.<span class="pl-c1">toString</span>(); <span class="pl-c">// =&gt; '1.146 MPa'</span></pre></div>
 
 <p>As a shorthand, units could be passed to <code>Qty#toString</code> and is equivalent to
 successively call <code>Qty#to</code> then <code>Qty#toString</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1.146 MPa<span class="pl-pds">'</span></span>);
-qty.<span class="pl-s3">toString</span>(<span class="pl-s1"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; '11.46 bar'</span>
-qty.to(<span class="pl-s1"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>).<span class="pl-s3">toString</span>(); <span class="pl-c">// =&gt; '11.46 bar'</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1.146 MPa<span class="pl-pds">'</span></span>);
+<span class="pl-smi">qty</span>.<span class="pl-c1">toString</span>(<span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>); <span class="pl-c">// =&gt; '11.46 bar'</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">to</span>(<span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>).<span class="pl-c1">toString</span>(); <span class="pl-c">// =&gt; '11.46 bar'</span></pre></div>
 
 <p><code>Qty#toString</code> could also be used with any method from <code>Qty</code> to make some sort
 of formatting. For instance, one could use <code>Qty#toPrec</code> to fix the maximum
 number of decimals:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1.146 MPa<span class="pl-pds">'</span></span>);
-qty.toPrec(<span class="pl-c1">0.1</span>).<span class="pl-s3">toString</span>(); <span class="pl-c">// =&gt; '1.1 MPa'</span>
-qty.to(<span class="pl-s1"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>).toPrec(<span class="pl-c1">0.1</span>).<span class="pl-s3">toString</span>(); <span class="pl-c">// =&gt; '11.5 bar'</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1.146 MPa<span class="pl-pds">'</span></span>);
+<span class="pl-smi">qty</span>.<span class="pl-en">toPrec</span>(<span class="pl-c1">0.1</span>).<span class="pl-c1">toString</span>(); <span class="pl-c">// =&gt; '1.1 MPa'</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">to</span>(<span class="pl-s"><span class="pl-pds">'</span>bar<span class="pl-pds">'</span></span>).<span class="pl-en">toPrec</span>(<span class="pl-c1">0.1</span>).<span class="pl-c1">toString</span>(); <span class="pl-c">// =&gt; '11.5 bar'</span></pre></div>
 
 <p>For advanced formatting needs as localization, specific rounding or any other
 custom customization, quantities can be transformed into strings through
@@ -269,36 +287,36 @@ are specified, the quantity is converted into them before formatting.</p>
 <p>If no formatter is specified, quantities are formatted according to default
 js-quantities' formatter and is equivalent to <code>Qty#toString</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1.1234 m<span class="pl-pds">'</span></span>);
-qty.format(); <span class="pl-c">// same units, default formatter =&gt; '1.234 m'</span>
-qty.format(<span class="pl-s1"><span class="pl-pds">'</span>cm<span class="pl-pds">'</span></span>); <span class="pl-c">// converted to 'cm', default formatter =&gt; '123.45 cm'</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1.1234 m<span class="pl-pds">'</span></span>);
+<span class="pl-smi">qty</span>.<span class="pl-en">format</span>(); <span class="pl-c">// same units, default formatter =&gt; '1.234 m'</span>
+<span class="pl-smi">qty</span>.<span class="pl-en">format</span>(<span class="pl-s"><span class="pl-pds">'</span>cm<span class="pl-pds">'</span></span>); <span class="pl-c">// converted to 'cm', default formatter =&gt; '123.45 cm'</span></pre></div>
 
 <p><code>Qty#format</code> could delegates formatting to a custom formatter if required. A
 formatter is a callback function accepting scalar and units as parameters and
 returning a formatted string representing the quantity.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-s">var</span> <span class="pl-en">configurableRoundingFormatter</span> <span class="pl-k">=</span> <span class="pl-st">function</span>(<span class="pl-vpf">maxDecimals</span>) {
-  <span class="pl-k">return</span> <span class="pl-st">function</span>(<span class="pl-vpf">scalar</span>, <span class="pl-vpf">units</span>) {
-    <span class="pl-s">var</span> pow <span class="pl-k">=</span> <span class="pl-s3">Math</span>.<span class="pl-s3">pow</span>(<span class="pl-c1">10</span>, maxDecimals);
-    <span class="pl-s">var</span> rounded <span class="pl-k">=</span> <span class="pl-s3">Math</span>.<span class="pl-s3">round</span>(scalar <span class="pl-k">*</span> pow) / pow;
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-en">configurableRoundingFormatter</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">maxDecimals</span>) {
+  <span class="pl-k">return</span> <span class="pl-k">function</span>(<span class="pl-smi">scalar</span>, <span class="pl-smi">units</span>) {
+    <span class="pl-k">var</span> pow <span class="pl-k">=</span> <span class="pl-smi">Math</span>.<span class="pl-c1">pow</span>(<span class="pl-c1">10</span>, maxDecimals);
+    <span class="pl-k">var</span> rounded <span class="pl-k">=</span> <span class="pl-smi">Math</span>.<span class="pl-c1">round</span>(scalar <span class="pl-k">*</span> pow) <span class="pl-k">/</span> pow;
 
-    <span class="pl-k">return</span> rounded <span class="pl-k">+</span> <span class="pl-s1"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> <span class="pl-k">+</span> units;
+    <span class="pl-k">return</span> rounded <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span> <span class="pl-k">+</span> units;
   };
 };
 
-<span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1.1234 m<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1.1234 m<span class="pl-pds">'</span></span>);
 
 <span class="pl-c">// same units, custom formatter =&gt; '1.12 m'</span>
-qty.format(configurableRoundingFormatter(<span class="pl-c1">2</span>));
+<span class="pl-smi">qty</span>.<span class="pl-en">format</span>(<span class="pl-en">configurableRoundingFormatter</span>(<span class="pl-c1">2</span>));
 
 <span class="pl-c">// convert to 'cm', custom formatter =&gt; '123.4 cm'</span>
-qty.format(<span class="pl-s1"><span class="pl-pds">'</span>cm<span class="pl-pds">'</span></span>, configurableRoundingFormatter(<span class="pl-c1">1</span>));</pre></div>
+<span class="pl-smi">qty</span>.<span class="pl-en">format</span>(<span class="pl-s"><span class="pl-pds">'</span>cm<span class="pl-pds">'</span></span>, <span class="pl-en">configurableRoundingFormatter</span>(<span class="pl-c1">1</span>));</pre></div>
 
 <p>Custom formatter can be configured globally by setting <code>Qty.formatter</code>.</p>
 
-<div class="highlight highlight-javascript"><pre>Qty.formatter <span class="pl-k">=</span> configurableRoundingFormatter(<span class="pl-c1">2</span>);
-<span class="pl-s">var</span> qty <span class="pl-k">=</span> Qty(<span class="pl-s1"><span class="pl-pds">'</span>1.1234 m<span class="pl-pds">'</span></span>);
-qty.format(); <span class="pl-c">// same units, current default formatter =&gt; '1.12 m'</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">Qty</span>.<span class="pl-smi">formatter</span> <span class="pl-k">=</span> <span class="pl-en">configurableRoundingFormatter</span>(<span class="pl-c1">2</span>);
+<span class="pl-k">var</span> qty <span class="pl-k">=</span> <span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>1.1234 m<span class="pl-pds">'</span></span>);
+<span class="pl-smi">qty</span>.<span class="pl-en">format</span>(); <span class="pl-c">// same units, current default formatter =&gt; '1.12 m'</span></pre></div>
 
 <h3>
 <a id="temperatures" class="anchor" href="#temperatures" aria-hidden="true"><span class="octicon octicon-link"></span></a>Temperatures</h3>
@@ -311,48 +329,48 @@ measured in).</p>
 into account the differences in the zero points of the various scales.
 Differential temperature (e.g., '100 degC') units behave like most other units.</p>
 
-<div class="highlight highlight-javascript"><pre>Qty(<span class="pl-s1"><span class="pl-pds">'</span>37 tempC<span class="pl-pds">'</span></span>).to(<span class="pl-s1"><span class="pl-pds">'</span>tempF<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; 98.6 tempF</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>37 tempC<span class="pl-pds">'</span></span>).<span class="pl-en">to</span>(<span class="pl-s"><span class="pl-pds">'</span>tempF<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; 98.6 tempF</span></pre></div>
 
 <p>JS-quantities will throw an error if you attempt to create a temperature unit
 that would fall below absolute zero.</p>
 
 <p>Unit math on temperatures is fairly limited.</p>
 
-<div class="highlight highlight-javascript"><pre>Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-s3">add</span>(<span class="pl-s1"><span class="pl-pds">'</span>10 degC<span class="pl-pds">'</span></span>)  <span class="pl-c">// 110 tempC</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-s3">sub</span>(<span class="pl-s1"><span class="pl-pds">'</span>10 degC<span class="pl-pds">'</span></span>)  <span class="pl-c">// 90 tempC</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-s3">add</span>(<span class="pl-s1"><span class="pl-pds">'</span>50 tempC<span class="pl-pds">'</span></span>) <span class="pl-c">// throws error</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-s3">sub</span>(<span class="pl-s1"><span class="pl-pds">'</span>50 tempC<span class="pl-pds">'</span></span>) <span class="pl-c">// 50 degC</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>50 tempC<span class="pl-pds">'</span></span>).<span class="pl-s3">sub</span>(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>) <span class="pl-c">// -50 degC</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).mul(scalar)     <span class="pl-c">// 100*scalar tempC</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).div(scalar)     <span class="pl-c">// 100/scalar tempC</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).mul(qty)        <span class="pl-c">// throws error</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).div(qty)        <span class="pl-c">// throws error</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC*unit<span class="pl-pds">'</span></span>)            <span class="pl-c">// throws error</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC/unit<span class="pl-pds">'</span></span>)            <span class="pl-c">// throws error</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 unit/tempC<span class="pl-pds">'</span></span>)            <span class="pl-c">// throws error</span>
-Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).inverse()       <span class="pl-c">// throws error</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>10 degC<span class="pl-pds">'</span></span>)  <span class="pl-c">// 110 tempC</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-c1">sub</span>(<span class="pl-s"><span class="pl-pds">'</span>10 degC<span class="pl-pds">'</span></span>)  <span class="pl-c">// 90 tempC</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>50 tempC<span class="pl-pds">'</span></span>) <span class="pl-c">// throws error</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-c1">sub</span>(<span class="pl-s"><span class="pl-pds">'</span>50 tempC<span class="pl-pds">'</span></span>) <span class="pl-c">// 50 degC</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>50 tempC<span class="pl-pds">'</span></span>).<span class="pl-c1">sub</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>) <span class="pl-c">// -50 degC</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-en">mul</span>(scalar)     <span class="pl-c">// 100*scalar tempC</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-en">div</span>(scalar)     <span class="pl-c">// 100/scalar tempC</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-en">mul</span>(qty)        <span class="pl-c">// throws error</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-en">div</span>(qty)        <span class="pl-c">// throws error</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC*unit<span class="pl-pds">'</span></span>)            <span class="pl-c">// throws error</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC/unit<span class="pl-pds">'</span></span>)            <span class="pl-c">// throws error</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 unit/tempC<span class="pl-pds">'</span></span>)            <span class="pl-c">// throws error</span>
+<span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-en">inverse</span>()       <span class="pl-c">// throws error</span></pre></div>
 
-<div class="highlight highlight-javascript"><pre>Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).to(<span class="pl-s1"><span class="pl-pds">'</span>degC<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; 100 degC</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 tempC<span class="pl-pds">'</span></span>).<span class="pl-en">to</span>(<span class="pl-s"><span class="pl-pds">'</span>degC<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; 100 degC</span></pre></div>
 
 <p>This conversion references the 0 point on the scale of the temperature unit</p>
 
-<div class="highlight highlight-javascript"><pre>Qty(<span class="pl-s1"><span class="pl-pds">'</span>100 degC<span class="pl-pds">'</span></span>).to(<span class="pl-s1"><span class="pl-pds">'</span>tempC<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; -173.15 tempC</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>100 degC<span class="pl-pds">'</span></span>).<span class="pl-en">to</span>(<span class="pl-s"><span class="pl-pds">'</span>tempC<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; -173.15 tempC</span></pre></div>
 
 <p>These conversions are always interpreted as being relative to absolute zero.
 Conversions are probably better done like this...</p>
 
-<div class="highlight highlight-javascript"><pre>Qty(<span class="pl-s1"><span class="pl-pds">'</span>0 tempC<span class="pl-pds">'</span></span>).<span class="pl-s3">add</span>(<span class="pl-s1"><span class="pl-pds">'</span>100 degC<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; 100 tempC</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-en">Qty</span>(<span class="pl-s"><span class="pl-pds">'</span>0 tempC<span class="pl-pds">'</span></span>).<span class="pl-c1">add</span>(<span class="pl-s"><span class="pl-pds">'</span>100 degC<span class="pl-pds">'</span></span>) <span class="pl-c">// =&gt; 100 tempC</span></pre></div>
 
 <h3>
 <a id="errors" class="anchor" href="#errors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Errors</h3>
 
 <p>Every error thrown by JS-quantities is an instance of <code>Qty.Error</code>.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">try</span> {
+<div class="highlight highlight-source-js"><pre><span class="pl-k">try</span> {
   <span class="pl-c">// code triggering an error inside JS-quantities</span>
 }
 <span class="pl-k">catch</span>(e) {
-  <span class="pl-k">if</span>(e <span class="pl-k">instanceof</span> Qty.Error) {
+  <span class="pl-k">if</span>(e <span class="pl-k">instanceof</span> <span class="pl-smi">Qty</span>.<span class="pl-smi">Error</span>) {
     <span class="pl-c">// ...</span>
   }
   <span class="pl-k">else</span> {
