@@ -375,12 +375,12 @@ catch(e) {
 Tests are implemented with Jasmine (https://github.com/pivotal/jasmine).
 You could use both HTML and jasmine-node runners.
 
-To execute specs through HTML runner, just open SpecRunner.html file in a
+To execute specs through HTML runner, just open `SpecRunner.html` file in a
 browser to execute them.
 
-To execute specs through node-jasmine, launch:
+To execute specs through `jasmine-node`, launch:
 
-    jasmine-node spec/
+    make test
 
 ### Performance regression test
 
@@ -399,4 +399,7 @@ any commit SHA on the command line. Port (default 3000) is also configurable.
 
 ## Contribute
 
-Feedback and contribution are welcomed.
+Feedback and contributions are welcomed.
+
+Pull requests must pass tests and linting. Please make sure that `make test`
+and `make lint` return no errors before submitting.
