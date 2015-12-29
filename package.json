@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "jasmine-node": "1.x",
-    "jscs": "^2.7.0"
+    "jscs": "^2.7.0",
+    "jshint": "^2.8.0"
   }
 }

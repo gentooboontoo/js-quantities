@@ -5,6 +5,7 @@ test:
 	jasmine-node $(SPEC_DIR)
 
 lint:
+	jshint $(SRC)
 	jscs $(SRC)
 
 .PHONY: lint test
