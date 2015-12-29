@@ -7,6 +7,7 @@
     "define": true,
     "module": true
   },
+  "newcap": false,
   "strict": true,
   "undef": true,
   "unused": true
