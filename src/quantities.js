@@ -20,8 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-/*jshint eqeqeq:true, immed:true, undef:true */
-/*global module:false, define:false */
 (function(root, factory) {
     "use strict";
 
@@ -513,11 +511,12 @@ SOFTWARE.
    * @throws {QtyError} if kind is unknown
    */
   Qty.getUnits = function(kind) {
+    var i;
     var units = [];
     var unitKeys = Object.keys(UNITS);
     if (typeof kind === "undefined") {
-      for (var i = 0; i < unitKeys.length; i++) {
-        if (["", "prefix"].indexOf(UNITS[unitKeys[i]][2]) == -1) {
+      for (i = 0; i < unitKeys.length; i++) {
+        if (["", "prefix"].indexOf(UNITS[unitKeys[i]][2]) === -1) {
           units.push(unitKeys[i].substr(1, unitKeys[i].length - 2));
         }
       }
@@ -526,7 +525,7 @@ SOFTWARE.
       throw new QtyError("Kind not recognized");
     }
     else {
-      for (var i = 0; i < unitKeys.length; i++) {
+      for (i = 0; i < unitKeys.length; i++) {
         if (UNITS[unitKeys[i]][2] === kind) {
           units.push(unitKeys[i].substr(1, unitKeys[i].length - 2));
         }
@@ -535,8 +534,8 @@ SOFTWARE.
 
     return units.sort(function(a, b) {
       if (a.toLowerCase() < b.toLowerCase()) {
-        return -1
-      };
+        return -1;
+      }
       if (a.toLowerCase() > b.toLowerCase()) {
         return 1;
       }
