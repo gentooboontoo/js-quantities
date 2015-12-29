@@ -8,4 +8,7 @@ lint:
 	jshint $(SRC)
 	jscs $(SRC)
 
-.PHONY: lint test
+bench:
+	bin/bench.rb
+
+.PHONY: bench lint test
