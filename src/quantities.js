@@ -1950,7 +1950,7 @@ SOFTWARE.
   QtyError.prototype = Object.create(Error.prototype, {constructor: { value: QtyError }});
   Qty.Error = QtyError;
 
-  Qty.version = "1.6.0";
+  Qty.version = "1.6.1";
 
   return Qty;
 }));

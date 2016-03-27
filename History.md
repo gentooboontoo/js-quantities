@@ -1,3 +1,10 @@
+1.6.1 / 2016-03-27
+------------------
+
+* Fix definition of square foot
+* Add tablespoon `tbsp` alias
+* Add `Qty.version` property
+
 1.6.0 / 2015-12-26
 ------------------
 
