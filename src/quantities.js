@@ -1856,8 +1856,8 @@ SOFTWARE.
   /**
    * Asserts unit definition is valid
    *
-   * @param {} unitDef - Name of unit to test
-   * @param {} definition - Definition of unit to test
+   * @param {string} unitDef - Name of unit to test
+   * @param {Object} definition - Definition of unit to test
    *
    * @throws {QtyError} if unit definition is not valid
    */
@@ -1870,14 +1870,14 @@ SOFTWARE.
                          "'scalar' must be a number");
     }
 
-    numerator.forEach(function (unit) {
+    numerator.forEach(function(unit) {
       if (UNITS[unit] === undefined) {
         throw new QtyError(unitDef + ": Invalid unit definition. " +
                            "Unit " + unit + " in 'numerator' is not recognized");
         }
     });
 
-    denominator.forEach(function (unit) {
+    denominator.forEach(function(unit) {
       if (UNITS[unit] === undefined) {
         throw new QtyError(unitDef + ": Invalid unit definition. " +
                            "Unit " + unit + " in 'denominator' is not recognized");
