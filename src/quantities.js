@@ -734,7 +734,7 @@ SOFTWARE.
         nx += x;
       }
 
-      bottom = bottom.replace(result[0], nx, "g");
+      bottom = bottom.replace(result[0], nx);
     }
 
     if (top) {
