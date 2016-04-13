@@ -1,3 +1,8 @@
+1.6.2 / 2016-04-13
+------------------
+
+* Accept blank string as initialization value
+
 1.6.1 / 2016-03-27
 ------------------
 
