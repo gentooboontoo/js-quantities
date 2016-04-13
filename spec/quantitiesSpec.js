@@ -219,13 +219,9 @@ describe("js-quantities", function() {
       expect(function() { Qty("mmm"); }).toThrow("Unit not recognized");
     });
 
-    it("should throw error when passing an empty string", function() {
-      expect(
-        function() { Qty(""); }
-      ).toThrow("Unit not recognized");
-      expect(
-        function() { Qty("   "); }
-      ).toThrow("Unit not recognized");
+    it("should accept empty string as unitless 1", function() {
+      expect(Qty("").same(Qty("1"))).toBe(true);
+      expect(Qty("   ").same(Qty("1"))).toBe(true);
     });
 
     it("should throw error when passing a null value", function() {

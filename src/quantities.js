@@ -671,9 +671,6 @@ SOFTWARE.
       val = val.toString();
     }
     val = val.trim();
-    if (val.length === 0) {
-      throw new QtyError("Unit not recognized");
-    }
 
     var result = QTY_STRING_REGEX.exec(val);
     if (!result) {
