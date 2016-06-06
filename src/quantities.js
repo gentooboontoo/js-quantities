@@ -1084,7 +1084,7 @@ SOFTWARE.
     to: function(other) {
       var cached, target;
 
-      if (!other) {
+      if (other === undefined || other === null) {
         return this;
       }
 

@@ -340,6 +340,16 @@ describe("js-quantities", function() {
       expect(qty.to("cm^3").scalar).toBe(773);
     });
 
+    describe('percents', function() {
+      it("should convert from % to unitless", function() {
+        expect(Qty("10 %").to("").same(Qty("0.1"))).toBe(true);
+      });
+
+      it("should convert from unitless to %", function() {
+        expect(Qty("0.1").to("%").same(Qty("10 %"))).toBe(true);
+      });
+    });
+
     it("should convert temperatures to compatible units", function() {
       var qty = Qty("0 tempK");
       expect(qty.to("tempC").scalar).toBe(-273.15);
