@@ -300,7 +300,7 @@ SOFTWARE.
     "<decibel>"  : [["dB","decibel","decibels"], 1.0, "logarithmic", ["<decibel>"]]
   };
 
-  var BASE_UNITS = ["<meter>","<kilogram>","<second>","<mole>", "<farad>", "<ampere>","<radian>","<kelvin>","<temp-K>","<byte>","<dollar>","<candela>","<each>","<steradian>","<decibel>"];
+  var BASE_UNITS = ["<meter>","<kilogram>","<second>","<mole>","<ampere>","<radian>","<kelvin>","<temp-K>","<byte>","<dollar>","<candela>","<each>","<steradian>","<decibel>"];
   var UNITY = "<1>";
   var UNITY_ARRAY = [UNITY];
   var SIGN = "[+-]";
