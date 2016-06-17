@@ -187,7 +187,7 @@ SOFTWARE.
     "<unit>"  :  [["U","enzUnit"], 16.667e-16, "activity", ["<mole>"], ["<second>"]],
 
     /* capacitance */
-    "<farad>" :  [["F","farad","Farad"], 1.0, "capacitance", ["<farad>"]],
+    "<farad>" :  [["F","farad","Farad"], 1.0, "capacitance", ["<second>","<second>","<second>","<second>","<ampere>","<ampere>"], ["<meter>", "<meter>", "<kilogram>"]],
 
     /* charge */
     "<coulomb>" :  [["C","coulomb","Coulomb"], 1.0, "charge", ["<ampere>","<second>"]],
@@ -319,7 +319,7 @@ SOFTWARE.
   var TOP_REGEX = new RegExp ("([^ \\*]+?)(?:" + POWER_OP + ")?(-?\\d+(?![a-zA-Z]))");
   var BOTTOM_REGEX = new RegExp("([^ \\*]+?)(?:" + POWER_OP + ")?(\\d+(?![a-zA-Z]))");
 
-  var SIGNATURE_VECTOR = ["length", "time", "temperature", "mass", "current", "substance", "luminosity", "currency", "information", "angle", "capacitance"];
+  var SIGNATURE_VECTOR = ["length", "time", "temperature", "mass", "current", "substance", "luminosity", "currency", "information", "angle"];
   var KINDS = {
     "-312058": "resistance",
     "-312038": "inductance",
@@ -348,6 +348,7 @@ SOFTWARE.
     "160000": "current",
     "160020": "charge",
     "312058": "conductance",
+    "312078": "capacitance",
     "3199980": "activity",
     "3199997": "molar_concentration",
     "3200000": "substance",
@@ -357,8 +358,7 @@ SOFTWARE.
     "25600000000": "information",
     "25599999980": "information_rate",
     "511999999980": "angular_velocity",
-    "512000000000": "angle",
-    "10240000000000": "capacitance"
+    "512000000000": "angle"
   };
 
   var baseUnitCache = {};
