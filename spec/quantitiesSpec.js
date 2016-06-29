@@ -1323,5 +1323,25 @@ describe("js-quantities", function() {
         expect(Qty("mAh").eq(Qty("3.6 C"))).toBe(true);
       });
     });
+
+    describe("Farad (#67)", function() {
+      it('should be equal to its definition', function() {
+        expect(Qty("1 F").eq(Qty("1 C").div(Qty("1 V")))).toBe(true);
+      });
+
+      it('should not be defined as base unit', function() {
+        var qty = Qty("F");
+
+        expect(qty.isBase()).toBe(false);
+        expect(qty.toBase().units()).toEqual("s4*A2/m2*kg");
+      });
+
+      it('should be parsed when prefixed', function() {
+        var qty = Qty("100 nF");
+
+        expect(qty.eq(Qty("100 F").div(1e9))).toBe(true);
+        expect(qty.baseScalar).toEqual(1e-7);
+      });
+    });
   });
 });
