@@ -1,3 +1,12 @@
+1.6.3 / 2016-09-22
+------------------
+
+* Add missing kinds
+* Fix conversion from percentage to unitless quantity
+* Fix capacitance definition
+* Exclude `farad` from base units
+* Rename `mass concentration` to `density`
+
 1.6.2 / 2016-04-13
 ------------------
 

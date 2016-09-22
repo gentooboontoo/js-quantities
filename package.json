@@ -3,7 +3,7 @@
   "main": "./src/quantities.js",
   "readmeFilename": "README.md",
   "description": "JavaScript library for quantity calculation and unit conversion",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "homepage": "http://gentooboontoo.github.io/js-quantities/",
   "repository": {
     "type": "git",
