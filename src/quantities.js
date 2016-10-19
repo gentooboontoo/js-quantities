@@ -59,7 +59,7 @@ SOFTWARE.
     "<tera>"  :  [["T","Tera","tera"], 1e12, "prefix"],
     "<giga>"  :  [["G","Giga","giga"], 1e9, "prefix"],
     "<mega>"  :  [["M","Mega","mega"], 1e6, "prefix"],
-    "<kilo>"  :  [["k","kilo"], 1e3, "prefix"],
+    "<kilo>"  :  [["k","K","kilo"], 1e3, "prefix"],
     "<hecto>" :  [["h","Hecto","hecto"], 1e2, "prefix"],
     "<deca>"  :  [["da","Deca","deca","deka"], 1e1, "prefix"],
     "<deci>"  :  [["d","Deci","deci"], 1e-1, "prefix"],
@@ -227,7 +227,7 @@ SOFTWARE.
     "<calorie>" :  [["cal","calorie","calories"], 4.18400, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
     "<Calorie>" :  [["Cal","Calorie","Calories"], 4184.00, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
     "<therm-US>" : [["th","therm","therms","Therm"], 105480400, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
-    "<Wh>" : [["Wh"], 3600, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<Wh>" : [["Wh", "WH", "wh"], 3600, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
 
     /* force */
     "<newton>"  : [["N","Newton","newton"], 1.0, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],

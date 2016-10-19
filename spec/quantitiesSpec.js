@@ -171,6 +171,14 @@ describe("js-quantities", function() {
       expect(qty.denominator).toEqual(["<second>","<second>","<joule>","<joule>","<joule>"]);
     });
 
+    it("should create kilowatt hour units", function() {
+      var qty = Qty("1 KWH");
+      expect(qty.scalar).toBe(1);
+      expect(qty.baseScalar).toBe(3600000)
+      expect(qty.numerator).toEqual(["<kilo>", "<Wh>"]);
+      expect(qty.denominator).toEqual(["<1>"])
+    });
+
     it("should create with zero power", function() {
       var qty = Qty("1 m^0");
       expect(qty.scalar).toBe(1);
