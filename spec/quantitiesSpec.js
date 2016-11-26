@@ -2,10 +2,9 @@
 var Qty;
 /*
  * Needed when run through jasmine-node
- * Qty is only defined when using Jasmine HTML runner
  */
-if(!Qty) {
-  Qty = require(__dirname + "/../src/quantities");
+if(typeof window === 'undefined') {
+  Qty = require(__dirname + "/../build/quantities");
 }
 
 describe("js-quantities", function() {
@@ -1053,6 +1052,14 @@ describe("js-quantities", function() {
   });
 
   describe("format", function() {
+    describe("provided default formatter", function() {
+      it("should be applied to output", function() {
+        var qty = (Qty("2.987654321 m"));
+
+        expect(qty.format()).toBe("2.987654321 m");
+      });
+    });
+
     describe("custom formatter", function() {
       var roundingFormatter = function(maxDecimals) {
         return function(scalar, units) {

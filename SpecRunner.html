@@ -9,37 +9,40 @@
   <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine.js"></script>
   <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine-html.js"></script>
 
-  <script type="text/javascript" src="src/quantities.js"></script>
+  <script src="lib/babel-browser-build.js"></script>
+  <script src="lib/browser-es-module-loader.js"></script>
 
   <script type="text/javascript" src="spec/quantitiesSpec.js"></script>
 
-  <script type="text/javascript">
-    (function() {
-      var jasmineEnv = jasmine.getEnv();
-      jasmineEnv.updateInterval = 1000;
+  <script type="module">
+    import Qty from "src/quantities.js";
+    window.Qty = Qty;
 
-      var htmlReporter = new jasmine.HtmlReporter();
+    var jasmineEnv = jasmine.getEnv();
+    jasmineEnv.updateInterval = 1000;
 
-      jasmineEnv.addReporter(htmlReporter);
+    var htmlReporter = new jasmine.HtmlReporter();
 
-      jasmineEnv.specFilter = function(spec) {
-        return htmlReporter.specFilter(spec);
-      };
+    jasmineEnv.addReporter(htmlReporter);
 
-      var currentWindowOnload = window.onload;
+    jasmineEnv.specFilter = function(spec) {
+      return htmlReporter.specFilter(spec);
+    };
 
-      window.onload = function() {
-        if (currentWindowOnload) {
-          currentWindowOnload();
-        }
-        execJasmine();
-      };
-
-      function execJasmine() {
-        jasmineEnv.execute();
+    function oncomplete(callback) {
+      if (document.readyState === 'complete') {
+        callback();
       }
+      else {
+        document.onreadystatechange = callback;
+      }
+    }
 
-    })();
+    function execJasmine() {
+      jasmineEnv.execute();
+    }
+
+    oncomplete(execJasmine);
   </script>
 
 </head>

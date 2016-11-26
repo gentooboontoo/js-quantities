@@ -1,6 +1,6 @@
 {
   "name": "js-quantities",
-  "main": "./src/quantities.js",
+  "main": "./build/quantities.js",
   "readmeFilename": "README.md",
   "description": "JavaScript library for quantity calculation and unit conversion",
   "version": "1.6.3",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "jasmine-node": "1.x",
     "jscs": "^2.7.0",
-    "jshint": "^2.8.0"
+    "jshint": "^2.9.0",
+    "rollup": "0.x"
   }
 }
