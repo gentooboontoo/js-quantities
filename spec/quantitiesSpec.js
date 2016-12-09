@@ -216,6 +216,8 @@ describe("js-quantities", function() {
       expect(function() { Qty("N*m"); }).not.toThrow("Unit not recognized");
       // mm is millimeter, but mmm is not a valid unit
       expect(function() { Qty("mmm"); }).toThrow("Unit not recognized");
+      // previously this value caused infinitely long regex test when checking if unit is correct
+      expect(function() { Qty("0.11 180°/sec"); }).toThrow("Unit not recognized");
     });
 
     it("should accept empty string as unitless 1", function() {

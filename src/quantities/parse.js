@@ -122,7 +122,7 @@ var BOUNDARY_REGEX = "\\b|$";
 var UNIT_MATCH = "(" + PREFIX_REGEX + ")??(" +
                  UNIT_REGEX +
                  ")(?:" + BOUNDARY_REGEX + ")";
-var UNIT_TEST_REGEX = new RegExp("^\\s*(" + UNIT_MATCH + "\\s*\\*?\\s*)+$");
+var UNIT_TEST_REGEX = new RegExp("^\\s*(" + UNIT_MATCH + "[\\s\\*]*)+$");
 var UNIT_MATCH_REGEX = new RegExp(UNIT_MATCH, "g"); // g flag for multiple occurences
 var parsedUnitsCache = {};
 /**
@@ -144,6 +144,11 @@ function parseUnits(units) {
   }
 
   var unitMatch, normalizedUnits = [];
+
+  if (units.split(" ").join("").indexOf("**") > -1) {
+    throw new QtyError("Unit not recognized");
+  }
+
   // Scan
   if (!UNIT_TEST_REGEX.test(units)) {
     throw new QtyError("Unit not recognized");
