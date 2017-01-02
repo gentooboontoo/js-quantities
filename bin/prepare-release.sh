@@ -17,3 +17,4 @@ sed -i "s/\(\"version\"\):.*$/\1: \"${VERSION}\",/" bower.json
 sed -i "s/\(v[[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+\)/v${VERSION}/g" README.md
 sed -i "s/Qty.version =.*$/Qty.version = \"${VERSION}\";/" src/quantities.js
 echo "${VERSION}" > RELEASE
+make
