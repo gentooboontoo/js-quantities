@@ -1990,7 +1990,7 @@ SOFTWARE.
     });
   }
 
-  Qty.version = "1.6.1";
+  Qty.version = "1.6.4";
 
   return Qty;
 
