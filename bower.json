@@ -2,7 +2,7 @@
   "name": "js-quantities",
   "version": "1.6.4",
   "description": "JavaScript library for quantity calculation and unit conversion",
-  "main": "./src/quantities.js",
+  "main": "./build/quantities.js",
   "keywords": [
     "quantity",
     "quantities",
