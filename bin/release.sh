@@ -10,4 +10,12 @@ git add History.md README.md bower.json package.json \
 git commit -m "Release ${TAG}"
 git tag "${TAG}"
 git push origin master "${TAG}"
+
+git checkout gh-pages
+git show master:README.md > index.md
+git add index.md
+git commit -m "Update index.md"
+git push origin gh-pages
+
+git checkout master
 npm publish
