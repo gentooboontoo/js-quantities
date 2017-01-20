@@ -1,4 +1,4 @@
-# JS-quantities
+#JS-quantities
 
 [![Build Status](https://travis-ci.org/gentooboontoo/js-quantities.png)](https://travis-ci.org/gentooboontoo/js-quantities)
 
@@ -15,7 +15,7 @@ and within browsers.
 
 ### Browser
 
-Download [latest release v1.6.4](https://raw.github.com/gentooboontoo/js-quantities/v1.6.4/build/quantities.js)
+Download [latest release v1.6.5](https://raw.github.com/gentooboontoo/js-quantities/v1.6.5/build/quantities.js)
 or install it with Bower:
 
     bower install js-quantities
