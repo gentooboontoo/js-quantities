@@ -55,7 +55,7 @@ assign(Qty.prototype, {
         target = this.inverse().to(other);
       }
       else {
-        throwIncompatibleUnits();
+        throwIncompatibleUnits(this.units(), target.units());
       }
     }
     else {
@@ -130,7 +130,7 @@ assign(Qty.prototype, {
       precQuantity = precQuantity.to(this.units());
     }
     else if (!precQuantity.isUnitless()) {
-      throwIncompatibleUnits();
+      throwIncompatibleUnits(this.units(), precQuantity.units());
     }
 
     if (precQuantity.scalar === 0) {

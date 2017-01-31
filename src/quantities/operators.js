@@ -16,7 +16,7 @@ assign(Qty.prototype, {
     }
 
     if (!this.isCompatible(other)) {
-      throwIncompatibleUnits();
+      throwIncompatibleUnits(this.units(), other.units());
     }
 
     if (this.isTemperature() && other.isTemperature()) {
@@ -38,7 +38,7 @@ assign(Qty.prototype, {
     }
 
     if (!this.isCompatible(other)) {
-      throwIncompatibleUnits();
+      throwIncompatibleUnits(this.units(), other.units());
     }
 
     if (this.isTemperature() && other.isTemperature()) {
