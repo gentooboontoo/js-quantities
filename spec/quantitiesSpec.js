@@ -477,7 +477,7 @@ describe("js-quantities", function() {
       expect(qty1.compareTo(qty2)).toBe(1);
       expect(qty2.compareTo(qty1)).toBe(-1);
       expect(qty1.compareTo(qty3)).toBe(0);
-      expect(function() { qty1.compareTo(qty4); }).toThrow("Incompatible units");
+      expect(function() { qty1.compareTo(qty4); }).toThrow("Incompatible units: cm and A");
 
       expect(qty1.lt(qty2)).toBe(false);
       expect(qty1.lt(qty3)).toBe(false);
@@ -552,20 +552,20 @@ describe("js-quantities", function() {
     it("should fail to add unlike quantities", function() {
       var qty1 = Qty("3m");
       var qty2 = Qty("2s");
-      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units");
-      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units: m and s");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units: s and m");
     });
 
     it("should fail to add inverse quantities", function() {
       var qty1 = Qty("10S");
       var qty2 = qty1.inverse();
-      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units");
-      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units: S and 1/S");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units: 1/S and S");
 
       qty1 = Qty("10S");
       qty2 = Qty("0.1ohm");
-      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units");
-      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units");
+      expect(function() { qty1.add(qty2); }).toThrow("Incompatible units: S and Ohm");
+      expect(function() { qty2.add(qty1); }).toThrow("Incompatible units: Ohm and S");
     });
 
     it("should subtract quantities", function() {
@@ -589,20 +589,20 @@ describe("js-quantities", function() {
     it("should fail to subtract unlike quantities", function() {
       var qty1 = Qty("3m");
       var qty2 = Qty("2s");
-      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units");
-      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units: m and s");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units: s and m");
     });
 
     it("should fail to subtract inverse quantities", function() {
       var qty1 = Qty("10S");
       var qty2 = qty1.inverse();
-      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units");
-      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units: S and 1/S");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units: 1/S and S");
 
       qty1 = Qty("10S");
       qty2 = Qty("0.1ohm");
-      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units");
-      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units");
+      expect(function() { qty1.sub(qty2); }).toThrow("Incompatible units: S and Ohm");
+      expect(function() { qty2.sub(qty1); }).toThrow("Incompatible units: Ohm and S");
     });
 
     it("should multiply quantities", function() {
@@ -996,11 +996,11 @@ describe("js-quantities", function() {
       expect(qty.toString()).toBe("2 m");
       expect(qty.toString("cm")).toBe("200 cm");
       expect(qty.toString("km")).toBe("0.002 km");
-      expect(function() { qty.toString("A"); }).toThrow("Incompatible units");
+      expect(function() { qty.toString("A"); }).toThrow("Incompatible units: m and A");
 
       qty = Qty("24.5m/s");
       expect(qty.toString()).toBe("24.5 m/s");
-      expect(function() { qty.toString("m"); }).toThrow("Incompatible units");
+      expect(function() { qty.toString("m"); }).toThrow("Incompatible units: m/s and m");
       expect(qty.toString("km/h")).toBe("88.2 km/h");
 
       qty = Qty("254kg/m^2");
@@ -1202,7 +1202,7 @@ describe("js-quantities", function() {
     });
 
     it("should throw when passing incompatible units", function() {
-      expect(function() { Qty.swiftConverter("m", "s"); }).toThrow("Incompatible units");
+      expect(function() { Qty.swiftConverter("m", "s"); }).toThrow("Incompatible units: m and s");
     });
 
     describe("converter", function() {

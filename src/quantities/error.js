@@ -21,6 +21,6 @@ QtyError.prototype = Object.create(Error.prototype, {constructor: { value: QtyEr
  *
  * @throws "Incompatible units" error
  */
-export function throwIncompatibleUnits() {
-  throw new QtyError("Incompatible units");
+export function throwIncompatibleUnits(left, right) {
+  throw new QtyError("Incompatible units: " + left + " and " + right);
 }

@@ -40,7 +40,7 @@ assign(Qty.prototype, {
       return this.compareTo(Qty(other));
     }
     if (!this.isCompatible(other)) {
-      throwIncompatibleUnits();
+      throwIncompatibleUnits(this.units(), other.units());
     }
     if (this.baseScalar < other.baseScalar) {
       return -1;
