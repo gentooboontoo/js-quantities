@@ -10,10 +10,20 @@
     "url": "https://github.com/gentooboontoo/js-quantities.git"
   },
   "keywords": [
+    "conversion",
+    "convert",
+    "imperial",
+    "measure",
+    "measurement",
+    "metric",
+    "parse",
+    "parser",
+    "physical",
     "quantity",
     "quantities",
-    "units",
-    "physical"
+    "temperature",
+    "unit",
+    "units"
   ],
   "author": "Julien Sanchez <julien.sanchez@gmail.com>",
   "contributors": [
