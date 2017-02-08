@@ -9,13 +9,13 @@ git add History.md README.md bower.json package.json \
         RELEASE src/quantities.js build/quantities.js
 git commit -m "Release ${TAG}"
 git tag "${TAG}"
-git push origin master "${TAG}"
+git push github master "${TAG}"
 
 git checkout gh-pages
 git show master:README.md > index.md
 git add index.md
 git commit -m "Update index.md"
-git push origin gh-pages
+git push github gh-pages
 
 git checkout master
 npm publish
