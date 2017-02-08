@@ -197,11 +197,12 @@ SOFTWARE.
 
   /*
    * Throws incompatible units error
-   *
+   * @param {string} left - units
+   * @param {string} right - units incompatible with first argument
    * @throws "Incompatible units" error
    */
-  function throwIncompatibleUnits() {
-    throw new QtyError("Incompatible units");
+  function throwIncompatibleUnits(left, right) {
+    throw new QtyError("Incompatible units: " + left + " and " + right);
   }
 
   var UNITS = {
@@ -1195,7 +1196,7 @@ SOFTWARE.
           target = this.inverse().to(other);
         }
         else {
-          throwIncompatibleUnits();
+          throwIncompatibleUnits(this.units(), target.units());
         }
       }
       else {
@@ -1270,7 +1271,7 @@ SOFTWARE.
         precQuantity = precQuantity.to(this.units());
       }
       else if (!precQuantity.isUnitless()) {
-        throwIncompatibleUnits();
+        throwIncompatibleUnits(this.units(), precQuantity.units());
       }
 
       if (precQuantity.scalar === 0) {
@@ -1424,7 +1425,7 @@ SOFTWARE.
       }
 
       if (!this.isCompatible(other)) {
-        throwIncompatibleUnits();
+        throwIncompatibleUnits(this.units(), other.units());
       }
 
       if (this.isTemperature() && other.isTemperature()) {
@@ -1446,7 +1447,7 @@ SOFTWARE.
       }
 
       if (!this.isCompatible(other)) {
-        throwIncompatibleUnits();
+        throwIncompatibleUnits(this.units(), other.units());
       }
 
       if (this.isTemperature() && other.isTemperature()) {
@@ -1659,7 +1660,7 @@ SOFTWARE.
         return this.compareTo(Qty(other));
       }
       if (!this.isCompatible(other)) {
-        throwIncompatibleUnits();
+        throwIncompatibleUnits(this.units(), other.units());
       }
       if (this.baseScalar < other.baseScalar) {
         return -1;
@@ -1990,7 +1991,7 @@ SOFTWARE.
     });
   }
 
-  Qty.version = "1.6.5";
+  Qty.version = "1.6.6";
 
   return Qty;
 
