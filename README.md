@@ -1,4 +1,4 @@
-#JS-quantities
+# JS-quantities
 
 [![Build Status](https://travis-ci.org/gentooboontoo/js-quantities.png)](https://travis-ci.org/gentooboontoo/js-quantities)
 
