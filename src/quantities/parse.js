@@ -17,8 +17,11 @@ var QTY_STRING = "(" + SIGNED_NUMBER + ")?" + "\\s*([^/]*)(?:\/(.+))?";
 var QTY_STRING_REGEX = new RegExp("^" + QTY_STRING + "$");
 
 var POWER_OP = "\\^|\\*{2}";
-var TOP_REGEX = new RegExp ("([^ \\*\\d]+?)(?:" + POWER_OP + ")?(-?\\d+(?![a-zA-Z]))");
-var BOTTOM_REGEX = new RegExp("([^ \\*\\d]+?)(?:" + POWER_OP + ")?(\\d+(?![a-zA-Z]))");
+// Allow unit powers representing scalar, length, area, volume; 4 is for some
+// special case representations in SI base units.
+var SAFE_POWER = "[01234]";
+var TOP_REGEX = new RegExp ("([^ \\*\\d]+?)(?:" + POWER_OP + ")?(-?" + SAFE_POWER + "(?![a-zA-Z]))");
+var BOTTOM_REGEX = new RegExp("([^ \\*\\d]+?)(?:" + POWER_OP + ")?(" + SAFE_POWER + "(?![a-zA-Z]))");
 
 /* parse a string into a unit object.
  * Typical formats like :
