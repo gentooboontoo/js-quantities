@@ -229,6 +229,16 @@ describe("js-quantities", function() {
       expect(function() { Qty("A1EB12B4233021311SH"); }).toThrow("Unit not recognized");
     });
 
+    if(typeof window === 'undefined') { // only test in node.js
+      it("does not crash with potentially dangerous strings", function() {
+        // Multi-byte characters, emoji, etc.
+        // From https://github.com/minimaxir/big-list-of-naughty-strings
+        require("./blns.json").forEach(function(s) {
+          try { Qty(s); } catch (e) {}
+        });
+      });
+    }
+
     it("should accept empty string as unitless 1", function() {
       expect(Qty("").same(Qty("1"))).toBe(true);
       expect(Qty("   ").same(Qty("1"))).toBe(true);
