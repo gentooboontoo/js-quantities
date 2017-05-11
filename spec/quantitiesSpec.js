@@ -209,6 +209,12 @@ describe("js-quantities", function() {
       expect(qty1.eq(qty2)).toBe(true);
     });
 
+    it("should throw when parsing powers greater than 4", function() {
+      // See github issue #73
+      expect(function() { Qty("593720475cm^4939207503"); }).toThrow("Unit not recognized");
+      expect(function() { Qty("593720475cm**4939207503"); }).toThrow("Unit not recognized");
+    });
+
     it("should throw 'Unit not recognized' error when initializing with an invalid unit", function() {
       expect(function() { Qty("aa"); }).toThrow("Unit not recognized");
       expect(function() { Qty("m/aa"); }).toThrow("Unit not recognized");
@@ -218,7 +224,20 @@ describe("js-quantities", function() {
       expect(function() { Qty("mmm"); }).toThrow("Unit not recognized");
       // previously this value caused infinitely long regex test when checking if unit is correct
       expect(function() { Qty("0.11 180°/sec"); }).toThrow("Unit not recognized");
+      // Crash-causing strings, See github issue #73
+      expect(function() { Qty("58261da44b642352442b8060"); }).toThrow("Unit not recognized");
+      expect(function() { Qty("A1EB12B4233021311SH"); }).toThrow("Unit not recognized");
     });
+
+    if(typeof window === 'undefined') { // only test in node.js
+      it("does not crash with potentially dangerous strings", function() {
+        // Multi-byte characters, emoji, etc.
+        // From https://github.com/minimaxir/big-list-of-naughty-strings
+        require("./blns.json").forEach(function(s) {
+          try { Qty(s); } catch (e) {}
+        });
+      });
+    }
 
     it("should accept empty string as unitless 1", function() {
       expect(Qty("").same(Qty("1"))).toBe(true);
