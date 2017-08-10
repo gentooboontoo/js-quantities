@@ -60,6 +60,7 @@ export var UNITS = {
   "<light-minute>":[["lmin","light-minute"], 17987550000, "length", ["<meter>"]],
   "<light-year>" : [["ly","light-year"], 9460528000000000, "length", ["<meter>"]],
   "<parsec>"  : [["pc","parsec","parsecs"], 30856780000000000, "length", ["<meter>"]],
+  "<datamile>"  :  [["DM"], 1828.8, "length", ["<meter>"]],
 
   /* mass */
   "<kilogram>" : [["kg","kilogram","kilograms"], 1.0, "mass", ["<kilogram>"]],
