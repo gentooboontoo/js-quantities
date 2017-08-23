@@ -54,7 +54,7 @@ export var UNITS = {
   "<fathom>" : [["fathom","fathoms"], 1.829, "length", ["<meter>"]],
   "<pica>"  : [["pica","picas"], 0.00423333333, "length", ["<meter>"]],
   "<point>" : [["pt","point","points"], 0.000352777778, "length", ["<meter>"]],
-  "<redshift>" : [["z","red-shift"], 1.302773e26, "length", ["<meter>"]],
+  "<redshift>" : [["z","red-shift", "redshift"], 1.302773e26, "length", ["<meter>"]],
   "<AU>"    : [["AU","astronomical-unit"], 149597900000, "length", ["<meter>"]],
   "<light-second>":[["ls","light-second"], 299792500, "length", ["<meter>"]],
   "<light-minute>":[["lmin","light-minute"], 17987550000, "length", ["<meter>"]],
