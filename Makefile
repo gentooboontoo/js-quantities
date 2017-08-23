@@ -9,8 +9,8 @@ BANNER := $(shell cat LICENSE)
 build: $(DISTFILE)
 
 $(DISTFILE): $(SOURCES)
-	rollup --output=$(DISTFILE) \
-         --format=umd \
+	rollup --output.file=$(DISTFILE) \
+         --output.format=umd \
          --name=Qty \
          --banner="`echo '/*'; cat LICENSE; echo '*/'`" \
          src/quantities.js
