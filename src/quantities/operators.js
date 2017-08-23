@@ -117,7 +117,7 @@ assign(Qty.prototype, {
   },
 
   // Returns a Qty that is the inverse of this Qty,
-    inverse: function() {
+  inverse: function() {
     if (this.isTemperature()) {
       throw new QtyError("Cannot divide with temperatures");
     }

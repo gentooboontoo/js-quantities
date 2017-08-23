@@ -28,25 +28,24 @@ NestedMap.prototype.get = function(keys) {
 
 NestedMap.prototype.set = function(keys, value) {
 
-    if (arguments.length > 2) {
-      keys = Array.prototype.slice.call(arguments, 0, -1);
-      value = arguments[arguments.length - 1];
+  if (arguments.length > 2) {
+    keys = Array.prototype.slice.call(arguments, 0, -1);
+    value = arguments[arguments.length - 1];
+  }
+
+  return keys.reduce(function(map, key, index) {
+
+    var childMap = map[key];
+    if (childMap === undefined) {
+      childMap = map[key] = {};
     }
 
-    return keys.reduce(function(map, key, index) {
-
-      var childMap = map[key];
-      if (childMap === undefined) {
-        childMap = map[key] = {};
-      }
-
-      if (index === keys.length - 1) {
-        childMap.data = value;
-        return value;
-      }
-      else {
-        return childMap;
-      }
-    },
-    this);
+    if (index === keys.length - 1) {
+      childMap.data = value;
+      return value;
+    }
+    else {
+      return childMap;
+    }
+  }, this);
 };

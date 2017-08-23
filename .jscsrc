@@ -33,5 +33,6 @@
     "requireSpacesInFunctionExpression": {
         "beforeOpeningCurlyBrace": true
     },
+    "validateIndentation": 2,
     "validateQuoteMarks": "\""
 }

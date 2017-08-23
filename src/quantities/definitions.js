@@ -290,14 +290,14 @@ function validateUnitDefinition(unitDef, definition) {
     if (UNITS[unit] === undefined) {
       throw new QtyError(unitDef + ": Invalid unit definition. " +
                          "Unit " + unit + " in 'numerator' is not recognized");
-      }
+    }
   });
 
   denominator.forEach(function(unit) {
     if (UNITS[unit] === undefined) {
       throw new QtyError(unitDef + ": Invalid unit definition. " +
                          "Unit " + unit + " in 'denominator' is not recognized");
-      }
+    }
   });
 }
 
@@ -379,7 +379,7 @@ export function getUnits (kind) {
  */
 export function getAliases(unitName) {
   if (!UNIT_MAP[unitName]) {
-      throw new QtyError("Unit not recognized");
+    throw new QtyError("Unit not recognized");
   }
   return UNITS[UNIT_MAP[unitName]][0];
 }
