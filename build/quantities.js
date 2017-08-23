@@ -257,12 +257,13 @@ var UNITS = {
   "<fathom>" : [["fathom","fathoms"], 1.829, "length", ["<meter>"]],
   "<pica>"  : [["pica","picas"], 0.00423333333, "length", ["<meter>"]],
   "<point>" : [["pt","point","points"], 0.000352777778, "length", ["<meter>"]],
-  "<redshift>" : [["z","red-shift"], 1.302773e26, "length", ["<meter>"]],
+  "<redshift>" : [["z","red-shift", "redshift"], 1.302773e26, "length", ["<meter>"]],
   "<AU>"    : [["AU","astronomical-unit"], 149597900000, "length", ["<meter>"]],
   "<light-second>":[["ls","light-second"], 299792500, "length", ["<meter>"]],
   "<light-minute>":[["lmin","light-minute"], 17987550000, "length", ["<meter>"]],
   "<light-year>" : [["ly","light-year"], 9460528000000000, "length", ["<meter>"]],
   "<parsec>"  : [["pc","parsec","parsecs"], 30856780000000000, "length", ["<meter>"]],
+  "<datamile>"  :  [["DM"], 1828.8, "length", ["<meter>"]],
 
   /* mass */
   "<kilogram>" : [["kg","kilogram","kilograms"], 1.0, "mass", ["<kilogram>"]],
@@ -430,6 +431,8 @@ var UNITS = {
 
   /* power */
   "<watt>"  : [["W","watt","watts"], 1.0, "power", ["<kilogram>","<meter>","<meter>"], ["<second>","<second>","<second>"]],
+  "<volt-ampere>"  : [["VA"], 1.0, "power", ["<kilogram>","<meter>","<meter>"], ["<second>","<second>","<second>"]],
+  "<volt-ampere-reactive>"  : [["var","Var","VAr","VAR"], 1.0, "power", ["<kilogram>","<meter>","<meter>"], ["<second>","<second>","<second>"]],
   "<horsepower>"  :  [["hp","horsepower"], 745.699872, "power", ["<kilogram>","<meter>","<meter>"], ["<second>","<second>","<second>"]],
 
   /* radiation */
@@ -493,14 +496,14 @@ function validateUnitDefinition(unitDef, definition) {
     if (UNITS[unit] === undefined) {
       throw new QtyError(unitDef + ": Invalid unit definition. " +
                          "Unit " + unit + " in 'numerator' is not recognized");
-      }
+    }
   });
 
   denominator.forEach(function(unit) {
     if (UNITS[unit] === undefined) {
       throw new QtyError(unitDef + ": Invalid unit definition. " +
                          "Unit " + unit + " in 'denominator' is not recognized");
-      }
+    }
   });
 }
 
@@ -582,7 +585,7 @@ function getUnits (kind) {
  */
 function getAliases(unitName) {
   if (!UNIT_MAP[unitName]) {
-      throw new QtyError("Unit not recognized");
+    throw new QtyError("Unit not recognized");
   }
   return UNITS[UNIT_MAP[unitName]][0];
 }
@@ -660,7 +663,9 @@ var QTY_STRING = "(" + SIGNED_NUMBER + ")?" + "\\s*([^/]*)(?:\/(.+))?";
 var QTY_STRING_REGEX = new RegExp("^" + QTY_STRING + "$");
 
 var POWER_OP = "\\^|\\*{2}";
-var SAFE_POWER = "[01234]"; // scalar, length, area, volume; 4 is for SI base unit form of lux
+// Allow unit powers representing scalar, length, area, volume; 4 is for some
+// special case representations in SI base units.
+var SAFE_POWER = "[01234]";
 var TOP_REGEX = new RegExp ("([^ \\*\\d]+?)(?:" + POWER_OP + ")?(-?" + SAFE_POWER + "(?![a-zA-Z]))");
 var BOTTOM_REGEX = new RegExp("([^ \\*\\d]+?)(?:" + POWER_OP + ")?(" + SAFE_POWER + "(?![a-zA-Z]))");
 
@@ -1527,7 +1532,7 @@ assign(Qty$1.prototype, {
   },
 
   // Returns a Qty that is the inverse of this Qty,
-    inverse: function() {
+  inverse: function() {
     if (this.isTemperature()) {
       throw new QtyError("Cannot divide with temperatures");
     }
@@ -1783,27 +1788,26 @@ NestedMap.prototype.get = function(keys) {
 
 NestedMap.prototype.set = function(keys, value) {
 
-    if (arguments.length > 2) {
-      keys = Array.prototype.slice.call(arguments, 0, -1);
-      value = arguments[arguments.length - 1];
+  if (arguments.length > 2) {
+    keys = Array.prototype.slice.call(arguments, 0, -1);
+    value = arguments[arguments.length - 1];
+  }
+
+  return keys.reduce(function(map, key, index) {
+
+    var childMap = map[key];
+    if (childMap === undefined) {
+      childMap = map[key] = {};
     }
 
-    return keys.reduce(function(map, key, index) {
-
-      var childMap = map[key];
-      if (childMap === undefined) {
-        childMap = map[key] = {};
-      }
-
-      if (index === keys.length - 1) {
-        childMap.data = value;
-        return value;
-      }
-      else {
-        return childMap;
-      }
-    },
-    this);
+    if (index === keys.length - 1) {
+      childMap.data = value;
+      return value;
+    }
+    else {
+      return childMap;
+    }
+  }, this);
 };
 
 /**
@@ -1992,7 +1996,7 @@ function simplify (units) {
   });
 }
 
-Qty$1.version = "1.6.6";
+Qty$1.version = "1.7.0";
 
 return Qty$1;
 

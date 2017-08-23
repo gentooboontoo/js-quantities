@@ -1,3 +1,10 @@
+1.7.0 / 2017-08-23
+------------------
+
+* Fix JS allocation failure for unrealistically large exponents
+* Add volt-ampere, volt-ampere-reactive and data mile definitions
+* Add redshift alias
+
 1.6.6 / 2017-02-08
 ------------------
 
