@@ -15,10 +15,10 @@ $(DISTFILE): $(SOURCES)
          --banner="`echo '/*'; cat LICENSE; echo '*/'`" \
          src/quantities.js
 
-test: build
+test: lint build
 	jasmine-node $(SPEC_DIR)
 
-lint:
+lint: $(LINTEDFILES)
 	jshint $(LINTEDFILES)
 	jscs $(LINTEDFILES)
 
