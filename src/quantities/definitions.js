@@ -1,4 +1,3 @@
-import Qty from "./constructor.js";
 import { isNumber } from "./utils.js";
 import QtyError from "./error.js";
 
@@ -351,7 +350,7 @@ export function getUnits (kind) {
       }
     }
   }
-  else if (Qty.getKinds().indexOf(kind) === -1) {
+  else if (this.getKinds().indexOf(kind) === -1) {
     throw new QtyError("Kind not recognized");
   }
   else {

@@ -1,4 +1,3 @@
-import Qty from "./constructor.js";
 import { isString } from "./utils.js";
 import QtyError from "./error.js";
 import { PREFIX_MAP, UNIT_MAP } from "./definitions.js";
@@ -186,7 +185,7 @@ export function globalParse(value) {
   }
 
   try {
-    return Qty(value);
+    return this(value);
   }
   catch (e) {
     return null;

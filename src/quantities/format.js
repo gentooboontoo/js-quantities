@@ -1,4 +1,4 @@
-import Qty from "./constructor.js";
+import Qty, { isQty } from "./constructor.js";
 import {
   PREFIX_VALUES,
   OUTPUT_MAP,
@@ -8,7 +8,6 @@ import {
   assign,
   compareArray,
   isNumber,
-  isQty,
   isString,
   round
 } from "./utils.js";

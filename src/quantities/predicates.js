@@ -1,6 +1,6 @@
-import Qty from "./constructor.js";
+import Qty, { isQty } from "./constructor.js";
 import { BASE_UNITS, UNITY, UNITY_ARRAY } from "./definitions.js";
-import { assign, compareArray, isQty, isString } from "./utils.js";
+import { assign, compareArray, isString } from "./utils.js";
 
 assign(Qty.prototype, {
   // returns true if no associated units
