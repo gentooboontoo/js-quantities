@@ -41,6 +41,6 @@
     "jasmine-node": "1.x",
     "jscs": "^2.7.0",
     "jshint": "^2.9.0",
-    "rollup": "~0.48"
+    "rollup": "~0.57"
   }
 }
