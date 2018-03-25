@@ -1,6 +1,7 @@
 {
   "name": "js-quantities",
   "main": "./build/quantities.js",
+  "module": "./build/quantities.esm.js",
   "readmeFilename": "README.md",
   "description": "JavaScript library for quantity calculation and unit conversion",
   "version": "1.7.0",
