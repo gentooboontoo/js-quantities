@@ -1,0 +1,622 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+$	lib/JSLitmus.js	/^    },$/;"	m	class:jsl
+$	lib/require.js	/^h&&(g=h,d=j);g&&(f.splice(0,d,g),a=f.join("\/"))}return a}function d(a){z&&y(document.getElementsByTagName("script"),function(f){if(f.getAttribute("data-requiremodule")===a&&f.getAttribute("data-requirecontext")===i.contextName)return f.parentNode.removeChild(f),!0})}function h(a){var f=l(k.paths,a);if(f&&I(f)&&1<f.length)return d(a),f.shift(),i.require.undef(a),i.require([a]),!0}function $(a){var f,b=a?a.indexOf("!"):-1;-1<b&&(f=a.substring(0,b),a=a.substring(b+1,a.length));return[f,a]}function n(a,$/;"	f
+-1	build/quantities.esm.js	/^  "-17": "volumetric_flow",$/;"	p	class:KINDS
+-1	src/quantities/kind.js	/^  "-17": "volumetric_flow",$/;"	p	class:KINDS
+-152038	build/quantities.esm.js	/^  "-152040": "magnetism",$/;"	p	class:KINDS
+-152038	src/quantities/kind.js	/^  "-152040": "magnetism",$/;"	p	class:KINDS
+-152040	build/quantities.esm.js	/^  "-152058": "potential",$/;"	p	class:KINDS
+-152040	src/quantities/kind.js	/^  "-152058": "potential",$/;"	p	class:KINDS
+-152058	build/quantities.esm.js	/^  "-312038": "inductance",$/;"	p	class:KINDS
+-152058	src/quantities/kind.js	/^  "-312038": "inductance",$/;"	p	class:KINDS
+-17	build/quantities.esm.js	/^  "-18": "viscosity",$/;"	p	class:KINDS
+-17	src/quantities/kind.js	/^  "-18": "viscosity",$/;"	p	class:KINDS
+-18	build/quantities.esm.js	/^  "-19": "speed",$/;"	p	class:KINDS
+-18	src/quantities/kind.js	/^  "-19": "speed",$/;"	p	class:KINDS
+-19	build/quantities.esm.js	/^  "-20": "frequency",$/;"	p	class:KINDS
+-19	src/quantities/kind.js	/^  "-20": "frequency",$/;"	p	class:KINDS
+-20	build/quantities.esm.js	/^  "-38": "radiation",$/;"	p	class:KINDS
+-20	src/quantities/kind.js	/^  "-38": "radiation",$/;"	p	class:KINDS
+-312038	build/quantities.esm.js	/^  "-312058": "resistance",$/;"	p	class:KINDS
+-312038	src/quantities/kind.js	/^  "-312058": "resistance",$/;"	p	class:KINDS
+-312058	build/quantities.esm.js	/^  "-312078": "elastance",$/;"	p	class:KINDS
+-312058	src/quantities/kind.js	/^  "-312078": "elastance",$/;"	p	class:KINDS
+-312078	build/quantities.esm.js	/^var KINDS = {$/;"	p	class:KINDS
+-312078	src/quantities/kind.js	/^var KINDS = {$/;"	p	class:KINDS
+-38	build/quantities.esm.js	/^  "-39": "acceleration",$/;"	p	class:KINDS
+-38	src/quantities/kind.js	/^  "-39": "acceleration",$/;"	p	class:KINDS
+-39	build/quantities.esm.js	/^  "-59": "jolt",$/;"	p	class:KINDS
+-39	src/quantities/kind.js	/^  "-59": "jolt",$/;"	p	class:KINDS
+-59	build/quantities.esm.js	/^  "-79": "snap",$/;"	p	class:KINDS
+-59	src/quantities/kind.js	/^  "-79": "snap",$/;"	p	class:KINDS
+-79	build/quantities.esm.js	/^  "-7997": "specific_volume",$/;"	p	class:KINDS
+-79	src/quantities/kind.js	/^  "-7997": "specific_volume",$/;"	p	class:KINDS
+-7997	build/quantities.esm.js	/^  "-152038": "magnetism",$/;"	p	class:KINDS
+-7997	src/quantities/kind.js	/^  "-152038": "magnetism",$/;"	p	class:KINDS
+0	build/quantities.esm.js	/^  "-1": "wavenumber",$/;"	p	class:KINDS
+0	src/quantities/kind.js	/^  "-1": "wavenumber",$/;"	p	class:KINDS
+1	build/quantities.esm.js	/^  "0": "unitless",$/;"	p	class:KINDS
+1	src/quantities/kind.js	/^  "0": "unitless",$/;"	p	class:KINDS
+1280000000	build/quantities.esm.js	/^  "64000000": "luminous_power",$/;"	p	class:KINDS
+1280000000	src/quantities/kind.js	/^  "64000000": "luminous_power",$/;"	p	class:KINDS
+152020	build/quantities.esm.js	/^  "8000": "mass",$/;"	p	class:KINDS
+152020	src/quantities/kind.js	/^  "8000": "mass",$/;"	p	class:KINDS
+159999	build/quantities.esm.js	/^  "152020": "radiation_exposure",$/;"	p	class:KINDS
+159999	src/quantities/kind.js	/^  "152020": "radiation_exposure",$/;"	p	class:KINDS
+160000	build/quantities.esm.js	/^  "159999": "magnetism",$/;"	p	class:KINDS
+160000	src/quantities/kind.js	/^  "159999": "magnetism",$/;"	p	class:KINDS
+160020	build/quantities.esm.js	/^  "160000": "current",$/;"	p	class:KINDS
+160020	src/quantities/kind.js	/^  "160000": "current",$/;"	p	class:KINDS
+2	build/quantities.esm.js	/^  "1": "length",$/;"	p	class:KINDS
+2	src/quantities/kind.js	/^  "1": "length",$/;"	p	class:KINDS
+20	build/quantities.esm.js	/^  "3": "volume",$/;"	p	class:KINDS
+20	src/quantities/kind.js	/^  "3": "volume",$/;"	p	class:KINDS
+25599999980	build/quantities.esm.js	/^  "1280000000": "currency",$/;"	p	class:KINDS
+25599999980	src/quantities/kind.js	/^  "1280000000": "currency",$/;"	p	class:KINDS
+25600000000	build/quantities.esm.js	/^  "25599999980": "information_rate",$/;"	p	class:KINDS
+25600000000	src/quantities/kind.js	/^  "25599999980": "information_rate",$/;"	p	class:KINDS
+3	build/quantities.esm.js	/^  "2": "area",$/;"	p	class:KINDS
+3	src/quantities/kind.js	/^  "2": "area",$/;"	p	class:KINDS
+312058	build/quantities.esm.js	/^  "160020": "charge",$/;"	p	class:KINDS
+312058	src/quantities/kind.js	/^  "160020": "charge",$/;"	p	class:KINDS
+312078	build/quantities.esm.js	/^  "312058": "conductance",$/;"	p	class:KINDS
+312078	src/quantities/kind.js	/^  "312058": "conductance",$/;"	p	class:KINDS
+3199980	build/quantities.esm.js	/^  "312078": "capacitance",$/;"	p	class:KINDS
+3199980	src/quantities/kind.js	/^  "312078": "capacitance",$/;"	p	class:KINDS
+3199997	build/quantities.esm.js	/^  "3199980": "activity",$/;"	p	class:KINDS
+3199997	src/quantities/kind.js	/^  "3199980": "activity",$/;"	p	class:KINDS
+3200000	build/quantities.esm.js	/^  "3199997": "molar_concentration",$/;"	p	class:KINDS
+3200000	src/quantities/kind.js	/^  "3199997": "molar_concentration",$/;"	p	class:KINDS
+400	build/quantities.esm.js	/^  "20": "time",$/;"	p	class:KINDS
+400	src/quantities/kind.js	/^  "20": "time",$/;"	p	class:KINDS
+511999999980	build/quantities.esm.js	/^  "25600000000": "information",$/;"	p	class:KINDS
+511999999980	src/quantities/kind.js	/^  "25600000000": "information",$/;"	p	class:KINDS
+512000000000	build/quantities.esm.js	/^  "511999999980": "angular_velocity",$/;"	p	class:KINDS
+512000000000	src/quantities/kind.js	/^  "511999999980": "angular_velocity",$/;"	p	class:KINDS
+63999998	build/quantities.esm.js	/^  "3200000": "substance",$/;"	p	class:KINDS
+63999998	src/quantities/kind.js	/^  "3200000": "substance",$/;"	p	class:KINDS
+64000000	build/quantities.esm.js	/^  "63999998": "illuminance",$/;"	p	class:KINDS
+64000000	src/quantities/kind.js	/^  "63999998": "illuminance",$/;"	p	class:KINDS
+7941	build/quantities.esm.js	/^  "400": "temperature",$/;"	p	class:KINDS
+7941	src/quantities/kind.js	/^  "400": "temperature",$/;"	p	class:KINDS
+7942	build/quantities.esm.js	/^  "7941": "yank",$/;"	p	class:KINDS
+7942	src/quantities/kind.js	/^  "7941": "yank",$/;"	p	class:KINDS
+7959	build/quantities.esm.js	/^  "7942": "power",$/;"	p	class:KINDS
+7959	src/quantities/kind.js	/^  "7942": "power",$/;"	p	class:KINDS
+7961	build/quantities.esm.js	/^  "7959": "pressure",$/;"	p	class:KINDS
+7961	src/quantities/kind.js	/^  "7959": "pressure",$/;"	p	class:KINDS
+7962	build/quantities.esm.js	/^  "7961": "force",$/;"	p	class:KINDS
+7962	src/quantities/kind.js	/^  "7961": "force",$/;"	p	class:KINDS
+7979	build/quantities.esm.js	/^  "7962": "energy",$/;"	p	class:KINDS
+7979	src/quantities/kind.js	/^  "7962": "energy",$/;"	p	class:KINDS
+7981	build/quantities.esm.js	/^  "7979": "viscosity",$/;"	p	class:KINDS
+7981	src/quantities/kind.js	/^  "7979": "viscosity",$/;"	p	class:KINDS
+7982	build/quantities.esm.js	/^  "7981": "momentum",$/;"	p	class:KINDS
+7982	src/quantities/kind.js	/^  "7981": "momentum",$/;"	p	class:KINDS
+7997	build/quantities.esm.js	/^  "7982": "angular_momentum",$/;"	p	class:KINDS
+7997	src/quantities/kind.js	/^  "7982": "angular_momentum",$/;"	p	class:KINDS
+7998	build/quantities.esm.js	/^  "7997": "density",$/;"	p	class:KINDS
+7998	src/quantities/kind.js	/^  "7997": "density",$/;"	p	class:KINDS
+8000	build/quantities.esm.js	/^  "7998": "area_density",$/;"	p	class:KINDS
+8000	src/quantities/kind.js	/^  "7998": "area_density",$/;"	p	class:KINDS
+<googol>	build/quantities.esm.js	/^var UNITS = {$/;"	p	class:UNITS
+<googol>	src/quantities/definitions.js	/^export var UNITS = {$/;"	p	class:export
+A	lib/require.js	/^c,d,h)):b[j]=c});return b}function u(b,c){return function(){return c.apply(b,arguments)}}function aa(b){throw b;}function ba(b){if(!b)return b;var c=Z;y(b.split("."),function(b){c=c[b]});return c}function A(b,c,d,h){c=Error(c+"\\nhttp:\/\/requirejs.org\/docs\/errors.html#"+b);c.requireType=b;c.requireModules=h;d&&(c.originalError=d);return c}function ha(b){function c(a,f,b){var e,m,c,g,d,h,j,i=f&&f.split("\/");e=i;var n=k.map,p=n&&n["*"];if(a&&"."===a.charAt(0))if(f){e=l(k.pkgs,f)?i=[f]:i.slice(0,i.length-$/;"	f	function:I
+BANNER	Makefile	/^BANNER := $(shell cat LICENSE)$/;"	m
+BASE_UNITS	build/quantities.esm.js	/^var BASE_UNITS = ["<meter>","<kilogram>","<second>","<mole>", "<ampere>","<radian>","<kelvin>","<temp-K>","<byte>","<dollar>","<candela>","<each>","<steradian>","<decibel>"];$/;"	v
+BOUNDARY_REGEX	build/quantities.esm.js	/^var BOUNDARY_REGEX = "\\\\b|$";$/;"	v
+BOUNDARY_REGEX	src/quantities/parse.js	/^var BOUNDARY_REGEX = "\\\\b|$";$/;"	v
+BUILD_DIR	Makefile	/^BUILD_DIR := build$/;"	m
+C	lib/require.js	/^d=l(p,g);d&&(!a.depMatched[c]&&!b[g])&&(l(f,g)?(a.defineDep(c,r[g]),a.check()):E(d,f,b))}),b[e]=!0)}function C(){var a,f,b,e,m=(b=1E3*k.waitSeconds)&&i.startTime+b<(new Date).getTime(),c=[],g=[],j=!1,l=!0;if(!U){U=!0;F(T,function(b){a=b.map;f=a.id;if(b.enabled&&(a.isDefine||g.push(b),!b.error))if(!b.inited&&m)h(f)?j=e=!0:(c.push(f),d(f));else if(!b.inited&&(b.fetched&&a.isDefine)&&(j=!0,!a.prefix))return l=!1});if(m&&c.length)return b=A("timeout","Load timeout for modules: "+c,null,c),b.contextName=$/;"	f
+D	lib/require.js	/^i.contextName,v(b);l&&y(g,function(a){E(a,{},{})});if((!m||e)&&j)if((z||da)&&!V)V=setTimeout(function(){V=0;C()},50);U=!1}}function D(a){s(r,a[0])||q(n(a[0],null,!0)).init(a[1],a[2])}function J(a){var a=a.currentTarget||a.srcElement,b=i.onScriptLoad;a.detachEvent&&!W?a.detachEvent("onreadystatechange",b):a.removeEventListener("load",b,!1);b=i.onScriptError;(!a.detachEvent||W)&&a.removeEventListener("error",b,!1);return{node:a,id:a&&a.getAttribute("data-requiremodule")}}function K(){var a;for(w();G.length;){a=$/;"	f	function:C
+DIST_FILES	Makefile	/^DIST_FILES := $(ESM_FILE) $(UMD_FILE)$/;"	m
+E	lib/require.js	/^e);if(s(r,e)&&(!m||m.defineEmitComplete))"defined"===f&&b(r[e]);else if(m=q(a),m.error&&"error"===f)b(m.error);else m.on(f,b)}function v(a,f){var b=a.requireModules,e=!1;if(f)f(a);else if(y(b,function(f){if(f=l(p,f))f.error=a,f.events.error&&(e=!0,f.emit("error",a))}),!e)j.onError(a)}function w(){R.length&&(ia.apply(G,[G.length-1,0].concat(R)),R=[])}function x(a){delete p[a];delete T[a]}function E(a,f,b){var e=a.map.id;a.error?a.emit("error",a.error):(f[e]=!0,y(a.depMaps,function(e,c){var g=e.id,$/;"	f
+ESM_FILE	Makefile	/^ESM_FILE := $(BUILD_DIR)\/quantities.esm.js$/;"	m
+EXPONENT	build/quantities.esm.js	/^var EXPONENT = "[Ee]" + SIGNED_INTEGER;$/;"	v
+EXPONENT	src/quantities/parse.js	/^var EXPONENT = "[Ee]" + SIGNED_INTEGER;$/;"	v
+F	lib/JSLitmus.js	/^    },$/;"	m	class:jsl
+F	lib/require.js	/^(function(Z){function H(b){return"[object Function]"===L.call(b)}function I(b){return"[object Array]"===L.call(b)}function y(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function M(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));d-=1);}}function s(b,c){return ga.call(b,c)}function l(b,c){return s(b,c)&&b[c]}function F(b,c){for(var d in b)if(s(b,d)&&c(b[d],d))break}function Q(b,c,d,h){c&&F(c,function(c,j){if(d||!s(b,j))h&&"string"!==typeof c?(b[j]||(b[j]={}),Q(b[j],$/;"	f	function:I
+FLOAT	build/quantities.esm.js	/^var FLOAT = "(?:" + INTEGER + "(?:" + FRACTION + ")?" + ")" +$/;"	v
+FLOAT	src/quantities/parse.js	/^var FLOAT = "(?:" + INTEGER + "(?:" + FRACTION + ")?" + ")" +$/;"	v
+FRACTION	build/quantities.esm.js	/^var FRACTION = "\\\\." + INTEGER;$/;"	v
+FRACTION	src/quantities/parse.js	/^var FRACTION = "\\\\." + INTEGER;$/;"	v
+I	lib/require.js	/^(function(Z){function H(b){return"[object Function]"===L.call(b)}function I(b){return"[object Array]"===L.call(b)}function y(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function M(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));d-=1);}}function s(b,c){return ga.call(b,c)}function l(b,c){return s(b,c)&&b[c]}function F(b,c){for(var d in b)if(s(b,d)&&c(b[d],d))break}function Q(b,c,d,h){c&&F(c,function(c,j){if(d||!s(b,j))h&&"string"!==typeof c?(b[j]||(b[j]={}),Q(b[j],$/;"	f
+INTEGER	build/quantities.esm.js	/^var INTEGER = "\\\\d+";$/;"	v
+INTEGER	src/quantities/parse.js	/^var INTEGER = "\\\\d+";$/;"	v
+J	lib/require.js	/^i.contextName,v(b);l&&y(g,function(a){E(a,{},{})});if((!m||e)&&j)if((z||da)&&!V)V=setTimeout(function(){V=0;C()},50);U=!1}}function D(a){s(r,a[0])||q(n(a[0],null,!0)).init(a[1],a[2])}function J(a){var a=a.currentTarget||a.srcElement,b=i.onScriptLoad;a.detachEvent&&!W?a.detachEvent("onreadystatechange",b):a.removeEventListener("load",b,!1);b=i.onScriptError;(!a.detachEvent||W)&&a.removeEventListener("error",b,!1);return{node:a,id:a&&a.getAttribute("data-requiremodule")}}function K(){var a;for(w();G.length;){a=$/;"	f	function:C
+K	lib/require.js	/^i.contextName,v(b);l&&y(g,function(a){E(a,{},{})});if((!m||e)&&j)if((z||da)&&!V)V=setTimeout(function(){V=0;C()},50);U=!1}}function D(a){s(r,a[0])||q(n(a[0],null,!0)).init(a[1],a[2])}function J(a){var a=a.currentTarget||a.srcElement,b=i.onScriptLoad;a.detachEvent&&!W?a.detachEvent("onreadystatechange",b):a.removeEventListener("load",b,!1);b=i.onScriptError;(!a.detachEvent||W)&&a.removeEventListener("error",b,!1);return{node:a,id:a&&a.getAttribute("data-requiremodule")}}function K(){var a;for(w();G.length;){a=$/;"	f
+LINTEDFILES	Makefile	/^LINTEDFILES := $(SOURCES) $(SPECFILES)$/;"	m
+M	lib/require.js	/^(function(Z){function H(b){return"[object Function]"===L.call(b)}function I(b){return"[object Array]"===L.call(b)}function y(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function M(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));d-=1);}}function s(b,c){return ga.call(b,c)}function l(b,c){return s(b,c)&&b[c]}function F(b,c){for(var d in b)if(s(b,d)&&c(b[d],d))break}function Q(b,c,d,h){c&&F(c,function(c,j){if(d||!s(b,j))h&&"string"!==typeof c?(b[j]||(b[j]={}),Q(b[j],$/;"	f	function:I
+MARKUP	lib/JSLitmus.js	/^  var MARKUP = '<div id="jslitmus"> \\$/;"	v
+Module	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+NestedMap	build/quantities.esm.js	/^function NestedMap() {}$/;"	c
+NestedMap	build/quantities.esm.js	/^function NestedMap() {}$/;"	f
+NestedMap	src/quantities/nested-map.js	/^export default function NestedMap() {}$/;"	c
+OUTPUT_MAP	build/quantities.esm.js	/^var OUTPUT_MAP = {};$/;"	v
+POWER_OP	build/quantities.esm.js	/^var POWER_OP = "\\\\^|\\\\*{2}";$/;"	v
+POWER_OP	src/quantities/parse.js	/^var POWER_OP = "\\\\^|\\\\*{2}";$/;"	v
+PREFIX_MAP	build/quantities.esm.js	/^var PREFIX_MAP = {};$/;"	v
+PREFIX_VALUES	build/quantities.esm.js	/^var PREFIX_VALUES = {};$/;"	v
+Q	lib/require.js	/^(function(Z){function H(b){return"[object Function]"===L.call(b)}function I(b){return"[object Array]"===L.call(b)}function y(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function M(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));d-=1);}}function s(b,c){return ga.call(b,c)}function l(b,c){return s(b,c)&&b[c]}function F(b,c){for(var d in b)if(s(b,d)&&c(b[d],d))break}function Q(b,c,d,h){c&&F(c,function(c,j){if(d||!s(b,j))h&&"string"!==typeof c?(b[j]||(b[j]={}),Q(b[j],$/;"	f	function:I.F
+QTY_STRING	build/quantities.esm.js	/^var QTY_STRING = "(" + SIGNED_NUMBER + ")?" + "\\\\s*([^\/]*)(?:\\\/(.+))?";$/;"	v
+QTY_STRING	src/quantities/parse.js	/^var QTY_STRING = "(" + SIGNED_NUMBER + ")?" + "\\\\s*([^\/]*)(?:\\\/(.+))?";$/;"	v
+Qty	build/quantities.esm.js	/^function Qty(initValue, initUnits) {$/;"	c
+Qty	spec/quantitiesSpec.js	/^var Qty;$/;"	v
+Qty	src/quantities/constructor.js	/^}$/;"	c
+Qty	src/quantities/kind.js	/^}$/;"	c
+QtyError	build/quantities.esm.js	/^function QtyError() {$/;"	c
+QtyError	src/quantities/error.js	/^}$/;"	c
+SAFE_POWER	build/quantities.esm.js	/^var SAFE_POWER = "[01234]";$/;"	v
+SAFE_POWER	src/quantities/parse.js	/^var SAFE_POWER = "[01234]";$/;"	v
+SCI_NUMBER	build/quantities.esm.js	/^var SCI_NUMBER = "(?:" + FLOAT + ")(?:" + EXPONENT + ")?";$/;"	v
+SCI_NUMBER	src/quantities/parse.js	/^var SCI_NUMBER = "(?:" + FLOAT + ")(?:" + EXPONENT + ")?";$/;"	v
+SIGN	build/quantities.esm.js	/^var SIGN = "[+-]";$/;"	v
+SIGN	src/quantities/parse.js	/^var SIGN = "[+-]";$/;"	v
+SIGNATURE_VECTOR	build/quantities.esm.js	/^var SIGNATURE_VECTOR = ["length", "time", "temperature", "mass", "current", "substance", "luminosity", "currency", "information", "angle"];$/;"	v
+SIGNATURE_VECTOR	src/quantities/signature.js	/^var SIGNATURE_VECTOR = ["length", "time", "temperature", "mass", "current", "substance", "luminosity", "currency", "information", "angle"];$/;"	v
+SIGNED_INTEGER	build/quantities.esm.js	/^var SIGNED_INTEGER = SIGN + "?" + INTEGER;$/;"	v
+SIGNED_INTEGER	src/quantities/parse.js	/^var SIGNED_INTEGER = SIGN + "?" + INTEGER;$/;"	v
+SIGNED_NUMBER	build/quantities.esm.js	/^var SIGNED_NUMBER = SIGN + "?\\\\s*" + SCI_NUMBER;$/;"	v
+SIGNED_NUMBER	src/quantities/parse.js	/^var SIGNED_NUMBER = SIGN + "?\\\\s*" + SCI_NUMBER;$/;"	v
+SOURCES	Makefile	/^SOURCES := $(shell find $(SOURCE_DIR) -iname '*.js')$/;"	m
+SOURCE_DIR	Makefile	/^SOURCE_DIR := src$/;"	m
+SPECFILES	Makefile	/^SPECFILES := $(shell find $(SPEC_DIR) -iname '*.js')$/;"	m
+SPEC_DIR	Makefile	/^SPEC_DIR := spec$/;"	m
+STYLESHEET	lib/JSLitmus.js	/^  var STYLESHEET = '<style> \\$/;"	v
+Test	lib/JSLitmus.js	/^  var Test = function (name, f) {$/;"	f
+UMD_FILE	Makefile	/^UMD_FILE := $(BUILD_DIR)\/quantities.js$/;"	m
+UNITY	build/quantities.esm.js	/^var UNITY = "<1>";$/;"	v
+UNITY_ARRAY	build/quantities.esm.js	/^var UNITY_ARRAY = [UNITY];$/;"	v
+UNIT_MAP	build/quantities.esm.js	/^var UNIT_MAP = {};$/;"	v
+UNIT_MATCH	build/quantities.esm.js	/^var UNIT_MATCH = "(" + PREFIX_REGEX + ")??(" +$/;"	v
+UNIT_MATCH	src/quantities/parse.js	/^var UNIT_MATCH = "(" + PREFIX_REGEX + ")??(" +$/;"	v
+UNIT_VALUES	build/quantities.esm.js	/^var UNIT_VALUES = {};$/;"	v
+X	lib/require.js	/^l(k.pkgs,a.map.id);return(b?l(k.config,a.map.id+"\/"+b.main):l(k.config,a.map.id))||{}},exports:r[a.map.id]}}};X=function(a){this.events=l(Y,a.id)||{};this.map=a;this.shim=l(k.shim,a.id);this.depExports=[];this.depMaps=[];this.depMatched=[];this.pluginMaps={};this.depCount=0};X.prototype={init:function(a,b,c,e){e=e||{};if(!this.inited){this.factory=b;if(c)this.on("error",c);else this.events.error&&(c=u(this,function(a){this.emit("error",a)}));this.depMaps=a&&a.slice(0);this.errback=c;this.inited=!0;$/;"	c
+_tests	lib/JSLitmus.js	/^  window.JSLitmus = {$/;"	p	class:window.JSLitmus
+aa	lib/require.js	/^c,d,h)):b[j]=c});return b}function u(b,c){return function(){return c.apply(b,arguments)}}function aa(b){throw b;}function ba(b){if(!b)return b;var c=Z;y(b.split("."),function(b){c=c[b]});return c}function A(b,c,d,h){c=Error(c+"\\nhttp:\/\/requirejs.org\/docs\/errors.html#"+b);c.requireType=b;c.requireModules=h;d&&(c.originalError=d);return c}function ha(b){function c(a,f,b){var e,m,c,g,d,h,j,i=f&&f.split("\/");e=i;var n=k.map,p=n&&n["*"];if(a&&"."===a.charAt(0))if(f){e=l(k.pkgs,f)?i=[f]:i.slice(0,i.length-$/;"	f	function:I
+add	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Queue.prototype.add = function(block, ensure) {$/;"	m	class:jasmine.Queue
+add	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.add = function(block) {$/;"	m	class:jasmine.Runner
+add	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.add = function(suiteOrSpec) {$/;"	m	class:jasmine.Suite
+addBefore	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Queue.prototype.addBefore = function(block, ensure) {$/;"	m	class:jasmine.Queue
+addBeforesAndAftersToQueue	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.addBeforesAndAftersToQueue = function() {$/;"	m	class:jasmine.Spec
+addEqualityTester	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.addEqualityTester = function(equalityTester) {$/;"	m	class:jasmine.Env
+addMatcherResult	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.addMatcherResult = function(result) {$/;"	m	class:jasmine.Spec
+addMatchers	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.addMatchers = function(matchersPrototype) {$/;"	m	class:jasmine.Spec
+addReporter	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.addReporter = function(reporter) {$/;"	m	class:jasmine.Env
+addReporter	lib/jasmine-1.3.1/jasmine.js	/^jasmine.MultiReporter.prototype.addReporter = function(reporter) {$/;"	m	class:jasmine.MultiReporter
+addResult	lib/jasmine-1.3.1/jasmine.js	/^jasmine.NestedResults.prototype.addResult = function(result) {$/;"	m	class:jasmine.NestedResults
+addSpecs	lib/jasmine-1.3.1/jasmine-html.js	/^  this.addSpecs = function(specs, specFilter) {$/;"	m	class:jasmine.HtmlReporter.ReporterView
+addSuite	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.addSuite = function(suite) {$/;"	m	class:jasmine.Runner
+addTempDegrees	build/quantities.esm.js	/^function addTempDegrees(temp,deg) {$/;"	f
+addToQueue	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.addToQueue = function (block) {$/;"	m	class:jasmine.Spec
+after	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.after = function(doAfter) {$/;"	m	class:jasmine.Spec
+afterEach	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.afterEach = function(afterEachFunction) {$/;"	m	class:jasmine.Env
+afterEach	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.afterEach = function(afterEachFunction) {$/;"	m	class:jasmine.Runner
+afterEach	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.afterEach = function(afterEachFunction) {$/;"	m	class:jasmine.Suite
+afterEach	lib/jasmine-1.3.1/jasmine.js	/^var afterEach = function(afterEachFunction) {$/;"	f
+andCallFake	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spy.prototype.andCallFake = function(fakeFunc) {$/;"	m	class:jasmine.Spy
+andCallThrough	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spy.prototype.andCallThrough = function() {$/;"	m	class:jasmine.Spy
+andReturn	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spy.prototype.andReturn = function(value) {$/;"	m	class:jasmine.Spy
+andThrow	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spy.prototype.andThrow = function(exceptionMsg) {$/;"	m	class:jasmine.Spy
+append	lib/jasmine-1.3.1/jasmine.js	/^jasmine.StringPrettyPrinter.prototype.append = function(value) {$/;"	m	class:jasmine.StringPrettyPrinter
+appendFailureDetail	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporter.SpecView.prototype.appendFailureDetail = function() {$/;"	m	class:jasmine.HtmlReporter.SpecView
+appendSummaryToSuiteDiv	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporter.SpecView.prototype.appendSummaryToSuiteDiv = function() {$/;"	m	class:jasmine.HtmlReporter.SpecView
+assertValidConstructorArgs	build/quantities.esm.js	/^function assertValidConstructorArgs(value, units) {$/;"	f
+assertValidConstructorArgs	src/quantities/constructor.js	/^function assertValidConstructorArgs(value, units) {$/;"	f
+assign	build/quantities.esm.js	/^function assign(target, properties) {$/;"	f
+ba	lib/require.js	/^c,d,h)):b[j]=c});return b}function u(b,c){return function(){return c.apply(b,arguments)}}function aa(b){throw b;}function ba(b){if(!b)return b;var c=Z;y(b.split("."),function(b){c=c[b]});return c}function A(b,c,d,h){c=Error(c+"\\nhttp:\/\/requirejs.org\/docs\/errors.html#"+b);c.requireType=b;c.requireModules=h;d&&(c.originalError=d);return c}function ha(b){function c(a,f,b){var e,m,c,g,d,h,j,i=f&&f.split("\/");e=i;var n=k.map,p=n&&n["*"];if(a&&"."===a.charAt(0))if(f){e=l(k.pkgs,f)?i=[f]:i.slice(0,i.length-$/;"	f	function:I
+baseURI	lib/browser-es-module-loader.js	/^  var baseURI;$/;"	v
+baseUnitCache	build/quantities.esm.js	/^var baseUnitCache = {};$/;"	v
+baseUnitCache	src/quantities/conversion.js	/^var baseUnitCache = {};$/;"	v
+baseUrl	lib/require.js	/^G.shift();if(null===a[0])return v(A("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));D(a)}}var U,X,i,N,V,k={waitSeconds:7,baseUrl:".\/",paths:{},pkgs:{},shim:{},config:{}},p={},T={},Y={},G=[],r={},S={},L=1,M=1;N={require:function(a){return a.require?a.require:a.require=i.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?a.exports:a.exports=r[a.map.id]={}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){var b=$/;"	p	class:U
+beforeEach	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.beforeEach = function(beforeEachFunction) {$/;"	m	class:jasmine.Env
+beforeEach	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.beforeEach = function(beforeEachFunction) {$/;"	m	class:jasmine.Runner
+beforeEach	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.beforeEach = function(beforeEachFunction) {$/;"	m	class:jasmine.Suite
+beforeEach	lib/jasmine-1.3.1/jasmine.js	/^var beforeEach = function(beforeEachFunction) {$/;"	f
+bottom	src/quantities/parse.js	/^  var bottom = result[3];$/;"	v
+bs	lib/JSLitmus.js	/^      var bs = 5;$/;"	v
+build	lib/jasmine-1.3.1/jasmine.js	/^  "minor": 3,$/;"	p	class:jasmine.version_
+c	lib/require.js	/^c,d,h)):b[j]=c});return b}function u(b,c){return function(){return c.apply(b,arguments)}}function aa(b){throw b;}function ba(b){if(!b)return b;var c=Z;y(b.split("."),function(b){c=c[b]});return c}function A(b,c,d,h){c=Error(c+"\\nhttp:\/\/requirejs.org\/docs\/errors.html#"+b);c.requireType=b;c.requireModules=h;d&&(c.originalError=d);return c}function ha(b){function c(a,f,b){var e,m,c,g,d,h,j,i=f&&f.split("\/");e=i;var n=k.map,p=n&&n["*"];if(a&&"."===a.charAt(0))if(f){e=l(k.pkgs,f)?i=[f]:i.slice(0,i.length-$/;"	f	function:I.ha
+cell	lib/JSLitmus.js	/^      var cell = test._row.cells[1];$/;"	v
+chart_title	lib/JSLitmus.js	/^      var chart_title = [];$/;"	v
+children	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.children = function() {$/;"	m	class:jasmine.Suite
+chtt	lib/JSLitmus.js	/^      var params = {$/;"	p	class:params
+chxCatch.onclick	lib/jasmine-1.3.1/jasmine-html.js	/^    }$/;"	f
+cleanTerms	build/quantities.esm.js	/^function cleanTerms(num, den) {$/;"	f
+cleanTerms	src/quantities/operators.js	/^function cleanTerms(num, den) {$/;"	f
+clearInterval	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.clearInterval = jasmine.clearInterval;$/;"	m	class:jasmine.Env
+clearTimeout	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.clearTimeout = jasmine.clearTimeout;$/;"	m	class:jasmine.Env
+cns	lib/JSLitmus.js	/^      var cns = [test.loopArg ? 'test_looping' : 'test_nonlooping'];$/;"	v
+compareArray	build/quantities.esm.js	/^function compareArray(array1, array2) {$/;"	f
+compareObjects_	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.compareObjects_ = function(a, b, mismatchKeys, mismatchValues) {$/;"	m	class:jasmine.Env
+compareRegExps_	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.compareRegExps_ = function(a, b, mismatchKeys, mismatchValues) {$/;"	m	class:jasmine.Env
+complete	lib/jasmine-1.3.1/jasmine-html.js	/^  this.complete = function() {$/;"	c
+config	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+constructor	build/quantities.esm.js	/^Qty.prototype = {$/;"	p	class:Qty
+constructor	src/quantities/constructor.js	/^Qty.prototype = {$/;"	p	class:Qty
+contains_	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.contains_ = function(haystack, needle) {$/;"	m	class:jasmine.Env
+contextName	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+convert	build/quantities.esm.js	/^  if (!srcQty.isTemperature()) {$/;"	f
+convert	src/quantities/conversion.js	/^  if (!srcQty.isTemperature()) {$/;"	f
+convert	src/quantities/conversion.js	/^  var convert;$/;"	v
+createDom	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.createDom = function(type, attrs, childrenVarArgs) {$/;"	m	class:jasmine.TrivialReporter
+createReporterDom	lib/jasmine-1.3.1/jasmine-html.js	/^  function createReporterDom(version) {$/;"	f
+createResultsMenu	lib/jasmine-1.3.1/jasmine-html.js	/^  this.createResultsMenu = function() {$/;"	m	class:jasmine.HtmlReporter.ReporterView
+ctor	lib/jasmine-1.3.1/jasmine-html.js	/^  for(var fn in jasmine.HtmlReporterHelpers) {$/;"	c
+currentRunner	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.currentRunner = function () {$/;"	m	class:jasmine.Env
+d	lib/JSLitmus.js	/^      var d, min = 0, max = -1e10;$/;"	v
+d	lib/require.js	/^h&&(g=h,d=j);g&&(f.splice(0,d,g),a=f.join("\/"))}return a}function d(a){z&&y(document.getElementsByTagName("script"),function(f){if(f.getAttribute("data-requiremodule")===a&&f.getAttribute("data-requirecontext")===i.contextName)return f.parentNode.removeChild(f),!0})}function h(a){var f=l(k.paths,a);if(f&&I(f)&&1<f.length)return d(a),f.shift(),i.require.undef(a),i.require([a]),!0}function $(a){var f,b=a?a.indexOf("!"):-1;-1<b&&(f=a.substring(0,b),a=a.substring(b+1,a.length));return[f,a]}function n(a,$/;"	f
+defQueue	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+defaultFakeTimer	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Clock = {$/;"	p	class:jasmine.jasmine
+defaultFormatter	build/quantities.esm.js	/^function defaultFormatter(scalar, units) {$/;"	f
+defaultFormatter	src/quantities/format.js	/^function defaultFormatter(scalar, units) {$/;"	f
+define	lib/require.js	/^b.onScriptError,!1)),h.src=d,K=h,C?x.insertBefore(h,C):x.appendChild(h),K=null,h;if(da)try{importScripts(d),b.completeLoad(c)}catch(l){b.onError(A("importscripts","importScripts failed for "+c+" at "+d,l,[c]))}};z&&M(document.getElementsByTagName("script"),function(b){x||(x=b.parentNode);if(J=b.getAttribute("data-main"))return q=J,t.baseUrl||(D=q.split("\/"),q=D.pop(),fa=D.length?D.join("\/")+"\/":".\/",t.baseUrl=fa),q=q.replace(ea,""),j.jsExtRegExp.test(q)&&(q=J),t.deps=t.deps?t.deps.concat(q):[q],!0});$/;"	f
+defineDep	lib/require.js	/^this.ignore=e.ignore;e.enabled||this.enabled?this.enable():this.check()}},defineDep:function(a,b){this.depMatched[a]||(this.depMatched[a]=!0,this.depCount-=1,this.depExports[a]=b)},fetch:function(){if(!this.fetched){this.fetched=!0;i.startTime=(new Date).getTime();var a=this.map;if(this.shim)i.makeRequire(this.map,{enableBuildCallback:!0})(this.shim.deps||[],u(this,function(){return a.prefix?this.callPlugin():this.load()}));else return a.prefix?this.callPlugin():this.load()}},load:function(){var a=$/;"	m	class:e.e.e.X
+defined	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+describe	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.describe = function(description, specDefinitions) {$/;"	m	class:jasmine.Env
+describe	lib/jasmine-1.3.1/jasmine.js	/^var describe = function(description, specDefinitions) {$/;"	f
+detailsMenuItem	lib/jasmine-1.3.1/jasmine-html.js	/^    this.detailsMenuItem.onclick = function() {$/;"	m	class:createResultsMenu
+divSafe	build/quantities.esm.js	/^function divSafe(num, den) {$/;"	f
+dstDegrees	src/quantities/temperature.js	/^  var dstDegrees = Qty(getDegreeUnits(lhsUnits));$/;"	v
+dstQty	src/quantities/conversion.js	/^  var dstQty = Qty(dstUnits);$/;"	v
+dstScalar	src/quantities/temperature.js	/^  var dstScalar;$/;"	v
+dstUnits	src/quantities/temperature.js	/^  var dstUnits = dst.units();$/;"	v
+emitArray	lib/jasmine-1.3.1/jasmine.js	/^jasmine.PrettyPrinter.prototype.emitArray = jasmine.unimplementedMethod_;$/;"	m	class:jasmine.PrettyPrinter
+emitArray	lib/jasmine-1.3.1/jasmine.js	/^jasmine.StringPrettyPrinter.prototype.emitArray = function(array) {$/;"	m	class:jasmine.StringPrettyPrinter
+emitObject	lib/jasmine-1.3.1/jasmine.js	/^jasmine.PrettyPrinter.prototype.emitObject = jasmine.unimplementedMethod_;$/;"	m	class:jasmine.PrettyPrinter
+emitObject	lib/jasmine-1.3.1/jasmine.js	/^jasmine.StringPrettyPrinter.prototype.emitObject = function(obj) {$/;"	m	class:jasmine.StringPrettyPrinter
+emitScalar	lib/jasmine-1.3.1/jasmine.js	/^jasmine.PrettyPrinter.prototype.emitScalar = jasmine.unimplementedMethod_;$/;"	m	class:jasmine.PrettyPrinter
+emitScalar	lib/jasmine-1.3.1/jasmine.js	/^jasmine.StringPrettyPrinter.prototype.emitScalar = function(value) {$/;"	m	class:jasmine.StringPrettyPrinter
+emitString	lib/jasmine-1.3.1/jasmine.js	/^jasmine.PrettyPrinter.prototype.emitString = jasmine.unimplementedMethod_;$/;"	m	class:jasmine.PrettyPrinter
+emitString	lib/jasmine-1.3.1/jasmine.js	/^jasmine.StringPrettyPrinter.prototype.emitString = function(value) {$/;"	m	class:jasmine.StringPrettyPrinter
+envGlobal	lib/browser-es-module-loader.js	/^  var envGlobal = typeof self !== 'undefined' ? self : global;$/;"	v
+equals_	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.equals_ = function(a, b, mismatchKeys, mismatchValues) {$/;"	m	class:jasmine.Env
+escape	lib/JSLitmus.js	/^  var jsl = {$/;"	m	class:jsl
+execJasmine	SpecRunner.html	/^    function execJasmine() {$/;"	f
+execute	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Block.prototype.execute = function(onComplete) {$/;"	m	class:jasmine.Block
+execute	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.execute = function() {$/;"	m	class:jasmine.Env
+execute	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.execute = function() {$/;"	m	class:jasmine.Runner
+execute	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.execute = function(onComplete) {$/;"	m	class:jasmine.Spec
+execute	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.execute = function(onComplete) {$/;"	m	class:jasmine.Suite
+execute	lib/jasmine-1.3.1/jasmine.js	/^jasmine.WaitsBlock.prototype.execute = function (onComplete) {$/;"	m	class:jasmine.WaitsBlock
+execute	lib/jasmine-1.3.1/jasmine.js	/^jasmine.WaitsForBlock.prototype.execute = function(onComplete) {$/;"	m	class:jasmine.WaitsForBlock
+expect	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.expect = function(actual) {$/;"	m	class:jasmine.Spec
+expect	lib/jasmine-1.3.1/jasmine.js	/^var expect = function(actual) {$/;"	f
+explodes	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.explodes = function() {$/;"	m	class:jasmine.Spec
+extend	lib/JSLitmus.js	/^    },$/;"	m	class:jsl
+factor	src/quantities/utils.js	/^  var factor = Math.pow(10, getFractional(den));$/;"	v
+fail	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.fail = function (e) {$/;"	m	class:jasmine.Spec
+finish	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.finish = function(onComplete) {$/;"	m	class:jasmine.Spec
+finish	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.finish = function(onComplete) {$/;"	m	class:jasmine.Suite
+finishCallback	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.finishCallback = function() {$/;"	m	class:jasmine.Runner
+finishCallback	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.finishCallback = function() {$/;"	m	class:jasmine.Spec
+focusedSpecName	lib/jasmine-1.3.1/jasmine-html.js	/^  function focusedSpecName() {$/;"	f	function:jasmine.HtmlReporter
+format	lib/jasmine-1.3.1/jasmine.js	/^jasmine.PrettyPrinter.prototype.format = function(value) {$/;"	m	class:jasmine.PrettyPrinter
+get	build/quantities.esm.js	/^NestedMap.prototype.get = function(keys) {$/;"	m	class:NestedMap
+get	src/quantities/nested-map.js	/^NestedMap.prototype.get = function(keys) {$/;"	m	class:NestedMap
+getAliases	build/quantities.esm.js	/^function getAliases(unitName) {$/;"	f
+getDegreeUnits	build/quantities.esm.js	/^function getDegreeUnits(units) {$/;"	f
+getDegreeUnits	src/quantities/temperature.js	/^function getDegreeUnits(units) {$/;"	f
+getFractional	build/quantities.esm.js	/^function getFractional(num) {$/;"	f
+getFractional	src/quantities/utils.js	/^function getFractional(num) {$/;"	f
+getFullName	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.getFullName = function() {$/;"	m	class:jasmine.Spec
+getFullName	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.getFullName = function() {$/;"	m	class:jasmine.Suite
+getGlobal	lib/jasmine-1.3.1/jasmine.js	/^  function getGlobal() {$/;"	f	function:jasmine.getGlobal
+getItems	lib/jasmine-1.3.1/jasmine.js	/^jasmine.NestedResults.prototype.getItems = function() {$/;"	m	class:jasmine.NestedResults
+getKinds	build/quantities.esm.js	/^function getKinds() {$/;"	f
+getLocation	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.getLocation = function() {$/;"	m	class:jasmine.TrivialReporter
+getMatchersClass_	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.getMatchersClass_ = function() {$/;"	m	class:jasmine.Spec
+getOutputNames	build/quantities.esm.js	/^function getOutputNames(units) {$/;"	f
+getOutputNames	src/quantities/format.js	/^function getOutputNames(units) {$/;"	f
+getUnits	build/quantities.esm.js	/^function getUnits (kind) {$/;"	f
+globalParse	build/quantities.esm.js	/^function globalParse(value) {$/;"	f
+h	lib/JSLitmus.js	/^      var h = markers.length*(bw + bs) + 30 + chart_title.length*20;$/;"	v
+h	lib/require.js	/^h&&(g=h,d=j);g&&(f.splice(0,d,g),a=f.join("\/"))}return a}function d(a){z&&y(document.getElementsByTagName("script"),function(f){if(f.getAttribute("data-requiremodule")===a&&f.getAttribute("data-requirecontext")===i.contextName)return f.parentNode.removeChild(f),!0})}function h(a){var f=l(k.paths,a);if(f&&I(f)&&1<f.length)return d(a),f.shift(),i.require.undef(a),i.require([a]),!0}function $(a){var f,b=a?a.indexOf("!"):-1;-1<b&&(f=a.substring(0,b),a=a.substring(b+1,a.length));return[f,a]}function n(a,$/;"	f
+ha	lib/require.js	/^c,d,h)):b[j]=c});return b}function u(b,c){return function(){return c.apply(b,arguments)}}function aa(b){throw b;}function ba(b){if(!b)return b;var c=Z;y(b.split("."),function(b){c=c[b]});return c}function A(b,c,d,h){c=Error(c+"\\nhttp:\/\/requirejs.org\/docs\/errors.html#"+b);c.requireType=b;c.requireModules=h;d&&(c.originalError=d);return c}function ha(b){function c(a,f,b){var e,m,c,g,d,h,j,i=f&&f.split("\/");e=i;var n=k.map,p=n&&n["*"];if(a&&"."===a.charAt(0))if(f){e=l(k.pkgs,f)?i=[f]:i.slice(0,i.length-$/;"	f	function:I
+hasKey	lib/jasmine-1.3.1/jasmine.js	/^  var hasKey = function(obj, keyName) {$/;"	f	function:var
+i	lib/babel-browser-build.js	/^(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){$/;"	v
+id	lib/jasmine-1.3.1/jasmine.js	/^  var summary = {$/;"	p	class:jasmine.JsApiReporter.var.summary
+id	lib/require.js	/^G.shift();if(null===a[0])return v(A("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));D(a)}}var U,X,i,N,V,k={waitSeconds:7,baseUrl:".\/",paths:{},pkgs:{},shim:{},config:{}},p={},T={},Y={},G=[],r={},S={},L=1,M=1;N={require:function(a){return a.require?a.require:a.require=i.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?a.exports:a.exports=r[a.map.id]={}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){var b=$/;"	p	class:module.module.module
+identity	build/quantities.esm.js	/^function identity(value) {$/;"	f
+indexOf	lib/JSLitmus.js	/^    },$/;"	m	class:jsl
+init	lib/require.js	/^l(k.pkgs,a.map.id);return(b?l(k.config,a.map.id+"\/"+b.main):l(k.config,a.map.id))||{}},exports:r[a.map.id]}}};X=function(a){this.events=l(Y,a.id)||{};this.map=a;this.shim=l(k.shim,a.id);this.depExports=[];this.depMaps=[];this.depMatched=[];this.pluginMaps={};this.depCount=0};X.prototype={init:function(a,b,c,e){e=e||{};if(!this.inited){this.factory=b;if(c)this.on("error",c);else this.events.error&&(c=u(this,function(a){this.emit("error",a)}));this.depMaps=a&&a.slice(0);this.errback=c;this.inited=!0;$/;"	m	class:X
+insertNext	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Queue.prototype.insertNext = function(block, ensure) {$/;"	m	class:jasmine.Queue
+invDen	src/quantities/utils.js	/^  var invDen = factor \/ (factor * den);$/;"	v
+isBrowser	lib/browser-es-module-loader.js	/^  var isBrowser = typeof window !== 'undefined' && typeof document !== 'undefined';$/;"	v
+isCommonJS	lib/jasmine-1.3.1/jasmine.js	/^var isCommonJS = typeof window == "undefined" && typeof exports == "object";$/;"	v
+isDefined	lib/jasmine-1.3.1/jasmine-html.js	/^  function isDefined(obj) {$/;"	f
+isDefinitionObject	build/quantities.esm.js	/^function isDefinitionObject(value) {$/;"	f
+isDefinitionObject	src/quantities/constructor.js	/^function isDefinitionObject(value) {$/;"	f
+isFiniteImpl	build/quantities.esm.js	/^var isFiniteImpl = Number.isFinite || window.isFinite;$/;"	v
+isFiniteImpl	src/quantities/utils.js	/^var isFiniteImpl = Number.isFinite || window.isFinite;$/;"	v
+isNode	lib/browser-es-module-loader.js	/^  var isNode = typeof process !== 'undefined' && process.versions && process.versions.node;$/;"	v
+isNumber	build/quantities.esm.js	/^function isNumber(value) {$/;"	f
+isQty	build/quantities.esm.js	/^function isQty(value) {$/;"	f
+isRunning	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Queue.prototype.isRunning = function() {$/;"	m	class:jasmine.Queue
+isString	build/quantities.esm.js	/^function isString(value) {$/;"	f
+isUndefined	lib/jasmine-1.3.1/jasmine-html.js	/^  function isUndefined(obj) {$/;"	f
+isWindows	lib/browser-es-module-loader.js	/^  var isWindows = typeof process !== 'undefined' && typeof process.platform === 'string' && process.platform.match(\/^win\/);$/;"	v
+it	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.it = function(description, func) {$/;"	m	class:jasmine.Env
+it	lib/jasmine-1.3.1/jasmine.js	/^var it = function(desc, func) {$/;"	f
+iterateObject	lib/jasmine-1.3.1/jasmine.js	/^jasmine.PrettyPrinter.prototype.iterateObject = function(obj, fn) {$/;"	m	class:jasmine.PrettyPrinter
+j	lib/require.js	/^return i}var j,w,x,C,J,D,P,K,q,fa,la=\/(\\\/\\*([\\s\\S]*?)\\*\\\/|([^:]|^)\\\/\\\/(.*)$)\/mg,ma=\/[^.]\\s*require\\s*\\(\\s*["']([^'"\\s]+)["']\\s*\\)\/g,ea=\/\\.js$\/,ja=\/^\\.\\\/\/;w=Object.prototype;var L=w.toString,ga=w.hasOwnProperty,ia=Array.prototype.splice,z=!!("undefined"!==typeof window&&navigator&&window.document),da=!z&&"undefined"!==typeof importScripts,ka=z&&"PLAYSTATION 3"===navigator.platform?\/^complete$\/:\/^(complete|loaded)$\/,W="undefined"!==typeof opera&&"[object Opera]"===opera.toString(),E={},t={},R=[],O=$/;"	v
+j.exec	lib/require.js	/^R).push([b,c,d])};define.amd={jQuery:!0};j.exec=function(b){return eval(b)};j(t)}})(this);$/;"	f
+j.load	lib/require.js	/^document.createElement("script");c.type=b.scriptType||"text\/javascript";c.charset="utf-8";c.async=!0;return c};j.load=function(b,c,d){var h=b&&b.config||{};if(z)return h=j.createNode(h,c,d),h.setAttribute("data-requirecontext",b.contextName),h.setAttribute("data-requiremodule",c),h.attachEvent&&!(h.attachEvent.toString&&0>h.attachEvent.toString().indexOf("[native code"))&&!W?(O=!0,h.attachEvent("onreadystatechange",b.onScriptLoad)):(h.addEventListener("load",b.onScriptLoad,!1),h.addEventListener("error",$/;"	f
+jQuery	lib/require.js	/^R).push([b,c,d])};define.amd={jQuery:!0};j.exec=function(b){return eval(b)};j(t)}})(this);$/;"	p	class:define.amd
+jasmine	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.wasCalledWith = jasmine.Matchers.prototype.toHaveBeenCalledWith;$/;"	c	class:jasmine
+jasmine	lib/jasmine-1.3.1/jasmine.js	/^var jasmine = {};$/;"	v
+jasmine	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	m
+jasmine.Block	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Env	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.ExpectationResult	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.HtmlReporter	lib/jasmine-1.3.1/jasmine-html.js	/^};$/;"	f
+jasmine.HtmlReporter.ReporterView	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporterHelpers.addHelpers(jasmine.HtmlReporter);$/;"	c
+jasmine.HtmlReporter.SpecView	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporterHelpers.addHelpers(jasmine.HtmlReporter.ReporterView);$/;"	c
+jasmine.HtmlReporter.SuiteView	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporterHelpers.addHelpers(jasmine.HtmlReporter.SpecView);jasmine.HtmlReporter.SuiteView = function(suite, dom, views) {$/;"	c
+jasmine.HtmlReporter.parameters	lib/jasmine-1.3.1/jasmine-html.js	/^};$/;"	f
+jasmine.HtmlReporter.sectionLink	lib/jasmine-1.3.1/jasmine-html.js	/^}$/;"	f
+jasmine.HtmlReporterHelpers.addHelpers	lib/jasmine-1.3.1/jasmine-html.js	/^};$/;"	f
+jasmine.HtmlReporterHelpers.appendToSummary	lib/jasmine-1.3.1/jasmine-html.js	/^};$/;"	f
+jasmine.HtmlReporterHelpers.createDom	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporterHelpers = {};$/;"	f
+jasmine.HtmlReporterHelpers.getSpecStatus	lib/jasmine-1.3.1/jasmine-html.js	/^};$/;"	f
+jasmine.JsApiReporter	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Matchers	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Matchers.matcherFn_	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Matchers.pp	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.Matchers.wrapInto_	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.MessageResult	lib/jasmine-1.3.1/jasmine.js	/^jasmine.clearInterval = jasmine.bindOriginal_(jasmine.getGlobal(), 'clearInterval');$/;"	c
+jasmine.MultiReporter	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.NestedResults	lib/jasmine-1.3.1/jasmine.js	/^})();$/;"	c
+jasmine.PrettyPrinter	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Queue	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Reporter	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Reporter	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.Runner	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Runner	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.Spec	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Spec	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.Spy	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.StringPrettyPrinter	lib/jasmine-1.3.1/jasmine.js	/^jasmine.PrettyPrinter.prototype.emitString = jasmine.unimplementedMethod_;$/;"	c
+jasmine.Suite	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.Suite	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.TrivialReporter	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporterHelpers.addHelpers(jasmine.HtmlReporter.SuiteView);$/;"	c
+jasmine.WaitsBlock	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.WaitsForBlock	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	c
+jasmine.any	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.bindOriginal_	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.createSpy	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.createSpyObj	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.getEnv	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.getGlobal	lib/jasmine-1.3.1/jasmine.js	/^jasmine.CATCH_EXCEPTIONS = true;$/;"	f
+jasmine.isA_	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.isArray_	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.isDomNode	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.isNumber_	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.isSpy	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.isString_	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.log	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.objectContaining	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.pp	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.util.argsToArray	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.util.extend	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.util.formatException	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.util.htmlEscape	lib/jasmine-1.3.1/jasmine.js	/^};$/;"	f
+jasmine.util.inherit	lib/jasmine-1.3.1/jasmine.js	/^jasmine.util = {};$/;"	f
+jasmineMatches	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.Any.prototype.jasmineMatches = function(other) {$/;"	m	class:jasmine.jasmine.jasmine
+jasmineMatches	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.ObjectContaining.prototype.jasmineMatches = function(other, mismatchKeys, mismatchValues) {$/;"	m	class:jasmine.jasmine.jasmine
+jasmineToString	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.Any.prototype.jasmineToString = function() {$/;"	m	class:jasmine.jasmine.jasmine
+jasmineToString	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.ObjectContaining.prototype.jasmineToString = function () {$/;"	m	class:jasmine.jasmine.jasmine
+join	lib/JSLitmus.js	/^    },$/;"	m	class:jsl
+kind	build/quantities.esm.js	/^Qty.prototype.kind = function() {$/;"	m	class:Qty
+kind	src/quantities/kind.js	/^Qty.prototype.kind = function() {$/;"	m	class:Qty
+l	lib/require.js	/^(function(Z){function H(b){return"[object Function]"===L.call(b)}function I(b){return"[object Array]"===L.call(b)}function y(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function M(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));d-=1);}}function s(b,c){return ga.call(b,c)}function l(b,c){return s(b,c)&&b[c]}function F(b,c){for(var d in b)if(s(b,d)&&c(b[d],d))break}function Q(b,c,d,h){c&&F(c,function(c,j){if(d||!s(b,j))h&&"string"!==typeof c?(b[j]||(b[j]={}),Q(b[j],$/;"	f	function:I
+labels	lib/JSLitmus.js	/^      var labels = [jsl.toLabel(min), jsl.toLabel(max)];$/;"	v
+log	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.log = function() {$/;"	m	class:jasmine.TrivialReporter
+log	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.log = function(str) {$/;"	m	class:jasmine.JsApiReporter
+log	lib/jasmine-1.3.1/jasmine.js	/^jasmine.NestedResults.prototype.log = function(values) {$/;"	m	class:jasmine.NestedResults
+log	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Reporter.prototype.log = function(str) {$/;"	m	class:jasmine.Reporter
+log	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.log = function() {$/;"	m	class:jasmine.Spec
+major	lib/jasmine-1.3.1/jasmine.js	/^jasmine.version_= {$/;"	p	class:jasmine.version_
+makeModuleMap	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+matchersClass	lib/jasmine-1.3.1/jasmine.js	/^    var orig = prototype[methodName];$/;"	c
+matchersClass	lib/jasmine-1.3.1/jasmine.js	/^  this.matchersClass = function() {$/;"	m	class:jasmine.Env
+message	lib/jasmine-1.3.1/jasmine.js	/^	this.message = function() {$/;"	m	class:jasmine.Matchers.this
+message	lib/jasmine-1.3.1/jasmine.js	/^  this.message = function() {$/;"	m	class:this
+messages	lib/jasmine-1.3.1/jasmine.js	/^  this.results_[spec.id] = {$/;"	p	class:jasmine.JsApiReporter.this.results_
+minor	lib/jasmine-1.3.1/jasmine.js	/^  "major": 1,$/;"	p	class:jasmine.version_
+mulSafe	build/quantities.esm.js	/^function mulSafe() {$/;"	f
+n	lib/require.js	/^h&&(g=h,d=j);g&&(f.splice(0,d,g),a=f.join("\/"))}return a}function d(a){z&&y(document.getElementsByTagName("script"),function(f){if(f.getAttribute("data-requiremodule")===a&&f.getAttribute("data-requirecontext")===i.contextName)return f.parentNode.removeChild(f),!0})}function h(a){var f=l(k.paths,a);if(f&&I(f)&&1<f.length)return d(a),f.shift(),i.require.undef(a),i.require([a]),!0}function $(a){var f,b=a?a.indexOf("!"):-1;-1<b&&(f=a.substring(0,b),a=a.substring(b+1,a.length));return[f,a]}function n(a,$/;"	f
+n	src/quantities/parse.js	/^  var n, x, nx;$/;"	v
+newMatchersClass	lib/jasmine-1.3.1/jasmine.js	/^  var newMatchersClass = function() {$/;"	f	function:jasmine.Spec.var
+nextSpecId	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.nextSpecId = function () {$/;"	m	class:jasmine.Env
+nextSuiteId	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.nextSuiteId = function () {$/;"	m	class:jasmine.Env
+nextTick	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+next_	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Queue.prototype.next_ = function() {$/;"	m	class:jasmine.Queue
+noTryCatch	lib/jasmine-1.3.1/jasmine-html.js	/^  function noTryCatch() {$/;"	f
+normalize	lib/JSLitmus.js	/^      var normalize = jsl.$('test_normalize').checked;$/;"	v
+onComplete	lib/jasmine-1.3.1/jasmine.js	/^      var onComplete = function () {$/;"	f	function:var
+oncomplete	SpecRunner.html	/^    function oncomplete(callback) {$/;"	f
+oses	lib/JSLitmus.js	/^  var oses = ['Windows','iPhone OS','(Intel |PPC )?Mac OS X','Linux'].join('|');$/;"	v
+parse	build/quantities.esm.js	/^function parse(val) {$/;"	f
+parseUnits	build/quantities.esm.js	/^function parseUnits(units) {$/;"	f
+parseUnits	src/quantities/parse.js	/^function parseUnits(units) {$/;"	f
+parsedUnitsCache	build/quantities.esm.js	/^var parsedUnitsCache = {};$/;"	v
+parsedUnitsCache	src/quantities/parse.js	/^var parsedUnitsCache = {};$/;"	v
+passed	lib/jasmine-1.3.1/jasmine.js	/^jasmine.ExpectationResult.prototype.passed = function () {$/;"	m	class:jasmine.ExpectationResult
+passed	lib/jasmine-1.3.1/jasmine.js	/^jasmine.NestedResults.prototype.passed = function() {$/;"	m	class:jasmine.NestedResults
+paths	lib/require.js	/^G.shift();if(null===a[0])return v(A("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));D(a)}}var U,X,i,N,V,k={waitSeconds:7,baseUrl:".\/",paths:{},pkgs:{},shim:{},config:{}},p={},T={},Y={},G=[],r={},S={},L=1,M=1;N={require:function(a){return a.require?a.require:a.require=i.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?a.exports:a.exports=r[a.map.id]={}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){var b=$/;"	p	class:U
+plan	lib/jasmine-1.3.1/jasmine.js	/^  this.plan = function() {$/;"	m	class:jasmine.Spy
+plan	lib/jasmine-1.3.1/jasmine.js	/^  this.plan = function() {$/;"	m	class:jasmine.Spy.this
+q	lib/require.js	/^f,b,e){var m,B,g=null,d=f?f.name:null,h=a,j=!0,k="";a||(j=!1,a="_@r"+(L+=1));a=$(a);g=a[0];a=a[1];g&&(g=c(g,d,e),B=l(r,g));a&&(g?k=B&&B.normalize?B.normalize(a,function(a){return c(a,d,e)}):c(a,d,e):(k=c(a,d,e),a=$(k),g=a[0],k=a[1],b=!0,m=i.nameToUrl(k)));b=g&&!B&&!b?"_unnormalized"+(M+=1):"";return{prefix:g,name:k,parentMap:f,unnormalized:!!b,url:m,originalName:h,isDefine:j,id:(g?g+"!"+k:k)+b}}function q(a){var f=a.id,b=l(p,f);b||(b=p[f]=new i.Module(a));return b}function t(a,f,b){var e=a.id,m=l(p,$/;"	f
+q	src/quantities/temperature.js	/^  var q;$/;"	v
+refresh	lib/jasmine-1.3.1/jasmine-html.js	/^  this.refresh = function() {$/;"	c
+refresh	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporter.SpecView.prototype.refresh = function() {$/;"	m	class:jasmine.HtmlReporter.SpecView
+refresh	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporter.SuiteView.prototype.refresh = function() {$/;"	m	class:jasmine.HtmlReporter.SuiteView
+registry	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+removeAllSpies	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.removeAllSpies = function() {$/;"	m	class:jasmine.Spec
+report	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.report = function(result, failing_message, details) {$/;"	m	class:jasmine.Matchers
+reportRunnerResults	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.reportRunnerResults = function(runner) {$/;"	m	class:jasmine.TrivialReporter
+reportRunnerResults	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.reportRunnerResults = function(runner) {$/;"	m	class:jasmine.JsApiReporter
+reportRunnerResults	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Reporter.prototype.reportRunnerResults = function(runner) {$/;"	m	class:jasmine.Reporter
+reportRunnerStarting	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.reportRunnerStarting = function(runner) {$/;"	m	class:jasmine.TrivialReporter
+reportRunnerStarting	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.reportRunnerStarting = function(runner) {$/;"	m	class:jasmine.JsApiReporter
+reportRunnerStarting	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Reporter.prototype.reportRunnerStarting = function(runner) {$/;"	m	class:jasmine.Reporter
+reportSpecResults	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.reportSpecResults = function(spec) {$/;"	m	class:jasmine.TrivialReporter
+reportSpecResults	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.reportSpecResults = function(spec) {$/;"	m	class:jasmine.JsApiReporter
+reportSpecResults	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Reporter.prototype.reportSpecResults = function(spec) {$/;"	m	class:jasmine.Reporter
+reportSpecStarting	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.reportSpecStarting = function(spec) {$/;"	m	class:jasmine.TrivialReporter
+reportSpecStarting	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Reporter.prototype.reportSpecStarting = function(spec) {$/;"	m	class:jasmine.Reporter
+reportSuiteResults	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.reportSuiteResults = function(suite) {$/;"	m	class:jasmine.TrivialReporter
+reportSuiteResults	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.reportSuiteResults = function(suite) {$/;"	m	class:jasmine.JsApiReporter
+reportSuiteResults	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Reporter.prototype.reportSuiteResults = function(suite) {$/;"	m	class:jasmine.Reporter
+require	lib/require.js	/^G.shift();if(null===a[0])return v(A("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));D(a)}}var U,X,i,N,V,k={waitSeconds:7,baseUrl:".\/",paths:{},pkgs:{},shim:{},config:{}},p={},T={},Y={},G=[],r={},S={},L=1,M=1;N={require:function(a){return a.require?a.require:a.require=i.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?a.exports:a.exports=r[a.map.id]={}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){var b=$/;"	m	class:N
+requirejs	lib/require.js	/^var requirejs,require,define;$/;"	v
+reset	lib/jasmine-1.3.1/jasmine.js	/^jasmine.FakeTimer.prototype.reset = function() {$/;"	m	class:jasmine.jasmine
+reset	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spy.prototype.reset = function() {$/;"	m	class:jasmine.Spy
+result	src/quantities/parse.js	/^  var result = QTY_STRING_REGEX.exec(val);$/;"	v
+results	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.results = function() {$/;"	m	class:jasmine.JsApiReporter
+results	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Queue.prototype.results = function() {$/;"	m	class:jasmine.Queue
+results	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.results = function() {$/;"	m	class:jasmine.Runner
+results	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.results = function() {$/;"	m	class:jasmine.Spec
+results	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.results = function() {$/;"	m	class:jasmine.Suite
+resultsForSpec	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.resultsForSpec = function(specId) {$/;"	m	class:jasmine.JsApiReporter
+resultsForSpecs	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.resultsForSpecs = function(specIds){$/;"	m	class:jasmine.JsApiReporter
+return	lib/jasmine-1.3.1/jasmine.js	/^jasmine.isA_ = function(typeName, value) {$/;"	c
+reverse	lib/JSLitmus.js	/^      var reverse = e && e.shiftKey, len = JSLitmus._tests.length;$/;"	v
+revision	lib/jasmine-1.3.1/jasmine.js	/^  "build": 1,$/;"	p	class:jasmine.version_
+rhsConverted	src/quantities/temperature.js	/^  var rhsConverted = rhs.to(lhsUnits);$/;"	v
+rollupCounts	lib/jasmine-1.3.1/jasmine.js	/^jasmine.NestedResults.prototype.rollupCounts = function(result) {$/;"	m	class:jasmine.NestedResults
+round	build/quantities.esm.js	/^function round(val, decimals) {$/;"	f
+runAtMillis	lib/jasmine-1.3.1/jasmine.js	/^  this.scheduledFunctions[timeoutKey] = {$/;"	p	class:jasmine.jasmine.this.scheduledFunctions
+runFunctionsWithinRange	lib/jasmine-1.3.1/jasmine.js	/^jasmine.FakeTimer.prototype.runFunctionsWithinRange = function(oldMillis, nowMillis) {$/;"	m	class:jasmine.jasmine
+runs	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.runs = function (func) {$/;"	m	class:jasmine.Spec
+runs	lib/jasmine-1.3.1/jasmine.js	/^var runs = function(func) {$/;"	f
+s	lib/require.js	/^(function(Z){function H(b){return"[object Function]"===L.call(b)}function I(b){return"[object Array]"===L.call(b)}function y(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function M(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));d-=1);}}function s(b,c){return ga.call(b,c)}function l(b,c){return s(b,c)&&b[c]}function F(b,c){for(var d in b)if(s(b,d)&&c(b[d],d))break}function Q(b,c,d,h){c&&F(c,function(c,j){if(d||!s(b,j))h&&"string"!==typeof c?(b[j]||(b[j]={}),Q(b[j],$/;"	f	function:I
+scalar	build/quantities.esm.js	/^      UNIT_VALUES[unitDef] = {$/;"	p	class:UNIT_VALUES
+scalar	src/quantities/definitions.js	/^      UNIT_VALUES[unitDef] = {$/;"	p	class:UNIT_VALUES
+scalarMatch	src/quantities/parse.js	/^  var scalarMatch = result[1];$/;"	v
+scheduleFunction	lib/jasmine-1.3.1/jasmine.js	/^jasmine.FakeTimer.prototype.scheduleFunction = function(timeoutKey, funcToCall, millis, recurring) {$/;"	m	class:jasmine.jasmine
+searchWithCatch	lib/jasmine-1.3.1/jasmine-html.js	/^  function searchWithCatch() {$/;"	f
+self	lib/jasmine-1.3.1/jasmine.js	/^  var self = this;$/;"	m	class:jasmine
+self	lib/jasmine-1.3.1/jasmine.js	/^  };$/;"	m
+self.log	lib/jasmine-1.3.1/jasmine-html.js	/^  };$/;"	f
+self.reportRunnerResults	lib/jasmine-1.3.1/jasmine-html.js	/^  };$/;"	f
+self.reportRunnerStarting	lib/jasmine-1.3.1/jasmine-html.js	/^  self.logRunningSpecs = false;$/;"	f
+self.reportSpecResults	lib/jasmine-1.3.1/jasmine-html.js	/^  };$/;"	f
+self.reportSpecStarting	lib/jasmine-1.3.1/jasmine-html.js	/^  };$/;"	f
+self.reportSuiteResults	lib/jasmine-1.3.1/jasmine-html.js	/^  };$/;"	f
+self.specFilter	lib/jasmine-1.3.1/jasmine-html.js	/^  };$/;"	f
+set	build/quantities.esm.js	/^NestedMap.prototype.set = function(keys, value) {$/;"	m	class:NestedMap
+set	src/quantities/nested-map.js	/^NestedMap.prototype.set = function(keys, value) {$/;"	m	class:NestedMap
+setExceptionHandling	lib/jasmine-1.3.1/jasmine-html.js	/^  function setExceptionHandling() {$/;"	f
+setInterval	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.setInterval = jasmine.setInterval;$/;"	m	class:jasmine.Env
+setTimeout	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.setTimeout = jasmine.setTimeout;$/;"	m	class:jasmine.Env
+showDetails	lib/jasmine-1.3.1/jasmine-html.js	/^  function showDetails() {$/;"	f
+showPassed	lib/jasmine-1.3.1/jasmine-html.js	/^  var self = this;$/;"	m
+showSkipped	lib/jasmine-1.3.1/jasmine-html.js	/^  };$/;"	m
+simplify	build/quantities.esm.js	/^function simplify (units) {$/;"	f
+simplify	src/quantities/format.js	/^function simplify (units) {$/;"	f
+specComplete	lib/jasmine-1.3.1/jasmine-html.js	/^  this.specComplete = function(spec) {$/;"	c
+specFilter	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.TrivialReporter.prototype.specFilter = function(spec) {$/;"	m	class:jasmine.TrivialReporter
+specFilter	lib/jasmine-1.3.1/jasmine.js	/^  this.specFilter = function() {$/;"	m	class:jasmine.Env
+specPluralizedFor	lib/jasmine-1.3.1/jasmine-html.js	/^  function specPluralizedFor(count) {$/;"	f
+specs	lib/jasmine-1.3.1/jasmine-html.js	/^    this.views = {$/;"	p	class:jasmine.HtmlReporter.ReporterView.addSpecs.views
+specs	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.specs = function () {$/;"	m	class:jasmine.Runner
+specs	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.specs = function() {$/;"	m	class:jasmine.Suite
+spyObj	lib/jasmine-1.3.1/jasmine.js	/^  var spyObj = function() {$/;"	f	function:jasmine.createSpy
+spyOn	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.spyOn = function(obj, methodName, ignoreMethodDoesntExist) {$/;"	m	class:jasmine.Spec
+spyOn	lib/jasmine-1.3.1/jasmine.js	/^var spyOn = function(obj, methodName) {$/;"	f
+start	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Queue.prototype.start = function(onComplete) {$/;"	m	class:jasmine.Queue
+status	lib/JSLitmus.js	/^    F: function() {},$/;"	m	class:jsl
+status	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporter.SpecView.prototype.status = function() {$/;"	m	class:jasmine.HtmlReporter.SpecView
+status	lib/jasmine-1.3.1/jasmine-html.js	/^jasmine.HtmlReporter.SuiteView.prototype.status = function() {$/;"	m	class:jasmine.HtmlReporter.SuiteView
+stringifyUnits	build/quantities.esm.js	/^function stringifyUnits(units) {$/;"	f
+stringifyUnits	src/quantities/format.js	/^function stringifyUnits(units) {$/;"	f
+subclass	lib/jasmine-1.3.1/jasmine.js	/^  var subclass = function() {$/;"	f	function:jasmine.util.inherit
+subclass	lib/jasmine-1.3.1/jasmine.js	/^  };$/;"	c
+subtractTempDegrees	build/quantities.esm.js	/^function subtractTempDegrees(temp,deg) {$/;"	f
+subtractTemperatures	build/quantities.esm.js	/^function subtractTemperatures(lhs,rhs) {$/;"	f
+suiteComplete	lib/jasmine-1.3.1/jasmine-html.js	/^  this.suiteComplete = function(suite) {$/;"	f
+suites	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.suites = function() {$/;"	m	class:jasmine.JsApiReporter
+suites	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.suites = function() {$/;"	m	class:jasmine.Runner
+suites	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Suite.prototype.suites = function() {$/;"	m	class:jasmine.Suite
+summarizeResult_	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.summarizeResult_ = function(result){$/;"	m	class:jasmine.JsApiReporter
+summarize_	lib/jasmine-1.3.1/jasmine.js	/^jasmine.JsApiReporter.prototype.summarize_ = function(suiteOrSpec) {$/;"	m	class:jasmine.JsApiReporter
+summaryMenuItem	lib/jasmine-1.3.1/jasmine-html.js	/^    this.summaryMenuItem.onclick = function() {$/;"	m	class:jasmine.HtmlReporter.ReporterView.createResultsMenu
+swiftConverter	build/quantities.esm.js	/^function swiftConverter(srcUnits, dstUnits) {$/;"	f
+t	lib/require.js	/^f,b,e){var m,B,g=null,d=f?f.name:null,h=a,j=!0,k="";a||(j=!1,a="_@r"+(L+=1));a=$(a);g=a[0];a=a[1];g&&(g=c(g,d,e),B=l(r,g));a&&(g?k=B&&B.normalize?B.normalize(a,function(a){return c(a,d,e)}):c(a,d,e):(k=c(a,d,e),a=$(k),g=a[0],k=a[1],b=!0,m=i.nameToUrl(k)));b=g&&!B&&!b?"_unnormalized"+(M+=1):"";return{prefix:g,name:k,parentMap:f,unnormalized:!!b,url:m,originalName:h,isDefine:j,id:(g?g+"!"+k:k)+b}}function q(a){var f=a.id,b=l(p,f);b||(b=p[f]=new i.Module(a));return b}function t(a,f,b){var e=a.id,m=l(p,$/;"	f
+test._row.onclick	lib/JSLitmus.js	/^        test._row.id = '';$/;"	f
+test.onStop	lib/JSLitmus.js	/^      test.onChange = JSLitmus.renderTest;$/;"	f
+throwIncompatibleUnits	build/quantities.esm.js	/^function throwIncompatibleUnits(left, right) {$/;"	f
+tick	lib/jasmine-1.3.1/jasmine.js	/^jasmine.FakeTimer.prototype.tick = function(millis) {$/;"	m	class:jasmine.jasmine
+toBaseUnits	build/quantities.esm.js	/^function toBaseUnits (numerator,denominator) {$/;"	f
+toBaseUnits	src/quantities/conversion.js	/^function toBaseUnits (numerator,denominator) {$/;"	f
+toBe	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBe = function(expected) {$/;"	m	class:jasmine.Matchers
+toBeCloseTo	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeCloseTo = function(expected, precision) {$/;"	m	class:jasmine.jasmine
+toBeDefined	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeDefined = function() {$/;"	m	class:jasmine.Matchers
+toBeFalsy	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeFalsy = function() {$/;"	m	class:jasmine.Matchers
+toBeGreaterThan	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeGreaterThan = function(expected) {$/;"	m	class:jasmine.jasmine
+toBeLessThan	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeLessThan = function(expected) {$/;"	m	class:jasmine.jasmine
+toBeNaN	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeNaN = function() {$/;"	m	class:jasmine.Matchers
+toBeNull	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeNull = function() {$/;"	m	class:jasmine.Matchers
+toBeTruthy	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeTruthy = function() {$/;"	m	class:jasmine.Matchers
+toBeUndefined	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toBeUndefined = function() {$/;"	m	class:jasmine.Matchers
+toContain	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toContain = function(expected) {$/;"	m	class:jasmine.jasmine
+toDegK	build/quantities.esm.js	/^function toDegK(qty) {$/;"	f
+toDegK	src/quantities/temperature.js	/^function toDegK(qty) {$/;"	f
+toDegrees	build/quantities.esm.js	/^function toDegrees(src,dst) {$/;"	f
+toEqual	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toEqual = function(expected) {$/;"	m	class:jasmine.Matchers
+toHaveBeenCalled	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toHaveBeenCalled = function() {$/;"	m	class:jasmine.Matchers
+toHaveBeenCalledWith	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toHaveBeenCalledWith = function() {$/;"	m	class:jasmine.Matchers
+toLabel	lib/JSLitmus.js	/^    },$/;"	m	class:jsl
+toMatch	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toMatch = function(expected) {$/;"	m	class:jasmine.Matchers
+toNotBe	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toNotBe = function(expected) {$/;"	m	class:jasmine.Matchers
+toNotContain	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toNotContain = function(expected) {$/;"	m	class:jasmine.jasmine
+toNotEqual	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toNotEqual = function(expected) {$/;"	m	class:jasmine.Matchers
+toNotMatch	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toNotMatch = function(expected) {$/;"	m	class:jasmine.Matchers
+toString	lib/jasmine-1.3.1/jasmine.js	/^  return Object.prototype.toString.apply(value) === '[object ' + typeName + ']';$/;"	m	class:return
+toString	lib/jasmine-1.3.1/jasmine.js	/^jasmine.ExpectationResult.prototype.toString = function () {$/;"	m	class:jasmine.ExpectationResult
+toString	lib/jasmine-1.3.1/jasmine.js	/^jasmine.MessageResult.prototype.toString = function() {$/;"	m	class:jasmine.MessageResult
+toTemp	build/quantities.esm.js	/^function toTemp(src,dst) {$/;"	f
+toTempK	build/quantities.esm.js	/^function toTempK(qty) {$/;"	f
+toThrow	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.toThrow = function(expected) {$/;"	m	class:jasmine.jasmine
+top	src/quantities/parse.js	/^  var top = result[2];$/;"	v
+topLevelSuites	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Runner.prototype.topLevelSuites = function() {$/;"	m	class:jasmine.Runner
+tryIt	lib/jasmine-1.3.1/jasmine.js	/^  function tryIt(f) {$/;"	f	function:function
+u	lib/require.js	/^c,d,h)):b[j]=c});return b}function u(b,c){return function(){return c.apply(b,arguments)}}function aa(b){throw b;}function ba(b){if(!b)return b;var c=Z;y(b.split("."),function(b){c=c[b]});return c}function A(b,c,d,h){c=Error(c+"\\nhttp:\/\/requirejs.org\/docs\/errors.html#"+b);c.requireType=b;c.requireModules=h;d&&(c.originalError=d);return c}function ha(b){function c(a,f,b){var e,m,c,g,d,h,j,i=f&&f.split("\/");e=i;var n=k.map,p=n&&n["*"];if(a&&"."===a.charAt(0))if(f){e=l(k.pkgs,f)?i=[f]:i.slice(0,i.length-$/;"	f	function:I.F
+uniq	build/quantities.esm.js	/^function uniq(strings) {$/;"	f
+unitSignature	build/quantities.esm.js	/^function unitSignature() {$/;"	f
+unitSignatureVector	build/quantities.esm.js	/^function unitSignatureVector() {$/;"	f
+unitSignatureVector	src/quantities/signature.js	/^function unitSignatureVector() {$/;"	f
+units	src/quantities/definitions.js	/^  var units = [];$/;"	v
+updateBaseScalar	build/quantities.esm.js	/^function updateBaseScalar() {$/;"	f
+updateBaseScalar	src/quantities/constructor.js	/^function updateBaseScalar() {$/;"	f
+urlFetched	lib/require.js	/^a);this.check()}));this.errback&&t(a,"error",u(this,this.errback))}c=a.id;e=p[c];!s(N,c)&&(e&&!e.enabled)&&i.enable(a,this)}));F(this.pluginMaps,u(this,function(a){var b=l(p,a.id);b&&!b.enabled&&i.enable(a,this)}));this.enabling=!1;this.check()},on:function(a,b){var c=this.events[a];c||(c=this.events[a]=[]);c.push(b)},emit:function(a,b){y(this.events[a],function(a){a(b)});"error"===a&&delete this.events[a]}};i={config:k,contextName:b,registry:p,defined:r,urlFetched:S,defQueue:G,Module:X,makeModuleMap:n,$/;"	p	class:i
+v	lib/require.js	/^e);if(s(r,e)&&(!m||m.defineEmitComplete))"defined"===f&&b(r[e]);else if(m=q(a),m.error&&"error"===f)b(m.error);else m.on(f,b)}function v(a,f){var b=a.requireModules,e=!1;if(f)f(a);else if(y(b,function(f){if(f=l(p,f))f.error=a,f.events.error&&(e=!0,f.emit("error",a))}),!e)j.onError(a)}function w(){R.length&&(ia.apply(G,[G.length-1,0].concat(R)),R=[])}function x(a){delete p[a];delete T[a]}function E(a,f,b){var e=a.map.id;a.error?a.emit("error",a.error):(f[e]=!0,y(a.depMaps,function(e,c){var g=e.id,$/;"	f
+validateUnitDefinition	build/quantities.esm.js	/^function validateUnitDefinition(unitDef, definition) {$/;"	f
+validateUnitDefinition	src/quantities/definitions.js	/^function validateUnitDefinition(unitDef, definition) {$/;"	f
+vector	src/quantities/signature.js	/^  var vector = unitSignatureVector.call(this);$/;"	v
+version	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.version = function () {$/;"	m	class:jasmine.Env
+versionString	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.versionString = function() {$/;"	m	class:jasmine.Env
+w	lib/JSLitmus.js	/^      var w = 250, bw = 15;$/;"	v
+w	lib/require.js	/^e);if(s(r,e)&&(!m||m.defineEmitComplete))"defined"===f&&b(r[e]);else if(m=q(a),m.error&&"error"===f)b(m.error);else m.on(f,b)}function v(a,f){var b=a.requireModules,e=!1;if(f)f(a);else if(y(b,function(f){if(f=l(p,f))f.error=a,f.events.error&&(e=!0,f.emit("error",a))}),!e)j.onError(a)}function w(){R.length&&(ia.apply(G,[G.length-1,0].concat(R)),R=[])}function x(a){delete p[a];delete T[a]}function E(a,f,b){var e=a.map.id;a.error?a.emit("error",a.error):(f[e]=!0,y(a.depMaps,function(e,c){var g=e.id,$/;"	f
+waitSeconds	lib/require.js	/^G.shift();if(null===a[0])return v(A("mismatch","Mismatched anonymous define() module: "+a[a.length-1]));D(a)}}var U,X,i,N,V,k={waitSeconds:7,baseUrl:".\/",paths:{},pkgs:{},shim:{},config:{}},p={},T={},Y={},G=[],r={},S={},L=1,M=1;N={require:function(a){return a.require?a.require:a.require=i.makeRequire(a.map)},exports:function(a){a.usingExports=!0;if(a.map.isDefine)return a.exports?a.exports:a.exports=r[a.map.id]={}},module:function(a){return a.module?a.module:a.module={id:a.map.id,uri:a.map.url,config:function(){var b=$/;"	p	class:U
+waits	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.waits = function(timeout) {$/;"	m	class:jasmine.Spec
+waits	lib/jasmine-1.3.1/jasmine.js	/^var waits = function(timeout) {$/;"	f
+waitsFor	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Spec.prototype.waitsFor = function(latchFunction, optional_timeoutMessage, optional_timeout) {$/;"	m	class:jasmine.Spec
+waitsFor	lib/jasmine-1.3.1/jasmine.js	/^var waitsFor = function(latchFunction, optional_timeoutMessage, optional_timeout) {$/;"	f
+wasCalled	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.wasCalled = jasmine.Matchers.prototype.toHaveBeenCalled;$/;"	m	class:jasmine.Matchers
+wasNotCalled	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.wasNotCalled = function() {$/;"	m	class:jasmine.Matchers
+wasNotCalledWith	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Matchers.prototype.wasNotCalledWith = function() {$/;"	m	class:jasmine.jasmine.jasmine
+x	lib/require.js	/^e);if(s(r,e)&&(!m||m.defineEmitComplete))"defined"===f&&b(r[e]);else if(m=q(a),m.error&&"error"===f)b(m.error);else m.on(f,b)}function v(a,f){var b=a.requireModules,e=!1;if(f)f(a);else if(y(b,function(f){if(f=l(p,f))f.error=a,f.events.error&&(e=!0,f.emit("error",a))}),!e)j.onError(a)}function w(){R.length&&(ia.apply(G,[G.length-1,0].concat(R)),R=[])}function x(a){delete p[a];delete T[a]}function E(a,f,b){var e=a.map.id;a.error?a.emit("error",a.error):(f[e]=!0,y(a.depMaps,function(e,c){var g=e.id,$/;"	f
+xdescribe	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.xdescribe = function(desc, specDefinitions) {$/;"	m	class:jasmine.Env
+xdescribe	lib/jasmine-1.3.1/jasmine.js	/^var xdescribe = function(description, specDefinitions) {$/;"	f
+xit	lib/jasmine-1.3.1/jasmine.js	/^jasmine.Env.prototype.xit = function(desc, func) {$/;"	m	class:jasmine.Env
+xit	lib/jasmine-1.3.1/jasmine.js	/^var xit = function(desc, func) {$/;"	f
+y	lib/require.js	/^(function(Z){function H(b){return"[object Function]"===L.call(b)}function I(b){return"[object Array]"===L.call(b)}function y(b,c){if(b){var d;for(d=0;d<b.length&&(!b[d]||!c(b[d],d,b));d+=1);}}function M(b,c){if(b){var d;for(d=b.length-1;-1<d&&(!b[d]||!c(b[d],d,b));d-=1);}}function s(b,c){return ga.call(b,c)}function l(b,c){return s(b,c)&&b[c]}function F(b,c){for(var d in b)if(s(b,d)&&c(b[d],d))break}function Q(b,c,d,h){c&&F(c,function(c,j){if(d||!s(b,j))h&&"string"!==typeof c?(b[j]||(b[j]={}),Q(b[j],$/;"	f	function:I
