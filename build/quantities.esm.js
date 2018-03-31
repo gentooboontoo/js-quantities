@@ -1990,6 +1990,6 @@ function simplify (units) {
   });
 }
 
-Qty.version = "1.7.1";
+Qty.version = "1.7.2";
 
 export default Qty;
