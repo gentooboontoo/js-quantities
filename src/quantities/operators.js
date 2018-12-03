@@ -1,7 +1,7 @@
 import Qty from "./constructor.js";
 import QtyError, { throwIncompatibleUnits } from "./error.js";
 import { PREFIX_VALUES, UNITY, UNITY_ARRAY } from "./definitions.js";
-import { assign, isNumber, isString, mulSafe } from "./utils.js";
+import { assign, isNumber, isString, mulSafe, divSafe } from "./utils.js";
 import {
   addTempDegrees,
   subtractTempDegrees,
@@ -75,9 +75,9 @@ assign(Qty.prototype, {
     if (op1.isCompatible(op2) && op1.signature !== 400) {
       op2 = op2.to(op1);
     }
-    var numden = cleanTerms(op1.numerator.concat(op2.numerator), op1.denominator.concat(op2.denominator));
+    var numdenscale = cleanTerms(op1.numerator, op1.denominator, op2.numerator, op2.denominator);
 
-    return Qty({"scalar": mulSafe(op1.scalar, op2.scalar), "numerator": numden[0], "denominator": numden[1]});
+    return Qty({"scalar": mulSafe(op1.scalar, op2.scalar, numdenscale[2]), "numerator": numdenscale[0], "denominator": numdenscale[1]});
   },
 
   div: function(other) {
@@ -111,9 +111,9 @@ assign(Qty.prototype, {
     if (op1.isCompatible(op2) && op1.signature !== 400) {
       op2 = op2.to(op1);
     }
-    var numden = cleanTerms(op1.numerator.concat(op2.denominator), op1.denominator.concat(op2.numerator));
+    var numdenscale = cleanTerms(op1.numerator, op1.denominator, op2.denominator, op2.numerator);
 
-    return Qty({"scalar": op1.scalar / op2.scalar, "numerator": numden[0], "denominator": numden[1]});
+    return Qty({"scalar": mulSafe(op1.scalar,numdenscale[2]) / op2.scalar, "numerator": numdenscale[0], "denominator": numdenscale[1]});
   },
 
   // Returns a Qty that is the inverse of this Qty,
@@ -128,55 +128,57 @@ assign(Qty.prototype, {
   }
 });
 
-function cleanTerms(num, den) {
-  num = num.filter(function(val) {
+function cleanTerms(num1, den1, num2, den2) {
+  function notUnity(val) { 
     return val !== UNITY;
-  });
-  den = den.filter(function(val) {
-    return val !== UNITY;
-  });
+  }
+
+  num1 = num1.filter(notUnity);
+  num2 = num2.filter(notUnity);
+  den1 = den1.filter(notUnity);
+  den2 = den2.filter(notUnity);
 
   var combined = {};
 
-  var k;
-  for (var i = 0; i < num.length; i++) {
-    if (PREFIX_VALUES[num[i]]) {
-      k = [num[i], num[i + 1]];
-      i++;
-    }
-    else {
-      k = num[i];
-    }
-    if (k && k !== UNITY) {
-      if (combined[k]) {
-        combined[k][0]++;
+  console.log(num1,den1);
+  console.log(num2,den2);
+
+  function combineTerms(terms, direction) {
+    var k;
+    var prefix;
+    var prefix_value;
+    for (var i = 0; i < terms.length; i++) {
+      if (PREFIX_VALUES[terms[i]]) {
+        k = terms[i + 1];
+        prefix = terms[i];
+        prefix_value = PREFIX_VALUES[terms[i]];
+        i++;
       }
       else {
-        combined[k] = [1, k];
+        k = terms[i];
+        prefix = UNITY;
+        prefix_value = 1;
+      }
+      if (k && k !== UNITY) {
+        if (combined[k]) {
+          combined[k][0] += direction;
+          combined[k][direction===1 ? 4 : 5] *= divSafe(prefix_value, combined[k][3])
+        }
+        else {
+          combined[k] = [direction, k, prefix, prefix_value, 1, 1];
+        }
       }
     }
   }
 
-  for (var j = 0; j < den.length; j++) {
-    if (PREFIX_VALUES[den[j]]) {
-      k = [den[j], den[j + 1]];
-      j++;
-    }
-    else {
-      k = den[j];
-    }
-    if (k && k !== UNITY) {
-      if (combined[k]) {
-        combined[k][0]--;
-      }
-      else {
-        combined[k] = [-1, k];
-      }
-    }
-  }
+  combineTerms(num1, 1);
+  combineTerms(den1, -1);
+  combineTerms(num2, 1);
+  combineTerms(den2, -1);
 
-  num = [];
-  den = [];
+  var num = [];
+  var den = [];
+  var scale = 1;
 
   for (var prop in combined) {
     if (combined.hasOwnProperty(prop)) {
@@ -184,14 +186,15 @@ function cleanTerms(num, den) {
       var n;
       if (item[0] > 0) {
         for (n = 0; n < item[0]; n++) {
-          num.push(item[1]);
+          num.push(item[2]===UNITY ? item[1] : [item[2],item[1]]);
         }
       }
       else if (item[0] < 0) {
         for (n = 0; n < -item[0]; n++) {
-          den.push(item[1]);
+          den.push(item[2]===UNITY ? item[1] : [item[2],item[1]]);
         }
       }
+      scale *= divSafe(item[4],item[5]);
     }
   }
 
@@ -210,5 +213,5 @@ function cleanTerms(num, den) {
     return a.concat(b);
   }, []);
 
-  return [num, den];
+  return [num, den, scale];
 }
