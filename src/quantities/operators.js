@@ -129,7 +129,7 @@ assign(Qty.prototype, {
 });
 
 function cleanTerms(num1, den1, num2, den2) {
-  function notUnity(val) { 
+  function notUnity(val) {
     return val !== UNITY;
   }
 
@@ -140,32 +140,29 @@ function cleanTerms(num1, den1, num2, den2) {
 
   var combined = {};
 
-  console.log(num1,den1);
-  console.log(num2,den2);
-
   function combineTerms(terms, direction) {
     var k;
     var prefix;
-    var prefix_value;
+    var prefixValue;
     for (var i = 0; i < terms.length; i++) {
       if (PREFIX_VALUES[terms[i]]) {
         k = terms[i + 1];
         prefix = terms[i];
-        prefix_value = PREFIX_VALUES[terms[i]];
+        prefixValue = PREFIX_VALUES[terms[i]];
         i++;
       }
       else {
         k = terms[i];
         prefix = UNITY;
-        prefix_value = 1;
+        prefixValue = 1;
       }
       if (k && k !== UNITY) {
         if (combined[k]) {
           combined[k][0] += direction;
-          combined[k][direction===1 ? 4 : 5] *= divSafe(prefix_value, combined[k][3])
+          combined[k][direction === 1 ? 4 : 5] *= divSafe(prefixValue, combined[k][3]);
         }
         else {
-          combined[k] = [direction, k, prefix, prefix_value, 1, 1];
+          combined[k] = [direction, k, prefix, prefixValue, 1, 1];
         }
       }
     }
@@ -186,12 +183,12 @@ function cleanTerms(num1, den1, num2, den2) {
       var n;
       if (item[0] > 0) {
         for (n = 0; n < item[0]; n++) {
-          num.push(item[2]===UNITY ? item[1] : [item[2],item[1]]);
+          num.push(item[2] === UNITY ? item[1] : [item[2],item[1]]);
         }
       }
       else if (item[0] < 0) {
         for (n = 0; n < -item[0]; n++) {
-          den.push(item[2]===UNITY ? item[1] : [item[2],item[1]]);
+          den.push(item[2] === UNITY ? item[1] : [item[2],item[1]]);
         }
       }
       scale *= divSafe(item[4],item[5]);

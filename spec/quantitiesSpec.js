@@ -778,29 +778,29 @@ describe("js-quantities", function() {
     });
 
     it("should multiply quantities and their inverses with prefixes", function() {
-        var qty1 = Qty("3m");
-        var qty2 = Qty("4 1/km");
-        var result = qty1.mul(qty2);
-        expect(result.scalar).toBe(0.012);
-        expect(result.isUnitless()).toBe(true);
+      var qty1 = Qty("3m");
+      var qty2 = Qty("4 1/km");
+      var result = qty1.mul(qty2);
+      expect(result.scalar).toBe(0.012);
+      expect(result.isUnitless()).toBe(true);
 
-        var qty1 = Qty("3 A/km");
-        var qty2 = Qty("4 m");
-        var result = qty1.mul(qty2);
-        expect(result.scalar).toBe(0.012);
-        expect(result.units()).toBe("A");
+      qty1 = Qty("3 A/km");
+      qty2 = Qty("4 m");
+      result = qty1.mul(qty2);
+      expect(result.scalar).toBe(0.012);
+      expect(result.units()).toBe("A");
 
-        var qty1 = Qty("3 1/km2");
-        var qty2 = Qty("4 m");
-        var result = qty1.mul(qty2);
-        expect(result.scalar).toBe(0.012);
-        expect(result.units()).toBe("1/km");
+      qty1 = Qty("3 1/km2");
+      qty2 = Qty("4 m");
+      result = qty1.mul(qty2);
+      expect(result.scalar).toBe(0.012);
+      expect(result.units()).toBe("1/km");
 
-        var qty1 = Qty("4 m");
-        var qty2 = Qty("3 1/km2");
-        var result = qty1.mul(qty2);
-        expect(result.scalar).toBe(0.000012);
-        expect(result.units()).toBe("1/m");
+      qty1 = Qty("4 m");
+      qty2 = Qty("3 1/km2");
+      result = qty1.mul(qty2);
+      expect(result.scalar).toBe(0.000012);
+      expect(result.units()).toBe("1/m");
     });
 
     it("should divide quantities", function() {
@@ -867,23 +867,23 @@ describe("js-quantities", function() {
     });
 
     it("should divide quantities and their inverses with prefixes", function() {
-        var qty1 = Qty("3m*A");
-        var qty2 = Qty("4 km");
-        var result = qty1.div(qty2);
-        expect(result.scalar).toBe(0.00075);
-        expect(result.units()).toBe("A");
+      var qty1 = Qty("3m*A");
+      var qty2 = Qty("4 km");
+      var result = qty1.div(qty2);
+      expect(result.scalar).toBe(0.00075);
+      expect(result.units()).toBe("A");
 
-        qty1 = Qty("3 m");
-        qty2 = Qty("4 km*A");
-        result = qty1.div(qty2);
-        expect(result.scalar).toBe(0.00075);
-        expect(result.units()).toBe("1/A");
+      qty1 = Qty("3 m");
+      qty2 = Qty("4 km*A");
+      result = qty1.div(qty2);
+      expect(result.scalar).toBe(0.00075);
+      expect(result.units()).toBe("1/A");
 
-        qty1 = Qty("3 m");
-        qty2 = Qty("4 km*cA");
-        result = qty1.div(qty2);
-        expect(result.scalar).toBe(0.00075);
-        expect(result.units()).toBe("1/cA");
+      qty1 = Qty("3 m");
+      qty2 = Qty("4 km*cA");
+      result = qty1.div(qty2);
+      expect(result.scalar).toBe(0.00075);
+      expect(result.units()).toBe("1/cA");
     });
 
   });
