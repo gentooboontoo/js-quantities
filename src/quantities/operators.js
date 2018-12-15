@@ -113,7 +113,7 @@ assign(Qty.prototype, {
     }
     var numdenscale = cleanTerms(op1.numerator, op1.denominator, op2.denominator, op2.numerator);
 
-    return Qty({"scalar": mulSafe(op1.scalar,numdenscale[2]) / op2.scalar, "numerator": numdenscale[0], "denominator": numdenscale[1]});
+    return Qty({"scalar": mulSafe(op1.scalar, numdenscale[2]) / op2.scalar, "numerator": numdenscale[0], "denominator": numdenscale[1]});
   },
 
   // Returns a Qty that is the inverse of this Qty,
@@ -148,21 +148,22 @@ function cleanTerms(num1, den1, num2, den2) {
       if (PREFIX_VALUES[terms[i]]) {
         k = terms[i + 1];
         prefix = terms[i];
-        prefixValue = PREFIX_VALUES[terms[i]];
+        prefixValue = PREFIX_VALUES[prefix];
         i++;
       }
       else {
         k = terms[i];
-        prefix = UNITY;
+        prefix = null;
         prefixValue = 1;
       }
       if (k && k !== UNITY) {
         if (combined[k]) {
           combined[k][0] += direction;
-          combined[k][direction === 1 ? 4 : 5] *= divSafe(prefixValue, combined[k][3]);
+          var combinedPrefixValue = combined[k][2] ? PREFIX_VALUES[combined[k][2]] : 1;
+          combined[k][direction === 1 ? 3 : 4] *= divSafe(prefixValue, combinedPrefixValue);
         }
         else {
-          combined[k] = [direction, k, prefix, prefixValue, 1, 1];
+          combined[k] = [direction, k, prefix, 1, 1];
         }
       }
     }
@@ -183,15 +184,15 @@ function cleanTerms(num1, den1, num2, den2) {
       var n;
       if (item[0] > 0) {
         for (n = 0; n < item[0]; n++) {
-          num.push(item[2] === UNITY ? item[1] : [item[2],item[1]]);
+          num.push(item[2] === null ? item[1] : [item[2], item[1]]);
         }
       }
       else if (item[0] < 0) {
         for (n = 0; n < -item[0]; n++) {
-          den.push(item[2] === UNITY ? item[1] : [item[2],item[1]]);
+          den.push(item[2] === null ? item[1] : [item[2], item[1]]);
         }
       }
-      scale *= divSafe(item[4],item[5]);
+      scale *= divSafe(item[3], item[4]);
     }
   }
 
