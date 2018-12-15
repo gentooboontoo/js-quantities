@@ -1,3 +1,9 @@
+1.7.3 / 2018-12-15
+------------------
+
+* Fix some inconsistent resulting units when multiplying or dividing
+quantities (#94)
+
 1.7.2 / 2018-03-31
 ------------------
 

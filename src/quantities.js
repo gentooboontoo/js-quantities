@@ -6,6 +6,6 @@ import "./quantities/predicates.js";
 import "./quantities/conversion.js";
 import "./quantities/format.js";
 
-Qty.version = "1.7.2";
+Qty.version = "1.7.3";
 
 export default Qty;
