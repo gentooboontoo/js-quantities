@@ -9,6 +9,32 @@ if (typeof window === "undefined") {
 
 describe("js-quantities", function() {
 
+  describe("barrel tests", function() {
+    it("should convert 10 US Beer Barrel to 1173.48 L", function() {
+      const qty = Qty("10 bl");
+      const qtyL = qty.to("L");
+      expect(qtyL.scalar).toBe(1173.477658);
+    });
+    it("should convert 10 Imperial Beer Barrel to 1636.5924 L", function() {
+      const qty = Qty("10 bl-imp");
+      const qtyL = qty.to("L");
+      expect(qtyL.scalar).toBe(1636.5924);
+    });
+    it("should convert 10 Oil Barrel to 1589.87 L", function() {
+      const qty = Qty("10 bbl");
+      const qtyL = qty.to("L");
+      expect(qtyL.scalar).toBe(1589.8729492799998);
+    });
+  });
+
+  describe("imperial gallon tests", function() {
+    it("should convert 100 Imperial Gallons 454.609 L", function() {
+      const qty = Qty("100 galimp");
+      const qtyL = qty.to("L");
+      expect(qtyL.scalar).toBe(454.609);
+    });
+  });
+
   describe("initialization", function() {
     it("should create unit only", function() {
       var qty = Qty("m");
