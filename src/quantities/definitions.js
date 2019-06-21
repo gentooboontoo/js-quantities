@@ -87,7 +87,7 @@ export var UNITS = {
   "<gallon-imp>":  [["galimp", "gallon-imp","gallons-imp"], 0.0045460900, "volume", ["<meter>","<meter>","<meter>"]],
   "<quart>":  [["qt","quart","quarts"], 0.00094635295, "volume", ["<meter>","<meter>","<meter>"]],
   "<pint>":  [["pt","pint","pints"], 0.000473176475, "volume", ["<meter>","<meter>","<meter>"]],
-  "<pint-imp>":  [["ptimp","pint-imp","pints-imp"], "volume", 5.6826125e-4, ["<meter>","<meter>","<meter>"]],
+  "<pint-imp>":  [["ptimp","pint-imp","pints-imp"], 5.6826125e-4, "volume", ["<meter>","<meter>","<meter>"]],
   "<cup>":  [["cu","cup","cups"], 0.000236588238, "volume", ["<meter>","<meter>","<meter>"]],
   "<fluid-ounce>":  [["floz","fluid-ounce","fluid-ounces"], 2.95735297e-5, "volume", ["<meter>","<meter>","<meter>"]],
   "<fluid-ounce-imp>":  [["flozimp", "floz-imp","fluid-ounce-imp","fluid-ounces-imp"], 2.84130624e-5, "volume", ["<meter>","<meter>","<meter>"]],
