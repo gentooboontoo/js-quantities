@@ -84,17 +84,19 @@ export var UNITS = {
   /* volume */
   "<liter>" : [["l","L","liter","liters","litre","litres"], 0.001, "volume", ["<meter>","<meter>","<meter>"]],
   "<gallon>":  [["gal","gallon","gallons"], 0.0037854118, "volume", ["<meter>","<meter>","<meter>"]],
-  "<gallonimp>":  [["galimp", "gallon-imp","gallons-imp"], 0.0045460900, "volume", ["<meter>","<meter>","<meter>"]],
+  "<gallon-imp>":  [["galimp", "gallon-imp","gallons-imp"], 0.0045460900, "volume", ["<meter>","<meter>","<meter>"]],
   "<quart>":  [["qt","quart","quarts"], 0.00094635295, "volume", ["<meter>","<meter>","<meter>"]],
   "<pint>":  [["pt","pint","pints"], 0.000473176475, "volume", ["<meter>","<meter>","<meter>"]],
+  "<pint-imp>":  [["ptimp","pint-imp","pints-imp"], "volume", 5.6826125e-4, ["<meter>","<meter>","<meter>"]],
   "<cup>":  [["cu","cup","cups"], 0.000236588238, "volume", ["<meter>","<meter>","<meter>"]],
   "<fluid-ounce>":  [["floz","fluid-ounce","fluid-ounces"], 2.95735297e-5, "volume", ["<meter>","<meter>","<meter>"]],
+  "<fluid-ounce-imp>":  [["flozimp", "floz-imp","fluid-ounce-imp","fluid-ounces-imp"], 2.84130624e-5, "volume", ["<meter>","<meter>","<meter>"]],
   "<tablespoon>":  [["tb","tbsp","tbs","tablespoon","tablespoons"], 1.47867648e-5, "volume", ["<meter>","<meter>","<meter>"]],
   "<teaspoon>":  [["tsp","teaspoon","teaspoons"], 4.92892161e-6, "volume", ["<meter>","<meter>","<meter>"]],
   "<bushel>":  [["bu","bsh","bushel","bushels"], 0.035239072, "volume", ["<meter>","<meter>","<meter>"]],
   "<oilbarrel>":  [["bbl", "oil-barrel", "oil-barrels"], 0.158987294928, "volume", ["<meter>","<meter>","<meter>"]],
   "<beerbarrel>":  [["bl","bl-us", "beer-barrel", "beer-barrels"], 0.1173477658, "volume", ["<meter>","<meter>","<meter>"]],
-  "<beerbarrelimp>":  [["blimp","bl-imp", "beer-barrel-imp", "beer-barrels-imp"], 0.16365924, "volume", ["<meter>","<meter>","<meter>"]],
+  "<beerbarrel-imp>":  [["blimp","bl-imp", "beer-barrel-imp", "beer-barrels-imp"], 0.16365924, "volume", ["<meter>","<meter>","<meter>"]],
 
   /* speed */
   "<kph>" : [["kph"], 0.277777778, "speed", ["<meter>"], ["<second>"]],
