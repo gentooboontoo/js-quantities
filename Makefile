@@ -9,28 +9,34 @@ UMD_FILE := $(BUILD_DIR)/quantities.js
 DIST_FILES := $(ESM_FILE) $(UMD_FILE)
 BANNER := $(shell cat LICENSE)
 
+NPM_BIN := $(shell npm bin)
+ROLLUP := $(NPM_BIN)/rollup
+JASMINE_NODE := $(NPM_BIN)/jasmine-node
+JSHINT := $(NPM_BIN)/jshint
+JSCS := $(NPM_BIN)/jscs
+
 build: $(DIST_FILES)
 
 $(UMD_FILE): $(SOURCES)
-	rollup --file=$(UMD_FILE) \
-         --format=umd \
-         --name=Qty \
-         --banner="`echo '/*'; cat LICENSE; echo '*/'`" \
-         src/quantities.js
+	$(ROLLUP) --file=$(UMD_FILE) \
+            --format=umd \
+            --name=Qty \
+            --banner="`echo '/*'; cat LICENSE; echo '*/'`" \
+            src/quantities.js
 
 $(ESM_FILE): $(SOURCES)
-	rollup --file=$(ESM_FILE) \
-         --format=es \
-         --name=Qty \
-         --banner="`echo '/*'; cat LICENSE; echo '*/'`" \
-         src/quantities.js
+	$(ROLLUP) --file=$(ESM_FILE) \
+            --format=es \
+            --name=Qty \
+            --banner="`echo '/*'; cat LICENSE; echo '*/'`" \
+            src/quantities.js
 
 test: lint build
-	jasmine-node $(SPEC_DIR)
+	$(JASMINE_NODE) $(SPEC_DIR)
 
 lint: $(LINTEDFILES)
-	jshint $(LINTEDFILES)
-	jscs $(LINTEDFILES)
+	$(JSHINT) $(LINTEDFILES)
+	$(JSCS) $(LINTEDFILES)
 
 bench:
 	bin/bench.rb
