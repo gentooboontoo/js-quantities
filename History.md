@@ -1,3 +1,9 @@
+1.7.4 / 2019-06-26
+------------------
+
+* Add Imperial Gallons, and Barrels (US Beer, Imperial Beer, Oil)
+* Add support for imperial version of fluid ounces and pints
+
 1.7.3 / 2018-12-15
 ------------------
 
