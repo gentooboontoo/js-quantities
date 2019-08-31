@@ -11,7 +11,7 @@ BANNER := $(shell cat LICENSE)
 
 NPM_BIN := $(shell npm bin)
 ROLLUP := $(NPM_BIN)/rollup
-JASMINE_NODE := $(NPM_BIN)/jasmine-node
+JASMINE := $(NPM_BIN)/jasmine
 JSHINT := $(NPM_BIN)/jshint
 JSCS := $(NPM_BIN)/jscs
 
@@ -32,7 +32,7 @@ $(ESM_FILE): $(SOURCES)
             src/quantities.js
 
 test: lint build
-	$(JASMINE_NODE) $(SPEC_DIR)
+	$(JASMINE)
 
 lint: $(LINTEDFILES)
 	$(JSHINT) $(LINTEDFILES)

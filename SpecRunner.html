@@ -1,47 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>Jasmine Spec Runner</title>
 
-  <link rel="shortcut icon" type="image/png" href="lib/jasmine-1.3.1/jasmine_favicon.png">
-  <link rel="stylesheet" type="text/css" href="lib/jasmine-1.3.1/jasmine.css">
-  <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine.js"></script>
-  <script type="text/javascript" src="lib/jasmine-1.3.1/jasmine-html.js"></script>
+  <link rel="shortcut icon" type="image/png" href="lib/jasmine-2.99.0/jasmine_favicon.png">
+  <link rel="stylesheet" href="lib/jasmine-2.99.0/jasmine.css">
 
-  <script type="text/javascript" src="spec/quantitiesSpec.js"></script>
+  <script src="lib/jasmine-2.99.0/jasmine.js"></script>
+  <script src="lib/jasmine-2.99.0/jasmine-html.js"></script>
+  <script src="lib/jasmine-2.99.0/boot.js"></script>
 
   <script type="module">
     import Qty from "./src/quantities.js";
     window.Qty = Qty;
-
-    var jasmineEnv = jasmine.getEnv();
-    jasmineEnv.updateInterval = 1000;
-
-    var htmlReporter = new jasmine.HtmlReporter();
-
-    jasmineEnv.addReporter(htmlReporter);
-
-    jasmineEnv.specFilter = function(spec) {
-      return htmlReporter.specFilter(spec);
-    };
-
-    function oncomplete(callback) {
-      if (document.readyState === 'complete') {
-        callback();
-      }
-      else {
-        document.onreadystatechange = callback;
-      }
-    }
-
-    function execJasmine() {
-      jasmineEnv.execute();
-    }
-
-    oncomplete(execJasmine);
   </script>
 
+  <script type="text/javascript" src="spec/quantitiesSpec.js"></script>
 </head>
 
 <body>

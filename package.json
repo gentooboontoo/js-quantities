@@ -38,7 +38,7 @@
     "url": "https://github.com/gentooboontoo/js-quantities/issues"
   },
   "devDependencies": {
-    "jasmine-node": "1.x",
+    "jasmine": "2.x",
     "jscs": "^2.7.0",
     "jshint": "^2.9.0",
     "rollup": "~0.57"
