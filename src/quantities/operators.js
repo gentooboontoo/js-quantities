@@ -62,7 +62,7 @@ assign(Qty.prototype, {
       other = Qty(other);
     }
 
-    if ((this.isTemperature()||other.isTemperature()) && !(this.isUnitless()||other.isUnitless())) {
+    if ((this.isTemperature() || other.isTemperature()) && !(this.isUnitless() || other.isUnitless())) {
       throw new QtyError("Cannot multiply by temperatures");
     }
 

@@ -78,6 +78,7 @@ Qty.prototype = {
  * @param {*} value - Value to test
  * @param {string} [units] - Optional units when value is passed as a number
  *
+ * @returns {void}
  * @throws {QtyError} if constructor arguments are invalid
  */
 function assertValidConstructorArgs(value, units) {

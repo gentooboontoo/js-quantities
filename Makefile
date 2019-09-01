@@ -12,8 +12,7 @@ BANNER := $(shell cat LICENSE)
 NPM_BIN := $(shell npm bin)
 ROLLUP := $(NPM_BIN)/rollup
 JASMINE := $(NPM_BIN)/jasmine
-JSHINT := $(NPM_BIN)/jshint
-JSCS := $(NPM_BIN)/jscs
+ESLINT := $(NPM_BIN)/eslint
 
 build: $(DIST_FILES)
 
@@ -35,8 +34,7 @@ test: lint build
 	$(JASMINE)
 
 lint: $(LINTEDFILES)
-	$(JSHINT) $(LINTEDFILES)
-	$(JSCS) $(LINTEDFILES)
+	$(ESLINT) $(LINTEDFILES)
 
 bench:
 	bin/bench.rb

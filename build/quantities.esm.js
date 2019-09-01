@@ -99,8 +99,9 @@ function assign(target, properties) {
  * Safely multiplies numbers while avoiding floating errors
  * like 0.1 * 0.1 => 0.010000000000000002
  *
+ * @param {...number} numbers - numbers to multiply
+ *
  * @returns {number} result
- * @param {...number} number
  */
 function mulSafe() {
   var result = 1, decimals = 0;
@@ -470,6 +471,7 @@ var UNITY_ARRAY = [UNITY];
  * @param {string} unitDef - Name of unit to test
  * @param {Object} definition - Definition of unit to test
  *
+ * @returns {void}
  * @throws {QtyError} if unit definition is not valid
  */
 function validateUnitDefinition(unitDef, definition) {
@@ -528,11 +530,11 @@ for (var unitDef in UNITS) {
 /**
  * Returns a list of available units of kind
  *
- * @param {string} [kind]
+ * @param {string} [kind] - kind of units
  * @returns {array} names of units
  * @throws {QtyError} if kind is unknown
  */
-function getUnits (kind) {
+function getUnits(kind) {
   var i;
   var units = [];
   var unitKeys = Object.keys(UNITS);
@@ -568,7 +570,7 @@ function getUnits (kind) {
 /**
  * Returns a list of alternative names for a unit
  *
- * @param {string} unitName
+ * @param {string} unitName - name of unit
  * @returns {string[]} aliases for unit
  * @throws {QtyError} if unit is unknown
  */
@@ -898,6 +900,7 @@ Qty.prototype = {
  * @param {*} value - Value to test
  * @param {string} [units] - Optional units when value is passed as a number
  *
+ * @returns {void}
  * @throws {QtyError} if constructor arguments are invalid
  */
 function assertValidConstructorArgs(value, units) {
@@ -1284,8 +1287,10 @@ assign(Qty.prototype, {
       throw new QtyError("Divide by zero");
     }
 
-    var precRoundedResult = mulSafe(Math.round(this.scalar / precQuantity.scalar),
-                                       precQuantity.scalar);
+    var precRoundedResult = mulSafe(
+      Math.round(this.scalar / precQuantity.scalar),
+      precQuantity.scalar
+    );
 
     return Qty(precRoundedResult + this.units());
   }
@@ -1335,9 +1340,7 @@ function swiftConverter(srcUnits, dstUnits) {
   }
 
   return function converter(value) {
-    var i,
-        length,
-        result;
+    var i, length, result;
     if (!Array.isArray(value)) {
       return convert(value);
     }
@@ -1354,7 +1357,7 @@ function swiftConverter(srcUnits, dstUnits) {
 
 var baseUnitCache = {};
 
-function toBaseUnits (numerator,denominator) {
+function toBaseUnits(numerator,denominator) {
   var num = [];
   var den = [];
   var q = 1;
@@ -1477,7 +1480,7 @@ assign(Qty.prototype, {
       other = Qty(other);
     }
 
-    if ((this.isTemperature()||other.isTemperature()) && !(this.isUnitless()||other.isUnitless())) {
+    if ((this.isTemperature() || other.isTemperature()) && !(this.isUnitless() || other.isUnitless())) {
       throw new QtyError("Cannot multiply by temperatures");
     }
 
@@ -1814,8 +1817,8 @@ NestedMap.prototype.set = function(keys, value) {
 /**
  * Default formatter
  *
- * @param {number} scalar
- * @param {string} units
+ * @param {number} scalar - scalar value
+ * @param {string} units - units as string
  *
  * @returns {string} formatted result
  */
@@ -1844,15 +1847,15 @@ assign(Qty.prototype, {
       return this._units;
     }
 
-    var numIsUnity = compareArray(this.numerator, UNITY_ARRAY),
-        denIsUnity = compareArray(this.denominator, UNITY_ARRAY);
+    var numIsUnity = compareArray(this.numerator, UNITY_ARRAY);
+    var denIsUnity = compareArray(this.denominator, UNITY_ARRAY);
     if (numIsUnity && denIsUnity) {
       this._units = "";
       return this._units;
     }
 
-    var numUnits = stringifyUnits(this.numerator),
-        denUnits = stringifyUnits(this.denominator);
+    var numUnits = stringifyUnits(this.numerator);
+    var denUnits = stringifyUnits(this.denominator);
     this._units = numUnits + (denIsUnity ? "" : ("/" + denUnits));
     return this._units;
   },
@@ -1978,7 +1981,7 @@ function getOutputNames(units) {
   return unitNames;
 }
 
-function simplify (units) {
+function simplify(units) {
   // this turns ['s','m','s'] into ['s2','m']
 
   var unitCounts = units.reduce(function(acc, unit) {

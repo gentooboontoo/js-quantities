@@ -16,8 +16,8 @@ import NestedMap from "./nested-map.js";
 /**
  * Default formatter
  *
- * @param {number} scalar
- * @param {string} units
+ * @param {number} scalar - scalar value
+ * @param {string} units - units as string
  *
  * @returns {string} formatted result
  */
@@ -46,15 +46,15 @@ assign(Qty.prototype, {
       return this._units;
     }
 
-    var numIsUnity = compareArray(this.numerator, UNITY_ARRAY),
-        denIsUnity = compareArray(this.denominator, UNITY_ARRAY);
+    var numIsUnity = compareArray(this.numerator, UNITY_ARRAY);
+    var denIsUnity = compareArray(this.denominator, UNITY_ARRAY);
     if (numIsUnity && denIsUnity) {
       this._units = "";
       return this._units;
     }
 
-    var numUnits = stringifyUnits(this.numerator),
-        denUnits = stringifyUnits(this.denominator);
+    var numUnits = stringifyUnits(this.numerator);
+    var denUnits = stringifyUnits(this.denominator);
     this._units = numUnits + (denIsUnity ? "" : ("/" + denUnits));
     return this._units;
   },
@@ -180,7 +180,7 @@ function getOutputNames(units) {
   return unitNames;
 }
 
-function simplify (units) {
+function simplify(units) {
   // this turns ['s','m','s'] into ['s2','m']
 
   var unitCounts = units.reduce(function(acc, unit) {

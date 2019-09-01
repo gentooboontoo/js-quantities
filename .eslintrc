@@ -1,0 +1,84 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "define": true,
+    "module": true
+  },
+  parserOptions: {
+    "sourceType": "module"
+  },
+  "rules": {
+    "brace-style": [
+      "error",
+      "stroustrup",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "camelcase": [
+      "error",
+      {
+        "properties": "never"
+      }
+    ],
+    "curly": [
+      "error",
+      "all"
+    ],
+    "eqeqeq": "error",
+    "eol-last": "error",
+    "guard-for-in": "error",
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "keyword-spacing": [
+      "error",
+      {}
+    ],
+    "new-cap": 0,
+    "no-implicit-coercion": [
+      "error",
+      {
+        "boolean": false,
+        "string": true,
+        "number": false
+      }
+    ],
+    "no-bitwise": "error",
+    "no-mixed-spaces-and-tabs": "error",
+    "no-multiple-empty-lines": "error",
+    "no-trailing-spaces": "error",
+    "no-undef": "error",
+    "no-unused-vars": "error",
+    "no-with": "error",
+    "quotes": [
+      "error",
+      "double"
+    ],
+    "space-before-function-paren": [
+      "error",
+      "never"
+    ],
+    "space-infix-ops": "error",
+    "space-unary-ops": [
+      "error",
+      {
+        "nonwords": false,
+        "words": true
+      }
+    ],
+    "strict": [
+      "error",
+      "function"
+    ],
+    "valid-jsdoc": "error",
+    "wrap-iife": "error"
+  }
+}

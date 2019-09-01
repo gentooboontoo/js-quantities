@@ -76,8 +76,9 @@ export function assign(target, properties) {
  * Safely multiplies numbers while avoiding floating errors
  * like 0.1 * 0.1 => 0.010000000000000002
  *
+ * @param {...number} numbers - numbers to multiply
+ *
  * @returns {number} result
- * @param {...number} number
  */
 export function mulSafe() {
   var result = 1, decimals = 0;
