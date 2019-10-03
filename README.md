@@ -397,6 +397,13 @@ any commit SHA on the command line. Port (default 3000) is also configurable.
 
     make bench COMMIT=e0c7fc468 PORT=5000
 
+## TypeScript type declarations
+
+A TypeScript declaration file is published on
+[DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/js-quantities).
+
+It could be installed with `npm install @types/js-quantities`.
+
 ## Contribute
 
 Feedback and contributions are welcomed.
