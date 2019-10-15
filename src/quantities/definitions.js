@@ -267,7 +267,8 @@ export var UNITS = {
   "<ppm>" :  [["ppm"],1e-6, "prefix_only", ["<1>"]],
   "<ppt>" :  [["ppt"],1e-9, "prefix_only", ["<1>"]],
   "<gross>" :  [["gr","gross"],144.0, "prefix_only", ["<dozen>","<dozen>"]],
-  "<decibel>"  : [["dB","decibel","decibels"], 1.0, "logarithmic", ["<decibel>"]]
+  "<decibel>"  : [["dB","decibel","decibels"], 1.0, "logarithmic", ["<decibel>"]],
+  "<pH>"  : [["pH"], 1.0, "logarithmic", ["<pH>"]]
 };
 
 export var BASE_UNITS = ["<meter>","<kilogram>","<second>","<mole>", "<ampere>","<radian>","<kelvin>","<temp-K>","<byte>","<dollar>","<candela>","<each>","<steradian>","<decibel>"];
