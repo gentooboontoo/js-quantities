@@ -1,3 +1,9 @@
+1.7.5 / 2020-04-05
+------------------
+
+* Update development dependencies
+* Use ESLint as linter
+
 1.7.4 / 2019-06-26
 ------------------
 

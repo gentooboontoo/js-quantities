@@ -2006,7 +2006,7 @@ SOFTWARE.
     });
   }
 
-  Qty.version = "1.7.4";
+  Qty.version = "1.7.5";
 
   return Qty;
 
