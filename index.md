@@ -15,7 +15,7 @@ and within browsers.
 
 ### Browser
 
-Download [latest release v1.7.4](https://raw.github.com/gentooboontoo/js-quantities/v1.7.4/build/quantities.js)
+Download [latest release v1.7.5](https://raw.github.com/gentooboontoo/js-quantities/v1.7.5/build/quantities.js)
 or install it with Bower:
 
     bower install js-quantities
@@ -396,6 +396,13 @@ Checked-out version is benchmarked against HEAD by default but it could be chang
 any commit SHA on the command line. Port (default 3000) is also configurable.
 
     make bench COMMIT=e0c7fc468 PORT=5000
+
+## TypeScript type declarations
+
+A TypeScript declaration file is published on
+[DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/js-quantities).
+
+It could be installed with `npm install @types/js-quantities`.
 
 ## Contribute
 
