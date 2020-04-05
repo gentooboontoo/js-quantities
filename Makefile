@@ -26,7 +26,6 @@ $(UMD_FILE): $(SOURCES)
 $(ESM_FILE): $(SOURCES)
 	$(ROLLUP) --file=$(ESM_FILE) \
             --format=es \
-            --name=Qty \
             --banner="`echo '/*'; cat LICENSE; echo '*/'`" \
             src/quantities.js
 
