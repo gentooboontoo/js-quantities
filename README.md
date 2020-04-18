@@ -22,7 +22,7 @@ Install with `npm install js-quantities` or download latest release v1.7.5 as:
 
 ### Node.js
 
-```
+```javascript
 // As CommonJS module
 const Qty = require('js-quantities');
 
@@ -46,6 +46,15 @@ In this case, it will define a global variable `Qty`.
 define(['quantities'], function(Qty) {
   ...
 });
+```
+
+* As ES module:
+
+```html
+<script type="module">
+  import Qty from "./path/to/quantities.mjs";
+  // ...
+</script>
 ```
 
 ## Synopsis
