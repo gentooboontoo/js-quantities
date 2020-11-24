@@ -106,6 +106,7 @@ export var UNITS = {
 
   /* acceleration */
   "<gee>" : [["gee"], 9.80665, "acceleration", ["<meter>"], ["<second>","<second>"]],
+  "<Gal>" : [["Gal"], 1e-2, "acceleration", ["<meter>"], ["<second>","<second>"]],
 
   /* temperature_difference */
   "<kelvin>" : [["degK","kelvin"], 1.0, "temperature", ["<kelvin>"]],
