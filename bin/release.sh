@@ -5,7 +5,7 @@ set -e
 VERSION=$(cat RELEASE)
 TAG=v${VERSION}
 
-git add History.md README.md package.json \
+git add CHANGELOG.md README.md package.json \
         RELEASE src/quantities.js build/quantities.js build/quantities.mjs
 git commit -m "Release ${TAG}"
 git tag "${TAG}"
