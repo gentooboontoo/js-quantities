@@ -1,3 +1,17 @@
+Unreleased
+----------
+
+1.7.6 / 2020-12-06
+------------------
+
+### Added
+
+* Unit of acceleration `Gal`
+
+### Fixed
+
+* Missing aliases for barrel-related units (#101)
+
 1.7.5 / 2020-04-05
 ------------------
 

@@ -13,10 +13,10 @@ and browsers. It has **no dependencies**.
 
 ## Installation
 
-Install with `npm install js-quantities` or download latest release v1.7.5 as:
+Install with `npm install js-quantities` or download latest release v1.7.6 as:
 
-* [UMD module](https://raw.github.com/gentooboontoo/js-quantities/v1.7.5/build/quantities.js)
-* [ES module](https://raw.github.com/gentooboontoo/js-quantities/v1.7.5/build/quantities.mjs)
+* [UMD module](https://raw.github.com/gentooboontoo/js-quantities/v1.7.6/build/quantities.js)
+* [ES module](https://raw.github.com/gentooboontoo/js-quantities/v1.7.6/build/quantities.mjs)
 
 ## Usage
 
