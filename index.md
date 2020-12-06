@@ -8,25 +8,39 @@ Units (http://github.com/olbrich/ruby-units).
 The library aims to simplify the handling of units for scientific calculations
 involving quantities.
 
-JS-quantities is defined as an UMD module and can be used with AMD, Node
-and within browsers.
+JS-quantities is built as UMD and ES modules and can be used with Node.js
+and browsers. It has **no dependencies**.
 
-## Installing JS-quantities
+## Installation
 
-### Browser
+Install with `npm install js-quantities` or download latest release v1.7.6 as:
 
-Download [latest release v1.7.5](https://raw.github.com/gentooboontoo/js-quantities/v1.7.5/build/quantities.js)
-or install it with Bower:
+* [UMD module](https://raw.github.com/gentooboontoo/js-quantities/v1.7.6/build/quantities.js)
+* [ES module](https://raw.github.com/gentooboontoo/js-quantities/v1.7.6/build/quantities.mjs)
 
-    bower install js-quantities
+## Usage
 
-Then include it:
+### Node.js
+
+```javascript
+// As CommonJS module
+const Qty = require('js-quantities');
+
+// As ES module
+import Qty from 'js-quantities/esm';
+```
+
+### Browsers
+
+* UMD module could be included as is:
 
 ```html
 <script src='quantities.js'></script>
 ```
 
-When using [Require.JS](http://requirejs.org/):
+In this case, it will define a global variable `Qty`.
+
+* With an AMD loader like [Require.JS](http://requirejs.org/):
 
 ```javascript
 define(['quantities'], function(Qty) {
@@ -34,12 +48,13 @@ define(['quantities'], function(Qty) {
 });
 ```
 
-### Node
+* As ES module:
 
-```
-$ npm install js-quantities
-$ node
-> var Qty = require('js-quantities');
+```html
+<script type="module">
+  import Qty from "./path/to/quantities.mjs";
+  // ...
+</script>
 ```
 
 ## Synopsis
