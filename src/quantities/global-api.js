@@ -5,7 +5,8 @@ import {
 } from "./utils.js";
 import {
   getAliases,
-  getUnits
+  getUnits,
+  defineUnit
 } from "./definitions.js";
 import { getKinds } from "./kind.js";
 import { swiftConverter } from "./conversion.js";
@@ -15,6 +16,7 @@ import Qty from "./constructor.js";
 
 Qty.parse = globalParse;
 
+Qty.defineUnit = defineUnit;
 Qty.getUnits = getUnits;
 Qty.getAliases = getAliases;
 

@@ -1476,6 +1476,27 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("Qty.defineUnit", function() {
+    it("should define a new unit with existing kind", function() {
+      Qty.defineUnit("<CanadianDollar>", [["CAD","CanadianDollar"], 0.78, "currency", ["<dollar>"]]);
+      expect(Qty.getUnits("currency")).toContain("CanadianDollar");
+      expect(Qty("1 CAD").eq(Qty("0.78 USD")));
+    });
+    it("should validate the unit conversion factor", function() {
+      expect(function() {
+        Qty.defineUnit("<CanadianDollar>", [["CAD","CanadianDollar"], "invalid", "currency", ["<dollar>"]]);
+      }).toThrowError("<CanadianDollar>: Invalid unit definition. 'scalar' must be a number");
+    });
+    it("should define a new prefix", function() {
+      Qty.defineUnit("<fooPrefix>", [["foo"], 1e5, "prefix"]);
+      expect(Qty("3 foometers").eq(Qty("300000 m"))).toBe(true);
+    });
+    it("should define a new unit with new kind", function() {
+      Qty.defineUnit("<myNewUnit>", [["FUBAR","myNewUnit"], 1.0, "myNewKind", ["<myNewUnit>"]], true);
+      expect(Qty("300 FUBAR").eq(Qty("3 hectomyNewUnit"))).toBe(true);
+    });
+  });
+
   describe("information", function() {
     describe("bits and bytes", function() {
       it("should have 'information' as kind", function() {

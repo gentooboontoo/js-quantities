@@ -367,6 +367,59 @@ Conversions are probably better done like this...
 Qty('0 tempC').add('100 degC') // => 100 tempC
 ```
 
+### Custom units and prefixes
+
+You can define your own custom units and prefixes by using the `Qty.defineUnit`
+function.
+
+```javascript
+Qty.defineUnit( unitName, unitDefinition[, isBase] ); 
+```
+
+`unitName` is the official name of the unit wrapped in `<` and `>`,
+e.g. `<meter>`
+
+`unitDefinition` is an array of definition values.  For units it is:
+ - `aliases` is an array of aliases for the unit, e.g. `["m","meter","meters","metre","metres"]`
+ - `conversion` is a decimal number that can be multiplied to the number to
+   convert to the base unit
+ - `kind` is the kind of the unit.  If you specify an unknown kind here, be
+   sure to include a unit with `isBase` set to true for doing conversions
+ - `numerator` is an array containing the set of units that can be specified as a numerator for this unit
+ - `denominator` is an array containing the set of units that can be specified as a denominator for this unit
+
+`unitDefinition` for prefixes is sligly different.
+ - `aliases` is an array of aliases for the unit, e.g. `["m","meter","meters","metre","metres"]`
+ - `conversion` is a decimal number that can be multiplied to the number to
+   convert to the base non-prefixed unit
+ - `kind` must be `prefix`
+
+`isBase` indicates whether this is a base unit for the specified kind.  You
+must include one base unit for each kind.
+
+Example new unit:
+```javascript
+Qty.defineUnit("<CanadianDollar>", [["CAD","CanadianDollar"], 0.78, "currency", ["<dollar>"]]);
+var qty = Qty('1 CAD');
+qty.to('USD').toString(); // => '0.78 USD'
+```
+
+Example new base unit:
+```javascript
+Qty.defineUnit("<myNewUnit>", [["MYU","myNewUnit"], 1.0, "myNewKind", ["<myNewUnit>"]], true);
+var qty = Qty(`1 myNewUnit`);
+```
+
+Example new prefix:
+```javascript
+Qty.defineUnit("<fooPrefix>", [["foo"], 1e5, "prefix"]);
+var qty = Qty(`3 foometers`);
+qty.to('meters').toString(); // => '300000 meters'
+```
+
+Defining new units should be done carefully and tested thoroughly as it can
+introduce conflicts while parsing other units.
+
 ### Errors
 
 Every error thrown by JS-quantities is an instance of `Qty.Error`.
