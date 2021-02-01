@@ -1458,6 +1458,10 @@ describe("js-quantities", function() {
     it("should return an array of units of kind", function() {
       expect(Qty.getUnits("currency")).toContain("dollar");
     });
+    it("should return correct units for molar_concentration", function() {
+      expect(Qty.getUnits("molar_concentration")).toContain("molar");
+      expect(Qty.getUnits("molar_concentration")).toContain("wtpercent");
+    });
     it("should return an array of all units without arg", function() {
       expect(Qty.getUnits()).toContain("sievert");
     });
