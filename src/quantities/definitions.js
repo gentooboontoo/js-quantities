@@ -189,7 +189,7 @@ export var UNITS = {
   "<oersted>"  : [["Oe","oersted","oersteds"], 250.0 / Math.PI, "magnetism", ["<ampere>"], ["<meter>"]],
 
   /* energy */
-  "<joule>" :  [["J","joule","Joule","joules", "Joules"], 1.0, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+  "<joule>" :  [["J","joule","Joule","joules","Joules"], 1.0, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
   "<erg>"   :  [["erg","ergs"], 1e-7, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
   "<btu>"   :  [["BTU","btu","BTUs"], 1055.056, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
   "<calorie>" :  [["cal","calorie","calories"], 4.18400, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
