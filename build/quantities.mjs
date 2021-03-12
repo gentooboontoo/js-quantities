@@ -255,7 +255,7 @@ var UNITS = {
   "<dalton>" : [["Da","Dalton","Daltons","dalton","daltons"], 1.660538921e-27, "mass", ["<kilogram>"]],
   "<slug>" : [["slug","slugs"], 14.5939029, "mass", ["<kilogram>"]],
   "<short-ton>" : [["tn","ton","short-ton"], 907.18474, "mass", ["<kilogram>"]],
-  "<metric-ton>":[["tonne","metric-ton"], 1000, "mass", ["<kilogram>"]],
+  "<metric-ton>":[["t","tonne","metric-ton"], 1000, "mass", ["<kilogram>"]],
   "<carat>" : [["ct","carat","carats"], 0.0002, "mass", ["<kilogram>"]],
   "<pound>" : [["lbs","lb","pound","pounds","#"], 0.45359237, "mass", ["<kilogram>"]],
   "<ounce>" : [["oz","ounce","ounces"], 0.0283495231, "mass", ["<kilogram>"]],
