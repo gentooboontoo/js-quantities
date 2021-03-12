@@ -408,6 +408,9 @@ describe("js-quantities", function() {
 
       qty = Qty("0.000773 m3");
       expect(qty.to("cm^3").scalar).toBe(773);
+
+      qty = Qty("10 t");
+      expect(qty.to("kg").scalar).toBe(10000);
     });
 
     describe("percents", function() {
