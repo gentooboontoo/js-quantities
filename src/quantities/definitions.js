@@ -75,6 +75,8 @@ export var UNITS = {
   "<grain>" : [["grain","grains","gr"], 6.479891e-5, "mass", ["<kilogram>"]],
   "<dram>"  : [["dram","drams","dr"], 0.0017718452, "mass",["<kilogram>"]],
   "<stone>" : [["stone","stones","st"],6.35029318, "mass",["<kilogram>"]],
+  "<hundredweight>" : [["short-hundredweight","us-hundredweight","cwt","cental"],45.359237, "mass",["<kilogram>"]],
+  "<long-hundredweight>" : [["imperial-hundredweight","uk-hundredweight","long-cwt"],50.80234544, "mass",["<kilogram>"]],
 
   /* area */
   "<hectare>":[["hectare"], 10000, "area", ["<meter>","<meter>"]],
