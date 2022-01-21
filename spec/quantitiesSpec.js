@@ -345,6 +345,22 @@ describe("js-quantities", function() {
     });
   });
 
+  describe("initialization with extensions to Array prototype", function() {
+    beforeEach(function() {
+      Array.prototype["min"] = Math.min;
+    });
+
+    afterEach(function() {
+      delete Array.prototype["min"];
+    });
+
+    it("initialization should be agnostic to Array prototype extensions", function() {
+      var qty = Qty("100 gal/min");
+      expect(qty.scalar).toEqual(100);
+      expect(qty.units()).toEqual("gal/min");
+    });
+  });
+
   describe("isCompatible", function() {
     it("should return true with compatible quantities", function() {
       var qty1 = Qty("1 m*kg/s");

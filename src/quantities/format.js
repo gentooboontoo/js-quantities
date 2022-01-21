@@ -183,10 +183,13 @@ function getOutputNames(units) {
 function simplify(units) {
   // this turns ['s','m','s'] into ['s2','m']
 
+  var counters = {};
   var unitCounts = units.reduce(function(acc, unit) {
-    var unitCounter = acc[unit];
+    var unitCounter = counters[unit];
     if (!unitCounter) {
-      acc.push(unitCounter = acc[unit] = [unit, 0]);
+      unitCounter = [unit, 0];
+      counters[unit] = unitCounter;
+      acc.push(unitCounter);
     }
 
     unitCounter[1]++;
