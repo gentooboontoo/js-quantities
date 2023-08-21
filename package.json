@@ -7,7 +7,7 @@
   },
   "readmeFilename": "README.md",
   "description": "JavaScript library for quantity calculation and unit conversion",
-  "version": "1.7.6",
+  "version": "1.8.0",
   "homepage": "http://gentooboontoo.github.io/js-quantities/",
   "repository": {
     "type": "git",

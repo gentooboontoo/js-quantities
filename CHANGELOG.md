@@ -1,6 +1,21 @@
 Unreleased
 ----------
 
+1.8.0 / 2023-08-21
+------------------
+
+### Added
+
+* Add "Joules" alias
+* Add some parts-per notation units
+* Add metric ton symbol t
+* Add electronvolt
+* Add arcminute and arcsecond
+
+### Fixed
+
+* Fix wrong quantity name for molar_concentration units
+
 1.7.6 / 2020-12-06
 ------------------
 

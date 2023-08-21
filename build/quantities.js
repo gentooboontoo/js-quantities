@@ -25,7 +25,7 @@ SOFTWARE.
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
   typeof define === 'function' && define.amd ? define(factory) :
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.Qty = factory());
-}(this, (function () { 'use strict';
+})(this, (function () { 'use strict';
 
   /**
    * Tests if a value is a string
@@ -383,13 +383,14 @@ SOFTWARE.
     "<oersted>"  : [["Oe","oersted","oersteds"], 250.0 / Math.PI, "magnetism", ["<ampere>"], ["<meter>"]],
 
     /* energy */
-    "<joule>" :  [["J","joule","Joule","joules"], 1.0, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<joule>" :  [["J","joule","Joule","joules","Joules"], 1.0, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
     "<erg>"   :  [["erg","ergs"], 1e-7, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
     "<btu>"   :  [["BTU","btu","BTUs"], 1055.056, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
     "<calorie>" :  [["cal","calorie","calories"], 4.18400, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
     "<Calorie>" :  [["Cal","Calorie","Calories"], 4184.00, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
     "<therm-US>" : [["th","therm","therms","Therm","therm-US"], 105480400, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
     "<Wh>" : [["Wh"], 3600, "energy",["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
+    "<electronvolt>" : [["eV", "electronvolt", "electronvolts"], 1.602176634E-19, "energy", ["<meter>","<meter>","<kilogram>"], ["<second>","<second>"]],
 
     /* force */
     "<newton>"  : [["N","Newton","newton"], 1.0, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
@@ -402,6 +403,8 @@ SOFTWARE.
     /* angle */
     "<radian>" :[["rad","radian","radians"], 1.0, "angle", ["<radian>"]],
     "<degree>" :[["deg","degree","degrees"], Math.PI / 180.0, "angle", ["<radian>"]],
+    "<arcminute>" :[["arcmin","arcminute","arcminutes"], Math.PI / 10800.0, "angle", ["<radian>"]],
+    "<arcsecond>" :[["arcsec","arcsecond","arcseconds"], Math.PI / 648000.0, "angle", ["<radian>"]],
     "<gradian>"   :[["gon","grad","gradian","grads"], Math.PI / 200.0, "angle", ["<radian>"]],
     "<steradian>"  : [["sr","steradian","steradians"], 1.0, "solid_angle", ["<steradian>"]],
 
@@ -460,7 +463,9 @@ SOFTWARE.
     "<dozen>" :  [["doz","dz","dozen"],12.0,"prefix_only", ["<each>"]],
     "<percent>": [["%","percent"], 0.01, "prefix_only", ["<1>"]],
     "<ppm>" :  [["ppm"],1e-6, "prefix_only", ["<1>"]],
-    "<ppt>" :  [["ppt"],1e-9, "prefix_only", ["<1>"]],
+    "<ppb>" :  [["ppb"],1e-9, "prefix_only", ["<1>"]],
+    "<ppt>" :  [["ppt"],1e-12, "prefix_only", ["<1>"]],
+    "<ppq>" :  [["ppq"],1e-15, "prefix_only", ["<1>"]],
     "<gross>" :  [["gr","gross"],144.0, "prefix_only", ["<dozen>","<dozen>"]],
     "<decibel>"  : [["dB","decibel","decibels"], 1.0, "logarithmic", ["<decibel>"]]
   };
@@ -2007,8 +2012,8 @@ SOFTWARE.
     });
   }
 
-  Qty.version = "1.7.6";
+  Qty.version = "1.8.0";
 
   return Qty;
 
-})));
+}));
