@@ -1554,5 +1554,24 @@ describe("js-quantities", function() {
         expect(qty.baseScalar).toEqual(1e-7);
       });
     });
+
+    describe("elementary charge (#141)", function() {
+      it("should be parsed", function() {
+        expect(Qty("e").eq(Qty("1.602176634e-19 C"))).toBe(true);
+        expect(Qty("1e").eq(Qty("1.602176634e-19 C"))).toBe(true);
+        expect(Qty("1 e").eq(Qty("1.602176634e-19 C"))).toBe(true);
+        expect(Qty(1, "e").eq(Qty("1.602176634e-19 C"))).toBe(true);
+        expect(Qty("e2").isCompatible(Qty("C^2"))).toBe(true);
+      });
+
+      it("should match electronvolt (eV) definition", function() {
+        expect((Qty("1 e").mul(Qty("1 V"))).eq(Qty("1 eV"))).toBe(true);
+      });
+
+      it("should not impact exponent notation", function() {
+        expect(Qty("1e2").eq(Qty("100"))).toBe(true);
+        expect(Qty("3e8 m/s").eq(Qty("300000 km/s"))).toBe(true);
+      });
+    });
   });
 });
