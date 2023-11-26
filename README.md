@@ -27,7 +27,7 @@ Install with `npm install js-quantities` or download latest release v1.8.0 as:
 const Qty = require('js-quantities');
 
 // As ES module
-import Qty from 'js-quantities/esm';
+import Qty from 'js-quantities';
 ```
 
 ### Browsers
