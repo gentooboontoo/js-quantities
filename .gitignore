@@ -1,3 +1,5 @@
+.envrc
+shell.nix
 src/.committed-quantities.js
 *.swp
 node_modules/
