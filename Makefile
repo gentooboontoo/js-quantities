@@ -9,10 +9,9 @@ UMD_FILE := $(BUILD_DIR)/quantities.js
 DIST_FILES := $(ESM_FILE) $(UMD_FILE)
 BANNER := $(shell cat LICENSE)
 
-NPM_BIN := $(shell npm bin)
-ROLLUP := $(NPM_BIN)/rollup
-JASMINE := $(NPM_BIN)/jasmine
-ESLINT := $(NPM_BIN)/eslint
+ROLLUP := npx rollup
+JASMINE := npx jasmine
+ESLINT := npx eslint
 
 build: $(DIST_FILES)
 
