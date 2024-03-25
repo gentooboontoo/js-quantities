@@ -1573,5 +1573,16 @@ describe("js-quantities", function() {
         expect(Qty("3e8 m/s").eq(Qty("300000 km/s"))).toBe(true);
       });
     });
+
+    describe("Square foot definition (#146)", function() {
+      it("should not be equal to square meter", function() {
+        expect(Qty("1 sqft").eq(Qty("1 m2"))).toBe(false);
+      });
+
+      it("should be correctly defined", function() {
+        expect(Qty("1 sqft").eq(Qty("1 ft").mul(Qty("1 ft")))).toBe(true);
+        expect(Qty(1, "sqft").to("m2").format()).toBe("0.09290304 m2");
+      });
+    });
   });
 });
