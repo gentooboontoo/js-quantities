@@ -355,6 +355,7 @@ SOFTWARE.
     /* charge */
     "<coulomb>" :  [["C","coulomb","Coulomb"], 1.0, "charge", ["<ampere>","<second>"]],
     "<Ah>" :  [["Ah"], 3600, "charge", ["<ampere>","<second>"]],
+    "<elementary-charge>" :  [["e"], 1.602176634e-19, "charge", ["<ampere>","<second>"]],
 
     /* current */
     "<ampere>"  :  [["A","Ampere","ampere","amp","amps"], 1.0, "current", ["<ampere>"]],
@@ -396,6 +397,8 @@ SOFTWARE.
     "<newton>"  : [["N","Newton","newton"], 1.0, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
     "<dyne>"  : [["dyn","dyne"], 1e-5, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
     "<pound-force>"  : [["lbf","pound-force"], 4.448222, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
+    "<kilogram-force>"  : [["kgf","kilogram-force", "kilopond", "kp"], 9.80665, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
+    "<gram-force>"  : [["gf","gram-force"], 9.80665E-3, "force", ["<kilogram>","<meter>"], ["<second>","<second>"]],
 
     /* frequency */
     "<hertz>" : [["Hz","hertz","Hertz"], 1.0, "frequency", ["<1>"], ["<second>"]],
