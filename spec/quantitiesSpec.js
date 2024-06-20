@@ -372,6 +372,23 @@ describe("js-quantities", function() {
 
       expect(qty1.isCompatible({})).toBe(false);
     });
+
+    it("should return true for mm and point", function() {
+      // if a pint was parsed before point
+      // point and meter should not become incompatible
+      Qty("1 pint");
+      var point = Qty("1 point");
+      var mm = Qty("1 mm");
+
+      expect(mm.isCompatible(point)).toBe(true);
+    });
+
+    it("should return false for point and pint", function() {
+      var pint = Qty("1 pint");
+      var point = Qty("1 point");
+
+      expect(pint.isCompatible(point)).toBe(false);
+    });
   });
 
   describe("conversion", function() {
